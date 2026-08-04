@@ -63,7 +63,7 @@ layers:
     - {t: '=', h: LSHFT}
     - ''''
     - '`'
-    - {t: '!', h: RSHFT, s: Alt+1}
+    - {t: '!', h: RSHFT}
     - {t: '[', h: LALT, s: Alt+\}
     - {t: ']', h: RCMD, s: Alt+Sft+\}
     - {t: '|', h: RCTRL}
@@ -75,7 +75,7 @@ layers:
     - '*'
     - \
     - {t: /, s: Alt+Sft+A}
-    - {t: '?', s: Alt+Sft+/}
+    - '?'
     - <
     - '>'
     - {t: '&m_md_oco', s: '&m_md_cto'}
@@ -278,7 +278,7 @@ layers:
     - {t: '=', h: LSHFT}
     - ''''
     - '`'
-    - {t: '!', h: RSHFT, s: Ctl+1}
+    - {t: '!', h: RSHFT}
     - {t: '[', h: LALT, s: 'Ctl+['}
     - {t: ']', h: RCTRL, s: 'Ctl+]'}
     - {t: '|', h: RCMD}
@@ -290,7 +290,7 @@ layers:
     - '*'
     - \
     - {t: /, s: Alt+Sft+A}
-    - {t: '?', s: Ctl+/}
+    - '?'
     - <
     - '>'
     - {t: '&m_wd_oco', s: '&m_wd_cto'}
