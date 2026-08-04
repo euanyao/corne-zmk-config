@@ -12,8 +12,8 @@ layers:
     - I
     - O
     - P
-    - {t: DEL, h: Alt+DEL}
-  - - {t: BSPC, h: Ctl+BSPC, s: '&cw_mCAPS'}
+    - {t: BSPC, h: Alt+BSPC}
+  - - {t: DEL, h: Alt+DEL}
     - {t: A, h: LCTRL}
     - {t: S, h: LCMD}
     - {t: D, h: LALT}
@@ -24,7 +24,7 @@ layers:
     - {t: K, h: LALT}
     - {t: L, h: RCMD}
     - {t: ;, h: RCTRL}
-    - {t: BSPC, h: Alt+BSPC}
+    - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - Z
     - X
@@ -41,7 +41,7 @@ layers:
     - SPACE
     - {t: '&to_mAXN', h: '&mo_mAXN_to_mBAS'}
     - {t: '&to_mFNK', h: '&mo_mAXN_to_mBAS'}
-    - {t: RET, h: F2}
+    - SPACE
     - {t: '&mo_mDEV_to_mBAS', s: '&to_mDEV'}
   mDEV:
   - - {t: ESC, h: '&to_mBAS'}
@@ -227,8 +227,8 @@ layers:
     - I
     - O
     - P
-    - {t: DEL, h: Ctl+DEL}
-  - - {t: BSPC, h: Ctl+BSPC, s: '&cw_wCAPS'}
+    - {t: BSPC, h: Ctl+BSPC}
+  - - {t: DEL, h: Ctl+DEL}
     - {t: A, h: LCMD}
     - {t: S, h: LCTRL}
     - {t: D, h: LALT}
@@ -239,7 +239,7 @@ layers:
     - {t: K, h: LALT}
     - {t: L, h: RCTRL}
     - {t: ;, h: RCMD}
-    - {t: BSPC, h: Ctl+BSPC}
+    - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - Z
     - X
@@ -256,7 +256,7 @@ layers:
     - SPACE
     - {t: '&to_wAXN', h: '&mo_wAXN_to_wBAS'}
     - {t: '&to_wFNK', h: '&mo_wAXN_to_wBAS'}
-    - {t: RET, h: F2}
+    - SPACE
     - {t: '&mo_wDEV_to_wBAS', s: '&to_wDEV'}
   wDEV:
   - - {t: ESC, h: '&to_wBAS'}
