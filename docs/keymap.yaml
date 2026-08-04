@@ -55,8 +55,8 @@ layers:
     - _
     - '%'
     - ^
-    - {t: DEL, h: Alt+DEL}
-  - - {t: BSPC, h: Ctl+BSPC, s: '&cw_mCAPS'}
+    - {t: BSPC, h: Alt+BSPC}
+  - - {t: DEL, h: Alt+DEL}
     - {t: '&', h: LCTRL}
     - {t: '{', h: LCMD}
     - {t: '}', h: LALT}
@@ -67,7 +67,7 @@ layers:
     - {t: '[', h: LALT}
     - {t: ']', h: RCMD}
     - {t: '|', h: RCTRL}
-    - {t: BSPC, h: Alt+BSPC}
+    - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - Gui+R
     - (
@@ -84,7 +84,7 @@ layers:
     - SPACE
     - {t: '&to_mBAS', h: '&mo_mAXN_to_mDEV'}
     - {t: '&to_mAXN', h: '&mo_mAXN_to_mDEV'}
-    - {t: RET, h: F2}
+    - SPACE
     - .
   mAXN:
   - - {t: ESC, h: '&to_mBAS'}
@@ -98,8 +98,8 @@ layers:
     - '8'
     - '9'
     - KP MULTIPLY
-    - {t: DEL, h: Alt+DEL}
-  - - {t: BSPC, h: Ctl+BSPC, s: '&cw_mCAPS'}
+    - {t: BSPC, h: Alt+BSPC}
+  - - {t: DEL, h: Alt+DEL}
     - {t: Ctl+Sft+Gui+LEFT, h: LCTRL}
     - {t: LEFT, h: LCMD}
     - {t: DOWN, h: LALT}
@@ -110,7 +110,7 @@ layers:
     - {t: '5', h: LALT}
     - {t: '6', h: LCMD}
     - {t: ., h: LCTRL}
-    - {t: BSPC, h: Alt+BSPC}
+    - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - Gui+Z
     - Gui+X
@@ -127,7 +127,7 @@ layers:
     - SPACE
     - '&to_mBAS'
     - {t: '&to_mFNK', h: '&mo_mFNK_to_mAXN'}
-    - {t: RET, h: F2}
+    - SPACE
     - ''
   mFNK:
   - - {t: ESC, h: '&to_mBAS'}
@@ -141,8 +141,8 @@ layers:
     - PG UP
     - ''
     - ''
-    - {t: DEL, h: Alt+DEL}
-  - - {t: BSPC, h: Ctl+BSPC, s: '&cw_mCAPS'}
+    - {t: BSPC, h: Alt+BSPC}
+  - - {t: DEL, h: Alt+DEL}
     - {t: F5, h: LCMD}
     - {t: F6, h: LCTRL}
     - {t: F7, h: LALT}
@@ -153,7 +153,7 @@ layers:
     - {t: PG DN, h: LALT}
     - {t: END, h: RCTRL}
     - RCMD
-    - {t: BSPC, h: Alt+BSPC}
+    - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - F1
     - F2
@@ -166,12 +166,7 @@ layers:
     - ''
     - ''
     - ''
-  - - ''
-    - SPACE
-    - '&to_mBAS'
-    - '&to_mAXN'
-    - {t: RET, h: F2}
-    - ''
+  - ['', SPACE, '&to_mBAS', '&to_mAXN', SPACE, '']
   mSTG:
   - - {t: ESC, h: '&to_mBAS'}
     - '&m_s_b1'
@@ -270,8 +265,8 @@ layers:
     - _
     - '%'
     - ^
-    - {t: DEL, h: Ctl+DEL}
-  - - {t: BSPC, h: Ctl+BSPC, s: '&cw_wCAPS'}
+    - {t: BSPC, h: Ctl+BSPC}
+  - - {t: DEL, h: Ctl+DEL}
     - {t: '&', h: LCMD}
     - {t: '{', h: LCTRL}
     - {t: '}', h: LALT}
@@ -282,7 +277,7 @@ layers:
     - {t: '[', h: LALT}
     - {t: ']', h: RCTRL}
     - {t: '|', h: RCMD}
-    - {t: BSPC, h: Ctl+BSPC}
+    - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - Ctl+R
     - (
@@ -299,7 +294,7 @@ layers:
     - SPACE
     - {t: '&to_wBAS', h: '&mo_wAXN_to_wDEV'}
     - {t: '&to_wAXN', h: '&mo_wAXN_to_wDEV'}
-    - {t: RET, h: F2}
+    - SPACE
     - .
   wAXN:
   - - {t: ESC, h: '&to_wBAS'}
@@ -313,8 +308,8 @@ layers:
     - '8'
     - '9'
     - KP MULTIPLY
-    - {t: DEL, h: Ctl+DEL}
-  - - {t: BSPC, h: Ctl+BSPC, s: '&cw_wCAPS'}
+    - {t: BSPC, h: Ctl+BSPC}
+  - - {t: DEL, h: Ctl+DEL}
     - {t: Alt+Sft+LEFT, h: LCMD}
     - {t: LEFT, h: LCTRL}
     - {t: DOWN, h: LALT}
@@ -325,7 +320,7 @@ layers:
     - {t: '5', h: LALT}
     - {t: '6', h: LCTRL}
     - {t: '=', h: LCMD}
-    - {t: BSPC, h: Ctl+BSPC}
+    - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - Ctl+Z
     - Ctl+X
@@ -342,7 +337,7 @@ layers:
     - SPACE
     - '&to_wBAS'
     - {t: '&to_wFNK', h: '&mo_wFNK_to_wAXN'}
-    - {t: RET, h: F2}
+    - SPACE
     - .
   wFNK:
   - - {t: ESC, h: '&to_wBAS'}
@@ -356,8 +351,8 @@ layers:
     - PG UP
     - ''
     - ''
-    - {t: DEL, h: Ctl+DEL}
-  - - {t: BSPC, h: Ctl+BSPC, s: '&cw_wCAPS'}
+    - {t: BSPC, h: Ctl+BSPC}
+  - - {t: DEL, h: Ctl+DEL}
     - {t: F5, h: LCMD}
     - {t: F6, h: LCTRL}
     - {t: F7, h: LALT}
@@ -368,7 +363,7 @@ layers:
     - {t: PG DN, h: LALT}
     - {t: END, h: RCTRL}
     - RCMD
-    - {t: BSPC, h: Ctl+BSPC}
+    - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - F1
     - F2
@@ -381,12 +376,7 @@ layers:
     - ''
     - ''
     - ''
-  - - ','
-    - SPACE
-    - '&to_wBAS'
-    - '&to_wAXN'
-    - {t: RET, h: F2}
-    - .
+  - [',', SPACE, '&to_wBAS', '&to_wAXN', SPACE, .]
   wSTG:
   - - {t: ESC, h: '&to_wBAS'}
     - '&m_s_b1'
