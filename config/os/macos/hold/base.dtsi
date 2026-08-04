@@ -1,3 +1,2 @@
-// QWERTY home row is A S D F / J K L ; -- only A carries an accent morph,
-// so the other positions use the plain &hm hold-tap directly in the keymap.
-HR_HOLD(m, BAS, LC, mp_mi_a)  //hm_mBAS_LC
+// QWERTY home row (A S D F / J K L ;) uses the plain &hm hold-tap directly
+// in the keymap, so no layer-specific hold-taps are needed here.

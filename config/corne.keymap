@@ -34,11 +34,9 @@
         #include "os/shared/macros/settings.dtsi"
 
         #include "os/macos/macros/layers.dtsi"
-        #include "os/macos/macros/int.dtsi"
         #include "os/macos/macros/dev.dtsi"
 
         #include "os/windows/macros/layers.dtsi"
-        #include "os/windows/macros/int.dtsi"
         #include "os/windows/macros/dev.dtsi"
     };
 };
@@ -52,7 +50,6 @@
 
         #include "os/macos/morph/layers.dtsi"
         #include "os/macos/morph/base.dtsi"
-        #include "os/macos/morph/int.dtsi"
         #include "os/macos/morph/actions.dtsi"
         #include "os/macos/morph/dev.dtsi"
         #include "os/macos/morph/settings.dtsi"
@@ -63,7 +60,6 @@
 
         #include "os/windows/morph/layers.dtsi"
         #include "os/windows/morph/base.dtsi"
-        #include "os/windows/morph/int.dtsi"
         #include "os/windows/morph/actions.dtsi"
         #include "os/windows/morph/dev.dtsi"
         #include "os/windows/morph/settings.dtsi"
