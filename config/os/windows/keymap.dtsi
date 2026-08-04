@@ -1,13 +1,13 @@
         windows_base_layer {
-            #define WB13  &hm_wBAS_LC  LCMD  0  //A
-            #define WB14  &hm  LCTRL   R
-            #define WB15  &hm  LALT    S
-            #define WB16  &hm  LSHFT   T
+            #define WB13  &hm_wBAS_LC  LCMD  0  //A (alt: á)
+            #define WB14  &hm  LCTRL   S
+            #define WB15  &hm  LALT    D
+            #define WB16  &hm  LSHFT   F
 
-            #define WB19  &hm_wBAS_RS  RSHFT  0  //N
-            #define WB20  &hm_wBAS_RA  LALT   0  //E
-            #define WB21  &hm_wBAS_RC  RCTRL  0  //I
-            #define WB22  &hm_wBAS_RG  RCMD   0  //O
+            #define WB19  &hm  RSHFT   J
+            #define WB20  &hm  LALT    K
+            #define WB21  &hm  RCTRL   L
+            #define WB22  &hm  RCMD    SEMI
 
             #define WB35  &mp_w_stg
 
@@ -18,10 +18,10 @@
 
             display-name = "wBAS";
             bindings = <
-    WKY_ESC  &kp Q  &kp W  &kp F    &kp P  &kp B             &kp J    &kp L  &mp_wi_u  &mp_wi_y   &mp_k_m   NAV_DEL
-  &mp_wk_bc   WB13   WB14   WB15     WB16  &kp G             &kp M     WB19      WB20      WB21      WB22  NAV_BSPC
-    WKY_TAB  &kp Z  &kp X  &kp C    &kp D  &kp V             &kp K    &kp H    &mp_cs    &mp_dc  &mp_wk_q      WB35
-                            WB36  KEY_SPC   WB38              WB39  WKY_RET      WB41
+    WKY_ESC  &kp Q  &kp W  &mp_wi_e  &kp R  &kp T          &mp_wi_y  &mp_wi_u  &mp_wi_i  &mp_wi_o    &kp P   NAV_DEL
+  &mp_wk_bc   WB13   WB14      WB15   WB16  &kp G             &kp H      WB19      WB20      WB21     WB22  NAV_BSPC
+    WKY_TAB  &kp Z  &kp X     &kp C  &kp V  &kp B         &mp_wi_n     &kp M    &mp_cs    &mp_dc  &mp_wk_q      WB35
+                             WB36  KEY_SPC   WB38             WB39   WKY_RET      WB41
             >;
         };
 
@@ -128,11 +128,16 @@
             #define WS20  &hm LALT   C_PP
             #define WS30  &kp LA(LG(MINUS))    // tap: magnifier out
 
+            #define WS03  &mp_sSTG_rgb_c       // tap: rgb colour forward | shift: colour back
+            #define WS27  &mp_sSTG_rgb_t       // tap: rgb on/off | shift: next effect | alt: previous effect
+            #define WS33  &mp_sSTG_rgb_u       // tap: brightness up | shift: saturation up
+            #define WS35  &mp_sSTG_rgb_d       // tap: brightness down | shift: saturation down
+
             display-name = "wSTG";
             bindings = <
-       WKY_ESC  &m_s_b1  &m_s_b2  &none     WS04      WS05                   WS07  &kp C_VOL_DN    &kp C_MUTE  &kp C_VOL_UP  WS10   WS11
+       WKY_ESC  &m_s_b1  &m_s_b2   WS03     WS04      WS05                   WS07  &kp C_VOL_DN    &kp C_MUTE  &kp C_VOL_UP  WS10   WS11
           WS12  &m_s_b3  &m_s_b4  &none     WS16      WS17                   WS18          WS19          WS20     &kp C_NEXT  WS22   WS23
-          WS24  &m_s_b5  &m_s_b6  &none     WS28      WS29                   WS30         &none         &none         &none  WS34  &none
+          WS24  &m_s_b5  &m_s_b6   WS27     WS28      WS29                   WS30         &none         &none          WS33  WS34   WS35
                            &kp C_BRI_DN  KEY_SPC  &to_wBAS               &to_wAXN       WKY_RET  &kp C_BRI_UP
             >;
         };

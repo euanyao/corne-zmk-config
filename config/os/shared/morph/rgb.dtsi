@@ -1,4 +1,4 @@
-// mp_sSTG_rgb_t
+// mp_sSTG_rgb_t -- on/off, plus effect cycling behind modifiers
 MORPH_KAS(
     s,
     STG,
@@ -10,26 +10,32 @@ MORPH_KAS(
     &rgb_ug RGB_EFF   // shift: next effect
 )
 
+// mp_sSTG_rgb_c -- colour on a plain tap, no chord needed
+MORPH_KS(
+    s,
+    STG,
+    rgb_c,
+    rgb_colour,
+    &rgb_ug RGB_HUI,  // tap:   colour forward
+    &rgb_ug RGB_HUD   // shift: colour back
+)
+
 // mp_sSTG_rgb_u
-MORPH_KAS(
+MORPH_KS(
     s,
     STG,
     rgb_u,
     rgb_up,
-    MOD_LALT,
     &rgb_ug RGB_BRI,  // tap:   brightness up
-    &rgb_ug RGB_SAI,  // alt:   saturation up
-    &rgb_ug RGB_HUI   // shift: hue up
+    &rgb_ug RGB_SAI   // shift: saturation up
 )
 
 // mp_sSTG_rgb_d
-MORPH_KAS(
+MORPH_KS(
     s,
     STG,
     rgb_d,
     rgb_down,
-    MOD_LALT,
     &rgb_ug RGB_BRD,  // tap:   brightness down
-    &rgb_ug RGB_SAD,  // alt:   saturation down
-    &rgb_ug RGB_HUD   // shift: hue down
+    &rgb_ug RGB_SAD   // shift: saturation down
 )

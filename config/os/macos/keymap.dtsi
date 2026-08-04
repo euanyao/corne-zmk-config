@@ -1,13 +1,13 @@
         mac_base_layer {
-            #define MB13  &hm_mBAS_LC  LCTRL  0  //A
-            #define MB14  &hm          LCMD   R
-            #define MB15  &hm          LALT   S
-            #define MB16  &hm          LSHFT  T
+            #define MB13  &hm_mBAS_LC  LCTRL  0  //A (alt: á)
+            #define MB14  &hm          LCMD   S
+            #define MB15  &hm          LALT   D
+            #define MB16  &hm          LSHFT  F
 
-            #define MB19  &hm_mBAS_RS  RSHFT  0  //N
-            #define MB20  &hm_mBAS_RA  LALT   0  //E
-            #define MB21  &hm_mBAS_RC  RCMD   0  //I
-            #define MB22  &hm_mBAS_RG  RCTRL  0  //O
+            #define MB19  &hm          RSHFT  J
+            #define MB20  &hm          LALT   K
+            #define MB21  &hm          RCMD   L
+            #define MB22  &hm          RCTRL  SEMI
 
             #define MB35  &mp_m_stg
 
@@ -18,10 +18,10 @@
 
             display-name = "mBAS";
             bindings = <
-    MKY_ESC  &kp Q  &kp W  &kp F    &kp P  &kp B             &kp J    &kp L  &mp_mi_u  &mp_mi_y   &mp_k_m   MNV_DEL
-  &mp_mk_bc   MB13   MB14   MB15     MB16  &kp G             &kp M     MB19      MB20      MB21      MB22  MNV_BSPC
-    MKY_TAB  &kp Z  &kp X  &kp C    &kp D  &kp V             &kp K    &kp H    &mp_cs    &mp_dc  &mp_mk_q      MB35
-                            MB36  KEY_SPC   MB38              MB39  MKY_RET      MB41
+    MKY_ESC  &kp Q  &kp W  &mp_mi_e  &kp R  &kp T          &mp_mi_y  &mp_mi_u  &mp_mi_i  &mp_mi_o    &kp P   MNV_DEL
+  &mp_mk_bc   MB13   MB14      MB15   MB16  &kp G             &kp H      MB19      MB20      MB21     MB22  MNV_BSPC
+    MKY_TAB  &kp Z  &kp X     &kp C  &kp V  &kp B         &mp_mi_n     &kp M    &mp_cs    &mp_dc  &mp_mk_q      MB35
+                             MB36  KEY_SPC   MB38             MB39   MKY_RET      MB41
             >;
         };
 
@@ -109,7 +109,7 @@
             #define MSLU0  MKY_ESC
             #define MSLU1  &m_s_b1
             #define MSLU2  &m_s_b2
-            #define MSLU3  &none
+            #define MSLU3  &mp_sSTG_rgb_c               // tap: rgb colour forward | shift: colour back
             #define MSLU4  &kp LG(LS(C))                // tap: color picker
             #define MSLU5  &kp RG(PLUS)                 // tap: zoom in
 
@@ -140,14 +140,14 @@
             #define MSRM2  &hm_mSTG_RA  LALT   0        // tap: mp_mSTG_rectangle
             #define MSRM3  &mp_mSTG_right               // tap: ide secondary side bar | alt: rectangle right
             #define MSRM4  &kp LC(UP)                   // tap: mission control
-            #define MSRM5  &mp_sSTG_rgb_u               // tap: brightness up | shift: hue up | alt: saturation up
+            #define MSRM5  &mp_sSTG_rgb_u               // tap: brightness up | shift: saturation up
 
             #define MSRD0  &kp C_VOL_DN
             #define MSRD1  &mp_mSTG_downleft            // tap: none | alt: rectangle bottom left
             #define MSRD2  &mp_mSTG_down                // tap: ide panel bottom bar | alt: rectangle bottom down
             #define MSRD3  &mp_mSTG_downright           // tap: none | alt: rectangle bottom right
             #define MSRD4  &kp LC(DOWN)                 // tap: application window
-            #define MSRD5  &mp_sSTG_rgb_d               // tap: brightness down | shift: hue down | alt: saturation down
+            #define MSRD5  &mp_sSTG_rgb_d               // tap: brightness down | shift: saturation down
 
             #define MSLT2  &kp C_BRI_DN
             #define MSLT1  KEY_SPC

@@ -1,6 +1,9 @@
+// 38 and 39 sit on opposite halves, so the second press has to cross the
+// BLE split link. The 50ms default is too tight for that.
 combo_mac_mSTG {
     bindings = <&mo_mSTG_to_mBAS>;
     key-positions = <38 39>;
+    timeout-ms = <80>;
     slow-release;
     layers = <mBAS>;
 };

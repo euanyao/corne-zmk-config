@@ -1,5 +1,3 @@
-HR_HOLD(w, BAS, RS, mp_wi_n)  //hm_wBAS_RS
-HR_HOLD(w, BAS, RA, mp_wi_e)  //hm_wBAS_RA
+// QWERTY home row is A S D F / J K L ; -- only A carries an accent morph,
+// so the other positions use the plain &hm hold-tap directly in the keymap.
 HR_HOLD(w, BAS, LC, mp_wi_a)  //hm_wBAS_LC
-HR_HOLD(w, BAS, RC, mp_wi_i)  //hm_wBAS_RC
-HR_HOLD(w, BAS, RG, mp_wi_o)  //hm_wBAS_RG
