@@ -1,0 +1,35 @@
+// mp_sSTG_rgb_t
+MORPH_KAS(
+    s,
+    STG,
+    rgb_t,
+    rgb_toggle,
+    MOD_LALT,
+    &rgb_ug RGB_TOG,  // tap:   underglow on/off
+    &rgb_ug RGB_EFR,  // alt:   previous effect
+    &rgb_ug RGB_EFF   // shift: next effect
+)
+
+// mp_sSTG_rgb_u
+MORPH_KAS(
+    s,
+    STG,
+    rgb_u,
+    rgb_up,
+    MOD_LALT,
+    &rgb_ug RGB_BRI,  // tap:   brightness up
+    &rgb_ug RGB_SAI,  // alt:   saturation up
+    &rgb_ug RGB_HUI   // shift: hue up
+)
+
+// mp_sSTG_rgb_d
+MORPH_KAS(
+    s,
+    STG,
+    rgb_d,
+    rgb_down,
+    MOD_LALT,
+    &rgb_ug RGB_BRD,  // tap:   brightness down
+    &rgb_ug RGB_SAD,  // alt:   saturation down
+    &rgb_ug RGB_HUD   // shift: hue down
+)

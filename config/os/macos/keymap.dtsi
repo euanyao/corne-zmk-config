@@ -123,7 +123,7 @@
             #define MSLD0  &mp_sSTG_cb                  // tap: none | shift: clear current profile | alt: clear all profiles
             #define MSLD1  &m_s_b5
             #define MSLD2  &m_s_b6
-            #define MSLD3  &none
+            #define MSLD3  &mp_sSTG_rgb_t                // tap: underglow on/off | shift: next effect | alt: previous effect
             #define MSLD4  &mp_mSTG_f                   // tap: (finder) file explorer | alt: show/hide system files
             #define MSLD5  &kp RG(MINUS)                // tap: zoom out
 
@@ -140,14 +140,14 @@
             #define MSRM2  &hm_mSTG_RA  LALT   0        // tap: mp_mSTG_rectangle
             #define MSRM3  &mp_mSTG_right               // tap: ide secondary side bar | alt: rectangle right
             #define MSRM4  &kp LC(UP)                   // tap: mission control
-            #define MSRM5  &none
+            #define MSRM5  &mp_sSTG_rgb_u               // tap: brightness up | shift: hue up | alt: saturation up
 
             #define MSRD0  &kp C_VOL_DN
             #define MSRD1  &mp_mSTG_downleft            // tap: none | alt: rectangle bottom left
             #define MSRD2  &mp_mSTG_down                // tap: ide panel bottom bar | alt: rectangle bottom down
             #define MSRD3  &mp_mSTG_downright           // tap: none | alt: rectangle bottom right
             #define MSRD4  &kp LC(DOWN)                 // tap: application window
-            #define MSRD5  &none                 
+            #define MSRD5  &mp_sSTG_rgb_d               // tap: brightness down | shift: hue down | alt: saturation down
 
             #define MSLT2  &kp C_BRI_DN
             #define MSLT1  KEY_SPC
