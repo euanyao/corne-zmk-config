@@ -43,10 +43,10 @@
 
             display-name = "mDEV";
             bindings = <
-    MKY_ESC     &kp AT  &kp POUND  &kp DLLR    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   MNV_DEL
-  &mp_mk_bc       MD13            MD14            MD15        MD16  &kp SQT             &kp GRAVE         MD19          MD20         MD21         MD22  MNV_BSPC
+    MKY_ESC     &kp AT  &kp POUND  &kp DLLR    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   MNV_BSPC
+    MNV_DEL       MD13            MD14            MD15        MD16  &kp SQT             &kp GRAVE         MD19          MD20         MD21         MD22  MKY_RET
     MKY_TAB  &kp LG(R)        &kp LPAR        &kp RPAR   &kp ASTRK  &kp BSLH            &mp_mDEV_s   &kp QMARK        &kp LT       &kp GT  &mp_mDEV_ql      MD35
-                                                &kp COMMA     KEY_SPC      MD38                  MD39      MKY_RET        &kp DOT
+                                                &kp COMMA     KEY_SPC      MD38                  MD39      KEY_SPC        &kp DOT
             >;
         };
 
@@ -75,10 +75,10 @@
 
             display-name = "mAXN";
             bindings = <
-    MKY_ESC      MA01  &mp_ma_prev    &kp UP  &mp_ma_next      MA05            &kp KP_PLUS   &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY    MNV_DEL
-  &mp_mk_bc      MA13         MA14      MA15         MA16      MA17                 &kp N0     MA19    MA20    MA21             MA22   MNV_BSPC
+    MKY_ESC      MA01  &mp_ma_prev    &kp UP  &mp_ma_next      MA05            &kp KP_PLUS   &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY    MNV_BSPC
+    MNV_DEL      MA13         MA14      MA15         MA16      MA17                 &kp N0     MA19    MA20    MA21             MA22   MKY_RET
     MKY_TAB  MKY_UNDO      MKY_CUT  MKY_COPY    MKY_PASTE  MKY_REDO                &kp MINUS   &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &kp EQUAL
-                                       &none      KEY_SPC      MA38                   MA39  MKY_RET   &none
+                                       &none      KEY_SPC      MA38                   MA39  KEY_SPC   &none
             >;
         };
 
@@ -98,10 +98,10 @@
 
             display-name = "mFNK";
             bindings = <
-    MKY_ESC  &kp F9  &kp F10  &kp F11  &kp F12  &none                  &none    &none  &kp PG_UP  &none  &none   MNV_DEL
-  &mp_mk_bc    MK13     MK14     MK15     MK16  &none                  &none     MK19       MK20   MK21   MK22  MNV_BSPC
+    MKY_ESC  &kp F9  &kp F10  &kp F11  &kp F12  &none                  &none    &none  &kp PG_UP  &none  &none   MNV_BSPC
+    MNV_DEL    MK13     MK14     MK15     MK16  &none                  &none     MK19       MK20   MK21   MK22  MKY_RET
     MKY_TAB  &kp F1   &kp F2   &kp F3   &kp F4  &none                  &none    &none      &none  &none  &none     &none
-                                &none  KEY_SPC   MK38                   MK39  MKY_RET      &none
+                                &none  KEY_SPC   MK38                   MK39  KEY_SPC      &none
             >;
         };
 

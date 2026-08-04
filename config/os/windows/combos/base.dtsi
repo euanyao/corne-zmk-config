@@ -1,6 +1,9 @@
+// Both combos span the two halves (F+J and S+L on QWERTY), so allow extra
+// time for the press to cross the BLE split link.
 combo_wCW_on {
     bindings = <&cw_wON>;
     key-positions = <16 19>;
+    timeout-ms = <80>;
     slow-release;
     layers = <wBAS>;
 };
@@ -8,6 +11,7 @@ combo_wCW_on {
 combo_wCW_off {
     bindings = <&cw_wOFF>;
     key-positions = <14 21>;
+    timeout-ms = <80>;
     slow-release;
     layers = <wBAS>;
 };

@@ -1,8 +1,0 @@
-// tap:     BACKSPACE
-// shift:   CAPS_LOCK
-mp_mk_bc: morph_mac_key_backspace_caps {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <NAV_BSPC>, <&cw_mCAPS>;
-};
