@@ -1,2 +1,1 @@
-HR_HOLD(m, DEV, RA, mp_mDEV_lb)   //hm_mDEV_RA
-HR_HOLD(m, DEV, RC, mp_mDEV_rb)   //hm_mDEV_RC
+// DEV-layer bracket keys use the plain &hm hold-tap directly in the keymap.

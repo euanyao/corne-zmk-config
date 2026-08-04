@@ -44,7 +44,6 @@
 / {
     behaviors {
         #include "os/shared/morph/shared.dtsi"
-        #include "os/shared/morph/num.dtsi"
         #include "os/shared/morph/rgb.dtsi"
         #include "os/shared/hold/shared.dtsi"
 

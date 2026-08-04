@@ -20,7 +20,7 @@
             bindings = <
     MKY_ESC  &kp Q  &kp W  &kp E  &kp R  &kp T                &kp Y  &kp U  &kp I  &kp O    &kp P   MNV_DEL
   &mp_mk_bc   MB13   MB14   MB15   MB16  &kp G                &kp H   MB19   MB20   MB21     MB22  MNV_BSPC
-    MKY_TAB  &kp Z  &kp X  &kp C  &kp V  &kp B                &kp N  &kp M &mp_cs &mp_dc  &kp SQT      MB35
+    MKY_TAB  &kp Z  &kp X  &kp C  &kp V  &kp B                &kp N  &kp M &kp COMMA &kp DOT  &kp SQT   MB35
                              MB36  KEY_SPC   MB38             MB39   MKY_RET      MB41
             >;
         };
@@ -32,8 +32,8 @@
             #define MD16  &hm          LSHFT   EQUAL
 
             #define MD19  &hm          RSHFT   EXCL
-            #define MD20  &hm_mDEV_RA  LALT    0
-            #define MD21  &hm_mDEV_RC  RCMD    0
+            #define MD20  &hm          LALT    LBKT
+            #define MD21  &hm          RCMD   RBKT
             #define MD22  &hm          RCTRL   PIPE
 
             #define MD35  &kp LA(LG(I))                 // tap: dev tools
@@ -43,10 +43,10 @@
 
             display-name = "mDEV";
             bindings = <
-    MKY_ESC     &kp AT  &mp_mDEV_pound  &mp_mDEV_money    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   MNV_DEL
+    MKY_ESC     &kp AT  &kp POUND  &kp DLLR    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   MNV_DEL
   &mp_mk_bc       MD13            MD14            MD15        MD16  &kp SQT             &kp GRAVE         MD19          MD20         MD21         MD22  MNV_BSPC
     MKY_TAB  &kp LG(R)        &kp LPAR        &kp RPAR   &kp ASTRK  &kp BSLH            &mp_mDEV_s   &kp QMARK        &kp LT       &kp GT  &mp_mDEV_ql      MD35
-                                                &mp_cs     KEY_SPC      MD38                  MD39      MKY_RET        &mp_dc
+                                                &kp COMMA     KEY_SPC      MD38                  MD39      MKY_RET        &kp DOT
             >;
         };
 
@@ -77,7 +77,7 @@
             bindings = <
     MKY_ESC      MA01  &mp_ma_prev    &kp UP  &mp_ma_next      MA05            &kp KP_PLUS   &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY    MNV_DEL
   &mp_mk_bc      MA13         MA14      MA15         MA16      MA17                 &kp N0     MA19    MA20    MA21             MA22   MNV_BSPC
-    MKY_TAB  MKY_UNDO      MKY_CUT  MKY_COPY    MKY_PASTE  MKY_REDO                &mp_k_m   &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &kp EQUAL
+    MKY_TAB  MKY_UNDO      MKY_CUT  MKY_COPY    MKY_PASTE  MKY_REDO                &kp MINUS   &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &kp EQUAL
                                        &none      KEY_SPC      MA38                   MA39  MKY_RET   &none
             >;
         };

@@ -20,7 +20,7 @@
             bindings = <
     WKY_ESC  &kp Q  &kp W  &kp E  &kp R  &kp T                &kp Y  &kp U  &kp I  &kp O    &kp P   NAV_DEL
   &mp_wk_bc   WB13   WB14   WB15   WB16  &kp G                &kp H   WB19   WB20   WB21     WB22  NAV_BSPC
-    WKY_TAB  &kp Z  &kp X  &kp C  &kp V  &kp B                &kp N  &kp M &mp_cs &mp_dc  &kp SQT      WB35
+    WKY_TAB  &kp Z  &kp X  &kp C  &kp V  &kp B                &kp N  &kp M &kp COMMA &kp DOT  &kp SQT   WB35
                              WB36  KEY_SPC   WB38             WB39   WKY_RET      WB41
             >;
         };
@@ -32,8 +32,8 @@
             #define WD16  &hm          LSHFT   EQUAL
 
             #define WD19  &hm          RSHFT   EXCL
-            #define WD20  &hm_wDEV_RA  LALT    0
-            #define WD21  &hm_wDEV_RC  RCTRL   0
+            #define WD20  &hm          LALT    LBKT
+            #define WD21  &hm          RCTRL   RBKT
             #define WD22  &hm          RCMD    PIPE
 
             #define WD38  &mo_wAXNwDEV_to_wBAS  0  0
@@ -41,10 +41,10 @@
 
             display-name = "wDEV";
             bindings = <
-    WKY_ESC     &kp AT  &mp_wDEV_pound  &mp_wDEV_money    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   NAV_DEL
+    WKY_ESC     &kp AT  &kp POUND  &kp DLLR    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   NAV_DEL
   &mp_wk_bc       WD13            WD14            WD15        WD16  &kp SQT             &kp GRAVE         WD19          WD20         WD21         WD22  NAV_BSPC
     WKY_TAB  &kp LC(R)        &kp LPAR        &kp RPAR   &kp ASTRK  &kp BSLH            &mp_wDEV_s   &kp QMARK        &kp LT       &kp GT  &mp_wDEV_ql   &kp F12
-                                                &mp_cs     KEY_SPC      WD38                  WD39      WKY_RET        &mp_dc
+                                                &kp COMMA     KEY_SPC      WD38                  WD39      WKY_RET        &kp DOT
             >;
         };
 
@@ -77,8 +77,8 @@
             bindings = <
     WKY_ESC      WA01  &mp_wa_prev    &kp UP  &mp_wa_next      WA05            &kp KP_PLUS   &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY   NAV_DEL
   &mp_wk_bc      WA13         WA14      WA15         WA16      WA17                 &kp N0     WA19    WA20    WA21             WA22  NAV_BSPC
-    WKY_TAB  WKY_UNDO      WKY_CUT  WKY_COPY    WKY_PASTE  WKY_REDO                &mp_k_m   &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE      WA35
-                                      &mp_cs      KEY_SPC      WA38                   WA39  WKY_RET  &mp_dc
+    WKY_TAB  WKY_UNDO      WKY_CUT  WKY_COPY    WKY_PASTE  WKY_REDO                &kp MINUS   &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE      WA35
+                                      &kp COMMA      KEY_SPC      WA38                   WA39  WKY_RET  &kp DOT
             >;
         };
 
@@ -101,7 +101,7 @@
     WKY_ESC  &kp F9  &kp F10  &kp F11  &kp F12  &none                  &none    &none  &kp PG_UP  &none  &none   NAV_DEL
   &mp_wk_bc    WK13     WK14     WK15     WK16  &none                  &none     WK19       WK20   WK21   WK22  NAV_BSPC
     WKY_TAB  &kp F1   &kp F2   &kp F3   &kp F4  &none                  &none    &none      &none  &none  &none     &none
-                               &mp_cs  KEY_SPC   WK38                   WK39  WKY_RET     &mp_dc
+                               &kp COMMA  KEY_SPC   WK38                   WK39  WKY_RET     &kp DOT
             >;
         };
 
