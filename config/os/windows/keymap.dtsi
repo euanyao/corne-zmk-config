@@ -31,7 +31,7 @@
             #define WD15  &hm          LALT    RBRC
             #define WD16  &hm          LSHFT   EQUAL
 
-            #define WD19  &hm_wDEV_RS  RSHFT   0
+            #define WD19  &hm          RSHFT   EXCL
             #define WD20  &hm_wDEV_RA  LALT    0
             #define WD21  &hm_wDEV_RC  RCTRL   0
             #define WD22  &hm          RCMD    PIPE
@@ -43,7 +43,7 @@
             bindings = <
     WKY_ESC     &kp AT  &mp_wDEV_pound  &mp_wDEV_money    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   NAV_DEL
   &mp_wk_bc       WD13            WD14            WD15        WD16  &kp SQT             &kp GRAVE         WD19          WD20         WD21         WD22  NAV_BSPC
-    WKY_TAB  &kp LC(R)        &kp LPAR        &kp RPAR   &kp ASTRK  &kp BSLH            &mp_wDEV_s  &mp_wDEV_qs        &kp LT       &kp GT  &mp_wDEV_ql   &kp F12
+    WKY_TAB  &kp LC(R)        &kp LPAR        &kp RPAR   &kp ASTRK  &kp BSLH            &mp_wDEV_s   &kp QMARK        &kp LT       &kp GT  &mp_wDEV_ql   &kp F12
                                                 &mp_cs     KEY_SPC      WD38                  WD39      WKY_RET        &mp_dc
             >;
         };

@@ -31,7 +31,7 @@
             #define MD15  &hm          LALT    RBRC
             #define MD16  &hm          LSHFT   EQUAL
 
-            #define MD19  &hm_mDEV_RS  RSHFT   0
+            #define MD19  &hm          RSHFT   EXCL
             #define MD20  &hm_mDEV_RA  LALT    0
             #define MD21  &hm_mDEV_RC  RCMD    0
             #define MD22  &hm          RCTRL   PIPE
@@ -45,7 +45,7 @@
             bindings = <
     MKY_ESC     &kp AT  &mp_mDEV_pound  &mp_mDEV_money    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   MNV_DEL
   &mp_mk_bc       MD13            MD14            MD15        MD16  &kp SQT             &kp GRAVE         MD19          MD20         MD21         MD22  MNV_BSPC
-    MKY_TAB  &kp LG(R)        &kp LPAR        &kp RPAR   &kp ASTRK  &kp BSLH            &mp_mDEV_s  &mp_mDEV_qs        &kp LT       &kp GT  &mp_mDEV_ql      MD35
+    MKY_TAB  &kp LG(R)        &kp LPAR        &kp RPAR   &kp ASTRK  &kp BSLH            &mp_mDEV_s   &kp QMARK        &kp LT       &kp GT  &mp_mDEV_ql      MD35
                                                 &mp_cs     KEY_SPC      MD38                  MD39      MKY_RET        &mp_dc
             >;
         };

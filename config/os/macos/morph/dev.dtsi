@@ -42,28 +42,6 @@ MORPH_KA(
     &kp LA(LS(BSLH))  // alt:  »
 )
 
-// mp_mDEV_qs
-MORPH_KA(
-    m,
-    DEV,
-    qs,
-    question_symbol,
-    MOD_LALT,
-    &kp QMARK,        // tap:  ?
-    &kp LA(LS(FSLH))  // alt:  ¿
-)
-
-// mp_mDEV_es
-MORPH_KA(
-    m,
-    DEV,
-    es,
-    exclamation_symbol,
-    MOD_LALT,
-    &kp EXCL,   // tap:  !
-    &kp LA(N1)  // alt:  ¡
-)
-
 // mp_mDEV_s
 MORPH_KA(
     m,
