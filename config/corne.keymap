@@ -95,6 +95,7 @@
 
         #include "os/windows/combos/base.dtsi"
         #include "os/windows/combos/help.dtsi"
+        #include "os/windows/combos/settings.dtsi"
     };
 };
 

@@ -140,7 +140,7 @@
             #define MSRM2  &hm_mSTG_RA  LALT   0        // tap: mp_mSTG_rectangle
             #define MSRM3  &mp_mSTG_right               // tap: ide secondary side bar | alt: rectangle right
             #define MSRM4  &kp LC(UP)                   // tap: mission control
-            #define MSRM5  &mp_sSTG_rgb_u               // tap: brightness up | shift: saturation up
+            #define MSRM5  &mp_sSTG_rgb_u               // tap: brightness up | shift: brightness down | alt: saturation up
 
             #define MSRD0  &kp C_VOL_DN
             #define MSRD1  &mp_mSTG_downleft            // tap: none | alt: rectangle bottom left

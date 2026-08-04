@@ -130,7 +130,7 @@
 
             #define WS03  &mp_sSTG_rgb_c       // tap: rgb colour forward | shift: colour back
             #define WS27  &mp_sSTG_rgb_t       // tap: rgb on/off | shift: next effect | alt: previous effect
-            #define WS33  &mp_sSTG_rgb_u       // tap: brightness up | shift: saturation up
+            #define WS33  &mp_sSTG_rgb_u       // tap: brightness up | shift: brightness down | alt: saturation up
             #define WS35  &mp_sSTG_rgb_d       // tap: brightness down | shift: saturation down
 
             display-name = "wSTG";

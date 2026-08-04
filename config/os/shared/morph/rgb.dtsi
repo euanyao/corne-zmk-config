@@ -20,14 +20,18 @@ MORPH_KS(
     &rgb_ug RGB_HUD   // shift: colour back
 )
 
-// mp_sSTG_rgb_u
-MORPH_KS(
+// mp_sSTG_rgb_u -- carries BOTH brightness directions, because position 35
+// (the other brightness key) doubles as the hold-to-reach-STG key and so
+// can't be tapped while held.
+MORPH_KAS(
     s,
     STG,
     rgb_u,
-    rgb_up,
+    rgb_brightness,
+    MOD_LALT,
     &rgb_ug RGB_BRI,  // tap:   brightness up
-    &rgb_ug RGB_SAI   // shift: saturation up
+    &rgb_ug RGB_SAI,  // alt:   saturation up
+    &rgb_ug RGB_BRD   // shift: brightness down
 )
 
 // mp_sSTG_rgb_d

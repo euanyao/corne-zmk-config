@@ -1,0 +1,10 @@
+// Mirror of combo_mac_mSTG so wBAS has a thumb route to wSTG too.
+// 38 and 39 sit on opposite halves, so the second press has to cross the
+// BLE split link. The 50ms default is too tight for that.
+combo_windows_wSTG {
+    bindings = <&mo_wSTG_to_wBAS>;
+    key-positions = <38 39>;
+    timeout-ms = <80>;
+    slow-release;
+    layers = <wBAS>;
+};
