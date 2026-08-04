@@ -4,17 +4,17 @@ layers:
   - - {t: ESC, h: '&to_mBAS'}
     - Q
     - W
-    - {t: E, s: '&m_mi_e'}
+    - E
     - R
     - T
-    - {t: Y, s: '&m_mi_y'}
-    - {t: U, s: '&m_mi_u'}
-    - {t: I, s: '&m_mi_i'}
-    - {t: O, s: '&m_mi_o'}
+    - Y
+    - U
+    - I
+    - O
     - P
     - {t: DEL, h: Alt+DEL}
   - - {t: BSPC, h: Ctl+BSPC, s: '&cw_mCAPS'}
-    - {t: A, h: LCTRL, s: '&m_mi_a'}
+    - {t: A, h: LCTRL}
     - {t: S, h: LCMD}
     - {t: D, h: LALT}
     - {t: F, h: LSHFT}
@@ -31,11 +31,11 @@ layers:
     - C
     - V
     - B
-    - {t: N, s: '&m_mi_n'}
+    - N
     - M
     - {t: ',', s: ;}
     - {t: ., s: ':'}
-    - {t: '&m_mi_s', s: '&m_mi_d'}
+    - ''''
     - {t: '&mo_mSTG_to_mBAS', s: '&to_mSTG'}
   - - {t: '&mo_mDEV_to_mBAS', s: '&to_mDEV'}
     - SPACE
@@ -49,20 +49,20 @@ layers:
     - {t: '#', s: Alt+0}
     - {t: $, s: Alt+Sft+2}
     - +
-    - '&m_mi_d'
-    - '&m_mi_t'
+    - '"'
+    - '~'
     - '-'
     - _
     - '%'
-    - '&m_mi_c'
+    - ^
     - {t: DEL, h: Alt+DEL}
   - - {t: BSPC, h: Ctl+BSPC, s: '&cw_mCAPS'}
     - {t: '&', h: LCTRL}
     - {t: '{', h: LCMD}
     - {t: '}', h: LALT}
     - {t: '=', h: LSHFT}
-    - '&m_mi_s'
-    - '&m_mi_g'
+    - ''''
+    - '`'
     - {t: '!', h: RSHFT, s: Alt+1}
     - {t: '[', h: LALT, s: Alt+\}
     - {t: ']', h: RCMD, s: Alt+Sft+\}
@@ -219,17 +219,17 @@ layers:
   - - {t: ESC, h: '&to_wBAS'}
     - Q
     - W
-    - {t: E, s: Ctl+E}
+    - E
     - R
     - T
-    - {t: Y, s: Ctl+Y}
-    - {t: U, s: Ctl+U}
-    - {t: I, s: Ctl+I}
-    - {t: O, s: Ctl+O}
+    - Y
+    - U
+    - I
+    - O
     - P
     - {t: DEL, h: Ctl+DEL}
   - - {t: BSPC, h: Ctl+BSPC, s: '&cw_wCAPS'}
-    - {t: A, h: LCMD, s: Ctl+A}
+    - {t: A, h: LCMD}
     - {t: S, h: LCTRL}
     - {t: D, h: LALT}
     - {t: F, h: LSHFT}
@@ -246,11 +246,11 @@ layers:
     - C
     - V
     - B
-    - {t: N, s: Ctl+N}
+    - N
     - M
     - {t: ',', s: ;}
     - {t: ., s: ':'}
-    - {t: '&m_wi_s', s: '&m_wi_d'}
+    - ''''
     - {t: '&mo_wSTG_to_wBAS', s: '&to_wSTG'}
   - - {t: '&mo_wDEV_to_wBAS', s: '&to_wDEV'}
     - SPACE
@@ -264,20 +264,20 @@ layers:
     - {t: '#', s: Ctl+Sft+;}
     - {t: $, s: Ctl+5}
     - +
-    - '&m_wi_d'
-    - '&m_wi_t'
+    - '"'
+    - '~'
     - '-'
     - _
     - '%'
-    - '&m_wi_c'
+    - ^
     - {t: DEL, h: Ctl+DEL}
   - - {t: BSPC, h: Ctl+BSPC, s: '&cw_wCAPS'}
     - {t: '&', h: LCMD}
     - {t: '{', h: LCTRL}
     - {t: '}', h: LALT}
     - {t: '=', h: LSHFT}
-    - '&m_wi_s'
-    - '&m_wi_g'
+    - ''''
+    - '`'
     - {t: '!', h: RSHFT, s: Ctl+1}
     - {t: '[', h: LALT, s: 'Ctl+['}
     - {t: ']', h: RCTRL, s: 'Ctl+]'}
