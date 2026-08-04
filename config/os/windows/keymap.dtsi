@@ -18,10 +18,10 @@
 
             display-name = "wBAS";
             bindings = <
-    WKY_ESC  &kp Q  &kp W  &kp E  &kp R  &kp T                &kp Y  &kp U  &kp I  &kp O    &kp P   NAV_DEL
-  &mp_wk_bc   WB13   WB14   WB15   WB16  &kp G                &kp H   WB19   WB20   WB21     WB22  NAV_BSPC
+    WKY_ESC  &kp Q  &kp W  &kp E  &kp R  &kp T                &kp Y  &kp U  &kp I  &kp O    &kp P  NAV_BSPC
+    NAV_DEL   WB13   WB14   WB15   WB16  &kp G                &kp H   WB19   WB20   WB21     WB22   WKY_RET
     WKY_TAB  &kp Z  &kp X  &kp C  &kp V  &kp B                &kp N  &kp M &kp COMMA &kp DOT  &kp SQT   WB35
-                             WB36  KEY_SPC   WB38             WB39   WKY_RET      WB41
+                             WB36  KEY_SPC   WB38             WB39   KEY_SPC      WB41
             >;
         };
 

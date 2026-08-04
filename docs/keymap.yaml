@@ -33,8 +33,8 @@ layers:
     - B
     - N
     - M
-    - {t: ',', s: ;}
-    - {t: ., s: ':'}
+    - ','
+    - .
     - ''''
     - {t: '&mo_mSTG_to_mBAS', s: '&to_mSTG'}
   - - {t: '&mo_mDEV_to_mBAS', s: '&to_mDEV'}
@@ -46,8 +46,8 @@ layers:
   mDEV:
   - - {t: ESC, h: '&to_mBAS'}
     - '@'
-    - {t: '#', s: Alt+0}
-    - {t: $, s: Alt+Sft+2}
+    - '#'
+    - $
     - +
     - '"'
     - '~'
@@ -64,8 +64,8 @@ layers:
     - ''''
     - '`'
     - {t: '!', h: RSHFT}
-    - {t: '[', h: LALT, s: Alt+\}
-    - {t: ']', h: RCMD, s: Alt+Sft+\}
+    - {t: '[', h: LALT}
+    - {t: ']', h: RCMD}
     - {t: '|', h: RCTRL}
     - {t: BSPC, h: Alt+BSPC}
   - - {t: TAB, h: RIGHT}
@@ -80,12 +80,12 @@ layers:
     - '>'
     - {t: '&m_md_oco', s: '&m_md_cto'}
     - Alt+Gui+I
-  - - {t: ',', s: ;}
+  - - ','
     - SPACE
     - {t: '&to_mBAS', h: '&mo_mAXN_to_mDEV'}
     - {t: '&to_mAXN', h: '&mo_mAXN_to_mDEV'}
     - {t: RET, h: F2}
-    - {t: ., s: ':'}
+    - .
   mAXN:
   - - {t: ESC, h: '&to_mBAS'}
     - Ctl+Sft+Gui+RIGHT
@@ -117,7 +117,7 @@ layers:
     - Gui+C
     - {t: Gui+V, s: Sft+Gui+V}
     - Sft+Gui+Z
-    - {t: '-', s: _}
+    - '-'
     - '1'
     - '2'
     - '3'
@@ -248,8 +248,8 @@ layers:
     - B
     - N
     - M
-    - {t: ',', s: ;}
-    - {t: ., s: ':'}
+    - ','
+    - .
     - ''''
     - {t: '&mo_wSTG_to_wBAS', s: '&to_wSTG'}
   - - {t: '&mo_wDEV_to_wBAS', s: '&to_wDEV'}
@@ -261,8 +261,8 @@ layers:
   wDEV:
   - - {t: ESC, h: '&to_wBAS'}
     - '@'
-    - {t: '#', s: Ctl+Sft+;}
-    - {t: $, s: Ctl+5}
+    - '#'
+    - $
     - +
     - '"'
     - '~'
@@ -279,8 +279,8 @@ layers:
     - ''''
     - '`'
     - {t: '!', h: RSHFT}
-    - {t: '[', h: LALT, s: 'Ctl+['}
-    - {t: ']', h: RCTRL, s: 'Ctl+]'}
+    - {t: '[', h: LALT}
+    - {t: ']', h: RCTRL}
     - {t: '|', h: RCMD}
     - {t: BSPC, h: Ctl+BSPC}
   - - {t: TAB, h: RIGHT}
@@ -295,12 +295,12 @@ layers:
     - '>'
     - {t: '&m_wd_oco', s: '&m_wd_cto'}
     - F12
-  - - {t: ',', s: ;}
+  - - ','
     - SPACE
     - {t: '&to_wBAS', h: '&mo_wAXN_to_wDEV'}
     - {t: '&to_wAXN', h: '&mo_wAXN_to_wDEV'}
     - {t: RET, h: F2}
-    - {t: ., s: ':'}
+    - .
   wAXN:
   - - {t: ESC, h: '&to_wBAS'}
     - Alt+Sft+RIGHT
@@ -332,18 +332,18 @@ layers:
     - Ctl+C
     - Ctl+V
     - Ctl+Y
-    - {t: '-', s: _}
+    - '-'
     - '1'
     - '2'
     - '3'
     - KP DIVIDE
     - {t: Gui+Ctl+D, h: Gui+Ctl+F4}
-  - - {t: ',', s: ;}
+  - - ','
     - SPACE
     - '&to_wBAS'
     - {t: '&to_wFNK', h: '&mo_wFNK_to_wAXN'}
     - {t: RET, h: F2}
-    - {t: ., s: ':'}
+    - .
   wFNK:
   - - {t: ESC, h: '&to_wBAS'}
     - F9
@@ -381,12 +381,12 @@ layers:
     - ''
     - ''
     - ''
-  - - {t: ',', s: ;}
+  - - ','
     - SPACE
     - '&to_wBAS'
     - '&to_wAXN'
     - {t: RET, h: F2}
-    - {t: ., s: ':'}
+    - .
   wSTG:
   - - {t: ESC, h: '&to_wBAS'}
     - '&m_s_b1'
