@@ -1,168 +1,81 @@
-        mac_base_layer {
-            #define MB13  &hml         LCTRL  A
-            #define MB14  &hml         LCMD   S
-            #define MB15  &hml         LALT   D
-            #define MB16  &hml         LSHFT  F
+/* macOS overlays.
+ *
+ * MAC is the OS flag: lit means macOS. It is almost entirely &trans -- it
+ * exists to be a layer that stays on, because "which layers are active" is
+ * the only runtime state ZMK has. It sits above the typing layers so its
+ * handful of overrides win.
+ *
+ * Most of what used to differ between the OSes is gone: with Command and
+ * Control swapped per-keyboard on the Mac, a Windows-canonical keycode
+ * lands correctly on both. Only combos that are genuinely different
+ * chords -- not just a different modifier -- need to appear here.
+ *
+ * MAC_AXN and MAC_STG are conditional layers, activated automatically when
+ * MAC is on and AXN / STG are active. See the conditional-layers node in
+ * corne.keymap.
+ */
 
-            #define MB19  &hmr         RSHFT  J
-            #define MB20  &hmr         LALT   K
-            #define MB21  &hmr         RCMD   L
-            #define MB22  &hmr         RCTRL  SEMI
+        mac_layer {
+            /* Three keys. ESC-hold has to relight the flag that &to
+             * clears, and word-delete is the one thing the Cmd/Ctrl swap
+             * cannot fix: firmware Ctrl becomes Command on the Mac, and
+             * Cmd+Bspc is delete-to-line-start, not delete-word.
+             *
+             * These are identical on every typing layer, which is exactly
+             * why a single overlay can carry them without colliding. */
+            #define MAC_ESC   &to_BAS_mac_kp  0  ESC
+            #define MAC_BSPC  &mt  LA(BSPC)  BSPC
+            #define MAC_DEL   &mt  LA(DEL)   DEL
 
-            #define MB35  &mp_m_stg
-
-            #define MB36  &mp_m_dev
-            #define MB38  &mo_mAXNmBAS_to_mAXN  0  0
-            #define MB39  &mo_mAXNmBAS_to_mFNK  0  0
-            #define MB41  &mp_m_dev
-
-            display-name = "mBAS";
+            display-name = "MAC";
             bindings = <
-    MKY_ESC  &kp Q  &kp W  &kp E  &kp R  &kp T                &kp Y  &kp U  &kp I  &kp O    &kp P  MNV_BSPC
-    MNV_DEL   MB13   MB14   MB15   MB16  &kp G                &kp H   MB19   MB20   MB21     MB22   MKY_RET
-    MKY_TAB  &kp Z  &kp X  &kp C  &kp V  &kp B                &kp N  &kp M &kp COMMA &kp DOT  &kp SQT   MB35
-                             MB36  KEY_SPC   MB38             MB39   KEY_SPC      MB41
-            >;
-        };
-
-        mac_dev_layer {
-            #define MD13  &hml         LCTRL   AMPS
-            #define MD14  &hml         LCMD    LBRC
-            #define MD15  &hml         LALT    RBRC
-            #define MD16  &hml         LSHFT   EQUAL
-
-            #define MD19  &hmr         RSHFT   EXCL
-            #define MD20  &hmr         LALT    LBKT
-            #define MD21  &hmr         RCMD   RBKT
-            #define MD22  &hmr         RCTRL   PIPE
-
-            #define MD35  &kp LA(LG(I))                 // tap: dev tools
-
-            #define MD38  &mo_mAXNmDEV_to_mBAS  0  0
-            #define MD39  &mo_mAXNmDEV_to_mAXN  0  0
-
-            display-name = "mDEV";
-            bindings = <
-    MKY_ESC     &kp AT  &kp POUND  &kp DLLR    &kp PLUS  &kp DQT             &kp TILDE    &kp MINUS     &kp UNDER    &kp PRCNT    &kp CARET   MNV_BSPC
-    MNV_DEL       MD13            MD14            MD15        MD16  &kp SQT             &kp GRAVE         MD19          MD20         MD21         MD22  MKY_RET
-    MKY_TAB  &kp LG(R)        &kp LPAR        &kp RPAR   &kp ASTRK  &kp BSLH            &mp_mDEV_s   &kp QMARK        &kp LT       &kp GT  &mp_mDEV_ql      MD35
-                                                &kp COMMA     KEY_SPC      MD38                  MD39      KEY_SPC        &kp DOT
+    MAC_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  MAC_BSPC
+    MAC_DEL  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans   &trans
+     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans   &trans
+                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };
 
         mac_act_num_layer {
-            #define MA01  &kp  LC(LS(LG(RIGHT)))        // tap: expand selection
-            #define MA05  &kp  LG(F)                    // tap: find
-            #define MA13  &hml LCTRL  LC(LS(LG(LEFT)))  // tap: shrink selection
-            #define MA14  &hml LCMD   LEFT
-            #define MA15  &hml LALT   DOWN
-            #define MA16  &hml LSHFT  RIGHT
-            #define MA17  &kp  LA(LG(F))                // tap: replace
+            /* Five keys. Everything else on AXN -- arrows, numpad, find,
+             * undo/cut/copy/paste -- is modifier-only difference and is
+             * handled by the Cmd/Ctrl swap.
+             *
+             * Written Windows-canonical like everything else: LGUI here
+             * arrives as Control on the Mac, LCTRL as Command. */
+            #define MAC_EXPAND  &kp  LG(LS(LC(RIGHT)))           // Ctrl+Shift+Cmd+Right
+            #define MAC_SHRINK  &hml LGUI  LG(LS(LC(LEFT)))      // Ctrl+Shift+Cmd+Left
+            #define MAC_REPL    &kp  LA(LC(F))                   // Option+Cmd+F
+            #define MAC_REDO    &kp  RS(RC(Z))                   // Shift+Cmd+Z
 
-            #define MA19  &hmr LSHFT  N4
-            #define MA20  &hmr LALT   N5
-            #define MA21  &hmr LCMD   N6
-            #define MA22  &hmr LCTRL  DOT
-
-            #define MA38  &to_mBAS
-            #define MA39  &mo_mFNKmAXN_to_mFNK    0 0
-
-            #define MKY_UNDO   &kp RG(Z)       // tap: undo
-            #define MKY_REDO   &kp RS(RG(Z))   // tap: redo
-            #define MKY_CUT    &kp RG(X)       // tap: cut
-            #define MKY_COPY   &kp RG(C)       // tap: copy
-            #define MKY_PASTE  &mp_ma_paste    // tap: paste | shift: paste without format
-
-            display-name = "mAXN";
+            display-name = "MAC_AXN";
             bindings = <
-    MKY_ESC      MA01  &mp_ma_prev    &kp UP  &mp_ma_next      MA05            &kp KP_PLUS   &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY    MNV_BSPC
-    MNV_DEL      MA13         MA14      MA15         MA16      MA17                 &kp N0     MA19    MA20    MA21             MA22   MKY_RET
-    MKY_TAB  MKY_UNDO      MKY_CUT  MKY_COPY    MKY_PASTE  MKY_REDO                &kp MINUS   &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &kp EQUAL
-                                       &none      KEY_SPC      MA38                   MA39  KEY_SPC   &none
-            >;
-        };
-
-        mac_functions_layer {
-            #define MK13  &hml LCMD   F5
-            #define MK14  &hml LCTRL  F6
-            #define MK15  &hml LALT   F7
-            #define MK16  &hml LSHFT  F8
-
-            #define MK19  &hmr RSHFT  HOME
-            #define MK20  &hmr LALT   PG_DN
-            #define MK21  &hmr RCTRL  END
-            #define MK22  &kp  RCMD
-
-            #define MK38  &to_mBAS
-            #define MK39  &to_mAXN
-
-            display-name = "mFNK";
-            bindings = <
-    MKY_ESC  &kp F9  &kp F10  &kp F11  &kp F12  &none                  &none    &none  &kp PG_UP  &none  &none   MNV_BSPC
-    MNV_DEL    MK13     MK14     MK15     MK16  &none                  &none     MK19       MK20   MK21   MK22  MKY_RET
-    MKY_TAB  &kp F1   &kp F2   &kp F3   &kp F4  &none                  &none    &none      &none  &none  &none     &none
-                                &none  KEY_SPC   MK38                   MK39  KEY_SPC      &none
+    &trans  MAC_EXPAND  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans     &trans
+    &trans  MAC_SHRINK  &trans  &trans  &trans  MAC_REPL      &trans  &trans  &trans  &trans  &trans     &trans
+    &trans      &trans  &trans  &trans  &trans  MAC_REDO      &trans  &trans  &trans  &trans  &trans  &kp EQUAL
+                                &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };
 
         mac_settings_layer {
-            #define MSLU0  MKY_ESC
-            #define MSLU1  &m_s_b1
-            #define MSLU2  &m_s_b2
-            #define MSLU3  &mp_sSTG_rgb_c               // tap: rgb colour forward | shift: colour back
-            #define MSLU4  &kp LG(LS(C))                // tap: color picker
-            #define MSLU5  &kp RG(PLUS)                 // tap: zoom in
+            /* The one place the two OSes genuinely diverge. Left half is
+             * shared (bluetooth, RGB, zoom, bootloader) and stays &trans;
+             * the right half is macOS window management and IDE controls,
+             * replacing the Windows tooling underneath. */
+            #define MAC_IDE_EXT   &kp LS(LC(X))       // ide: extensions
+            #define MAC_IDE_TODO  &kp LG(LS(LC(T)))   // ide: todo
+            #define MAC_MISSION   &kp LG(UP)          // mission control
+            #define MAC_APPWIN    &kp LG(DOWN)        // application windows
+            #define MAC_INPUT     &kp LG(LA(SPACE))   // input source
+            #define MAC_FILES     &mp_mSTG_f          // finder | shift: show system files
+            #define MAC_ZOOM_IN   &kp RC(PLUS)
+            #define MAC_ZOOM_OUT  &kp RC(MINUS)
 
-            #define MSLM0  &kp LC(LA(SPACE))            // tap: input source
-            #define MSLM1  &hm_mSTG_LC  LCTRL  0        // tap: m_s_b3
-            #define MSLM2  &m_s_b4
-            #define MSLM3  &kp LALT
-            #define MSLM4  &hm_mSTG_LS  LSHFT  0        // tap: mp_mSTG_screenshot
-            #define MSLM5  &mp_ma_zoom_reset            // tap: zoom reset | shift: zoom reset on vscode
-
-            #define MSLD0  &mp_sSTG_cb                  // tap: none | shift: clear current profile | alt: clear all profiles
-            #define MSLD1  &m_s_b5
-            #define MSLD2  &m_s_b6
-            #define MSLD3  &mp_sSTG_rgb_t                // tap: underglow on/off | shift: next effect | alt: previous effect
-            #define MSLD4  &mp_mSTG_f                   // tap: (finder) file explorer | alt: show/hide system files
-            #define MSLD5  &kp RG(MINUS)                // tap: zoom out
-
-
-            #define MSRU0  &kp C_VOL_UP
-            #define MSRU1  &mp_mSTG_topleft             // tap: ide explorer | alt: rectangle top left
-            #define MSRU2  &mp_mSTG_up                  // tap: ide source control | alt: rectangle top halt
-            #define MSRU3  &mp_mSTG_topright            // tap: ide debugger | alt: rectangle top right
-            #define MSRU4  &kp LS(LG(X))                // tap: ide extensions 
-            #define MSRU5  &kp LC(LS(LG(T)))            // tap: ide todo                 // tap: ide                       
-
-            #define MSRM0  &mp_mSTG_m                   // tap: vol mute | shift: mic mute
-            #define MSRM1  &hm_mSTG_RS  LSHIFT 0        // tap: mp_mSTG_left
-            #define MSRM2  &hm_mSTG_RA  LALT   0        // tap: mp_mSTG_rectangle
-            #define MSRM3  &mp_mSTG_right               // tap: ide secondary side bar | alt: rectangle right
-            #define MSRM4  &kp LC(UP)                   // tap: mission control
-            #define MSRM5  &mp_sSTG_rgb_u               // tap: brightness up | shift: brightness down | alt: saturation up
-
-            #define MSRD0  &kp C_VOL_DN
-            #define MSRD1  &mp_mSTG_downleft            // tap: none | alt: rectangle bottom left
-            #define MSRD2  &mp_mSTG_down                // tap: ide panel bottom bar | alt: rectangle bottom down
-            #define MSRD3  &mp_mSTG_downright           // tap: none | alt: rectangle bottom right
-            #define MSRD4  &kp LC(DOWN)                 // tap: application window
-            #define MSRD5  &mp_sSTG_rgb_d               // tap: brightness down | shift: saturation down
-
-            #define MSLT2  &kp C_BRI_DN
-            #define MSLT1  &mp_boot_l                   // tap: space  | shift: DFU (left half)
-            #define MSLT0  &to_mBAS
-
-            #define MSRT0  &to_mAXN
-            #define MSRT1  &mp_boot_r                   // tap: return | shift: DFU (right half)
-            #define MSRT2  &kp C_BRI_UP
-
-
-            display-name = "mSTG";
+            display-name = "MAC_STG";
             bindings = <
-              MSLU0  MSLU1  MSLU2  MSLU3  MSLU4  MSLU5    MSRU0  MSRU1  MSRU2  MSRU3  MSRU4  MSRU5
-              MSLM0  MSLM1  MSLM2  MSLM3  MSLM4  MSLM5    MSRM0  MSRM1  MSRM2  MSRM3  MSRM4  MSRM5
-              MSLD0  MSLD1  MSLD2  MSLD3  MSLD4  MSLD5    MSRD0  MSRD1  MSRD2  MSRD3  MSRD4  MSRD5
-                                   MSLT2  MSLT1  MSLT0    MSRT0  MSRT1  MSRT2
+       &trans  &trans  &trans  &trans  &trans      MAC_ZOOM_IN        &kp C_VOL_UP  &mp_mSTG_topleft   &mp_mSTG_up    &mp_mSTG_topright  MAC_IDE_EXT   MAC_IDE_TODO
+    MAC_INPUT  &trans  &trans  &trans  &trans           &trans          &mp_mSTG_m  &hm_mSTG_RS LSHIFT 0  &hm_mSTG_RA LALT 0  &mp_mSTG_right  MAC_MISSION  &trans
+       &trans  &trans  &trans  &trans  MAC_FILES  MAC_ZOOM_OUT        &kp C_VOL_DN  &mp_mSTG_downleft  &mp_mSTG_down  &mp_mSTG_downright  MAC_APPWIN   &trans
+                               &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

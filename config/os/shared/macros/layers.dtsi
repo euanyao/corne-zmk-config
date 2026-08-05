@@ -1,2 +1,55 @@
-TO_MACRO(m, BAS)    //to_mBAS
-TO_MACRO(w, BAS)    //to_wBAS
+/* Momentary layers. DEV, FNK and STG are momentary-only -- releasing the
+ * thumb is the way back, so they need no return key anywhere. */
+MO_MACRO(DEV)
+MO_MACRO(AXN)
+MO_MACRO(FNK)
+MO_MACRO(STG)
+
+/* AXN is the only latchable layer. */
+TOG_MACRO(AXN)
+
+/* Hard reset to base.
+ *
+ * &to BAS switches every other layer off, MAC included, so the mac variant
+ * has to relight it. Toggling after the clear is what makes this
+ * idempotent: &to guarantees MAC is off, so &tog always turns it on.
+ */
+to_BAS: to_BAS_layer {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    tap-ms = <MC_LAYERS>;
+    bindings = <&to BAS &kp F_BAS>;
+};
+
+to_BAS_mac: to_BAS_mac_layer {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    tap-ms = <MC_LAYERS>;
+    bindings = <&to BAS &tog MAC &kp F_BAS>;
+};
+
+/* Caps word, with a host signal so the indicator can follow it. */
+cw_CAPS: cw_CAPS {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    tap-ms = <MC_TAP>;
+    bindings
+        = <&kp LS(H_CWR)>
+        , <&kp CAPS>;
+};
+
+cw_ON: cw_ON {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings
+        = <&kp LA(H_CWR)>
+        , <&cw>;
+};
+
+cw_OFF: cw_OFF {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings
+        = <&kp LS(LC(H_CWR))>
+        , <&kp K_CANCEL>;
+};

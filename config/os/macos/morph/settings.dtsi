@@ -1,11 +1,14 @@
-// tap:          zoom reset
-// shift:        zoom reset vscode
-mp_ma_zoom_reset: morph_mac_action_zoom_reset {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp RG(N0)>, <&kp RG(KP_N0)>;
-};
+/* macOS window management (Rectangle) and IDE controls.
+ *
+ * IMPORTANT: written Windows-canonical, like the rest of the config. The
+ * Mac has Command and Control swapped for this keyboard, so:
+ *
+ *     you want Command  ->  write LC / RC
+ *     you want Control  ->  write LG / RG
+ *
+ * Option and Shift are unaffected. Comments state the macOS chord as the
+ * OS sees it, not the keycode.
+ */
 
 // mp_mSTG_f
 MORPH_KS(
@@ -13,22 +16,9 @@ MORPH_KS(
     STG,
     f,
     files,
-    &kp LA(LG(SPACE)),  // tap:   finder
-    &kp LS(LG(DOT))     // shift: show/hide system files
+    &kp LA(LC(SPACE)),  // tap:   finder                  (Opt+Cmd+Space)
+    &kp LS(LC(DOT))     // shift: show/hide system files  (Shift+Cmd+.)
 )
-
-// mp_mSTG_screenshot
-MORPH_KAS(
-    m,
-    STG,
-    screenshot,
-    screenshot,
-    MOD_LALT,
-    &kp RS(RG(N5)),  // tap:   screenshot and recording options
-    &kp RS(RG(N4)),  // alt:   screenshot of selected area
-    &kp RS(RG(N3))   // shift: screenshot of screen
-)
-// ctrl: adding ctrl key copy to clipboard instead of saving a file
 
 // mp_mSTG_topleft
 MORPH_KA(
@@ -37,8 +27,8 @@ MORPH_KA(
     topleft,
     topleft,
     MOD_LALT,
-    &kp LS(LG(E)),              // tap:   ide: explorer
-    &kp LS(LA(LG(LC(LEFT))))    // alt:   rectangle top left
+    &kp LS(LC(E)),               // tap: ide explorer        (Shift+Cmd+E)
+    &kp LS(LA(LC(LG(LEFT))))     // alt: rectangle top left
 )
 
 // mp_mSTG_up
@@ -48,8 +38,8 @@ MORPH_KA(
     up,
     up,
     MOD_LALT,
-    &kp LS(LC(G)),              // tap:   ide: source control
-    &kp LS(LA(LG(UP)))          // alt:   rectangle top half
+    &kp LS(LG(G)),               // tap: ide source control  (Shift+Ctrl+G)
+    &kp LS(LA(LC(UP)))           // alt: rectangle top half
 )
 
 // mp_mSTG_topright
@@ -59,8 +49,8 @@ MORPH_KA(
     topright,
     topright,
     MOD_LALT,
-    &kp LS(LG(D)),              // tap:   ide: debugger
-    &kp LS(LA(LG(LC(RIGHT))))   // alt:   rectangle top right
+    &kp LS(LC(D)),               // tap: ide debugger        (Shift+Cmd+D)
+    &kp LS(LA(LC(LG(RIGHT))))    // alt: rectangle top right
 )
 
 // mp_mSTG_left
@@ -70,8 +60,8 @@ MORPH_KA(
     left,
     left,
     MOD_LALT,
-    &kp LG(B),                  // tap:   ide: toggle primary side bar 
-    &kp LA(LG(LS(LEFT)))        // alt:   rectangle left
+    &kp LC(B),                   // tap: ide primary side bar  (Cmd+B)
+    &kp LA(LC(LS(LEFT)))         // alt: rectangle left
 )
 
 // mp_mSTG_rectangle
@@ -81,9 +71,9 @@ MORPH_KAS(
     rectangle,
     rectangle,
     MOD_LALT,
-    &kp LA(LC(F)),              // tap:   maximize
-    &kp LA(LC(BACKSPACE)),      // alt:   restore
-    &kp LS(LA(LC(F)))           // shift: center
+    &kp LA(LG(F)),               // tap:   maximize   (Opt+Ctrl+F)
+    &kp LA(LG(BACKSPACE)),       // alt:   restore
+    &kp LS(LA(LG(F)))            // shift: center
 )
 
 // mp_mSTG_right
@@ -93,8 +83,8 @@ MORPH_KA(
     right,
     right,
     MOD_LALT,
-    &kp LA(LG(B)),              // tap:   ide: toggle secondary side bar 
-    &kp LA(LG(LS(RIGHT)))       // alt:   rectangle right
+    &kp LA(LC(B)),               // tap: ide secondary side bar  (Opt+Cmd+B)
+    &kp LA(LC(LS(RIGHT)))        // alt: rectangle right
 )
 
 // mp_mSTG_downleft
@@ -104,8 +94,8 @@ MORPH_KA(
     downleft,
     downleft,
     MOD_LALT,
-    &none,                      // tap:   none
-    &kp LA(LG(LC(LEFT)))        // alt:   rectangle down left
+    &none,                       // tap: none
+    &kp LA(LC(LG(LEFT)))         // alt: rectangle bottom left
 )
 
 // mp_mSTG_down
@@ -115,8 +105,8 @@ MORPH_KA(
     down,
     down,
     MOD_LALT,
-    &kp LG(J),                 // tap:   ide: toggle panel bottom bar 
-    &kp LS(LA(LG(DOWN)))       // alt:   rectangle right
+    &kp LC(J),                   // tap: ide bottom panel  (Cmd+J)
+    &kp LS(LA(LC(DOWN)))         // alt: rectangle bottom half
 )
 
 // mp_mSTG_downright
@@ -126,8 +116,8 @@ MORPH_KA(
     downright,
     downright,
     MOD_LALT,
-    &none,                      // tap:   none
-    &kp LA(LG(LC(RIGHT)))       // alt:   rectangle down right
+    &none,                       // tap: none
+    &kp LA(LC(LG(RIGHT)))        // alt: rectangle bottom right
 )
 
 // mp_mSTG_m
@@ -136,6 +126,6 @@ MORPH_KS(
     STG,
     m,
     mute,
-    &kp C_MUTE,                 // tap:   volume mute
-    &kp LS(LA(LC(LG(M))))       // shift: mic mute
+    &kp C_MUTE,                  // tap:   volume mute
+    &kp LS(LA(LG(LC(M))))        // shift: mic mute (all four mods, so the swap is a no-op)
 )

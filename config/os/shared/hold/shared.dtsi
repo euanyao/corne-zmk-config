@@ -1,15 +1,6 @@
-// Home-row mods, one behaviour per hand. A hold only registers when the
-// next key is on the OTHER hand (or a thumb), so same-hand rolls type
-// letters instead of firing modifiers. hold-trigger-on-release defers that
-// check so two mods on the same hand can still be chorded together.
-//
-// &hml on the left home row (A S D F), &hmr on the right (J K L ;).
-// Using the wrong one silently disables the positional guard, so keep them
-// matched to the hand.
-
 // Plain hold-tap with no positional guard, for hold-taps that are NOT
-// home-row mods (e.g. the virtual-desktop key on the outer column). Don't
-// use this on the home row -- that's what the misfires came from.
+// home-row mods. Don't use this on the home row -- that's what the
+// misfires came from.
 hm: hold_tap_plain {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
@@ -18,6 +9,15 @@ hm: hold_tap_plain {
     flavor = HR_FLAVOR;
     bindings = <&kp>, <&kp>;
 };
+
+// Home-row mods, one behaviour per hand. A hold only registers when the
+// next key is on the OTHER hand (or a thumb), so same-hand rolls type
+// letters instead of firing modifiers. hold-trigger-on-release defers that
+// check so two mods on the same hand can still be chorded together.
+//
+// &hml on the left home row (A S D F), &hmr on the right (J K L ;).
+// Using the wrong one silently disables the positional guard, so keep them
+// matched to the hand.
 
 hml: homerow_mods_left {
     compatible = "zmk,behavior-hold-tap";
@@ -43,18 +43,32 @@ hmr: homerow_mods_right {
     bindings = <&kp>, <&kp>;
 };
 
-tokp: to_kp {
+// ESC on tap, hard reset to base on hold. The reset is the escape hatch if
+// layers ever end up stacked; the MAC variant relights the OS flag that
+// &to would otherwise clear.
+to_BAS_kp: to_BAS_kp {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&to>, <&kp>;
+    bindings = <&to_BAS>, <&kp>;
 };
 
-moto: mo_to {
+to_BAS_mac_kp: to_BAS_mac_kp {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&mo>, <&to>;
+    bindings = <&to_BAS_mac>, <&kp>;
+};
+
+// The one latchable layer: hold for momentary, tap to latch on. Unlatching
+// is a separate binding on AXN itself so the host signal knows which way
+// the toggle went.
+ht_AXN: hold_tap_AXN {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HP_TAPPING>;
+    flavor = "hold-preferred";
+    bindings = <&mo_AXN>, <&tog_AXN_on>;
 };

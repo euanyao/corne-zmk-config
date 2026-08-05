@@ -1,44 +1,34 @@
-m_s_b1: macro_stg_bluetooth_1 {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings =
-        <&bt BT_SEL 0 &to_mBAS>;
-};
+/* Bluetooth profile == OS mode.
+ *
+ * Selecting a profile also sets the OS: profiles 0-1 are the macOS work
+ * laptop, 2-5 the Windows machines. Split 2/4 to match the actual device
+ * count.
+ *
+ * &to BAS before &tog MAC is what makes these idempotent -- re-pressing
+ * the same profile key must not flip the flag back off. &to clears every
+ * layer including MAC, so the &tog that follows always turns it ON.
+ */
 
-m_s_b2: macro_stg_bluetooth_2 {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings =
-        <&bt BT_SEL 1 &to_mBAS>;
-};
+#define BT_MAC(N, PROFILE)                          \
+  m_s_b##N: macro_stg_bluetooth_##N {               \
+      compatible = "zmk,behavior-macro";            \
+      #binding-cells = <0>;                         \
+      bindings = <&bt BT_SEL PROFILE &to_BAS_mac>;  \
+  };
 
-m_s_b3: macro_stg_bluetooth_3 {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings =
-        <&bt BT_SEL 2 &to_mBAS>;
-};
+#define BT_WIN(N, PROFILE)                          \
+  m_s_b##N: macro_stg_bluetooth_##N {               \
+      compatible = "zmk,behavior-macro";            \
+      #binding-cells = <0>;                         \
+      bindings = <&bt BT_SEL PROFILE &to_BAS>;      \
+  };
 
-m_s_b4: macro_stg_bluetooth_4 {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings =
-        <&bt BT_SEL 3 &to_wBAS>;
-};
-
-m_s_b5: macro_stg_bluetooth_5 {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings =
-        <&bt BT_SEL 4 &to_wBAS>;
-};
-
-m_s_b6: macro_stg_bluetooth_6 {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings =
-        <&bt BT_SEL 5 &to_wBAS>;
-};
+BT_MAC(1, 0)   // macOS work laptop
+BT_MAC(2, 1)   // macOS spare
+BT_WIN(3, 2)   // Windows
+BT_WIN(4, 3)   // Windows
+BT_WIN(5, 4)   // Windows spare
+BT_WIN(6, 5)   // Windows spare
 
 // mp_sSTG_cb
 MORPH_KAS(

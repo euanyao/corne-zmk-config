@@ -8,6 +8,7 @@
 #   - unresolved #include
 #   - a layer whose binding count isn't 42
 #   - a &behavior that is referenced but never defined
+#   - keymap node order not matching the indices in layers.dtsi
 #
 # It does NOT validate devicetree semantics -- only GitHub Actions does
 # that. Treat a pass as "worth flashing", not "correct".
@@ -58,6 +59,26 @@ if missing:
     print(f"FAIL  referenced but never defined: {', '.join(missing)}"); fail = 1
 else:
     print(f"ok    all {len(used)} referenced behaviors resolve")
+
+# 3. keymap node order must match the indices in layers.dtsi. ZMK assigns
+#    layer numbers by node order, so a reordered node silently changes
+#    which layer wins at a position -- and MAC has to stay above the
+#    typing layers for its overrides to apply at all.
+import pathlib
+decl = pathlib.Path("config/os/shared/layers.dtsi").read_text()
+want = [
+    m.group(1)
+    for m in sorted(
+        re.finditer(r"^#define\s+(\w+)\s+(\d+)", decl, re.M),
+        key=lambda m: int(m.group(2)),
+    )
+]
+got = [n for n, _ in layers]
+if want != got:
+    print(f"FAIL  layer order\n        layers.dtsi: {want}\n        keymap:      {got}")
+    fail = 1
+else:
+    print(f"ok    layer order matches layers.dtsi: {' '.join(got)}")
 
 sys.exit(fail)
 PY

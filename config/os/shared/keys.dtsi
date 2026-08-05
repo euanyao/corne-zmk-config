@@ -9,18 +9,38 @@
 
 */
 
-/*                KEY NAME
-
-  ╭──────────────────────────────╮ ╭──────────────────────────────╮
-  │ LU0  LU1  LU2  LU3  LU4  LU5 │ │ RU0  RU1  RU2  RU3  RU4  RU5 │
-  │ LM0  LM1  LM2  LM3  LM4  LM5 │ │ RM0  RM1  RM2  RM3  RM4  RM5 │
-  │ LD0  LD1  LD2  LD3  LD4  LD5 │ │ RD0  RD1  RD2  RD3  RD4  RD5 │
-  ╰─────────────╮  LT2  LT1  LT0 │ │ RT0  RT1  RT2  ╭─────────────╯
-                ╰────────────────╯ ╰────────────────╯
-
-*/
-
-/* Shared Keys */
+/* Outer columns and thumbs, shared by every typing layer.
+ *
+ * These are Windows-canonical: the primary shortcut modifier is Control.
+ * On macOS the Corne has Command and Control swapped per-keyboard in
+ * System Settings, so the same keycode lands as Command there. The one
+ * thing that swap cannot fix is word-delete -- Cmd+Bspc is
+ * delete-to-line-start, not delete-word -- so BSPC and DEL are overridden
+ * on the MAC layer.
+ */
 #define KEY_SPC   &kp  SPACE
-#define NAV_BSPC  &mt  LC(BSPC)  BSPC   // tap: bspc | long-tap: delete word backward
-#define NAV_DEL   &mt  LC(DEL)   DEL    // tap: del  | long-tap: delete word forward
+#define KEY_ESC   &to_BAS_kp  0        ESC   // tap: esc    | hold: hard reset to base
+#define KEY_RET   &mt         F2       RET   // tap: return | hold: rename
+#define KEY_TAB   &mt         RIGHT    TAB   // tap: tab    | hold: right (shell completion)
+#define NAV_BSPC  &mt         LC(BSPC) BSPC  // tap: bspc   | hold: delete word back
+#define NAV_DEL   &mt         LC(DEL)  DEL   // tap: del    | hold: delete word forward
+
+/* Home row. One behaviour per hand so the positional guard applies -- see
+ * os/shared/hold/shared.dtsi. Using the wrong hand's behaviour silently
+ * disables the guard. */
+#define HR_A      &hml  LGUI   A
+#define HR_S      &hml  LCTRL  S
+#define HR_D      &hml  LALT   D
+#define HR_F      &hml  LSHFT  F
+#define HR_J      &hmr  RSHFT  J
+#define HR_K      &hmr  LALT   K
+#define HR_L      &hmr  RCTRL  L
+#define HR_SEMI   &hmr  RGUI   SEMI
+
+/* Thumbs. Every layer above BAS leaves these &trans unless it needs
+ * something specific, so space and the layer keys keep working
+ * everywhere. Momentary layers need no return key. */
+#define THU_DEV   &mo_DEV
+#define THU_AXN   &ht_AXN  0  0          // hold: momentary | tap: latch on
+#define THU_FNK   &mo_FNK
+#define THU_STG   &mo_STG

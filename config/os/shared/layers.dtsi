@@ -1,0 +1,31 @@
+/* Layer indices.
+ *
+ * Order is load bearing. MAC must sit ABOVE the typing layers so its three
+ * overrides win while any of them is active; the two conditional overlays
+ * must sit above MAC. Reordering these will silently change which binding
+ * wins at a position.
+ *
+ * BAS is layer 0 and is therefore always active -- everything above it
+ * falls through to it via &trans.
+ */
+#define BAS      0
+#define DEV      1
+#define AXN      2
+#define FNK      3
+#define STG      4
+#define MAC      5   /* OS flag. Lit = macOS. Nearly all &trans. */
+#define MAC_AXN  6   /* conditional: MAC + AXN */
+#define MAC_STG  7   /* conditional: MAC + STG */
+
+/* Host signal keys.
+ *
+ * Tapped alongside layer changes so host-side helpers (host/windows/ahk)
+ * can show which layer is live. These were already identical between the
+ * old mac and windows sets, so merging the layers didn't change them.
+ */
+#define H_CWR   F13
+#define F_BAS   LS(F14)
+#define F_DEV   LS(F15)
+#define F_AXN   LS(F16)
+#define F_FNK   LS(F17)
+#define F_STG   LS(F18)

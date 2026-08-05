@@ -5,15 +5,12 @@
 *
 */
 
-#define MOTO_HOLD(OS, MO, CB, TO)                                             \
-  mo_##OS##MO##OS##CB##_to_##OS##TO: hold_mo_##OS##MO##OS##CB##_to_##OS##TO { \
-      compatible = "zmk,behavior-hold-tap";                                   \
-      #binding-cells = <2>;                                                   \
-      tapping-term-ms = <HP_TAPPING>;                                         \
-      flavor = "hold-preferred";                                              \
-      bindings = <&mo_##OS##MO##_to_##OS##CB>, <&to_##OS##TO>;                \
-  };
-
+/* Hold for a modifier, tap for a behaviour rather than a keycode.
+ * Used on MAC_STG's right home row -- see os/macos/hold/settings.dtsi.
+ *
+ * No positional guard here: it's a settings layer, not touch-typed. For
+ * the real home row use &hml / &hmr from os/shared/hold/shared.dtsi.
+ */
 #define HR_HOLD(OS, LYR, MOD, MP)                   \
   hm_##OS##LYR##_##MOD: hold_hm_##OS##LYR##_##MOD { \
       compatible = "zmk,behavior-hold-tap";         \

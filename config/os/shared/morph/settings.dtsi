@@ -1,0 +1,19 @@
+/* Screenshot, shared by both OSes.
+ *
+ * Windows-canonical, so on the Mac these arrive as Shift+Cmd+5/4/3.
+ *
+ * Pre-existing gap, carried over unchanged: these are macOS shortcuts and
+ * do nothing useful on Windows, which wants Win+Shift+S. The old config
+ * had the same problem -- wSTG referenced the mac morph directly -- so
+ * this is not a regression, but it is worth fixing at some point.
+ */
+MORPH_KAS(
+    s,
+    STG,
+    screenshot,
+    screenshot,
+    MOD_LALT,
+    &kp RS(RC(N5)),  // tap:   screenshot and recording options
+    &kp RS(RC(N4)),  // alt:   screenshot of selected area
+    &kp RS(RC(N3))   // shift: screenshot of whole screen
+)

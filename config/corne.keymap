@@ -15,55 +15,43 @@
 /* Global */
 #include "os/shared/times.dtsi"
 #include "os/shared/general.dtsi"
-#include "os/macos/layers.dtsi"
-#include "os/windows/layers.dtsi"
+#include "os/shared/layers.dtsi"
 
-/* Keys */
-#include "os/shared/keys.dtsi"
-#include "os/macos/keys.dtsi"
-#include "os/windows/keys.dtsi"
-
-/* Helpers */
+/* Helpers -- must precede anything that instantiates them */
 #include "helpers/macros.dtsi"
 #include "helpers/hold.dtsi"
 #include "helpers/morph.dtsi"
 
+/* Keys */
+#include "os/shared/keys.dtsi"
+
 / {
     macros {
         #include "os/shared/macros/layers.dtsi"
-        #include "os/shared/macros/settings.dtsi"
-
-        #include "os/macos/macros/layers.dtsi"
-        #include "os/macos/macros/dev.dtsi"
-
-        #include "os/windows/macros/layers.dtsi"
-        #include "os/windows/macros/dev.dtsi"
+        #include "os/shared/macros/dev.dtsi"
     };
 };
 
 / {
     behaviors {
+        #include "os/shared/hold/shared.dtsi"
         #include "os/shared/morph/shared.dtsi"
         #include "os/shared/morph/rgb.dtsi"
         #include "os/shared/morph/boot.dtsi"
-        #include "os/shared/hold/shared.dtsi"
+        #include "os/shared/morph/dev.dtsi"
+        #include "os/shared/morph/actions.dtsi"
+        #include "os/shared/morph/settings.dtsi"
 
-        #include "os/macos/morph/layers.dtsi"
-        #include "os/macos/morph/actions.dtsi"
-        #include "os/macos/morph/dev.dtsi"
         #include "os/macos/morph/settings.dtsi"
-        #include "os/macos/hold/layers.dtsi"
-        #include "os/macos/hold/base.dtsi"
-        #include "os/macos/hold/dev.dtsi"
         #include "os/macos/hold/settings.dtsi"
+    };
+};
 
-        #include "os/windows/morph/layers.dtsi"
-        #include "os/windows/morph/actions.dtsi"
-        #include "os/windows/morph/dev.dtsi"
-        #include "os/windows/morph/settings.dtsi"
-        #include "os/windows/hold/layers.dtsi"
-        #include "os/windows/hold/base.dtsi"
-        #include "os/windows/hold/dev.dtsi"
+/* Bluetooth macros sit after the behaviors block because they reference
+ * mod-morphs (mp_sSTG_cb) and the to_BAS / to_BAS_mac macros. */
+/ {
+    macros {
+        #include "os/shared/macros/settings.dtsi"
     };
 };
 
@@ -79,25 +67,40 @@
     chain-length = <27>;
 };
 
+/* The macOS overlays come up automatically whenever the MAC flag is lit
+ * and the layer underneath is active. This is what keeps the OS-specific
+ * bits out of the shared layers. */
 / {
-    combos {
-        compatible = "zmk,combos";
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
 
-        #include "os/macos/combos/base.dtsi"
-        #include "os/macos/combos/help.dtsi"
-        #include "os/macos/combos/settings.dtsi"
+        mac_axn {
+            if-layers = <MAC AXN>;
+            then-layer = <MAC_AXN>;
+        };
 
-        #include "os/windows/combos/base.dtsi"
-        #include "os/windows/combos/help.dtsi"
-        #include "os/windows/combos/settings.dtsi"
+        mac_stg {
+            if-layers = <MAC STG>;
+            then-layer = <MAC_STG>;
+        };
     };
 };
 
 / {
+    combos {
+        compatible = "zmk,combos";
+
+        #include "os/shared/combos.dtsi"
+    };
+};
+
+/* Layer order must match os/shared/layers.dtsi:
+ * BAS DEV AXN FNK STG MAC MAC_AXN MAC_STG */
+/ {
     keymap {
         compatible = "zmk,keymap";
 
+        #include "os/shared/keymap.dtsi"
         #include "os/macos/keymap.dtsi"
-        #include "os/windows/keymap.dtsi"
     };
 };
