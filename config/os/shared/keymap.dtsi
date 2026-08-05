@@ -35,14 +35,22 @@
 
         act_num_layer {
             /* Left hand navigation and clipboard, right hand numpad.
-             * The IDE/selection keys that differ on macOS are overridden
-             * on MAC_AXN. */
+             * Fully shared -- there is no macOS overlay for this layer.
+             *
+             * Redo is Shift+Ctrl+Z rather than Ctrl+Y so it works on both:
+             * Windows accepts either, and it lands as Shift+Cmd+Z on the
+             * Mac. Ctrl+Y would have become Cmd+Y there.
+             *
+             * Two keys are Windows-shaped and do something different on
+             * the Mac, kept because they went unused: position 17 (replace,
+             * Ctrl+H) arrives as Cmd+H, which hides the window; position 35
+             * (new virtual desktop) arrives as Ctrl+Cmd+D. */
             display-name = "AXN";
             bindings = <
     KEY_ESC  &kp LA(LS(RIGHT))  &mp_a_prev  &kp UP  &mp_a_next  &kp LC(F)         &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  NAV_BSPC
     NAV_DEL  &hml LGUI LA(LS(LEFT))  &hml LCTRL LEFT  &hml LALT DOWN  &hml LSHFT RIGHT  &kp LC(H)
                                                                        &kp N0  &hmr LSHFT N4  &hmr LALT N5  &hmr RCTRL N6  &hmr RGUI EQUAL  KEY_RET
-    KEY_TAB  &kp RC(Z)  &kp RC(X)  &kp RC(C)  &mp_a_paste  &kp RC(Y)             &kp MINUS  &kp N1  &kp N2  &kp N3  &kp KP_DIVIDE  &kp LG(LC(D))
+    KEY_TAB  &kp RC(Z)  &kp RC(X)  &kp RC(C)  &mp_a_paste  &kp RS(RC(Z))             &kp MINUS  &kp N1  &kp N2  &kp N3  &kp KP_DIVIDE  &kp LG(LC(D))
                             &trans   &trans   &tog_AXN_off        &trans   &trans   &trans
             >;
         };

@@ -14,8 +14,7 @@
 #define FNK      3
 #define STG      4
 #define MAC      5   /* OS flag. Lit = macOS. Nearly all &trans. */
-#define MAC_AXN  6   /* conditional: MAC + AXN */
-#define MAC_STG  7   /* conditional: MAC + STG */
+#define MAC_STG  6   /* conditional: MAC + STG */
 
 /* Host signal keys.
  *

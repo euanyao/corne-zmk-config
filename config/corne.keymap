@@ -67,17 +67,13 @@
     chain-length = <27>;
 };
 
-/* The macOS overlays come up automatically whenever the MAC flag is lit
- * and the layer underneath is active. This is what keeps the OS-specific
+/* The macOS settings overlay comes up automatically whenever the MAC flag
+ * is lit and STG is active. This is what keeps the OS-specific
  * bits out of the shared layers. */
 / {
     conditional_layers {
         compatible = "zmk,conditional-layers";
 
-        mac_axn {
-            if-layers = <MAC AXN>;
-            then-layer = <MAC_AXN>;
-        };
 
         mac_stg {
             if-layers = <MAC STG>;
@@ -95,7 +91,7 @@
 };
 
 /* Layer order must match os/shared/layers.dtsi:
- * BAS DEV AXN FNK STG MAC MAC_AXN MAC_STG */
+ * BAS DEV AXN FNK STG MAC MAC_STG */
 / {
     keymap {
         compatible = "zmk,keymap";
