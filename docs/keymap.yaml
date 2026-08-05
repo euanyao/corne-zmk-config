@@ -205,10 +205,10 @@ layers:
     - Ctl+DOWN
     - {t: RGB BRD, s: RGB SAD}
   - - BRI DN
-    - SPACE
+    - {t: SPACE, s: '&bootloader'}
     - '&to_mBAS'
     - '&to_mAXN'
-    - {t: RET, h: F2}
+    - {t: RET, s: '&bootloader'}
     - BRI UP
   wBAS:
   - - {t: ESC, h: '&to_wBAS'}
@@ -415,10 +415,10 @@ layers:
     - Ctl+Alt+DEL
     - {t: RGB BRD, s: RGB SAD}
   - - BRI DN
-    - SPACE
+    - {t: SPACE, s: '&bootloader'}
     - '&to_wBAS'
     - '&to_wAXN'
-    - {t: RET, h: F2}
+    - {t: RET, s: '&bootloader'}
     - BRI UP
 combos:
 - p: [16, 19]

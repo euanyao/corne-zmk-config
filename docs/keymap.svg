@@ -1147,6 +1147,7 @@ path.combo {
 <g transform="translate(270, 196)" class="key keypos-37">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">SPACE</text>
+<text x="0" y="-24" class="key shifted"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
 </g>
 <g transform="translate(330, 196)" class="key keypos-38">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
@@ -1159,7 +1160,7 @@ path.combo {
 <g transform="translate(480, 196)" class="key keypos-40">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">RET</text>
-<text x="0" y="24" class="key hold">F2</text>
+<text x="0" y="-24" class="key shifted"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
 </g>
 <g transform="translate(540, 196)" class="key keypos-41">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
@@ -2182,6 +2183,7 @@ path.combo {
 <g transform="translate(270, 196)" class="key keypos-37">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">SPACE</text>
+<text x="0" y="-24" class="key shifted"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
 </g>
 <g transform="translate(330, 196)" class="key keypos-38">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
@@ -2194,7 +2196,7 @@ path.combo {
 <g transform="translate(480, 196)" class="key keypos-40">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">RET</text>
-<text x="0" y="24" class="key hold">F2</text>
+<text x="0" y="-24" class="key shifted"><tspan style="font-size: 64%">&amp;bootloader</tspan></text>
 </g>
 <g transform="translate(540, 196)" class="key keypos-41">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
