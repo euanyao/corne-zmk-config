@@ -30,6 +30,7 @@ learnability are worth more here than continuity.
 | Central | **left** (carries the studio snippet + USB UART) |
 | Peripheral | **right** |
 | Builds | GitHub Actions only — **no local ZMK toolchain, no `west`** |
+| Layers | 8 of ZMK's 32 |
 | ZMK Studio | enabled (`-DCONFIG_ZMK_STUDIO=y`) |
 | LEDs | 27 per half (21 per-key + 6 underglow) |
 
@@ -74,27 +75,39 @@ count are independent: fewer physical keys pushes toward *more* layers.
 
 ---
 
-## 3. Current architecture (as-is)
+## 3. Current architecture
 
-10 layers — 5 per OS, mirrored:
+**The merge is done** (branch `keymap-redesign`). 8 layers, one shared set:
 
-| macOS | Windows | purpose |
+| # | layer | |
 |---|---|---|
-| mBAS (0) | wBAS (5) | QWERTY base + home-row mods |
-| mDEV (1) | wDEV (6) | dev symbols |
-| mAXN (2) | wAXN (7) | nav (left) + numpad (right) |
-| mFNK (3) | wFNK (8) | F-keys + HOME/END/PgUp/PgDn |
-| mSTG (4) | wSTG (9) | settings, BT, RGB, OS tooling |
+| 0 | BAS | shared; always active, everything falls through to it |
+| 1 | DEV | shared |
+| 2 | AXN | shared; the only latchable layer |
+| 3 | FNK | shared; empty slots are `&trans` so it composes over AXN |
+| 4 | STG | shared left half; right half replaced by MAC_STG |
+| 5 | MAC | OS flag, almost all `&trans`. 3 keys: ESC-hold, BSPC, DEL |
+| 6 | MAC_AXN | conditional `<MAC AXN>` — 5 keys |
+| 7 | MAC_STG | conditional `<MAC STG>` — macOS window mgmt + IDE |
 
-Source layout: `config/os/{macos,windows,shared}/**`, assembled by
-`config/corne.keymap`. Heavy `#define` indirection; helper macros in
-`config/helpers/` generate hold-taps, mod-morphs and layer macros.
+**Node order in `corne.keymap` determines layer index.** MAC must stay
+above the typing layers or its overrides stop applying. `check-keymap.sh`
+asserts this against `os/shared/layers.dtsi`.
 
-Host-side companions in `host/windows/ahk/` (layer/caps indicators) and
-`host/android/automate/`. They watch F13–F18 signal keys emitted alongside
-layer switches. **`F_mBAS` and `F_wBAS` are both `LS(F14)`** — the host
-signals are already OS-agnostic, so merging layers does not break them.
-**[verified]**
+Keycodes are **Windows-canonical everywhere**, including in the macOS-only
+files. The Mac has Cmd/Ctrl swapped per-keyboard, so when writing a macOS
+binding: **want Command → write `LC`; want Control → write `LG`.**
+
+Layer switching does **not** use `&to` (it would clear the MAC flag — see
+§5). Layers are momentary; only AXN latches, via `&tog`. Momentary layers
+need no return key.
+
+Source: `config/os/shared/**` is everything shared; `config/os/macos/**`
+is only the three overlays plus mac-specific morphs. There is no
+`config/os/windows/` any more — Windows *is* the shared canonical.
+
+Host companions in `host/windows/ahk/` watch F13–F18 signals, unchanged by
+the merge (`F_mBAS` and `F_wBAS` were already the same keycode).
 
 ---
 
