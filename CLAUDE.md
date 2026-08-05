@@ -360,9 +360,28 @@ else. It's the recovery path for everything after it.
 - **Deep sleep and the OS flag.** `CONFIG_ZMK_SLEEP=y` with a 10-minute
   timeout. ZMK deep sleep is System OFF, so waking is effectively a reboot;
   the BT profile survives in settings but layer state does not. **[unverified
-  — mechanism is confident, behaviour untested.]** The OS toggle (§3.2)
-  makes recovery one keypress. Test: idle past 10 minutes, wake, check
-  whether the STG right half still shows macOS keys.
+  — mechanism is confident, behaviour untested.]**
+
+  **Test this before fixing it.** In Windows mode, idle past 10 minutes,
+  wake, read the OLED: `WIN` means the flag survived and this whole item is
+  moot. `BAS` means it was lost.
+
+  Note BLE auto-reconnect does **not** restore it. Reconnection is a radio
+  event; the profile macros only run the `&tog WIN` half on a key press, and
+  ZMK has no on-connect hook in the keymap.
+
+  If confirmed lost, in increasing cost:
+  1. **OS toggle at STG 31** — already built, one tap, zero risk.
+  2. **Raise `CONFIG_ZMK_IDLE_SLEEP_TIMEOUT`** — one line, zero risk, costs
+     battery. The conf notes deep sleep is the biggest power win.
+  3. **A ZMK module with a boot/connect listener** — ~20 lines of C calling
+     `zmk_keymap_layer_activate()` off the persisted profile index. Only
+     worth it if 1 and 2 are both unacceptable *and* you can build locally.
+     Caveats: C can't live in a zmk-config repo without a module and the
+     in-repo mechanism is uncertain; `zmk_ble_active_profile_changed`
+     probably won't fire on wake-from-reset since the profile didn't
+     change, so it wants boot-time init and therefore Zephyr init-order
+     care; and CI would be the only feedback loop.
 - **GAME layer** (req 5), deferred. Layer 7 free. Should be flat, **no
   home-row mods**, real Shift/Ctrl, no layer-taps on thumbs, self-contained.
 - **Windows screenshot.** `mp_sSTG_screenshot` is macOS-shaped
