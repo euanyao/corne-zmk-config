@@ -150,11 +150,11 @@
             #define MSRD5  &mp_sSTG_rgb_d               // tap: brightness down | shift: saturation down
 
             #define MSLT2  &kp C_BRI_DN
-            #define MSLT1  KEY_SPC
+            #define MSLT1  &mp_boot_l                   // tap: space  | shift: DFU (left half)
             #define MSLT0  &to_mBAS
 
             #define MSRT0  &to_mAXN
-            #define MSRT1  MKY_RET
+            #define MSRT1  &mp_boot_r                   // tap: return | shift: DFU (right half)
             #define MSRT2  &kp C_BRI_UP
 
 

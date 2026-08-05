@@ -1,0 +1,24 @@
+// Bootloader access. The case covers the physical reset button, so the
+// keymap is the only way into DFU -- losing this means losing the ability
+// to flash.
+//
+// Split note: ZMK reset behaviors act on the half the key physically sits
+// on, so BOTH halves need their own binding. Left is central (it carries
+// the studio snippet in build.yaml), right is peripheral.
+//
+// Parked behind shift on a settings-layer thumb: reaching it needs the STG
+// layer held AND a shift, which no normal keypress does by accident.
+
+mp_boot_l: morph_bootloader_left {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+    bindings = <&kp SPACE>, <&bootloader>;  // tap: space | shift: DFU (left half)
+};
+
+mp_boot_r: morph_bootloader_right {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+    bindings = <&kp RET>, <&bootloader>;    // tap: enter | shift: DFU (right half)
+};
