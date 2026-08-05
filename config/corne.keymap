@@ -19,7 +19,6 @@
 
 /* Helpers -- must precede anything that instantiates them */
 #include "helpers/macros.dtsi"
-#include "helpers/hold.dtsi"
 #include "helpers/morph.dtsi"
 
 /* Keys */
@@ -43,7 +42,6 @@
         #include "os/shared/morph/settings.dtsi"
 
         #include "os/macos/morph/settings.dtsi"
-        #include "os/macos/hold/settings.dtsi"
     };
 };
 

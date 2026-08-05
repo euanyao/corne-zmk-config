@@ -39,26 +39,40 @@
             >;
         };
 
-
         mac_settings_layer {
-            /* The one place the two OSes genuinely diverge. Left half is
-             * shared (bluetooth, RGB, zoom, bootloader) and stays &trans;
-             * the right half is macOS window management and IDE controls,
-             * replacing the Windows tooling underneath. */
-            #define MAC_IDE_EXT   &kp LS(LC(X))       // ide: extensions
-            #define MAC_IDE_TODO  &kp LG(LS(LC(T)))   // ide: todo
-            #define MAC_MISSION   &kp LG(UP)          // mission control
-            #define MAC_APPWIN    &kp LG(DOWN)        // application windows
-            #define MAC_INPUT     &kp LG(LA(SPACE))   // input source
-            #define MAC_FILES     &mp_mSTG_f          // finder | shift: show system files
-            #define MAC_ZOOM_IN   &kp RC(PLUS)
-            #define MAC_ZOOM_OUT  &kp RC(MINUS)
+            /* Four keys, each the macOS spelling of something the shared
+             * layer already does the Windows way at the same position:
+             *
+             *   12  input source      (shared: Win+Space)
+             *   22  mission control   (shared: system info)
+             *   28  finder            (shared: file explorer)
+             *   34  application windows (shared: windows security)
+             *
+             * Everything else is &trans and comes from the shared layer.
+             *
+             * Volume, mute and the media keys deliberately do NOT appear
+             * here: they are OS-independent HID consumer codes, so they
+             * live once on the shared layer and sit at the same positions
+             * on both machines. They used to be duplicated here at
+             * different positions, and overriding 19-21 meant macOS had no
+             * media keys at all.
+             *
+             * The Rectangle window-management and VS Code panel keys that
+             * used to occupy nine slots here were removed as unused. They
+             * depended on Rectangle being installed and on specific VS Code
+             * keybindings, and two of the nine did nothing on tap. Recover
+             * from git history if they're ever wanted.
+             */
+            #define MAC_INPUT    &kp LG(LA(SPACE))   // input source        (Ctrl+Opt+Space)
+            #define MAC_MISSION  &kp LG(UP)          // mission control     (Ctrl+Up)
+            #define MAC_APPWIN   &kp LG(DOWN)        // application windows (Ctrl+Down)
+            #define MAC_FILES    &mp_mSTG_f          // finder | shift: show system files
 
             display-name = "MAC_STG";
             bindings = <
-       &trans  &trans  &trans  &trans  &trans      MAC_ZOOM_IN        &kp C_VOL_UP  &mp_mSTG_topleft   &mp_mSTG_up    &mp_mSTG_topright  MAC_IDE_EXT   MAC_IDE_TODO
-    MAC_INPUT  &trans  &trans  &trans  &trans           &trans          &mp_mSTG_m  &hm_mSTG_RS LSHIFT 0  &hm_mSTG_RA LALT 0  &mp_mSTG_right  MAC_MISSION  &trans
-       &trans  &trans  &trans  &trans  MAC_FILES  MAC_ZOOM_OUT        &kp C_VOL_DN  &mp_mSTG_downleft  &mp_mSTG_down  &mp_mSTG_downright  MAC_APPWIN   &trans
+       &trans  &trans  &trans  &trans      &trans  &trans        &trans  &trans  &trans  &trans       &trans  &trans
+    MAC_INPUT  &trans  &trans  &trans      &trans  &trans        &trans  &trans  &trans  &trans  MAC_MISSION  &trans
+       &trans  &trans  &trans  &trans  MAC_FILES  &trans        &trans  &trans  &trans  &trans   MAC_APPWIN  &trans
                                &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

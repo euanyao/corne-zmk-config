@@ -264,23 +264,23 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - Ctl++
-    - VOL UP
-    - {t: Sft+Ctl+E, s: Hyper+LEFT}
-    - {t: Sft+Gui+G, s: Meh+UP}
-    - {t: Sft+Ctl+D, s: Hyper+RIGHT}
-    - Sft+Ctl+X
-    - Gui+Sft+Ctl+T
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   - - Gui+Alt+SPACE
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: MUTE, s: Hyper+M}
-    - {t: Ctl+B, h: LSHIFT, s: Meh+LEFT}
-    - {t: Alt+Gui+F, h: LALT, s: Alt+Gui+BACKSPACE}
-    - {t: Alt+Ctl+B, s: Meh+RIGHT}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - Gui+UP
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
@@ -288,11 +288,11 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: Alt+Ctl+SPACE, s: Sft+Ctl+.}
-    - Ctl+-
-    - VOL DN
-    - {s: Alt+Ctl+Gui+LEFT}
-    - {t: Ctl+J, s: Meh+DOWN}
-    - {s: Alt+Ctl+Gui+RIGHT}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - Gui+DOWN
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
