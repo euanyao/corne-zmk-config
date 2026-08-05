@@ -321,10 +321,9 @@ The author clearly *intended* positional HRM — that's what `KP_LEFT` /
 `KP_RIGHT` are for — and never wired it up. So the owner's "timing is
 tricky" is very likely this gap, not an inherent HRM problem.
 
-**Recommendation: fix HRM before ditching it.** Wire `KP_LEFT`/`KP_RIGHT`
-into `&hm` as `hold-trigger-key-positions`, add `require-prior-idle-ms`
-(~150ms is a common starting point), then re-evaluate. **[inferred —
-standard ZMK practice, not tested on this board]**
+**DECIDED: keep HRM, fix the config.** Owner accepted this. Implemented on
+branch `keymap-redesign` — see §8.3. Requirement 6 is considered satisfied
+by tuning rather than removal, pending real-world use.
 
 Why not just drop HRM: on 21 keys/half, HRM buys 8 modifiers at **zero key
 cost**. Without it they must displace something, and the alternatives are
@@ -340,11 +339,11 @@ calculus in §7 changes. The macOS remap applies wherever mods sit.
 
 ### Open — needs a design pass before the merge
 
-- **§7.1 above** — tune HRM, or drop it. Gates the merge either way, since
-  the MAC overlay design depends on where modifiers live.
 - **Nav cluster placement** — where HOME/END/PgUp/PgDn go when nav
   consolidates onto AXN. AXN's left hand is fairly full, and the obvious
   trick (shift+arrows) collides with shift+arrow = select.
+- **HRM tuning feedback** — `HR_PRIOR_IDLE` (150ms) is a starting guess.
+  Needs real use before the merge locks layouts in.
 
 ---
 
@@ -369,6 +368,20 @@ Uncommitted in the working tree at time of writing:
    `&behavior` resolves. Current: *10 layers, all 42 bindings; all 109
    referenced behaviors resolve*. Does **not** validate devicetree
    semantics — a pass means "worth flashing", not "correct".
+
+3. **Positional home-row mods** (`keymap-redesign`). `&hm` split into
+   `&hml` (left home row) and `&hmr` (right), each with
+   `hold-trigger-key-positions` set to the opposite finger block **plus
+   both thumbs**, `require-prior-idle-ms = 150`, and
+   `hold-trigger-on-release`. `KP_LEFT`/`KP_RIGHT` in `times.dtsi` no
+   longer include thumbs; `KP_THUMB` added. 64 call sites repointed.
+
+   A plain unguarded `hm` is retained for the one non-home-row hold-tap
+   (`WA35`, virtual desktop, position 35). **Do not use `hm` on the home
+   row** — that's the misfire source.
+
+   The mac STG layer's `HR_HOLD`-generated hold-taps (`hm_mSTG_*`) were
+   left unguarded: it's a settings layer, not touch-typed.
 
 ### Recommended flash order
 

@@ -1,13 +1,13 @@
         mac_base_layer {
-            #define MB13  &hm          LCTRL  A
-            #define MB14  &hm          LCMD   S
-            #define MB15  &hm          LALT   D
-            #define MB16  &hm          LSHFT  F
+            #define MB13  &hml         LCTRL  A
+            #define MB14  &hml         LCMD   S
+            #define MB15  &hml         LALT   D
+            #define MB16  &hml         LSHFT  F
 
-            #define MB19  &hm          RSHFT  J
-            #define MB20  &hm          LALT   K
-            #define MB21  &hm          RCMD   L
-            #define MB22  &hm          RCTRL  SEMI
+            #define MB19  &hmr         RSHFT  J
+            #define MB20  &hmr         LALT   K
+            #define MB21  &hmr         RCMD   L
+            #define MB22  &hmr         RCTRL  SEMI
 
             #define MB35  &mp_m_stg
 
@@ -26,15 +26,15 @@
         };
 
         mac_dev_layer {
-            #define MD13  &hm          LCTRL   AMPS
-            #define MD14  &hm          LCMD    LBRC
-            #define MD15  &hm          LALT    RBRC
-            #define MD16  &hm          LSHFT   EQUAL
+            #define MD13  &hml         LCTRL   AMPS
+            #define MD14  &hml         LCMD    LBRC
+            #define MD15  &hml         LALT    RBRC
+            #define MD16  &hml         LSHFT   EQUAL
 
-            #define MD19  &hm          RSHFT   EXCL
-            #define MD20  &hm          LALT    LBKT
-            #define MD21  &hm          RCMD   RBKT
-            #define MD22  &hm          RCTRL   PIPE
+            #define MD19  &hmr         RSHFT   EXCL
+            #define MD20  &hmr         LALT    LBKT
+            #define MD21  &hmr         RCMD   RBKT
+            #define MD22  &hmr         RCTRL   PIPE
 
             #define MD35  &kp LA(LG(I))                 // tap: dev tools
 
@@ -53,16 +53,16 @@
         mac_act_num_layer {
             #define MA01  &kp  LC(LS(LG(RIGHT)))        // tap: expand selection
             #define MA05  &kp  LG(F)                    // tap: find
-            #define MA13  &hm  LCTRL  LC(LS(LG(LEFT)))  // tap: shrink selection
-            #define MA14  &hm  LCMD   LEFT
-            #define MA15  &hm  LALT   DOWN
-            #define MA16  &hm  LSHFT  RIGHT
+            #define MA13  &hml LCTRL  LC(LS(LG(LEFT)))  // tap: shrink selection
+            #define MA14  &hml LCMD   LEFT
+            #define MA15  &hml LALT   DOWN
+            #define MA16  &hml LSHFT  RIGHT
             #define MA17  &kp  LA(LG(F))                // tap: replace
 
-            #define MA19  &hm  LSHFT  N4
-            #define MA20  &hm  LALT   N5
-            #define MA21  &hm  LCMD   N6
-            #define MA22  &hm  LCTRL  DOT
+            #define MA19  &hmr LSHFT  N4
+            #define MA20  &hmr LALT   N5
+            #define MA21  &hmr LCMD   N6
+            #define MA22  &hmr LCTRL  DOT
 
             #define MA38  &to_mBAS
             #define MA39  &mo_mFNKmAXN_to_mFNK    0 0
@@ -83,14 +83,14 @@
         };
 
         mac_functions_layer {
-            #define MK13  &hm  LCMD   F5
-            #define MK14  &hm  LCTRL  F6
-            #define MK15  &hm  LALT   F7
-            #define MK16  &hm  LSHFT  F8
+            #define MK13  &hml LCMD   F5
+            #define MK14  &hml LCTRL  F6
+            #define MK15  &hml LALT   F7
+            #define MK16  &hml LSHFT  F8
 
-            #define MK19  &hm  RSHFT  HOME
-            #define MK20  &hm  LALT   PG_DN
-            #define MK21  &hm  RCTRL  END
+            #define MK19  &hmr RSHFT  HOME
+            #define MK20  &hmr LALT   PG_DN
+            #define MK21  &hmr RCTRL  END
             #define MK22  &kp  RCMD
 
             #define MK38  &to_mBAS

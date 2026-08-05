@@ -1,9 +1,45 @@
-hm: homerow_mods {
+// Home-row mods, one behaviour per hand. A hold only registers when the
+// next key is on the OTHER hand (or a thumb), so same-hand rolls type
+// letters instead of firing modifiers. hold-trigger-on-release defers that
+// check so two mods on the same hand can still be chorded together.
+//
+// &hml on the left home row (A S D F), &hmr on the right (J K L ;).
+// Using the wrong one silently disables the positional guard, so keep them
+// matched to the hand.
+
+// Plain hold-tap with no positional guard, for hold-taps that are NOT
+// home-row mods (e.g. the virtual-desktop key on the outer column). Don't
+// use this on the home row -- that's what the misfires came from.
+hm: hold_tap_plain {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HR_TAPPING>;
     quick-tap-ms = <HR_QUICK_TAP>;
     flavor = HR_FLAVOR;
+    bindings = <&kp>, <&kp>;
+};
+
+hml: homerow_mods_left {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HR_TAPPING>;
+    quick-tap-ms = <HR_QUICK_TAP>;
+    require-prior-idle-ms = <HR_PRIOR_IDLE>;
+    flavor = HR_FLAVOR;
+    hold-trigger-key-positions = <KP_RIGHT KP_THUMB>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+};
+
+hmr: homerow_mods_right {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HR_TAPPING>;
+    quick-tap-ms = <HR_QUICK_TAP>;
+    require-prior-idle-ms = <HR_PRIOR_IDLE>;
+    flavor = HR_FLAVOR;
+    hold-trigger-key-positions = <KP_LEFT KP_THUMB>;
+    hold-trigger-on-release;
     bindings = <&kp>, <&kp>;
 };
 
