@@ -204,7 +204,7 @@ layers:
     - {t: Alt+Gui+SPACE, s: Sft+Gui+.}
     - Gui+-
     - Alt+Gui+-
-    - ''
+    - {t: WIN, h: toggle}
     - ''
     - {t: RGB BRI, s: RGB SAI}
     - Ctl+DOWN
