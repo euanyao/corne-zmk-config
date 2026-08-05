@@ -44,7 +44,7 @@ layers:
     - SPACE
     - '&mo_STG'
   DEV:
-  - - {t: ESC, h: '&to_BAS'}
+  - - {t: ▽, type: trans}
     - '@'
     - '#'
     - $
@@ -55,8 +55,8 @@ layers:
     - _
     - '%'
     - ^
-    - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
     - {t: '&', h: LGUI}
     - {t: '{', h: LCTRL}
     - {t: '}', h: LALT}
@@ -67,8 +67,8 @@ layers:
     - {t: '[', h: LALT}
     - {t: ']', h: RCTRL}
     - {t: '|', h: RGUI}
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
     - Ctl+R
     - (
     - )
@@ -87,7 +87,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   AXN:
-  - - {t: ESC, h: '&to_BAS'}
+  - - {t: ▽, type: trans}
     - Alt+Sft+RIGHT
     - {t: Ctl+PG UP, s: Ctl+Gui+LEFT}
     - UP
@@ -98,8 +98,8 @@ layers:
     - '8'
     - '9'
     - KP MULTIPLY
-    - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
     - {t: Alt+Sft+LEFT, h: LGUI}
     - {t: LEFT, h: LCTRL}
     - {t: DOWN, h: LALT}
@@ -110,8 +110,8 @@ layers:
     - {t: '5', h: LALT}
     - {t: '6', h: RCTRL}
     - {t: '=', h: RGUI}
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
     - Ctl+Z
     - Ctl+X
     - Ctl+C
@@ -130,7 +130,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   FNK:
-  - - {t: ESC, h: '&to_BAS'}
+  - - {t: ▽, type: trans}
     - F9
     - F10
     - F11
@@ -141,8 +141,8 @@ layers:
     - PG UP
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
     - {t: F5, h: LGUI}
     - {t: F6, h: LCTRL}
     - {t: F7, h: LALT}
@@ -153,8 +153,8 @@ layers:
     - {t: PG DN, h: LALT}
     - {t: END, h: RCTRL}
     - RGUI
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
     - F1
     - F2
     - F3
@@ -173,7 +173,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   STG:
-  - - {t: ESC, h: '&to_BAS'}
+  - - {t: ▽, type: trans}
     - '&m_s_b1'
     - '&m_s_b2'
     - {t: RGB HUI, s: RGB HUD}
