@@ -4,22 +4,26 @@ Context for agents picking this repo up mid-stream. Records what has been
 **measured**, what has been **decided**, and what is still **open**, so the
 analysis doesn't have to be redone.
 
-Every claim below is tagged:
+Claims are tagged:
 - **[verified]** — measured from this repo or run locally
 - **[inferred]** — read off the config, not documented by the original author
 - **[unverified]** — believed true, not confirmed in this environment
+
+All work is on branch **`keymap-redesign`**. `master` is untouched.
+**Nothing has been flashed or tested on hardware.**
 
 ---
 
 ## 1. What this is
 
 ZMK firmware config for a 42-key split Corne (3x6 + 3 thumbs per half).
-Layout inherited from an upstream config (Camilo Martinez / Equiman — see
-copyright headers in `config/helpers/*.dtsi`), **not** designed by the
-current owner, who has only a few weeks on any ergo keyboard. **[verified]**
+Layout originally inherited from an upstream config (Camilo Martinez /
+Equiman — see copyright headers in `config/helpers/*.dtsi`), **not** designed
+by the current owner, who has only a few weeks on any ergo keyboard.
+**[verified]**
 
 Consequence for design work: there is **no muscle memory worth preserving**.
-Don't weight "matches current behaviour" highly. Simplicity and
+Don't weight "matches previous behaviour" highly. Simplicity and
 learnability are worth more here than continuity.
 
 ### Hardware / build
@@ -40,171 +44,197 @@ flash. **[verified — stated by owner]**
 
 ### Owner's devices
 
-1 macOS work laptop, 2 Windows PCs (personal). OS mode is currently tied to
-the **Bluetooth profile**: `m_s_b1..b3` → profiles 0-2 → Mac, `m_s_b4..b6`
-→ profiles 3-5 → Windows, in `config/os/shared/macros/settings.dtsi`.
-Worth rebalancing to 2 Mac / 4 Windows to match reality. **[verified]**
+1 macOS work laptop (MDM-managed), 2 Windows PCs (personal).
 
 ---
 
-## 2. Requirements
+## 2. Requirements and status
 
-From the owner, in priority order as given:
+| | requirement | status |
+|---|---|---|
+| 1 | Constant Win/macOS switching; don't duplicate keys across two layer sets | **done** — one shared set, §3 |
+| 2 | Dev-friendly base layer, `/` needed | **done** — `/` at pos 34, `'` at 35 |
+| 3 | Reclaim duplicate thumb layer-switch keys | **done** — §3 thumb map |
+| 4 | Bootloader reachable from a layer | **done, UNTESTED** — §3 |
+| 5 | Gaming layer for Windows | **deferred** by owner; layer 7 free |
+| 6 | Avoid home-row mods (hold timing hard) | **resolved by fixing, not removing** — §4.3 |
 
-1. **Constant Windows/macOS switching.** Do not duplicate the same keys
-   across two layer sets unless forced to.
-2. **Dev-friendly base layer** — `/` is missing and needed. (`-` is
-   arguably the other gap; currently DEV-only.)
-3. **Review duplicate thumb layer-switch keys**; reclaim them for frequent
-   keys such as space.
-4. **Bootloader must be reachable from a layer** — reset button is blocked.
-5. **Gaming layer for Windows**, likely needed in future.
-6. **Avoid home-row mods where practical** — the hold timing is hard to get
-   right. **Soft requirement.** Owner has said it can be ditched if
-   dropping HRM is constrained by the key budget (21 keys/half) or works
-   against split-keyboard ergonomics. See §7.1 — current evidence says
-   ditch it and fix the config instead.
+Still missing from the base layer: **`-`** (kebab-case, flags, ranges),
+currently DEV-only. No obvious home without a compromise. Raise if it bites.
 
 ### Standing constraint
 
-ZMK hard-caps at **32 layers** (uint32_t bitmask). Current usage is 10/32,
-so the cap is *not* the binding constraint — **maintenance is**. Full
-layer-set duplication for OS variants was explicitly rejected by the owner;
-do not reintroduce it without a clear reason. Note the cap and the 42-key
-count are independent: fewer physical keys pushes toward *more* layers.
+ZMK hard-caps at **32 layers** (uint32_t bitmask). At 7 the cap is *not* the
+binding constraint — **maintenance is**. Full layer-set duplication for OS
+variants was explicitly rejected by the owner; do not reintroduce it. Note
+the cap and the 42-key count are independent: fewer physical keys pushes
+toward *more* layers, not fewer.
 
 ---
 
-## 3. Current architecture
+## 3. Current architecture — authoritative
 
-**The merge is done** (branch `keymap-redesign`). 7 layers, one shared set:
+7 layers, one shared set:
 
 | # | layer | |
 |---|---|---|
 | 0 | BAS | shared; always active, everything falls through to it |
 | 1 | DEV | shared |
 | 2 | AXN | shared; the only latchable layer |
-| 3 | FNK | shared; empty slots are `&trans` so it composes over AXN |
-| 4 | STG | shared left half; right half replaced by MAC_STG |
-| 5 | WIN | OS flag, almost all `&trans`. 3 keys: ESC-hold, BSPC, DEL |
+| 3 | FNK | shared; empty slots `&trans` so it composes over AXN |
+| 4 | STG | shared, macOS-flavoured; Windows replaces 10 positions |
+| 5 | WIN | OS flag, almost all `&trans`. 3 keys: pos 0, 11, 12 |
 | 6 | WIN_STG | conditional `<WIN STG>` — 10 keys |
 
-MAC_STG's four keys are each the macOS spelling of something the shared
-layer does the Windows way at the same position: input source (12), mission
-control (22), finder (28), application windows (34). It can't fold into MAC
-— those positions are DEL, `;`, V and `/` on the typing layers.
-
-There is no MAC_AXN: the five macOS-specific AXN keys went unused, so AXN
-is fully shared. Redo is `Shift+Ctrl+Z`, which works on both.
-
-Two AXN keys are Windows-shaped and behave differently on the Mac, kept
-only because they're unused: position 17 (replace) arrives as Cmd+H and
-hides the window; position 35 (new virtual desktop) arrives as Ctrl+Cmd+D.
-
-Volume, mute and media are OS-independent HID consumer codes and live once
-on the shared layer, same positions on both machines. Don't duplicate them
-onto MAC_STG — that's the bug that left macOS with no media keys.
-
-**Node order in `corne.keymap` determines layer index.** MAC must stay
-above the typing layers or its overrides stop applying. `check-keymap.sh`
-asserts this against `os/shared/layers.dtsi`.
-
-Keycodes are **Windows-canonical everywhere**, including in the macOS-only
-files. The Mac has Cmd/Ctrl swapped per-keyboard, so when writing a macOS
-binding: **want Command → write `LC`; want Control → write `LG`.**
-
-Layer switching does **not** use `&to` (it would clear the MAC flag — see
-§5). Layers are momentary; only AXN latches, via `&tog`. Momentary layers
-need no return key.
-
 Source: `config/os/shared/**` is everything shared; `config/os/windows/**`
-is only the two overlays. There is no `config/os/macos/` — macOS *is* the
-shared default.
+is only the two overlays. There is **no** `config/os/macos/` — macOS *is*
+the shared default.
 
-Host companions in `host/windows/ahk/` watch F13–F18 signals, unchanged by
-the merge (`F_mBAS` and `F_wBAS` were already the same keycode).
+### 3.1 Keycode convention — read before editing any binding
+
+**MAC-CANONICAL.** The primary shortcut modifier is Command (`LGUI`/`RGUI`).
+macOS needs **no host configuration at all**.
+
+The Windows machines carry a **Win/Ctrl remap** (PowerToys) instead, so a
+firmware `LGUI` arrives as Control there. When writing a Windows-only
+binding:
+
+> **want Control → write `LG`. want the Win key → write `LC`.**
+
+This was deliberately inverted from an earlier Windows-canonical design
+(commit `0435707`). Reason: the Mac is MDM-managed and the System Settings
+change might be blocked, whereas the two Windows PCs are personal. See §5
+for the caveat — this trade is **not fully verified**.
+
+### 3.2 OS flag
+
+macOS is the **unflagged default**; WIN is lit for Windows.
+
+```
+   what lights WIN               where
+   ---------------------------   -----------------------------------
+   m_s_b3..b6 (BT profiles 2-5)  STG positions 13/14/25/26
+   &tog WIN   (OS toggle)        STG position 31, self-inverse
+   to_BAS_win_kp (ESC-hold)      on WIN itself — relight after &to
+```
+
+BT profiles: **0-1 = macOS, 2-5 = Windows**, in
+`os/shared/macros/settings.dtsi`. **Nothing detects the OS** — it's pure
+convention, so pair the Mac to slot 0 or 1. A mismatched flag only breaks
+word-delete, the ESC panic and WIN_STG; typing and shortcuts still work,
+because the modifier mapping is host-side.
+
+`&to BAS` before `&tog WIN` is what keeps the profile macros idempotent:
+`&to` guarantees WIN is off, so the `&tog` always turns it **on**.
+
+The **OS toggle at STG position 31** exists because the profile macros only
+set the OS as a side effect. USB connections don't touch the profile, and
+deep-sleep wake resets layer state while the profile survives — either way
+the flag and reality can disagree. Positions 31 and 32 are the only ones
+free on STG *and* `&trans` on WIN_STG, which is what makes the self-inverse
+fall-through work; 32 is still free.
+
+There is **no `&out` binding**, so USB/BLE output isn't selectable from the
+keymap. Pre-existing.
+
+### 3.3 What each overlay carries
+
+**WIN** — 3 keys, all layer-independent, which is why one overlay can carry
+them without colliding:
+
+```
+   pos 0    ESC-hold -> &to BAS + &tog WIN   relight the flag &to clears
+   pos 11   BSPC hold -> LG(BSPC)            = Ctrl+Bspc after the remap
+   pos 12   DEL  hold -> LG(DEL)
+```
+
+Word-delete is the one thing the remap can't fix: macOS wants Option+Bspc,
+Windows wants Ctrl+Bspc, and Cmd+Bspc on the Mac is delete-to-line-start.
+
+**WIN_STG** — 10 keys at positions 4, 6, 10, 11, 18, 22, 23, 28, 30, 34:
+colour picker, magnifier ×3, fancy zones, task manager, system info,
+settings, security, file explorer. Cannot fold into WIN — those positions
+are letters on the typing layers. Position 11 is bound on both; WIN_STG is
+higher so task manager wins on the settings layer, which is intended.
+
+There is **no WIN_AXN**: every AXN key either works on both OSes unaided or
+was unused. Notably `Shift+Cmd+Z` is redo on both, and replace is
+`Opt+Cmd+F` rather than `Ctrl+H` — the latter arrived as ⌘H and hid the
+window.
+
+### 3.4 Layer switching — does NOT use `&to`
+
+`&to` deactivates every other layer and would take the OS flag with it (§4.1
+has the full analysis). So:
+
+- DEV, FNK, STG are **momentary** — releasing the thumb is the way back, so
+  they need no return key anywhere.
+- **AXN is the only latchable layer**, via `&tog`. Hold the thumb for
+  momentary, tap to latch.
+- The only `&to` is the ESC-hold panic reset, which relights WIN on the WIN
+  layer.
+
+State space is 4 and every state is escapable: `BAS`, `BAS+WIN`, `BAS+AXN`,
+`BAS+WIN+AXN`.
+
+Thumb map (BAS is the only layer that binds thumbs; the rest are `&trans`):
+
+```
+   36 DEV(mo)   37 SPACE   38 AXN   |  39 FNK(mo)  40 SPACE  41 STG(mo)
+                                hold = momentary
+                                tap  = &tog AXN
+```
+
+AXN position 38 carries `tog_AXN_off` rather than `&trans` so the host
+signal knows which way the toggle went.
+
+### 3.5 Gotchas that have already bitten
+
+**Node order in `corne.keymap` determines layer index.** The `#define`s in
+`os/shared/layers.dtsi` don't cause anything — they're names that must
+*match*. Swap the two `#include`s and it compiles fine but the keyboard is
+nearly dead. `check-keymap.sh` asserts this.
+
+**Use `&none`, not `&trans`, where a layer wants a key to do nothing.**
+`&trans` falls through to BAS and types a letter. STG positions 31/32 were
+briefly `&trans` and typed `M` and `,`. Fixed in `0435707`.
+
+**The outer columns are bound once on BAS and inherited.** ESC, BSPC, DEL,
+RET, TAB and both spaces are `&trans` on every layer above. Only put a real
+binding above BAS where the layer genuinely differs.
+
+**Volume, mute and media are OS-independent HID consumer codes.** They live
+once on the shared layer at positions 7/8/9 and 19/20/21. Do not duplicate
+them onto WIN_STG — that's the bug that previously left one OS with no media
+keys and volume in two different places.
+
+### 3.6 Bootloader
+
+`&bootloader` on **both halves**, behind shift on an STG thumb — left thumb
+(pos 37) resets the left half, right thumb (pos 40) the right. Costs no
+keys. `os/shared/morph/boot.dtsi`.
+
+**[unverified] Split semantics.** ZMK reset behaviours are believed to act
+on the half the key sits on, so both are bound — correct under either
+semantics. **Test before relying on it:** press each and confirm that half
+enumerates as a USB drive. Getting this wrong means an unflashable half with
+the reset button blocked.
+
+### 3.7 Host companions
+
+`host/windows/ahk/` watches F13–F18 signal keys emitted alongside layer
+changes. Unchanged by the merge — the old mac and windows signal defines
+were already the same keycodes. **[verified]**
 
 ---
 
-## 4. Measured findings
+## 4. Why it looks like this — decisions and dead ends
 
-### 4.1 Mac/Windows divergence — 210 bindings (42 keys × 5 layer pairs)
+### 4.1 The `&to` / OS-flag conflict
 
-| | count | |
-|---|---:|---|
-| identical | 131 | 62% |
-| layer-ref only (`&to_mBAS`↔`&to_wBAS`) | 19 | mechanical |
-| pure modifier swap (Ctrl↔Cmd, Alt↔Ctrl) | 26 | mechanical |
-| **genuinely OS-specific** | **34** | — |
-
-**22 of the 34 are in STG alone.** Outside STG, 168 bindings share 156 —
-**93% identical**. Four duplicated layers exist to express ~12 keys.
-**[verified]**
-
-The irreducible non-STG set:
-
-```
-DEV[35]  Alt+Gui+I          ~  F12              browser devtools
-AXN[1]   Ctl+Sft+Gui+RIGHT  ~  Alt+Sft+RIGHT    expand selection
-AXN[13]  Ctl+Sft+Gui+LEFT   ~  Alt+Sft+LEFT     shrink selection
-AXN[17]  Alt+Gui+F          ~  Ctl+H            replace
-AXN[28]  Gui+V              ~  Ctl+V            paste
-AXN[29]  Sft+Gui+Z          ~  Ctl+Y            redo
-AXN[35]  =                  ~  Gui+Ctl+D        virtual desktop
-AXN[22]  .                  ~  =                (looks like drift)
-AXN[36], AXN[41]  empty     ~  ,  .             DRIFT — Mac never got them
-FNK[36], FNK[41]  empty     ~  ,  .             DRIFT — Mac never got them
-```
-
-`DEV[35]` is free to fix: **F12 opens devtools on macOS too** in
-Chrome/Edge/Firefox, so that difference can just be deleted — *if* browser
-devtools was the intent; ⌘⌥I suggests it may have meant VS Code.
-**[inferred]**
-
-### 4.2 Drift is already happening
-
-The four `, / .` entries above are Mac-side omissions, not design. Commits
-like `a1b113f refactor: consistent outer columns across all typing layers`
-are exactly the changes that must land twice. The duplication tax is being
-paid today. **[verified]**
-
-### 4.3 Layer occupancy
-
-```
-mBAS   0 empty      mDEV   0 empty      mAXN   2 empty (thumbs 36,41)
-mFNK  16 empty      mSTG   2 empty
-```
-
-FNK is **38% dead**. Its real content is F1-F12 plus a 4-key nav cluster.
-**[verified]**
-
-### 4.4 Thumb map (macOS; Windows identical modulo prefix)
-
-| layer | 36 | 38 tap | 38 hold | 39 tap | 39 hold | 41 |
-|---|---|---|---|---|---|---|
-| BAS | DEV *(mom)* | **AXN latch** | AXN mom | **FNK latch** | AXN mom | DEV *(mom)* |
-| DEV | `,` | BAS | AXN mom | **AXN latch** | AXN mom | `.` |
-| AXN | — | BAS | — | **FNK latch** | FNK mom | — |
-| FNK | — | BAS | — | **AXN latch** | — | — |
-| STG | BRI DN | BAS | — | **AXN latch** | — | BRI UP |
-
-Read-outs **[inferred]**:
-- Position 38 is "home" on every non-base layer. Consistent.
-- Position 39 is "the other layer".
-- On BAS, 38 and 39 **hold to the same thing** — that's the req-3 duplication.
-- **The layout is already 2/3 momentary.** DEV and STG are momentary by
-  default (`mp_m_dev`, `mp_m_stg`); latching needs shift. Only AXN and FNK
-  latch by default.
-
----
-
-## 5. The `&to` / OS-flag conflict — read this before proposing a merge
-
-To collapse to one layer set, something must remember "I'm on Mac". ZMK's
-only runtime state is **which layers are active**, so the OS flag must be a
-layer (`MAC`) that stays lit.
-
-ZMK layer-activation behaviours:
+To collapse to one layer set, something must remember which OS you're on.
+ZMK's only runtime state is **which layers are active**, so the flag must be
+a layer that stays lit.
 
 | | effect on other layers |
 |---|---|
@@ -212,236 +242,160 @@ ZMK layer-activation behaviours:
 | `&tog LAYER` | flips that layer — leaves others alone |
 | `&to LAYER` | on, **and switches every other layer off** |
 
-**This config uses `&to` for every sticky jump.** `&to` would wipe the MAC
-flag on the first layer change, silently reverting word-delete and the STG
-right half to Windows behaviour until the BT profile is re-selected.
+The original config used `&to` for every sticky jump, which would wipe the
+flag on the first layer change. Confirmed dead ends:
 
-So a persistent OS flag and `&to` are mutually exclusive. Confirmed dead
-ends:
-
-- **A single overlay can't fix the home-row mods** — to override DEV's mods
-  it must sit above DEV, but then its BAS-flavoured taps leak onto DEV.
-  One overlay per typing layer = no saving (11 layers, worse than 10).
-- **`&tog` is not a drop-in for `&to`** — the config cross-navigates
-  (DEV→AXN, AXN→FNK, FNK→AXN, STG→AXN), so tog stacks layers instead of
-  switching. Tapping "go to FNK" from AXN leaves both on.
-- **A macro re-asserting the flag after `&to`** needs a Mac-specific twin
-  of every layer-switch key, and each layer's thumb has a different
+- **A single overlay can't fix the home-row mods.** To override DEV's mods it
+  must sit above DEV, but then its BAS-flavoured taps leak onto DEV. One
+  overlay per typing layer = no saving.
+- **`&tog` is not a drop-in for `&to`** while sideways routes exist
+  (DEV→AXN, AXN→FNK, FNK→AXN, STG→AXN): tog stacks layers instead of
+  switching.
+- **A macro re-asserting the flag after `&to`** needs an OS-specific twin of
+  every layer-switch key, and each layer's thumb has a different
   destination — one binding at position 38 can't be three things.
 
-### Ways through
+**Resolution:** sideways routes were dropped. With momentary layers,
+"sideways" is free — release one thumb, press another. Only AXN↔FNK was ever
+latched→latched, and FNK doesn't need latching (F-keys are single presses).
+That reduced the machinery to one `&tog AXN`.
 
-`&to` can be rebuilt from tog pairs, since the binding always lives on a
-known source layer: `AXN: &to BAS` → `&tog AXN`; `DEV: &to AXN` →
-`&tog DEV + &tog AXN`. ~10 small macros, in the style
-`config/helpers/macros.dtsi` already uses. **[unverified — macros
-containing `&tog` should be fine but were not built]**
+Self-inverse latch trick, used for both the AXN latch and the OS toggle: put
+`&tog X` at position P on the lower layer and leave P `&trans` on the layer
+above. Pressing P falls through to the same binding and toggles back off.
 
-**But the sideways routes don't earn their keep** (analysis below), and
-removing them cuts this to a single `&tog AXN`.
+### 4.2 Divergence measurement (on the *pre-merge* config)
 
-### Sideways routes: verdict = drop them
+Historical, but it's the evidence the merge rested on. 210 bindings
+(42 keys × 5 layer pairs): **[verified]**
 
-1. With momentary layers, sideways is free — release thumb A, press thumb
-   B. Routes only matter latched→latched.
-2. Only AXN↔FNK is latched→latched; DEV and STG are momentary by default.
-3. That pair exists because the **nav cluster is split** — arrows on AXN,
-   HOME/END/PgUp/PgDn on FNK. It papers over fragmentation.
-4. FNK is 38% empty and otherwise F1-F12, which are single presses.
+| | count | |
+|---|---:|---|
+| identical | 131 | 62% |
+| layer-ref only | 19 | mechanical |
+| pure modifier swap | 26 | mechanical |
+| genuinely OS-specific | 34 | 22 of them in STG alone |
 
-Consolidate nav onto AXN → all four routes vanish → one `&tog AXN` → clean
-4-state model (`BAS`, `BAS+MAC`, `BAS+AXN`, `BAS+MAC+AXN`), all reachable,
-all escapable, no stuck states.
+Outside STG, 168 bindings shared 156 — **93% identical**. Four duplicated
+layers existed to express about twelve keys, and the duplication was already
+drifting: mAXN and mFNK never received the `,` and `.` their Windows
+counterparts had.
 
-Self-inverse latch trick: put `&tog AXN` on BAS at position P and leave
-AXN's P as `&trans`. Pressing P while latched falls through to BAS's own
-binding and turns it off. One binding, both directions.
+### 4.3 Home-row mods — the config was never configured for a split
 
----
+**[verified]** `KP_LEFT` / `KP_RIGHT` were defined in `times.dtsi` and
+referenced **nowhere**. `&hm` was a bare hold-tap with no
+`hold-trigger-key-positions`, no `require-prior-idle-ms`, no
+`hold-trigger-on-release` — the three things that make HRM usable. The
+author clearly intended positional HRM and never wired it up, so the owner's
+"timing is tricky" was almost certainly that gap.
 
-## 6. The macOS modifier remap (gates the merge)
+**DECIDED: keep HRM, fix the config.** `&hm` split into `&hml` (left home
+row) and `&hmr` (right), each with the opposite finger block **plus both
+thumbs** as trigger positions, `require-prior-idle-ms = 150`, and
+`hold-trigger-on-release`.
 
-The Ctrl↔Cmd home-row swap is what forces per-layer duplication. Kill it in
-firmware by making the keymap **Windows-canonical** and remapping on the
-Mac instead:
+Thumbs are in both trigger lists deliberately — strict cross-hand would
+break mod + layer-thumb chords like Ctrl + AXN-arrow for word jumps.
 
-> System Settings → Keyboard → Keyboard Shortcuts… → Modifier Keys →
-> **"Select keyboard"** → pick the Corne → swap ⌘ Command and ⌃ Control.
-
-macOS applies this **per keyboard**, so the laptop's built-in keyboard is
-unaffected. Configures 1 machine instead of 2. **[unverified — exact menu
-path is from memory and has moved between macOS versions; no web access in
-the session where this was written]**
-
-Test without touching firmware: after the swap, hold the Corne's `A`
-(currently `LCTRL` on the Mac layer) and press `C`. If text copies, it
-works.
-
-**Risks:** it's a work laptop, so MDM may lock the pane. Owner has said to
-proceed **assuming it works**; if it turns out locked, the home-row
-unification reverts and everything else still stands.
-
-Residual after the remap: **word-delete**. Mac wants ⌥BSPC; firmware Ctrl
-becomes ⌘ on the Mac and ⌘BSPC is delete-to-line-start. Irreducible — but
-it's the *same* on all four typing layers, so one overlay position handles
-it collision-free. This is the property that makes the merged design work.
+Why not drop HRM: on 21 keys/half it buys 8 modifiers at **zero key cost**.
+Sticky keys add a keypress and a layer hop to every shortcut; base-layer
+combos misfire while typing; thumb mods don't fit. `HR_PRIOR_IDLE` is a
+starting guess and wants tuning — one number in `times.dtsi`.
 
 ---
 
-## 7. Proposed target (NOT yet implemented)
+## 5. Host-side setup required — UNVERIFIED, gates the design
 
-9 layers, every typing layer written once:
+**Windows (both PCs):** a Win/Ctrl remap, so firmware `LGUI` arrives as
+Control. PowerToys Keyboard Manager is the obvious tool.
 
-| # | layer | |
-|---|---|---|
-| 0 | BAS | shared; always-active fallback |
-| 1 | DEV | shared |
-| 2 | AXN | shared |
-| 3 | FNK | shared |
-| 4 | STG | shared |
-| 5 | MAC | OS flag + base overrides (pos 11/12 word-delete, pos 0 ESC) |
-| 6 | MAC_AXN | conditional `<MAC AXN>` — the IDE/selection diffs |
-| 7 | MAC_STG | conditional `<MAC STG>` — Mac system tools |
-| 8 | GAME | Windows gaming |
+> **[unverified] and important.** macOS's modifier swap is *per-keyboard*.
+> I do not believe PowerToys can scope a remap to one device — if it's
+> per-machine, it will affect every keyboard on those PCs. No web access in
+> the session where this was decided. **If that's unacceptable, the honest
+> fix is reverting to Windows-canonical: `git revert 0435707`, cheap while
+> nothing is flashed.**
 
-Ordering matters: MAC=5 must sit above DEV/AXN/FNK so its overrides win;
-`&trans` elsewhere falls through. MAC_AXN/MAC_STG must sit above MAC.
+**macOS:** nothing. That's the point of the inversion.
 
-Panic key, collision-free at position 0 (ESC on every layer):
-```
-BAS  pos 0 ESC-hold  ->  &to BAS               (Windows: clear all)
-MAC  pos 0 ESC-hold  ->  &to BAS + &tog MAC    (Mac: clear all, relight flag)
-```
+---
 
-Other planned changes:
-- **Thumbs**: `DEV · SPACE · AXN ‖ FNK · SPACE · STG` — drops the duplicate
-  DEV, keeps both spaces, moves STG to the freed thumb.
-- **Base bottom-right**: `N M , . / '` — restores `/` at pos 34, `'` moves
-  to pos 35 (freed by STG going to a thumb). Swappable if `'` is wanted
-  under the stronger finger.
-- **GAME**: flat, **no home-row mods**, real Shift/Ctrl, no layer-taps on
-  thumbs. Self-contained; `&to`/`&tog` from STG, dedicated exit key.
-
-### 7.1 Home-row mods — the config is missing both key features
-
-**Finding: HRM here has never been configured for a split keyboard.**
-**[verified]**
+## 6. Commit map on `keymap-redesign`
 
 ```
-config/os/shared/times.dtsi:21   #define KP_RIGHT   6 7 8 ... 41
-config/os/shared/times.dtsi:22   #define KP_LEFT    0 1 2 ... 38
-                                 ^ defined, and referenced NOWHERE
+3eb54d3  feat: OS mode toggle decoupled from the bluetooth profile
+0435707  refactor: make macOS the default, flag Windows instead
+b97894e  refactor: inherit outer columns via &trans
+21b9752  refactor: strip unused WIN_STG keys, unify volume and media
+9d10d86  refactor: drop the AXN overlay, AXN is fully shared
+6d941f6  refactor: merge the two OS layer sets into one
+ed9bdce  fix: make home-row mods positional
+ed67234  build: add offline keymap sanity check
+95638ee  feat: bind bootloader on both halves      <- cherry-pick first
 ```
 
-`&hm` in `config/os/shared/hold/shared.dtsi` is a bare hold-tap —
-flavor, tapping-term, quick-tap, nothing else:
-
-| knob | present? | what it does |
-|---|---|---|
-| `hold-trigger-key-positions` | **no** | positional / cross-hand HRM: only hold if the next key is on the *other* half. Kills same-hand roll misfires — the #1 HRM failure mode. |
-| `require-prior-idle-ms` | **no** | refuse a hold if you just typed. Kills misfires mid-flow. |
-| `hold-trigger-on-release` | **no** | lets you chord two mods on one hand. |
-
-The only `hold-trigger-key-positions` in the repo is `<0>` on `&mt` in
-`os/shared/general.dtsi`, which is the outer-column mod-taps, not HRM.
-
-The author clearly *intended* positional HRM — that's what `KP_LEFT` /
-`KP_RIGHT` are for — and never wired it up. So the owner's "timing is
-tricky" is very likely this gap, not an inherent HRM problem.
-
-**DECIDED: keep HRM, fix the config.** Owner accepted this. Implemented on
-branch `keymap-redesign` — see §8.3. Requirement 6 is considered satisfied
-by tuning rather than removal, pending real-world use.
-
-Why not just drop HRM: on 21 keys/half, HRM buys 8 modifiers at **zero key
-cost**. Without it they must displace something, and the alternatives are
-all worse here — sticky keys (`&sk`) add a keypress and a layer hop to
-every shortcut; combos on the base layer misfire while typing; dedicated
-thumb mods don't fit (6 thumbs already owe space, 3 layer keys, and the
-freed one is spoken for). Getting modifiers without pinky stretches is one
-of the main reasons a 42-key split works at all.
-
-Also relevant: HRM accounts for **26 of the 79** Mac/Windows differences,
-so if it *is* dropped, most of the divergence goes with it and the merge
-calculus in §7 changes. The macOS remap applies wherever mods sit.
-
-### Open — needs a design pass before the merge
-
-- **Nav cluster placement** — where HOME/END/PgUp/PgDn go when nav
-  consolidates onto AXN. AXN's left hand is fairly full, and the obvious
-  trick (shift+arrows) collides with shift+arrow = select.
-- **HRM tuning feedback** — `HR_PRIOR_IDLE` (150ms) is a starting guess.
-  Needs real use before the merge locks layouts in.
+**Recommended flash order: bootloader first**, verified, before anything
+else. It's the recovery path for everything after it.
 
 ---
 
-## 8. Work completed
+## 7. Open
 
-Uncommitted in the working tree at time of writing:
-
-1. **`config/os/shared/morph/boot.dtsi`** — `&bootloader` on both halves,
-   behind shift on an STG thumb (left thumb → left half, right thumb →
-   right half). Wired into `config/corne.keymap` and both
-   `os/*/keymap.dtsi`. Costs no keys.
-
-   **[unverified] Split semantics.** ZMK reset behaviours are believed to
-   act on the half the key sits on, so both halves are bound — correct
-   under either semantics. **This must be tested before being relied on:**
-   press it and confirm the half enumerates as a USB drive. Getting this
-   wrong means an unflashable half with the reset button blocked.
-
-2. **`check-keymap.sh`** — offline validator, since there's no local ZMK
-   build. Preprocesses `config/corne.keymap` with `cpp` against stubbed ZMK
-   headers, then asserts every layer binds exactly 42 keys and every
-   `&behavior` resolves. Current: *10 layers, all 42 bindings; all 109
-   referenced behaviors resolve*. Does **not** validate devicetree
-   semantics — a pass means "worth flashing", not "correct".
-
-3. **Positional home-row mods** (`keymap-redesign`). `&hm` split into
-   `&hml` (left home row) and `&hmr` (right), each with
-   `hold-trigger-key-positions` set to the opposite finger block **plus
-   both thumbs**, `require-prior-idle-ms = 150`, and
-   `hold-trigger-on-release`. `KP_LEFT`/`KP_RIGHT` in `times.dtsi` no
-   longer include thumbs; `KP_THUMB` added. 64 call sites repointed.
-
-   A plain unguarded `hm` is retained for the one non-home-row hold-tap
-   (`WA35`, virtual desktop, position 35). **Do not use `hm` on the home
-   row** — that's the misfire source.
-
-   The mac STG layer's `HR_HOLD`-generated hold-taps (`hm_mSTG_*`) were
-   left unguarded: it's a settings layer, not touch-typed.
-
-### Recommended flash order
-
-Flash and verify **bootloader first**, before any restructure. It's the
-recovery path for everything after it.
+- **Hardware verification of everything.** Nothing has been flashed.
+  Priority order: DFU on each half (§3.6), the Windows remap question (§5),
+  HRM feel, then whether deep sleep clears the flag.
+- **Deep sleep and the OS flag.** `CONFIG_ZMK_SLEEP=y` with a 10-minute
+  timeout. ZMK deep sleep is System OFF, so waking is effectively a reboot;
+  the BT profile survives in settings but layer state does not. **[unverified
+  — mechanism is confident, behaviour untested.]** The OS toggle (§3.2)
+  makes recovery one keypress. Test: idle past 10 minutes, wake, check
+  whether the STG right half still shows macOS keys.
+- **GAME layer** (req 5), deferred. Layer 7 free. Should be flat, **no
+  home-row mods**, real Shift/Ctrl, no layer-taps on thumbs, self-contained.
+- **Windows screenshot.** `mp_sSTG_screenshot` is macOS-shaped
+  (Shift+Cmd+5/4/3) and does nothing useful on Windows, which wants
+  Win+Shift+S. Pre-existing, not a regression, worth fixing.
+- **Nav cluster is split** — arrows on AXN, HOME/END/PgUp/PgDn on FNK. Not a
+  blocker (that was resolved by dropping sideways routes), but possibly
+  annoying in use. Judge from using it. Note shift+arrows is taken by
+  select, so the obvious consolidation doesn't work.
+- **`docs/keymap.svg` / `keymap.yaml`** must be regenerated after any keymap
+  change — see §8. They have drifted before.
 
 ---
 
-## 9. Tooling notes
+## 8. Tooling
 
-- `./check-keymap.sh` — offline sanity check, no deps beyond `cpp` +
-  `python3`.
-- `./draw-keymap.sh` — regenerates `docs/keymap.yaml` + `docs/keymap.svg`.
-  Needs `keymap-drawer` (installed, v0.23.0, at `~/.local/bin/keymap` —
-  export `PATH="$HOME/.local/bin:$PATH"` first). **Re-run it after any
-  keymap change** so the docs don't drift. `docs/keymap.yaml` is the
-  fully-resolved keymap and the best source for analysis — all `#define`
-  indirection is already expanded, so script against it rather than
-  parsing `config/os/**` by hand.
-- No `west`, no `dtc`, no local Zephyr. CI is the only real build.
-- Package installs were blocked for this agent (denied both sandboxed and
-  unsandboxed); the owner installed keymap-drawer manually. If you need a
-  tool, ask rather than burning attempts on `pip install`.
+- **`./check-keymap.sh`** — offline validator; no deps beyond `cpp` and
+  `python3`. Preprocesses `config/corne.keymap` against stubbed ZMK headers
+  and asserts: every layer binds exactly 42 keys, every `&behavior`
+  resolves, and keymap node order matches `layers.dtsi`. A pass means
+  "worth flashing", **not** "correct" — it does not validate devicetree
+  semantics. Current: *7 layers, 63 behaviours, order ok*.
+- **`./draw-keymap.sh`** — regenerates `docs/keymap.yaml` + `docs/keymap.svg`.
+  Needs `keymap-drawer` (installed, v0.23.0 at `~/.local/bin/keymap`; export
+  `PATH="$HOME/.local/bin:$PATH"` first). **Re-run after any keymap change.**
+- `docs/keymap.yaml` is the fully-resolved keymap and the best source for
+  analysis — all `#define` indirection is expanded, so script against it
+  rather than parsing `config/os/**` by hand.
+- No `west`, no `dtc`, no local Zephyr. **CI is the only real build**, and it
+  triggers on push to any branch.
+- Package installs were blocked for this agent (denied sandboxed *and*
+  unsandboxed); the owner installed keymap-drawer manually. Ask rather than
+  burning attempts on `pip install`.
 
 ---
 
-## 10. Process notes for agents
+## 9. Process notes for agents
 
 - The owner asked to **ask before jumping ahead** — clarify and confirm the
   approach before implementing.
-- Permissions have been broadened globally in `~/.claude/settings.json`
-  (Bash, Edit, Write, web tools allowed; destructive Bash still denied).
-- Prefer measuring over asserting. Most claims in this file came from
-  scripting over `docs/keymap.yaml`; redo that rather than trusting prose
-  if something looks off.
+- Prefer measuring over asserting. Most numbers here came from scripting
+  over `docs/keymap.yaml`; redo that rather than trusting prose.
+- **Verify doc edits landed.** A long `re.sub` against this file silently
+  failed to match once and left §3, §5 and §7 describing a superseded
+  design for two commits. Check the diff, not the exit code.
+- Permissions are broadened globally in `~/.claude/settings.json` (Bash,
+  Edit, Write, web tools; destructive Bash still denied). Note `rm -rf` is
+  denied, which also blocks `git rm -rf`-style cleanups.
