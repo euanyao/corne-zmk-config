@@ -395,11 +395,16 @@ recovery path for everything after it.
 - `./check-keymap.sh` — offline sanity check, no deps beyond `cpp` +
   `python3`.
 - `./draw-keymap.sh` — regenerates `docs/keymap.yaml` + `docs/keymap.svg`.
-  Needs `pip install keymap-drawer`, **not installed** in the working
-  environment and the owner declined installing it. `docs/keymap.yaml` is
-  the fully-resolved keymap and is the best source for analysis — it has
-  all `#define` indirection already expanded.
+  Needs `keymap-drawer` (installed, v0.23.0, at `~/.local/bin/keymap` —
+  export `PATH="$HOME/.local/bin:$PATH"` first). **Re-run it after any
+  keymap change** so the docs don't drift. `docs/keymap.yaml` is the
+  fully-resolved keymap and the best source for analysis — all `#define`
+  indirection is already expanded, so script against it rather than
+  parsing `config/os/**` by hand.
 - No `west`, no `dtc`, no local Zephyr. CI is the only real build.
+- Package installs were blocked for this agent (denied both sandboxed and
+  unsandboxed); the owner installed keymap-drawer manually. If you need a
+  tool, ask rather than burning attempts on `pip install`.
 
 ---
 
