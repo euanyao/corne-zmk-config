@@ -1,20 +1,24 @@
 /* Layer indices.
  *
- * Order is load bearing. MAC must sit ABOVE the typing layers so its three
- * overrides win while any of them is active; the two conditional overlays
- * must sit above MAC. Reordering these will silently change which binding
- * wins at a position.
+ * Order is load bearing. WIN must sit ABOVE the typing layers so its
+ * overrides win while any of them is active; the conditional overlay must
+ * sit above WIN. Reordering these silently changes which binding wins at a
+ * position, and check-keymap.sh asserts the keymap node order matches.
  *
  * BAS is layer 0 and is therefore always active -- everything above it
  * falls through to it via &trans.
+ *
+ * macOS is the unflagged default. The Mac needs no host-side
+ * configuration at all; the Windows machines carry a Win/Ctrl remap
+ * (PowerToys) instead. See os/shared/keys.dtsi.
  */
 #define BAS      0
 #define DEV      1
 #define AXN      2
 #define FNK      3
 #define STG      4
-#define MAC      5   /* OS flag. Lit = macOS. Nearly all &trans. */
-#define MAC_STG  6   /* conditional: MAC + STG */
+#define WIN      5   /* OS flag. Lit = Windows. Nearly all &trans. */
+#define WIN_STG  6   /* conditional: WIN + STG */
 
 /* Host signal keys.
  *

@@ -12,18 +12,18 @@ layers:
     - I
     - O
     - P
-    - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
-    - {t: A, h: LGUI}
-    - {t: S, h: LCTRL}
+    - {t: BSPC, h: Alt+BSPC}
+  - - {t: DEL, h: Alt+DEL}
+    - {t: A, h: LCTRL}
+    - {t: S, h: LGUI}
     - {t: D, h: LALT}
     - {t: F, h: LSHFT}
     - G
     - H
     - {t: J, h: RSHFT}
     - {t: K, h: LALT}
-    - {t: L, h: RCTRL}
-    - {t: ;, h: RGUI}
+    - {t: L, h: RGUI}
+    - {t: ;, h: RCTRL}
     - {t: RET, h: F2}
   - - {t: TAB, h: RIGHT}
     - Z
@@ -57,19 +57,19 @@ layers:
     - ^
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: '&', h: LGUI}
-    - {t: '{', h: LCTRL}
+    - {t: '&', h: LCTRL}
+    - {t: '{', h: LGUI}
     - {t: '}', h: LALT}
     - {t: '=', h: LSHFT}
     - ''''
     - '`'
     - {t: '!', h: RSHFT}
     - {t: '[', h: LALT}
-    - {t: ']', h: RCTRL}
-    - {t: '|', h: RGUI}
+    - {t: ']', h: RGUI}
+    - {t: '|', h: RCTRL}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - Ctl+R
+    - Gui+R
     - (
     - )
     - '*'
@@ -89,10 +89,10 @@ layers:
   AXN:
   - - {t: ▽, type: trans}
     - Alt+Sft+RIGHT
-    - {t: Ctl+PG UP, s: Ctl+Gui+LEFT}
+    - {t: Gui+PG UP, s: Gui+Ctl+LEFT}
     - UP
-    - {t: Ctl+PG DN, s: Ctl+Gui+RIGHT}
-    - Ctl+F
+    - {t: Gui+PG DN, s: Gui+Ctl+RIGHT}
+    - Gui+F
     - KP PLUS
     - '7'
     - '8'
@@ -100,29 +100,29 @@ layers:
     - KP MULTIPLY
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: Alt+Sft+LEFT, h: LGUI}
-    - {t: LEFT, h: LCTRL}
+    - {t: Alt+Sft+LEFT, h: LCTRL}
+    - {t: LEFT, h: LGUI}
     - {t: DOWN, h: LALT}
     - {t: RIGHT, h: LSHFT}
-    - Ctl+H
+    - Alt+Gui+F
     - '0'
     - {t: '4', h: LSHFT}
     - {t: '5', h: LALT}
-    - {t: '6', h: RCTRL}
-    - {t: '=', h: RGUI}
+    - {t: '6', h: RGUI}
+    - {t: '=', h: RCTRL}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - Ctl+Z
-    - Ctl+X
-    - Ctl+C
-    - {t: Ctl+V, s: Sft+Ctl+V}
-    - Sft+Ctl+Z
+    - Gui+Z
+    - Gui+X
+    - Gui+C
+    - {t: Gui+V, s: Sft+Gui+V}
+    - Sft+Gui+Z
     - '-'
     - '1'
     - '2'
     - '3'
     - KP DIVIDE
-    - Gui+Ctl+D
+    - Ctl+Gui+D
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - '&tog_AXN_off'
@@ -143,16 +143,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: F5, h: LGUI}
-    - {t: F6, h: LCTRL}
+    - {t: F5, h: LCTRL}
+    - {t: F6, h: LGUI}
     - {t: F7, h: LALT}
     - {t: F8, h: LSHFT}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: HOME, h: RSHFT}
     - {t: PG DN, h: LALT}
-    - {t: END, h: RCTRL}
-    - RGUI
+    - {t: END, h: RGUI}
+    - RCTRL
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - F1
@@ -177,37 +177,37 @@ layers:
     - '&m_s_b1'
     - '&m_s_b2'
     - {t: RGB HUI, s: RGB HUD}
-    - Gui+Sft+C
-    - Ctl++
-    - Alt+Gui+'
+    - ''
+    - Gui++
+    - Alt+Gui+=
     - VOL DN
     - MUTE
     - VOL UP
-    - Gui+Sft+`
-    - Ctl+Sft+ESC
-  - - Gui+SPACE
+    - ''
+    - ''
+  - - Ctl+SPACE
     - '&m_s_b3'
     - '&m_s_b4'
     - LALT
-    - {t: Sft+Ctl+5, s: Sft+Ctl+4}
-    - {t: Ctl+0, s: Ctl+KP 0}
+    - {t: Sft+Gui+5, s: Sft+Gui+4}
+    - {t: Gui+0, s: Gui+KP 0}
     - Alt+Gui+8
     - {t: PREV, h: RSHFT}
     - {t: PP, h: LALT}
     - NEXT
-    - Gui+PAUSE BREAK
-    - Gui+I
+    - Ctl+UP
+    - Alt+Gui+ESC
   - - {t: '&studio_unlock', s: BT CLR}
     - '&m_s_b5'
     - '&m_s_b6'
     - {t: RGB TOG, s: RGB EFR}
-    - Gui+E
-    - Ctl+-
+    - {t: Alt+Gui+SPACE, s: Sft+Gui+.}
+    - Gui+-
     - Alt+Gui+-
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - ''
+    - ''
     - {t: RGB BRI, s: RGB SAI}
-    - Ctl+Alt+DEL
+    - Ctl+DOWN
     - {t: RGB BRD, s: RGB SAD}
   - - BRI DN
     - {t: SPACE, s: '&bootloader'}
@@ -215,8 +215,8 @@ layers:
     - {t: ▽, type: trans}
     - {t: RET, s: '&bootloader'}
     - BRI UP
-  MAC:
-  - - {t: ESC, h: '&to_BAS_mac'}
+  WIN:
+  - - {t: ESC, h: '&to_BAS_win'}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -227,20 +227,8 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: BSPC, h: Alt+BSPC}
-  - - {t: DEL, h: Alt+DEL}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
+    - {t: BSPC, h: Gui+BSPC}
+  - - {t: DEL, h: Gui+DEL}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -258,42 +246,54 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  MAC_STG:
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - Gui+Alt+SPACE
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - Gui+UP
-    - {t: ▽, type: trans}
+  WIN_STG:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: Alt+Ctl+SPACE, s: Sft+Ctl+.}
+    - Ctl+Sft+C
+    - {t: ▽, type: trans}
+    - Ctl+=
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - Ctl+Sft+`
+    - Gui+Sft+ESC
+  - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - Gui+DOWN
+    - Ctl+ESC
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - Ctl+PAUSE BREAK
+    - Ctl+I
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - Ctl+E
+    - {t: ▽, type: trans}
+    - Ctl+-
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - Gui+Alt+DEL
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}

@@ -9,33 +9,42 @@
 
 */
 
-/* Outer columns and thumbs, shared by every typing layer.
+/* Outer columns and thumbs, bound here and inherited by every layer above.
  *
- * These are Windows-canonical: the primary shortcut modifier is Control.
- * On macOS the Corne has Command and Control swapped per-keyboard in
- * System Settings, so the same keycode lands as Command there. The one
- * thing that swap cannot fix is word-delete -- Cmd+Bspc is
- * delete-to-line-start, not delete-word -- so BSPC and DEL are overridden
- * on the MAC layer.
+ * MAC-CANONICAL. The primary shortcut modifier is Command, written LGUI /
+ * RGUI. macOS therefore needs no host configuration whatsoever.
+ *
+ * The Windows machines carry a Win/Ctrl remap instead (PowerToys), so a
+ * firmware LGUI arrives as Control there and LCTRL arrives as the Win key.
+ * When adding a Windows-only binding: **want Control -> write LG; want the
+ * Win key -> write LC.**
+ *
+ * The one thing that remap cannot fix is word-delete. macOS wants
+ * Option+Bspc; Windows wants Ctrl+Bspc, which is a firmware LGUI, and
+ * Cmd+Bspc on the Mac is delete-to-line-start rather than delete-word. So
+ * BSPC and DEL are Option here and overridden on the WIN layer.
  */
 #define KEY_SPC   &kp  SPACE
 #define KEY_ESC   &to_BAS_kp  0        ESC   // tap: esc    | hold: hard reset to base
 #define KEY_RET   &mt         F2       RET   // tap: return | hold: rename
 #define KEY_TAB   &mt         RIGHT    TAB   // tap: tab    | hold: right (shell completion)
-#define NAV_BSPC  &mt         LC(BSPC) BSPC  // tap: bspc   | hold: delete word back
-#define NAV_DEL   &mt         LC(DEL)  DEL   // tap: del    | hold: delete word forward
+#define NAV_BSPC  &mt         LA(BSPC) BSPC  // tap: bspc   | hold: delete word back
+#define NAV_DEL   &mt         LA(DEL)  DEL   // tap: del    | hold: delete word forward
 
 /* Home row. One behaviour per hand so the positional guard applies -- see
  * os/shared/hold/shared.dtsi. Using the wrong hand's behaviour silently
- * disables the guard. */
-#define HR_A      &hml  LGUI   A
-#define HR_S      &hml  LCTRL  S
+ * disables the guard.
+ *
+ * S and L carry the primary modifier (Command on the Mac, Control on
+ * Windows after the remap); A and ; carry the secondary. */
+#define HR_A      &hml  LCTRL  A
+#define HR_S      &hml  LGUI   S
 #define HR_D      &hml  LALT   D
 #define HR_F      &hml  LSHFT  F
 #define HR_J      &hmr  RSHFT  J
 #define HR_K      &hmr  LALT   K
-#define HR_L      &hmr  RCTRL  L
-#define HR_SEMI   &hmr  RGUI   SEMI
+#define HR_L      &hmr  RGUI   L
+#define HR_SEMI   &hmr  RCTRL  SEMI
 
 /* Thumbs. Every layer above BAS leaves these &trans unless it needs
  * something specific, so space and the layer keys keep working

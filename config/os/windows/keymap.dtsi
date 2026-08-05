@@ -1,0 +1,75 @@
+/* Windows overlays.
+ *
+ * WIN is the OS flag: lit means Windows. It is almost entirely &trans -- it
+ * exists to be a layer that stays on, because "which layers are active" is
+ * the only runtime state ZMK has. It sits above the typing layers so its
+ * handful of overrides win.
+ *
+ * macOS is the unflagged default. Most of what used to differ between the
+ * OSes is gone: the Windows machines carry a Win/Ctrl remap (PowerToys), so
+ * a Mac-canonical keycode lands correctly there too. Only things that are
+ * genuinely different -- not just a different modifier -- appear here.
+ *
+ * When adding a binding here: the remap means **want Control -> write LG;
+ * want the Win key -> write LC.**
+ *
+ * WIN_STG is a conditional layer, activated automatically when WIN is on
+ * and STG is active. See the conditional-layers node in corne.keymap.
+ *
+ * There is deliberately no WIN_AXN: every AXN key either works on both
+ * OSes unaided or was unused.
+ */
+
+        windows_layer {
+            /* Three keys. ESC-hold has to relight the flag that &to clears,
+             * and word-delete is the one thing the Win/Ctrl remap cannot
+             * fix: the shared layer uses Option+Bspc for macOS, and Windows
+             * wants Ctrl+Bspc, which after the remap is a firmware LGUI.
+             *
+             * These are identical on every typing layer, which is exactly
+             * why a single overlay can carry them without colliding. */
+            #define WN_ESC   &to_BAS_win_kp  0  ESC
+            #define WN_BSPC  &mt  LG(BSPC)  BSPC
+            #define WN_DEL   &mt  LG(DEL)   DEL
+
+            display-name = "WIN";
+            bindings = <
+    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  WN_BSPC
+    WN_DEL  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans   &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans   &trans
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };
+
+        windows_settings_layer {
+            /* The one place the two OSes genuinely diverge. Ten positions,
+             * each the Windows counterpart of what the shared layer does
+             * the macOS way -- or filling a slot macOS leaves empty.
+             *
+             * Volume, mute and media are deliberately absent: they are
+             * OS-independent HID codes and live once on the shared layer.
+             * Overriding them here is what previously left one OS with no
+             * media keys.
+             *
+             * Position 11 is bound on both WIN (word-delete) and here
+             * (task manager). WIN_STG is the higher layer, so on the
+             * settings layer task manager wins -- which is what we want. */
+            #define WS_PICK     &kp LC(LS(C))        // powertoys colour picker (Win+Shift+C)
+            #define WS_MAG_IN   &kp LC(EQUAL)        // magnifier in    (Win+Plus)
+            #define WS_MAG_OUT  &kp LC(MINUS)        // magnifier out   (Win+Minus)
+            #define WS_MAG_OFF  &kp LC(ESC)          // magnifier off   (Win+Esc)
+            #define WS_ZONES    &kp LC(LS(GRAVE))    // fancy zones     (Win+Shift+`)
+            #define WS_TASKMGR  &kp LG(LS(ESC))      // task manager    (Ctrl+Shift+Esc)
+            #define WS_SYSINFO  &kp RC(PAUSE_BREAK)  // system info     (Win+Pause)
+            #define WS_SETTING  &kp RC(I)            // windows settings (Win+I)
+            #define WS_SECURE   &kp LG(LA(DEL))      // security screen (Ctrl+Alt+Del)
+            #define WS_FILES    &kp LC(E)            // file explorer   (Win+E)
+
+            display-name = "WIN_STG";
+            bindings = <
+    &trans  &trans  &trans  &trans   WS_PICK  &trans        WS_MAG_IN   &trans  &trans  &trans  WS_ZONES   WS_TASKMGR
+    &trans  &trans  &trans  &trans    &trans  &trans       WS_MAG_OFF   &trans  &trans  &trans  WS_SYSINFO  WS_SETTING
+    &trans  &trans  &trans  &trans  WS_FILES  &trans       WS_MAG_OUT   &trans  &trans  &trans   WS_SECURE     &trans
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };

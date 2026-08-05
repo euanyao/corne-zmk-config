@@ -1,19 +1,31 @@
-/* Screenshot, shared by both OSes.
+/* Settings-layer behaviours on the default (macOS) side.
  *
- * Windows-canonical, so on the Mac these arrive as Shift+Cmd+5/4/3.
- *
- * Pre-existing gap, carried over unchanged: these are macOS shortcuts and
- * do nothing useful on Windows, which wants Win+Shift+S. The old config
- * had the same problem -- wSTG referenced the mac morph directly -- so
- * this is not a regression, but it is worth fixing at some point.
+ * Mac-canonical: Command is LGUI. Comments state the chord as macOS sees
+ * it.
  */
+
+/* Screenshot. Shift+Cmd+5/4/3 on the Mac.
+ *
+ * Pre-existing gap carried over unchanged: these are macOS shortcuts and
+ * do nothing on Windows, which wants Win+Shift+S. The old config had the
+ * same problem, so it's not a regression, but it's worth fixing. */
 MORPH_KAS(
     s,
     STG,
     screenshot,
     screenshot,
     MOD_LALT,
-    &kp RS(RC(N5)),  // tap:   screenshot and recording options
-    &kp RS(RC(N4)),  // alt:   screenshot of selected area
-    &kp RS(RC(N3))   // shift: screenshot of whole screen
+    &kp RS(RG(N5)),  // tap:   screenshot and recording options
+    &kp RS(RG(N4)),  // alt:   screenshot of selected area
+    &kp RS(RG(N3))   // shift: screenshot of whole screen
+)
+
+/* Finder. Was macOS-only on an overlay; it's on the default layer now. */
+MORPH_KS(
+    s,
+    STG,
+    f,
+    files,
+    &kp LA(LG(SPACE)),  // tap:   finder                  (Opt+Cmd+Space)
+    &kp LS(LG(DOT))     // shift: show/hide system files  (Shift+Cmd+.)
 )

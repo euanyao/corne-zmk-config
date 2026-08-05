@@ -4,23 +4,29 @@
  * laptop, 2-5 the Windows machines. Split 2/4 to match the actual device
  * count.
  *
- * &to BAS before &tog MAC is what makes these idempotent -- re-pressing
+ * macOS is the unflagged default, so the mac profiles just clear to base.
+ * The windows profiles additionally light the WIN flag.
+ *
+ * &to BAS before &tog WIN is what makes these idempotent -- re-pressing
  * the same profile key must not flip the flag back off. &to clears every
- * layer including MAC, so the &tog that follows always turns it ON.
+ * layer including WIN, so the &tog that follows always turns it ON.
+ *
+ * Nothing detects the OS. This is convention: the keyboard believes
+ * whatever the profile macro asserts, so pair the Mac to slot 0 or 1.
  */
 
-#define BT_MAC(N, PROFILE)                          \
-  m_s_b##N: macro_stg_bluetooth_##N {               \
-      compatible = "zmk,behavior-macro";            \
-      #binding-cells = <0>;                         \
-      bindings = <&bt BT_SEL PROFILE &to_BAS_mac>;  \
+#define BT_MAC(N, PROFILE)                      \
+  m_s_b##N: macro_stg_bluetooth_##N {           \
+      compatible = "zmk,behavior-macro";        \
+      #binding-cells = <0>;                     \
+      bindings = <&bt BT_SEL PROFILE &to_BAS>;  \
   };
 
 #define BT_WIN(N, PROFILE)                          \
   m_s_b##N: macro_stg_bluetooth_##N {               \
       compatible = "zmk,behavior-macro";            \
       #binding-cells = <0>;                         \
-      bindings = <&bt BT_SEL PROFILE &to_BAS>;      \
+      bindings = <&bt BT_SEL PROFILE &to_BAS_win>;  \
   };
 
 BT_MAC(1, 0)   // macOS work laptop

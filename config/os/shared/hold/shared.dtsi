@@ -54,12 +54,12 @@ to_BAS_kp: to_BAS_kp {
     bindings = <&to_BAS>, <&kp>;
 };
 
-to_BAS_mac_kp: to_BAS_mac_kp {
+to_BAS_win_kp: to_BAS_win_kp {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&to_BAS_mac>, <&kp>;
+    bindings = <&to_BAS_win>, <&kp>;
 };
 
 // The one latchable layer: hold for momentary, tap to latch on. Unlatching
