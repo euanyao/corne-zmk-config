@@ -79,12 +79,24 @@ toward *more* layers, not fewer.
 | # | layer | |
 |---|---|---|
 | 0 | BAS | shared; always active, everything falls through to it |
-| 1 | DEV | shared |
-| 2 | AXN | shared; the only latchable layer |
-| 3 | FNK | shared; empty slots `&trans` so it composes over AXN |
-| 4 | STG | shared, macOS-flavoured; Windows replaces 10 positions |
-| 5 | WIN | OS flag, almost all `&trans`. 3 keys: pos 0, 11, 12 |
+| 1 | WIN | OS flag, almost all `&trans`. 3 keys: pos 0, 11, 12 |
+| 2 | DEV | shared |
+| 3 | AXN | shared; the only latchable layer |
+| 4 | FNK | shared; empty slots `&trans` so it composes over AXN |
+| 5 | STG | shared, macOS-flavoured; Windows replaces 10 positions |
 | 6 | WIN_STG | conditional `<WIN STG>` — 10 keys |
+
+**WIN sits at 1, below the typing layers, on purpose.** ZMK's built-in OLED
+status screen shows the *highest active* layer, so a high WIN made the OLED
+read "WIN" permanently in Windows mode and mask DEV/AXN/FNK. It resolves
+correctly down there only because DEV/AXN/FNK are `&trans` at all three
+positions WIN binds — so WIN only has to outrank BAS. `check-keymap.sh`
+asserts that invariant, because breaking it silently kills Windows
+word-delete rather than failing the build. STG is exempt: it legitimately
+overrides those positions and word-delete isn't wanted there.
+
+Layer order lives in the **include list in `corne.keymap`**, which
+interleaves `os/shared/keymap/` and `os/windows/keymap/`.
 
 Source: `config/os/shared/**` is everything shared; `config/os/windows/**`
 is only the two overlays. There is **no** `config/os/macos/` — macOS *is*
