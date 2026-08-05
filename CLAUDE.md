@@ -30,7 +30,7 @@ learnability are worth more here than continuity.
 | Central | **left** (carries the studio snippet + USB UART) |
 | Peripheral | **right** |
 | Builds | GitHub Actions only — **no local ZMK toolchain, no `west`** |
-| Layers | 8 of ZMK's 32 |
+| Layers | 7 of ZMK's 32 |
 | ZMK Studio | enabled (`-DCONFIG_ZMK_STUDIO=y`) |
 | LEDs | 27 per half (21 per-key + 6 underglow) |
 
@@ -77,7 +77,7 @@ count are independent: fewer physical keys pushes toward *more* layers.
 
 ## 3. Current architecture
 
-**The merge is done** (branch `keymap-redesign`). 8 layers, one shared set:
+**The merge is done** (branch `keymap-redesign`). 7 layers, one shared set:
 
 | # | layer | |
 |---|---|---|
@@ -87,8 +87,23 @@ count are independent: fewer physical keys pushes toward *more* layers.
 | 3 | FNK | shared; empty slots are `&trans` so it composes over AXN |
 | 4 | STG | shared left half; right half replaced by MAC_STG |
 | 5 | MAC | OS flag, almost all `&trans`. 3 keys: ESC-hold, BSPC, DEL |
-| 6 | MAC_AXN | conditional `<MAC AXN>` — 5 keys |
-| 7 | MAC_STG | conditional `<MAC STG>` — macOS window mgmt + IDE |
+| 6 | MAC_STG | conditional `<MAC STG>` — 4 keys |
+
+MAC_STG's four keys are each the macOS spelling of something the shared
+layer does the Windows way at the same position: input source (12), mission
+control (22), finder (28), application windows (34). It can't fold into MAC
+— those positions are DEL, `;`, V and `/` on the typing layers.
+
+There is no MAC_AXN: the five macOS-specific AXN keys went unused, so AXN
+is fully shared. Redo is `Shift+Ctrl+Z`, which works on both.
+
+Two AXN keys are Windows-shaped and behave differently on the Mac, kept
+only because they're unused: position 17 (replace) arrives as Cmd+H and
+hides the window; position 35 (new virtual desktop) arrives as Ctrl+Cmd+D.
+
+Volume, mute and media are OS-independent HID consumer codes and live once
+on the shared layer, same positions on both machines. Don't duplicate them
+onto MAC_STG — that's the bug that left macOS with no media keys.
 
 **Node order in `corne.keymap` determines layer index.** MAC must stay
 above the typing layers or its overrides stop applying. `check-keymap.sh`
