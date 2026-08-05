@@ -9,6 +9,7 @@
 #   - a layer whose binding count isn't 42
 #   - a &behavior that is referenced but never defined
 #   - keymap node order not matching the indices in layers.dtsi
+#   - a typing layer shadowing the OS flag at a position it binds
 #
 # It does NOT validate devicetree semantics -- only GitHub Actions does
 # that. Treat a pass as "worth flashing", not "correct".
@@ -62,8 +63,8 @@ else:
 
 # 3. keymap node order must match the indices in layers.dtsi. ZMK assigns
 #    layer numbers by node order, so a reordered node silently changes
-#    which layer wins at a position -- and MAC has to stay above the
-#    typing layers for its overrides to apply at all.
+#    which layer wins at a position, and the WIN flag's placement relative
+#    to the typing layers is load bearing (see assertion 4).
 import pathlib
 decl = pathlib.Path("config/os/shared/layers.dtsi").read_text()
 want = [
@@ -79,6 +80,32 @@ if want != got:
     fail = 1
 else:
     print(f"ok    layer order matches layers.dtsi: {' '.join(got)}")
+
+# 4. The OS flag sits BELOW the typing layers so the OLED shows the layer
+#    in use rather than permanently reading "WIN". That only resolves
+#    correctly while DEV/AXN/FNK stay transparent everywhere WIN binds --
+#    give one of them a real binding at position 0, 11 or 12 and Windows
+#    word-delete silently stops working. STG is exempt: it legitimately
+#    overrides those positions, and word-delete isn't wanted there.
+byname = dict(layers)
+if "WIN" in byname:
+    win = re.findall(r"&\w+[^&]*", byname["WIN"])
+    bound = [i for i, b in enumerate(win) if not b.strip().startswith("&trans")]
+    leaks = []
+    for name in ("DEV", "AXN", "FNK"):
+        if name not in byname:
+            continue
+        binds = re.findall(r"&\w+[^&]*", byname[name])
+        for p in bound:
+            if not binds[p].strip().startswith("&trans"):
+                leaks.append(f"{name} position {p} = {binds[p].strip()}")
+    if leaks:
+        print("FAIL  WIN is shadowed, word-delete will break:")
+        for l in leaks:
+            print(f"        {l}")
+        fail = 1
+    else:
+        print(f"ok    WIN unshadowed at positions {bound} across DEV/AXN/FNK")
 
 sys.exit(fail)
 PY

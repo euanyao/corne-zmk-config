@@ -1,31 +1,15 @@
-/* The five shared typing layers.
+/* DEV, AXN, FNK, STG -- layers 2 to 5, shared by both OSes.
  *
- * Written once and used on both OSes. MAC-CANONICAL throughout: the primary
- * shortcut modifier is Command (LGUI), so macOS needs no host configuration
- * at all. The Windows machines carry a Win/Ctrl remap instead, which makes
- * a firmware LGUI arrive as Control there.
+ * MAC-CANONICAL. Anything genuinely Windows-specific lives on the WIN
+ * overlays in os/windows/keymap/ -- do not add OS branches here.
  *
- * Anything genuinely Windows-specific lives on the WIN overlay layers in
- * os/windows/keymap.dtsi -- do not add OS branches here.
+ * All four are &trans at positions 0, 11 and 12 so the WIN flag can
+ * override word-delete and the ESC panic from underneath. Binding any of
+ * those for real here silently breaks that -- see os/shared/layers.dtsi.
  *
- * &trans means "this layer doesn't change this key" and falls through to
- * whatever is active below, which is ultimately BAS. The outer columns
- * (ESC, BSPC, DEL, RET, TAB) and the thumbs are bound once on BAS and
- * inherited everywhere. Only put a real binding above BAS where the layer
- * genuinely differs -- and use &none, not &trans, where a layer wants a
- * key to do nothing, or it will fall through to a letter.
+ * Use &none, not &trans, where a layer wants a key to do nothing: &trans
+ * falls through to BAS and types a letter.
  */
-
-        base_layer {
-            /* The only layer that binds the outer columns and thumbs. */
-            display-name = "BAS";
-            bindings = <
-    KEY_ESC  &kp Q  &kp W  &kp E  &kp R  &kp T        &kp Y  &kp U      &kp I    &kp O     &kp P  NAV_BSPC
-    NAV_DEL   HR_A   HR_S   HR_D   HR_F  &kp G        &kp H   HR_J       HR_K     HR_L   HR_SEMI   KEY_RET
-    KEY_TAB  &kp Z  &kp X  &kp C  &kp V  &kp B        &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH   &kp SQT
-                        THU_DEV  KEY_SPC  THU_AXN     THU_FNK  KEY_SPC  THU_STG
-            >;
-        };
 
         dev_layer {
             #define DV13  &hml  LCTRL  AMPS
@@ -135,15 +119,13 @@
              * The profile macros set the OS as a side effect, which is fine
              * on BLE but leaves two gaps: connecting over USB doesn't touch
              * the profile, and deep-sleep wake resets layer state so the
-             * flag is lost while the profile survives. Either way you'd
-             * otherwise have to re-tap a BT key and reassign the radio just
-             * to fix the OS mode.
+             * flag is lost while the profile survives.
              *
              * Self-inverse by fall-through: WIN_STG is &trans at this
              * position, so pressing it in Windows mode lands on this same
              * binding and toggles WIN back off. Positions 31 and 32 are the
              * only ones free on STG *and* transparent on WIN_STG, which is
-             * what makes the trick work here. */
+             * what makes the trick work; 32 is still free. */
             #define ST_OS_TOG   &tog WIN             // macOS <-> Windows mode
 
             display-name = "STG";

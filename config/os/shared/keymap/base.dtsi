@@ -1,0 +1,20 @@
+/* BAS -- layer 0, always active.
+ *
+ * The only layer that binds the outer columns and the thumbs. Everything
+ * above is &trans at those positions and inherits them from here, so each
+ * exists as a single binding rather than a copy per layer.
+ *
+ * MAC-CANONICAL, like the whole config: the primary shortcut modifier is
+ * Command. See os/shared/keys.dtsi for what that means when adding a
+ * Windows-only binding.
+ */
+
+        base_layer {
+            display-name = "BAS";
+            bindings = <
+    KEY_ESC  &kp Q  &kp W  &kp E  &kp R  &kp T        &kp Y  &kp U      &kp I    &kp O     &kp P  NAV_BSPC
+    NAV_DEL   HR_A   HR_S   HR_D   HR_F  &kp G        &kp H   HR_J       HR_K     HR_L   HR_SEMI   KEY_RET
+    KEY_TAB  &kp Z  &kp X  &kp C  &kp V  &kp B        &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH   &kp SQT
+                        THU_DEV  KEY_SPC  THU_AXN     THU_FNK  KEY_SPC  THU_STG
+            >;
+        };

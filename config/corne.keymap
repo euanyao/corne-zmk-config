@@ -87,13 +87,24 @@
     };
 };
 
-/* Layer order must match os/shared/layers.dtsi:
- * BAS DEV AXN FNK STG WIN WIN_STG */
+/* LAYER ORDER. ZMK assigns indices by node order, so this include list is
+ * what actually decides them -- os/shared/layers.dtsi only names them, and
+ * check-keymap.sh asserts the two agree.
+ *
+ * WIN is deliberately second, directly above BAS and below the typing
+ * layers, so the OLED reports the layer in use rather than permanently
+ * reading "WIN" in Windows mode. That only works while the typing layers
+ * stay &trans at positions 0, 11 and 12. See os/shared/layers.dtsi. */
 / {
     keymap {
         compatible = "zmk,keymap";
 
-        #include "os/shared/keymap.dtsi"
-        #include "os/windows/keymap.dtsi"
+        #include "os/shared/keymap/base.dtsi"        /* 0  BAS     */
+        #include "os/windows/keymap/flag.dtsi"       /* 1  WIN     */
+        #include "os/shared/keymap/typing.dtsi"      /* 2  DEV     */
+                                                    /* 3  AXN     */
+                                                    /* 4  FNK     */
+                                                    /* 5  STG     */
+        #include "os/windows/keymap/settings.dtsi"   /* 6  WIN_STG */
     };
 };

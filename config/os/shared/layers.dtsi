@@ -1,30 +1,47 @@
 /* Layer indices.
  *
- * Order is load bearing. WIN must sit ABOVE the typing layers so its
- * overrides win while any of them is active; the conditional overlay must
- * sit above WIN. Reordering these silently changes which binding wins at a
- * position, and check-keymap.sh asserts the keymap node order matches.
+ * Order is load bearing, and `check-keymap.sh` asserts the keymap node
+ * order matches these numbers. ZMK assigns indices by node order, so these
+ * defines don't *cause* anything -- they're names that must agree.
  *
- * BAS is layer 0 and is therefore always active -- everything above it
- * falls through to it via &trans.
+ * BAS is layer 0 and is therefore always active. Everything above it falls
+ * through to it via &trans.
+ *
+ * WIN sits at 1, directly above BAS and BELOW the typing layers. That works
+ * because DEV/AXN/FNK are `&trans` at all three positions WIN binds (0, 11,
+ * 12), so WIN only has to outrank BAS. Keeping it low means the OLED --
+ * which shows the highest active layer -- reports the layer you're actually
+ * using rather than permanently reading "WIN" while in Windows mode.
+ *
+ * If a typing layer ever takes a real binding at position 0, 11 or 12, WIN
+ * stops winning there and word-delete silently breaks. Put it on the WIN
+ * layer instead, or move WIN back above the typing layers and accept the
+ * OLED cost.
+ *
+ * WIN_STG must stay above STG, since it overrides positions STG binds.
  *
  * macOS is the unflagged default. The Mac needs no host-side
- * configuration at all; the Windows machines carry a Win/Ctrl remap
- * (PowerToys) instead. See os/shared/keys.dtsi.
+ * configuration; the Windows machines carry a Win/Ctrl remap (PowerToys)
+ * instead. See os/shared/keys.dtsi.
  */
 #define BAS      0
-#define DEV      1
-#define AXN      2
-#define FNK      3
-#define STG      4
-#define WIN      5   /* OS flag. Lit = Windows. Nearly all &trans. */
+#define WIN      1   /* OS flag. Lit = Windows. Nearly all &trans. */
+#define DEV      2
+#define AXN      3
+#define FNK      4
+#define STG      5
 #define WIN_STG  6   /* conditional: WIN + STG */
 
 /* Host signal keys.
  *
- * Tapped alongside layer changes so host-side helpers (host/windows/ahk)
- * can show which layer is live. These were already identical between the
- * old mac and windows sets, so merging the layers didn't change them.
+ * Tapped alongside layer changes so host-side helpers can show which layer
+ * is live.
+ *
+ * NOTE: these do not currently match host/windows/ahk, which listens for
+ * Shift+F19..F23 while the firmware sends Shift+F14..F18. Pre-existing
+ * mismatch -- the host indicator cannot be working. Fix by shifting these
+ * to F19..F23 or by repointing the AHK. The OLED is unaffected; it reads
+ * the layer's display-name directly.
  */
 #define H_CWR   F13
 #define F_BAS   LS(F14)

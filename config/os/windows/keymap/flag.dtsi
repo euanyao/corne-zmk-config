@@ -1,0 +1,40 @@
+/* WIN -- layer 1, the OS flag. Lit means Windows.
+ *
+ * Almost entirely &trans. It exists to be a layer that stays on, because
+ * "which layers are active" is the only runtime state ZMK has.
+ *
+ * It sits directly above BAS and BELOW the typing layers, which works only
+ * because DEV/AXN/FNK are &trans at all three positions below. That
+ * placement keeps the OLED useful -- it shows the highest active layer, so
+ * a high WIN would mask the layer you're actually on. See
+ * os/shared/layers.dtsi.
+ *
+ * macOS is the unflagged default. The Windows machines carry a Win/Ctrl
+ * remap (PowerToys), so a Mac-canonical keycode lands correctly there too.
+ * When adding a binding here: **want Control -> write LG; want the Win key
+ * -> write LC.**
+ *
+ * There is deliberately no WIN overlay for AXN: every AXN key either works
+ * on both OSes unaided or was unused.
+ */
+
+        windows_layer {
+            /* Three keys. ESC-hold has to relight the flag that &to clears,
+             * and word-delete is the one thing the Win/Ctrl remap cannot
+             * fix: the shared layer uses Option+Bspc for macOS, and Windows
+             * wants Ctrl+Bspc, which after the remap is a firmware LGUI.
+             *
+             * These are identical on every typing layer, which is exactly
+             * why a single overlay can carry them without colliding. */
+            #define WN_ESC   &to_BAS_win_kp  0  ESC
+            #define WN_BSPC  &mt  LG(BSPC)  BSPC
+            #define WN_DEL   &mt  LG(DEL)   DEL
+
+            display-name = "WIN";
+            bindings = <
+    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  WN_BSPC
+    WN_DEL  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans   &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans   &trans
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };
