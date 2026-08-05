@@ -86,8 +86,8 @@ count are independent: fewer physical keys pushes toward *more* layers.
 | 2 | AXN | shared; the only latchable layer |
 | 3 | FNK | shared; empty slots are `&trans` so it composes over AXN |
 | 4 | STG | shared left half; right half replaced by MAC_STG |
-| 5 | MAC | OS flag, almost all `&trans`. 3 keys: ESC-hold, BSPC, DEL |
-| 6 | MAC_STG | conditional `<MAC STG>` — 4 keys |
+| 5 | WIN | OS flag, almost all `&trans`. 3 keys: ESC-hold, BSPC, DEL |
+| 6 | WIN_STG | conditional `<WIN STG>` — 10 keys |
 
 MAC_STG's four keys are each the macOS spelling of something the shared
 layer does the Windows way at the same position: input source (12), mission
@@ -117,9 +117,9 @@ Layer switching does **not** use `&to` (it would clear the MAC flag — see
 §5). Layers are momentary; only AXN latches, via `&tog`. Momentary layers
 need no return key.
 
-Source: `config/os/shared/**` is everything shared; `config/os/macos/**`
-is only the three overlays plus mac-specific morphs. There is no
-`config/os/windows/` any more — Windows *is* the shared canonical.
+Source: `config/os/shared/**` is everything shared; `config/os/windows/**`
+is only the two overlays. There is no `config/os/macos/` — macOS *is* the
+shared default.
 
 Host companions in `host/windows/ahk/` watch F13–F18 signals, unchanged by
 the merge (`F_mBAS` and `F_wBAS` were already the same keycode).
