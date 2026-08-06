@@ -135,8 +135,16 @@ modifier keeps the same finger on both OSes.**
 
 | layer | 13 (A) | 14 (S) | 21 (L) | 22 (;) |
 |---|---|---|---|---|
-| BAS / DEV / AXN | LCTRL | LGUI | RGUI | RCTRL |
-| WIN / WIN_DEV / WIN_AXN | LGUI | **LCTRL** | **RCTRL** | RGUI |
+| BAS | **LGUI** | LCTRL | RCTRL | RGUI |
+| WIN | **LCTRL** | LGUI | RGUI | RCTRL |
+| DEV / AXN | LCTRL | **LGUI** | **RGUI** | RCTRL |
+| WIN_DEV / WIN_AXN | LGUI | **LCTRL** | **RCTRL** | RGUI |
+
+> **INCONSISTENT — BAS is inverted from DEV/AXN.** The primary modifier is
+> on **A/`;`** on BAS but on **S/L** on DEV and AXN, so the same finger gives
+> a different modifier depending on the layer. BAS and WIN were swapped
+> deliberately; DEV, AXN and their overlays were not, and should be
+> propagated to match.
 
 `WIN` covers BAS for free — it already sat directly above it. DEV and AXN
 bind those positions themselves, so their overlays carry the swap.

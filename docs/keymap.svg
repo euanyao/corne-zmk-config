@@ -179,18 +179,18 @@ path.combo {
 </g>
 <g transform="translate(30, 84)" class="key keypos-12">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
-<text x="0" y="0" class="key tap">DEL</text>
-<text x="0" y="24" class="key hold">Alt+DEL</text>
+<text x="0" y="0" class="key tap">TAB</text>
+<text x="0" y="24" class="key hold">&amp;mo_STG</text>
 </g>
 <g transform="translate(90, 84)" class="key keypos-13">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">A</text>
-<text x="0" y="24" class="key hold">LCTRL</text>
+<text x="0" y="24" class="key hold">LGUI</text>
 </g>
 <g transform="translate(150, 84)" class="key keypos-14">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">S</text>
-<text x="0" y="24" class="key hold">LGUI</text>
+<text x="0" y="24" class="key hold">LCTRL</text>
 </g>
 <g transform="translate(210, 84)" class="key keypos-15">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
@@ -223,12 +223,12 @@ path.combo {
 <g transform="translate(600, 84)" class="key keypos-21">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">L</text>
-<text x="0" y="24" class="key hold">RGUI</text>
+<text x="0" y="24" class="key hold">RCTRL</text>
 </g>
 <g transform="translate(660, 84)" class="key keypos-22">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">;</text>
-<text x="0" y="24" class="key hold">RCTRL</text>
+<text x="0" y="24" class="key hold">RGUI</text>
 </g>
 <g transform="translate(720, 84)" class="key keypos-23">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
@@ -236,8 +236,8 @@ path.combo {
 </g>
 <g transform="translate(30, 140)" class="key keypos-24">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
-<text x="0" y="0" class="key tap">TAB</text>
-<text x="0" y="24" class="key hold">&amp;mo_STG</text>
+<text x="0" y="0" class="key tap">DEL</text>
+<text x="0" y="24" class="key hold">Alt+DEL</text>
 </g>
 <g transform="translate(90, 140)" class="key keypos-25">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
@@ -384,20 +384,19 @@ path.combo {
 <text x="0" y="0" class="key tap">BSPC</text>
 <text x="0" y="24" class="key hold"><tspan style="font-size: 88%">Ctl+BSPC</tspan></text>
 </g>
-<g transform="translate(30, 84)" class="key keypos-12">
-<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
-<text x="0" y="0" class="key tap">DEL</text>
-<text x="0" y="24" class="key hold">Ctl+DEL</text>
+<g transform="translate(30, 84)" class="key trans keypos-12">
+<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
 </g>
 <g transform="translate(90, 84)" class="key keypos-13">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">A</text>
-<text x="0" y="24" class="key hold">LGUI</text>
+<text x="0" y="24" class="key hold">LCTRL</text>
 </g>
 <g transform="translate(150, 84)" class="key keypos-14">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">S</text>
-<text x="0" y="24" class="key hold">LCTRL</text>
+<text x="0" y="24" class="key hold">LGUI</text>
 </g>
 <g transform="translate(210, 84)" class="key trans keypos-15">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key trans"/>
@@ -426,20 +425,21 @@ path.combo {
 <g transform="translate(600, 84)" class="key keypos-21">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">L</text>
-<text x="0" y="24" class="key hold">RCTRL</text>
+<text x="0" y="24" class="key hold">RGUI</text>
 </g>
 <g transform="translate(660, 84)" class="key keypos-22">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">;</text>
-<text x="0" y="24" class="key hold">RGUI</text>
+<text x="0" y="24" class="key hold">RCTRL</text>
 </g>
 <g transform="translate(720, 84)" class="key trans keypos-23">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key trans"/>
 <text x="0" y="0" class="key trans tap">▽</text>
 </g>
-<g transform="translate(30, 140)" class="key trans keypos-24">
-<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">▽</text>
+<g transform="translate(30, 140)" class="key keypos-24">
+<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
+<text x="0" y="0" class="key tap">DEL</text>
+<text x="0" y="24" class="key hold">Ctl+DEL</text>
 </g>
 <g transform="translate(90, 140)" class="key trans keypos-25">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key trans"/>

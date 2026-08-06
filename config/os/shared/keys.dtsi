@@ -34,9 +34,9 @@
  * work instead. Do not reintroduce a host-remap assumption.
  *
  * HOME-ROW MODS are swapped per OS by the same overlays. BAS puts the
- * primary modifier (Command) on S/L and the secondary (Control) on A/;.
+ * primary modifier (Command) on A/; and the secondary (Control) on S/L.
  * Windows wants Control as the primary, so WIN / WIN_DEV / WIN_AXN swap
- * them -- S/L become LCTRL, A/; become LGUI. The primary modifier therefore
+ * them -- A/; become LCTRL, S/L become LGUI. The primary modifier therefore
  * keeps the SAME FINGER on both OSes.
  *
  * STILL UNSWAPPED: FNK pos 14 and NAV pos 21 have no overlay, so they are
@@ -55,17 +55,17 @@
  * os/shared/hold/shared.dtsi. Using the wrong hand's behaviour silently
  * disables the guard.
  *
- * S and L carry LGUI -- Command on the Mac, the Win key on Windows. A and
- * ; carry LCTRL, which is Control on both, so on Windows the modifier you
- * actually want for shortcuts is on A/; rather than S/L. */
-#define HR_A      &hml  LCTRL  A
-#define HR_S      &hml  LGUI   S
+ * A and ; carry the PRIMARY modifier -- LGUI (Command) on macOS, swapped to
+ * LCTRL (Control) by the WIN overlays. S and L carry the secondary. The
+ * primary therefore sits on the same finger on both OSes. */
+#define HR_A      &hml  LGUI   A
+#define HR_S      &hml  LCTRL  S
 #define HR_D      &hml  LALT   D
 #define HR_F      &hml  LSHFT  F
 #define HR_J      &hmr  RSHFT  J
 #define HR_K      &hmr  LALT   K
-#define HR_L      &hmr  RGUI   L
-#define HR_SEMI   &hmr  RCTRL  SEMI
+#define HR_L      &hmr  RCTRL  L
+#define HR_SEMI   &hmr  RGUI   SEMI
 
 /* Thumbs. Every layer above BAS leaves these &trans unless it needs
  * something specific, so space and the layer keys keep working

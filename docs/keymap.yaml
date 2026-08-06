@@ -13,19 +13,19 @@ layers:
     - O
     - P
     - {t: BSPC, h: Alt+BSPC}
-  - - {t: DEL, h: Alt+DEL}
-    - {t: A, h: LCTRL}
-    - {t: S, h: LGUI}
+  - - {t: TAB, h: '&mo_STG'}
+    - {t: A, h: LGUI}
+    - {t: S, h: LCTRL}
     - {t: D, h: LALT}
     - {t: F, h: LSHFT}
     - G
     - H
     - {t: J, h: RSHFT}
     - {t: K, h: LALT}
-    - {t: L, h: RGUI}
-    - {t: ;, h: RCTRL}
+    - {t: L, h: RCTRL}
+    - {t: ;, h: RGUI}
     - ''''
-  - - {t: TAB, h: '&mo_STG'}
+  - - {t: DEL, h: Alt+DEL}
     - Z
     - X
     - C
@@ -56,19 +56,19 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
-    - {t: A, h: LGUI}
-    - {t: S, h: LCTRL}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: L, h: RCTRL}
-    - {t: ;, h: RGUI}
-    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
+    - {t: A, h: LCTRL}
+    - {t: S, h: LGUI}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: L, h: RGUI}
+    - {t: ;, h: RCTRL}
+    - {t: ▽, type: trans}
+  - - {t: DEL, h: Ctl+DEL}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

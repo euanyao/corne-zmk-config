@@ -33,10 +33,10 @@
 
             /* Home-row mods, swapped for Windows.
              *
-             * BAS puts the primary modifier on S and L (LGUI = Command) and
-             * the secondary on A and ; (LCTRL). Windows wants Control as the
-             * primary, so this swaps them: S/L become LCTRL and A/; become
-             * LGUI (the Win key, which is genuinely the secondary there).
+             * BAS puts the primary modifier on A and ; (LGUI = Command)
+             * and the secondary on S and L (LCTRL). Windows wants Control as
+             * the primary, so this swaps them: A/; become LCTRL and S/L
+             * become LGUI (the Win key, genuinely the secondary there).
              *
              * The point is that the PRIMARY modifier stays on the same
              * finger on both OSes. Without this, Control lived on A/; on
@@ -44,19 +44,19 @@
              * between machines.
              *
              * This only fixes BAS. DEV and AXN bind these positions
-             * themselves and are fixed on WIN_DEV / WIN_AXN. FNK (pos 14)
-             * and NAV (pos 21) still carry LGUI -- they have no overlay
-             * yet. */
-            #define WN_A     &hml  LGUI   A
-            #define WN_S     &hml  LCTRL  S
-            #define WN_L     &hmr  RCTRL  L
-            #define WN_SEMI  &hmr  RGUI   SEMI
+             * themselves and are fixed on WIN_DEV / WIN_AXN -- note those
+             * two still use the OLD arrangement (primary on S/L) and now
+             * disagree with BAS. FNK and NAV have no overlay at all. */
+            #define WN_A     &hml  LCTRL  A
+            #define WN_S     &hml  LGUI   S
+            #define WN_L     &hmr  RGUI   L
+            #define WN_SEMI  &hmr  RCTRL  SEMI
 
             display-name = "WIN";
             bindings = <
     WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   WN_BSPC
-    WN_DEL   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
-    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
+    &trans   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
+    WN_DEL  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };
