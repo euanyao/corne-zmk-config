@@ -118,8 +118,12 @@
 
         settings_layer {
             /* Keyboard configuration ONLY -- bootloader, bluetooth, RGB,
-             * ZMK Studio, the OS flag, and the OS-independent HID consumer
-             * codes (volume, media, screen brightness).
+             * ZMK Studio and the OS flag. Nothing host-facing.
+             *
+             * Volume, media transport and screen brightness were removed
+             * too. They are OS-independent HID consumer codes so they need
+             * no overlay, but they are host controls rather than keyboard
+             * config, and are currently bound NOWHERE. FNK has the room.
              *
              * Deliberately carries NO host application shortcuts. The 13
              * that used to live here (zoom, accessibility zoom, screenshot,
@@ -176,9 +180,9 @@
 
             display-name = "STG";
             bindings = <
-   ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C  &none  &none        &none  &kp C_VOL_DN        &kp C_MUTE  &kp C_VOL_UP  &none   ST_BOOT_R
-       &none  &m_s_b3  &m_s_b4  ST_BTCLR  &none  &none        &none     &kp C_PREV          &kp C_PP    &kp C_NEXT  &none       &none
-   ST_UNLOCK  &m_s_b5  &m_s_b6   ST_RGB_T  &none  &none        &none      ST_OS_TOG             &none      ST_RGB_U  &none    ST_RGB_D
-                     &kp C_BRI_DN      &trans  &trans        &trans      &trans  &kp C_BRI_UP
+   ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C  &none  &none        &none      &none  &none     &none  &none  ST_BOOT_R
+       &none  &m_s_b3  &m_s_b4  ST_BTCLR  &none  &none        &none      &none  &none     &none  &none      &none
+   ST_UNLOCK  &m_s_b5  &m_s_b6  ST_RGB_T  &none  &none        &none  ST_OS_TOG  &none  ST_RGB_U  &none   ST_RGB_D
+                            &none  &trans  &trans        &trans  &trans  &none
             >;
         };

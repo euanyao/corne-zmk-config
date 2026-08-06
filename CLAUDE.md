@@ -257,10 +257,13 @@ a plain `&kp`. That hold is the right-hand route to STG and is what makes
 the left-half bootloader reachable (§3.6) — do not replace it with a plain
 binding. The cost is that RET lost its old F2/rename hold.
 
-**Volume, mute and media are OS-independent HID consumer codes.** They live
-once on STG at positions 7/8/9 and 19/20/21. Duplicating them per OS is what
-previously left one OS with no media keys and volume in two different
-places — the reason they belong on the shared layer, not an overlay.
+**Volume, media and screen brightness are currently bound NOWHERE.** They
+came off STG along with the host shortcuts — they are OS-independent HID
+consumer codes, so they need no overlay, but they are host controls rather
+than keyboard config. FNK is the obvious home when they are wanted back.
+Historical note: duplicating them per OS is what once left one OS with no
+media keys and volume in two different places, so wherever they land they
+belong on a shared layer, not an overlay.
 
 ### 3.6 Bootloader
 

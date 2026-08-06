@@ -266,9 +266,9 @@ layers:
     - ''
     - ''
     - ''
-    - VOL DN
-    - MUTE
-    - VOL UP
+    - ''
+    - ''
+    - ''
     - ''
     - '&bootloader'
   - - ''
@@ -278,9 +278,9 @@ layers:
     - ''
     - ''
     - ''
-    - PREV
-    - PP
-    - NEXT
+    - ''
+    - ''
+    - ''
     - ''
     - ''
   - - '&studio_unlock'
@@ -295,12 +295,12 @@ layers:
     - {t: RGB BRI, s: RGB SAI}
     - ''
     - {t: RGB BRD, s: RGB SAD}
-  - - BRI DN
+  - - ''
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - BRI UP
+    - ''
 combos:
 - p: [16, 19]
   k: '&cw_ON'
