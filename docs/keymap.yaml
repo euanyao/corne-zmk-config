@@ -165,7 +165,7 @@ layers:
     - '2'
     - '3'
     - KP DIVIDE
-    - Ctl+Gui+D
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - '&tog_AXN_off'

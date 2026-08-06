@@ -39,9 +39,6 @@
              *     Mac and expands selection in VS Code on Windows.
              *   - Redo is Shift+Cmd+Z, which arrives as Shift+Ctrl+Z on
              *     Windows and is accepted there as redo.
-             *   - Position 35 carries both Cmd and Ctrl, so the remap is a
-             *     no-op and it stays Win+Ctrl+D (new virtual desktop) on
-             *     Windows.
              */
             #define AX01  &kp  LA(LS(RIGHT))         // extend selection right
             #define AX05  &kp  LG(F)                 // find
@@ -54,13 +51,12 @@
             #define AX20  &hmr LALT  N5
             #define AX21  &hmr RGUI  N6
             #define AX22  &hmr RCTRL EQUAL
-            #define AX35  &kp  LC(LG(D))             // new virtual desktop (windows)
 
             display-name = "AXN";
             bindings = <
     &trans       AX01  &mp_a_prev     &kp UP    &mp_a_next          AX05        &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
     &trans       AX13        AX14       AX15         AX16          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
-    &trans  &kp RG(Z)   &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp RS(RG(Z))         &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE    AX35
+    &trans  &kp RG(Z)   &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp RS(RG(Z))         &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
                             &trans  &trans  &tog_AXN_off        &trans  &trans  &trans
             >;
         };

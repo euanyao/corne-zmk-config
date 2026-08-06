@@ -870,11 +870,9 @@ path.combo {
 <tspan x="0" dy="-0.6em">KP</tspan><tspan x="0" dy="1.2em">DIVIDE</tspan>
 </text>
 </g>
-<g transform="translate(720, 140)" class="key keypos-35">
-<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Ctl+Gui</tspan><tspan x="0" dy="1.2em">+D</tspan>
-</text>
+<g transform="translate(720, 140)" class="key trans keypos-35">
+<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key trans"/>
+<text x="0" y="0" class="key trans tap">▽</text>
 </g>
 <g transform="translate(210, 196)" class="key trans keypos-36">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key trans"/>
