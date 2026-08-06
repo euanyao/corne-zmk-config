@@ -59,8 +59,8 @@ flash. **[verified — stated by owner]**
 | 5 | Gaming layer for Windows | **deferred** by owner; layer 7 free |
 | 6 | Avoid home-row mods (hold timing hard) | **resolved by fixing, not removing** — §4.3 |
 
-Still missing from the base layer: **`-`** (kebab-case, flags, ranges),
-currently DEV-only. No obvious home without a compromise. Raise if it bites.
+**`-` is on the base layer now** at position 11, the slot Backspace vacated
+when it moved to a thumb. That closes the gap this section used to flag.
 
 ### Standing constraint
 
@@ -241,23 +241,35 @@ window.
 `&to` deactivates every other layer and would take the OS flag with it (§4.1
 has the full analysis). So:
 
-- DEV, FNK, NAV, STG are **momentary** — releasing the thumb is the way
-  back, so they need no return key anywhere.
-- **AXN is the only latchable layer**, via `&tog`. Hold the thumb for
-  momentary, tap to latch.
+- DEV, FNK, STG are **momentary** — releasing the key is the way back, so
+  they need no return key anywhere.
+- **AXN and NAV are latchable**, via `&tog`. Hold for momentary, tap to
+  latch; tapping the same thumb again unlatches (`tog_*_off` sits at that
+  position on the layer itself, so the host signal knows the direction).
 - The only `&to` is the ESC-hold panic reset, which relights WIN on the WIN
   layer.
 
-State space is 4 and every state is escapable: `BAS`, `BAS+WIN`, `BAS+AXN`,
-`BAS+WIN+AXN`.
+State space is 8 and every state is escapable: `BAS` and `BAS+WIN`, each
+optionally with `AXN`, `NAV`, or both latched. NAV sits above AXN, so where
+both bind a position NAV wins.
 
 Thumb map (BAS is the only layer that binds thumbs; the rest are `&trans`):
 
 ```
-   36 DEV(mo)   37 SPACE   38 AXN   |  39 FNK(mo)  40 SPACE  41 NAV(mo)
-                                hold = momentary
-                                tap  = &tog AXN
+   36 DEV(mo)   37 BSPC   38 AXN   |   39 ENTER   40 SPACE   41 NAV
+                                    hold = momentary
+                                    tap  = latch (AXN, NAV)
 ```
+
+**Enter and Backspace are on thumbs**, not pinkies — that was the point of
+the rearrangement. FNK moved off the thumbs onto the quote key's hold
+(pos 23) since F-keys are the rarest layer, which freed thumb 39 for Enter.
+The duplicate SPACE became Backspace, and word-delete followed it there, so
+`check-keymap.sh` now asserts positions **0 and 37**.
+
+Layer holds outside the thumbs: **STG** on DEL (24) and RET (35), **FNK** on
+quote (23). Outer-column keys are the right home for these — low frequency,
+away from typing rolls.
 
 AXN position 38 carries `tog_AXN_off` rather than `&trans` so the host
 signal knows which way the toggle went.

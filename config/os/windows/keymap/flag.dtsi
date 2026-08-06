@@ -25,8 +25,9 @@
              * Option+Bspc for macOS, Windows wants Ctrl+Bspc. Written
              * natively as LC now that there is no host remap.
              *
-             * DEL has no word-delete counterpart -- position 24 carries the
-             * STG hold instead, so there is nothing to override there.
+             * Backspace is on THUMB 37 now, so the override lives there
+             * too. DEL has no word-delete counterpart -- position 24
+             * carries the STG hold instead.
              *
              * These are identical on every typing layer, which is exactly
              * why a single overlay can carry them without colliding. */
@@ -56,9 +57,9 @@
 
             display-name = "WIN";
             bindings = <
-    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   WN_BSPC
+    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
     &trans   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
-                            &trans  &trans  &trans        &trans  &trans  &trans
+                            &trans  WN_BSPC  &trans        &trans  &trans  &trans
             >;
         };

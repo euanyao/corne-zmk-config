@@ -6,8 +6,9 @@ MO_MACRO(FNK)
 MO_MACRO(NAV)
 MO_MACRO(STG)
 
-/* AXN is the only latchable layer. */
+/* AXN and NAV are latchable: hold the thumb for momentary, tap to latch. */
 TOG_MACRO(AXN)
+TOG_MACRO(NAV)
 
 /* Hard reset to base.
  *

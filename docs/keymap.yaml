@@ -12,7 +12,7 @@ layers:
     - I
     - O
     - P
-    - {t: BSPC, h: Alt+BSPC}
+    - '-'
   - - TAB
     - {t: A, h: LGUI}
     - {t: S, h: LCTRL}
@@ -24,7 +24,7 @@ layers:
     - {t: K, h: LALT}
     - {t: L, h: RCTRL}
     - {t: ;, h: RGUI}
-    - ''''
+    - {t: '''', h: '&mo_FNK'}
   - - {t: DEL, h: '&mo_STG'}
     - Z
     - X
@@ -38,11 +38,11 @@ layers:
     - /
     - {t: RET, h: '&mo_STG'}
   - - '&mo_DEV'
-    - SPACE
+    - {t: BSPC, h: Alt+BSPC}
     - {t: '&tog_AXN_on', h: '&mo_AXN'}
-    - '&mo_FNK'
+    - RET
     - SPACE
-    - '&mo_NAV'
+    - {t: '&tog_NAV_on', h: '&mo_NAV'}
   WIN:
   - - {t: ESC, h: '&to_BAS_win'}
     - {t: ▽, type: trans}
@@ -55,7 +55,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: BSPC, h: Ctl+BSPC}
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: A, h: LCTRL}
     - {t: S, h: LGUI}
@@ -81,7 +81,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: BSPC, h: Ctl+BSPC}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -257,7 +257,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - '&tog_NAV_off'
   STG:
   - - '&bootloader'
     - '&m_s_b1'

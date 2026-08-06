@@ -109,7 +109,11 @@
              * and both spaces keep working, and positions 0, 11 and 12 must
              * stay &trans so the WIN flag still wins there.
              *
-             * Bottom row is deliberately free for later. */
+             * Bottom row is deliberately free for later.
+             *
+             * Thumb 41 carries tog_NAV_off rather than &trans, so tapping it
+             * again unlatches -- and the host signal knows which way the
+             * toggle went. Same pattern AXN uses at position 38. */
             #define NV19  &kp RSHFT                  // select with the arrows
             #define NV20  &kp LALT                   // word jump (macOS)
             #define NV21  &kp RCTRL
@@ -120,7 +124,7 @@
     &trans  &none  &kp PG_UP     &kp UP  &kp PG_DN     &none        &none  &none  &none  &none  &none  &trans
     &trans  &kp HOME  &kp LEFT  &kp DOWN  &kp RIGHT  &kp END        &none   NV19   NV20   NV21   NV22  &trans
     &trans  &none      &none      &none      &none     &none        &none  &none  &none  &none  &none  &trans
-                            &trans  &trans  &trans        &trans  &trans  &trans
+                            &trans  &trans  &trans        &trans  &trans  &tog_NAV_off
             >;
         };
 

@@ -48,7 +48,8 @@
 #define KEY_RET   &ht_STG     0        RET   // tap: return | hold: STG (right-hand route)
 #define KEY_TAB   &kp         TAB            // plain tab
 #define KEY_DEL   &ht_STG     0        DEL   // tap: del    | hold: STG (left-hand route)
-#define KEY_QUOT  &kp         SQT            // plain ' -- outer column, inherited by every layer
+#define KEY_QUOT  &ht_FNK     0        SQT   // tap: '      | hold: FNK
+#define KEY_MINUS &kp         MINUS          // fills the base-layer gap left when BSPC moved to a thumb
 #define NAV_BSPC  &mt         LA(BSPC) BSPC  // tap: bspc   | hold: delete word back
 
 /* Home row. One behaviour per hand so the positional guard applies -- see
@@ -72,6 +73,6 @@
  * everywhere. Momentary layers need no return key. */
 #define THU_DEV   &mo_DEV
 #define THU_AXN   &ht_AXN  0  0          // hold: momentary | tap: latch on
-#define THU_FNK   &mo_FNK
-#define THU_NAV   &mo_NAV                // right thumb -> arrows land on the LEFT hand
-#define THU_STG   &mo_STG                // unbound on BAS now; STG is on TAB/quote holds
+#define THU_NAV   &ht_NAV  0  0          // hold: momentary | tap: latch on
+#define THU_ENT   &kp      RET           // Enter on a thumb, off the pinky
+#define THU_BSPC  NAV_BSPC               // tap: bspc | hold: delete word back
