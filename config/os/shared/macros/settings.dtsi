@@ -34,7 +34,6 @@ BT_MAC(2, 1)   // macOS spare
 BT_WIN(3, 2)   // Windows
 BT_WIN(4, 3)   // Windows
 BT_WIN(5, 4)   // Windows spare
-BT_WIN(6, 5)   // Windows spare
 
 /* mp_sSTG_cb -- clearing bluetooth bonds.
  *

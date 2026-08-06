@@ -194,7 +194,7 @@
             bindings = <
    ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C  &none  &none        &none      &none  &none     &none  &none  ST_BOOT_R
        &none  &m_s_b3  &m_s_b4  ST_BTCLR  &none  &none        &none      &none  &none     &none  &none      &none
-   ST_UNLOCK  &m_s_b5  &m_s_b6  ST_RGB_T  &none  &none        &none  ST_OS_TOG  &none  ST_RGB_U  &none   ST_RGB_D
+   ST_UNLOCK  &m_s_b5    &none  ST_RGB_T  &none  &none        &none  ST_OS_TOG  &none  ST_RGB_U  &none   ST_RGB_D
                             &none  &trans  &trans        &trans  &trans  &none
             >;
         };
