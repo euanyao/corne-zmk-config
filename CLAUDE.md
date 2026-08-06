@@ -163,11 +163,16 @@ them without colliding:
 Word-delete is the one thing the remap can't fix: macOS wants Option+Bspc,
 Windows wants Ctrl+Bspc, and Cmd+Bspc on the Mac is delete-to-line-start.
 
-**WIN_STG** — 10 keys at positions 4, 6, 10, 11, 18, 22, 23, 28, 30, 34:
+**WIN_STG** — 10 keys at positions 4, 6, 10, 18, 22, 23, 28, 30, 32, 34:
 colour picker, magnifier ×3, fancy zones, task manager, system info,
 settings, security, file explorer. Cannot fold into WIN — those positions
-are letters on the typing layers. Position 11 is bound on both; WIN_STG is
-higher so task manager wins on the settings layer, which is intended.
+are letters on the typing layers.
+
+**Task manager is at 32, not 11, and must stay off 11.** STG binds the
+right-half bootloader at 11 (§3.6). WIN_STG is the higher layer, so anything
+bound there shadows it — in Windows mode that would silently swap DFU for
+task manager, on the only route into bootloader. 32 was the sole remaining
+slot free on STG *and* `&trans` here.
 
 There is **no WIN_AXN**: every AXN key either works on both OSes unaided or
 was unused. Notably `Shift+Cmd+Z` is redo on both, and replace is
@@ -200,6 +205,13 @@ Thumb map (BAS is the only layer that binds thumbs; the rest are `&trans`):
 AXN position 38 carries `tog_AXN_off` rather than `&trans` so the host
 signal knows which way the toggle went.
 
+**STG has three routes, not one.** Besides the thumb at 41, it is also a
+hold on TAB (pos 24, left half) and quote (pos 35, right half) via
+`&ht_STG`. The two outer-column routes exist so either hand can hold the
+layer while the other reaches a bootloader key — see §3.6. `ht_STG` wraps
+`mo_STG` rather than a bare `&mo` so the host layer signal still fires.
+Thumb 41 is redundant now and could be reclaimed if a thumb is ever needed.
+
 ### 3.5 Gotchas that have already bitten
 
 **Node order in `corne.keymap` determines layer index.** The `#define`s in
@@ -222,15 +234,38 @@ keys and volume in two different places.
 
 ### 3.6 Bootloader
 
-`&bootloader` on **both halves**, behind shift on an STG thumb — left thumb
-(pos 37) resets the left half, right thumb (pos 40) the right. Costs no
-keys. `os/shared/morph/boot.dtsi`.
+Bare `&bootloader` at the **top outer corners**: position 0 is the left
+half, position 11 the right. Reached **cross-hand**:
 
-**[unverified] Split semantics.** ZMK reset behaviours are believed to act
-on the half the key sits on, so both are bound — correct under either
-semantics. **Test before relying on it:** press each and confirm that half
-enumerates as a USB drive. Getting this wrong means an unflashable half with
-the reset button blocked.
+```
+   flash LEFT    hold ' (pos 35, right hand)  ->  press pos 0  (left hand)
+   flash RIGHT   hold TAB (pos 24, left hand) ->  press pos 11 (right hand)
+```
+
+**STG is bound on both halves for this reason** — `&ht_STG` on TAB (pos 24)
+and quote (pos 35), tap keeps the original key. A single thumb-held STG
+cannot reach a boot key on its own half: the earlier design put them on STG
+thumbs 37/40, but STG was held with the right thumb at pos 41 and 40 is the
+adjacent thumb key, so the same thumb had to do both. Cross-hand removes the
+conflict. Costs no keys; `KEY_TAB` lost only its hold (was right-arrow).
+
+**[verified] Split semantics.** ZMK reset behaviours are **source
+locality** — they act on the half the key physically sits on, so each half
+needs its own binding. Confirmed from ZMK's split-keyboards docs:
+*"These behaviors only affect the keyboard part that they are invoked
+from: Reset behaviors."*
+
+**Never put these behind a combo.** Same docs: *"Combos always invoke
+behaviors with source locality on the central"* — a combo would reset the
+left half regardless of which keys were pressed, leaving the right
+unflashable.
+
+**Peripheral caveat:** the halves must be paired and connected, since
+bindings are processed on the central which then instructs the peripheral.
+If the split link is down, the right-half key won't fire.
+
+**Still untested on hardware.** Press each and confirm that half enumerates
+as a USB drive.
 
 ### 3.7 Host companions
 
@@ -317,17 +352,38 @@ starting guess and wants tuning — one number in `times.dtsi`.
 
 ---
 
-## 5. Host-side setup required — UNVERIFIED, gates the design
+## 5. Host-side setup required — the trade is now measured
 
 **Windows (both PCs):** a Win/Ctrl remap, so firmware `LGUI` arrives as
 Control. PowerToys Keyboard Manager is the obvious tool.
 
-> **[unverified] and important.** macOS's modifier swap is *per-keyboard*.
-> I do not believe PowerToys can scope a remap to one device — if it's
-> per-machine, it will affect every keyboard on those PCs. No web access in
-> the session where this was decided. **If that's unacceptable, the honest
-> fix is reverting to Windows-canonical: `git revert 0435707`, cheap while
-> nothing is flashed.**
+> **[verified] PowerToys cannot scope a remap to one device.** The earlier
+> suspicion was right. Evidence from `microsoft/PowerToys`:
+> [#31877](https://github.com/microsoft/PowerToys/issues/31877) ("Keyboard
+> Manager settings per device") closed as a duplicate of #26086;
+> [#40605](https://github.com/microsoft/PowerToys/issues/40605) closed as a
+> duplicate of #44666; and
+> [PR #49276](https://github.com/microsoft/PowerToys/pull/49276)
+> ("Per-keyboard remap profiles") is an **open draft, unmerged**.
+>
+> So a PowerToys remap is **machine-wide**: it affects the laptop's built-in
+> keyboard and every other keyboard on both Windows PCs, not just the Corne.
+> macOS's per-keyboard modifier swap has no PowerToys equivalent.
+
+**This is the decision the design hangs on.** Two honest options:
+
+1. **Accept machine-wide.** Fine if the Corne is effectively the only
+   keyboard used on those PCs. Note it also affects RDP/VM sessions and
+   anyone else who sits down at them.
+2. **Revert to Windows-canonical** — `git revert 0435707`. Still cheap while
+   nothing is flashed. Costs the macOS-needs-no-setup property, which was
+   the whole point of the inversion, and the Mac is MDM-managed so its
+   System Settings change may be blocked. Worth checking whether that
+   modifier setting is actually locked before choosing.
+
+Per-device alternatives exist if neither appeals (AutoHotKey with
+`#InputLevel`/raw-input device filtering, or Interception), but both are
+heavier than PowerToys and neither has been evaluated here.
 
 **macOS:** nothing. That's the point of the inversion.
 
@@ -336,6 +392,9 @@ Control. PowerToys Keyboard Manager is the obvious tool.
 ## 6. Commit map on `keymap-redesign`
 
 ```
+d10d5c8  feat: reachable bootloader via cross-hand STG   <- supersedes 95638ee
+30999c6  docs: cost out the deep-sleep flag options
+d7e5626  refactor: move WIN below the typing layers
 3eb54d3  feat: OS mode toggle decoupled from the bluetooth profile
 0435707  refactor: make macOS the default, flag Windows instead
 b97894e  refactor: inherit outer columns via &trans
@@ -344,19 +403,40 @@ b97894e  refactor: inherit outer columns via &trans
 6d941f6  refactor: merge the two OS layer sets into one
 ed9bdce  fix: make home-row mods positional
 ed67234  build: add offline keymap sanity check
-95638ee  feat: bind bootloader on both halves      <- cherry-pick first
+95638ee  feat: bind bootloader on both halves      <- superseded, see above
 ```
 
 **Recommended flash order: bootloader first**, verified, before anything
-else. It's the recovery path for everything after it.
+else. It's the recovery path for everything after it. Note `95638ee`'s
+placement was unreachable on the right half — cherry-pick `d10d5c8`, not it.
+
+### Divergence from `master`
+
+`master` is tagged **`v1.0`** and has been **flashed and hardware-verified**;
+this branch has not. Work exists on each that the other lacks:
+
+| | `master` (`v1.0`) | `keymap-redesign` |
+|---|---|---|
+| layers | 10, duplicated per-OS | 7, one shared set |
+| home-row mods | plain, misfires | positional |
+| bootloader | none | both halves |
+| morph cleanup, accent removal | yes (13 morphs cut) | no |
+| outer-column moves (11/12/23/40) | yes | different arrangement |
+| hardware-tested | **extensively** | never flashed |
+
+Master's `v1.0` also verified on hardware: all 54 RGB LEDs, full key matrix,
+OLED, split pairing, deep sleep config. Those findings apply here too — same
+hardware, and several are recorded in this repo's git history rather than
+only in this file.
 
 ---
 
 ## 7. Open
 
-- **Hardware verification of everything.** Nothing has been flashed.
-  Priority order: DFU on each half (§3.6), the Windows remap question (§5),
-  HRM feel, then whether deep sleep clears the flag.
+- **Hardware verification of this branch.** Nothing on `keymap-redesign` has
+  been flashed. Priority order: DFU on each half (§3.6), then HRM feel, then
+  whether deep sleep clears the flag. The Windows remap question (§5) is now
+  **measured** — it needs a decision, not an experiment.
 - **Deep sleep and the OS flag.** `CONFIG_ZMK_SLEEP=y` with a 10-minute
   timeout. ZMK deep sleep is System OFF, so waking is effectively a reboot;
   the BT profile survives in settings but layer state does not. **[unverified
