@@ -18,7 +18,10 @@
  * layer instead, or move WIN back above the typing layers and accept the
  * OLED cost.
  *
- * WIN_STG must stay above STG, since it overrides positions STG binds.
+ * There is nothing above STG. WIN_STG was deleted when the host app
+ * shortcuts came off STG -- with no overlay, nothing can shadow the
+ * bootloader keys, and STG is OS-independent. If OS-specific keys are
+ * wanted later they go on FNK with a WIN_FNK conditional overlay.
  *
  * macOS is the unflagged default. The Mac needs no host-side
  * configuration; the Windows machines carry a Win/Ctrl remap (PowerToys)
@@ -31,7 +34,6 @@
 #define FNK      4
 #define NAV      5   /* arrows + HOME/END/PgUp/PgDn, held by right thumb */
 #define STG      6
-#define WIN_STG  7   /* conditional: WIN + STG */
 
 /* Host signal keys.
  *

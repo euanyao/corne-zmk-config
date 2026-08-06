@@ -36,14 +36,20 @@ BT_WIN(4, 3)   // Windows
 BT_WIN(5, 4)   // Windows spare
 BT_WIN(6, 5)   // Windows spare
 
-// mp_sSTG_cb
-MORPH_KAS(
+/* mp_sSTG_cb -- clearing bluetooth bonds.
+ *
+ * Was a three-way morph sharing a key with the ZMK Studio unlock, because
+ * STG had no free positions. It does now, so unlock is its own key and
+ * clearing is down to two variants.
+ *
+ * BT_CLR_ALL stays behind shift on purpose: it wipes all six profiles, and
+ * clearing bonds is the one repair that does NOT need the physical reset
+ * button, so it wants a guard rather than a bare key. */
+MORPH_KS(
     s,
     STG,
     cb,
     clear_bluetooth,
-    MOD_LALT,
-    &studio_unlock,   // tap:   zmk studio unlock
-    &bt BT_CLR,       // alt:   clear current profile
-    &bt BT_CLR_ALL    // shift: clear all profiles
+    &bt BT_CLR,       // tap:   clear the current profile
+    &bt BT_CLR_ALL    // shift: clear ALL profiles
 )

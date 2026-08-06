@@ -29,11 +29,3 @@ mp_a_paste: morph_action_paste {
     mods = <(MOD_LSFT|MOD_RSFT)>;
     bindings = <&kp RG(V)>, <&kp RS(RG(V))>;
 };
-
-// tap:     zoom reset       shift:  zoom reset (vscode)
-mp_a_zoom_reset: morph_action_zoom_reset {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp RG(N0)>, <&kp RG(KP_N0)>;
-};

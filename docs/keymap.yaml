@@ -264,36 +264,36 @@ layers:
     - '&m_s_b2'
     - {t: RGB HUI, s: RGB HUD}
     - ''
-    - Gui++
-    - Alt+Gui+=
+    - ''
+    - ''
     - VOL DN
     - MUTE
     - VOL UP
     - ''
     - '&bootloader'
-  - - Ctl+SPACE
+  - - ''
     - '&m_s_b3'
     - '&m_s_b4'
-    - LALT
-    - {t: Sft+Gui+5, s: Sft+Gui+4}
-    - {t: Gui+0, s: Gui+KP 0}
-    - Alt+Gui+8
-    - {t: PREV, h: RSHFT}
-    - {t: PP, h: LALT}
+    - {t: BT CLR, s: BT CLR ALL}
+    - ''
+    - ''
+    - ''
+    - PREV
+    - PP
     - NEXT
-    - Ctl+UP
-    - Alt+Gui+ESC
-  - - {t: '&studio_unlock', s: BT CLR}
+    - ''
+    - ''
+  - - '&studio_unlock'
     - '&m_s_b5'
     - '&m_s_b6'
     - {t: RGB TOG, s: RGB EFR}
-    - {t: Alt+Gui+SPACE, s: Sft+Gui+.}
-    - Gui+-
-    - Alt+Gui+-
+    - ''
+    - ''
+    - ''
     - {t: WIN, h: toggle}
     - ''
     - {t: RGB BRI, s: RGB SAI}
-    - Ctl+DOWN
+    - ''
     - {t: RGB BRD, s: RGB SAD}
   - - BRI DN
     - {t: ▽, type: trans}
@@ -301,49 +301,6 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - BRI UP
-  WIN_STG:
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - Ctl+Sft+C
-    - {t: ▽, type: trans}
-    - Ctl+=
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - Ctl+Sft+`
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: Ctl+Sft+S, s: PRINTSCREEN}
-    - {t: ▽, type: trans}
-    - Ctl+ESC
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - Ctl+PAUSE BREAK
-    - Ctl+I
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - Ctl+E
-    - {t: ▽, type: trans}
-    - Ctl+-
-    - {t: ▽, type: trans}
-    - Gui+Sft+ESC
-    - {t: ▽, type: trans}
-    - Gui+Alt+DEL
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
 combos:
 - p: [16, 19]
   k: '&cw_ON'

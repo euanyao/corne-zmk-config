@@ -34,7 +34,7 @@ learnability are worth more here than continuity.
 | Central | **left** (carries the studio snippet + USB UART) |
 | Peripheral | **right** |
 | Builds | GitHub Actions only — **no local ZMK toolchain, no `west`** |
-| Layers | 8 of ZMK's 32 |
+| Layers | 7 of ZMK's 32 |
 | ZMK Studio | enabled (`-DCONFIG_ZMK_STUDIO=y`) |
 | LEDs | 27 per half (21 per-key + 6 underglow) |
 
@@ -64,7 +64,7 @@ currently DEV-only. No obvious home without a compromise. Raise if it bites.
 
 ### Standing constraint
 
-ZMK hard-caps at **32 layers** (uint32_t bitmask). At 8 the cap is *not* the
+ZMK hard-caps at **32 layers** (uint32_t bitmask). At 7 the cap is *not* the
 binding constraint — **maintenance is**. Full layer-set duplication for OS
 variants was explicitly rejected by the owner; do not reintroduce it. Note
 the cap and the 42-key count are independent: fewer physical keys pushes
@@ -74,7 +74,7 @@ toward *more* layers, not fewer.
 
 ## 3. Current architecture — authoritative
 
-8 layers, one shared set:
+7 layers, one shared set:
 
 | # | layer | |
 |---|---|---|
@@ -84,8 +84,7 @@ toward *more* layers, not fewer.
 | 3 | AXN | shared; the only latchable layer |
 | 4 | FNK | shared; empty slots `&trans` so it composes over AXN |
 | 5 | NAV | shared; arrows + HOME/END/PgUp/PgDn, held by right thumb |
-| 6 | STG | shared, macOS-flavoured; Windows replaces 11 positions |
-| 7 | WIN_STG | conditional `<WIN STG>` — 11 keys |
+| 6 | STG | shared; **keyboard config only**, OS-independent |
 
 **WIN sits at 1, below the typing layers, on purpose.** ZMK's built-in OLED
 status screen shows the *highest active* layer, so a high WIN made the OLED
@@ -135,7 +134,7 @@ macOS is the **unflagged default**; WIN is lit for Windows.
 BT profiles: **0-1 = macOS, 2-5 = Windows**, in
 `os/shared/macros/settings.dtsi`. **Nothing detects the OS** — it's pure
 convention, so pair the Mac to slot 0 or 1. A mismatched flag only breaks
-word-delete, the ESC panic and WIN_STG; typing and shortcuts still work,
+word-delete and the ESC panic; typing and shortcuts still work,
 because the modifier mapping is host-side.
 
 `&to BAS` before `&tog WIN` is what keeps the profile macros idempotent:
@@ -144,9 +143,9 @@ because the modifier mapping is host-side.
 The **OS toggle at STG position 31** exists because the profile macros only
 set the OS as a side effect. USB connections don't touch the profile, and
 deep-sleep wake resets layer state while the profile survives — either way
-the flag and reality can disagree. Positions 31 and 32 are the only ones
-free on STG *and* `&trans` on WIN_STG, which is what makes the self-inverse
-fall-through work; 32 is still free.
+the flag and reality can disagree. It no longer needs the self-inverse
+fall-through trick that constrained it to positions 31/32: with WIN_STG gone
+nothing shadows STG, so `&tog WIN` simply toggles.
 
 There is **no `&out` binding**, so USB/BLE output isn't selectable from the
 keymap. Pre-existing.
@@ -165,16 +164,25 @@ them without colliding:
 Word-delete is the one thing the remap can't fix: macOS wants Option+Bspc,
 Windows wants Ctrl+Bspc, and Cmd+Bspc on the Mac is delete-to-line-start.
 
-**WIN_STG** — 11 keys at positions 4, 6, 10, 16, 18, 22, 23, 28, 30, 32,
-34: colour picker, magnifier ×3, fancy zones, task manager, system info,
-settings, security, file explorer, screenshot. Cannot fold into WIN — those
-positions are letters on the typing layers.
+**WIN_STG is gone.** It existed solely to give Windows counterparts for 13
+host application shortcuts on STG (zoom, accessibility zoom, screenshot,
+input source, Finder, Mission Control, force quit, app windows). Those were
+dropped — the owner uses none of them — so STG became pure keyboard config
+and the overlay had nothing left to override.
 
-**Task manager is at 32, not 11, and must stay off 11.** STG binds the
-right-half bootloader at 11 (§3.6). WIN_STG is the higher layer, so anything
-bound there shadows it — in Windows mode that would silently swap DFU for
-task manager, on the only route into bootloader. 32 was the sole remaining
-slot free on STG *and* `&trans` here.
+What that bought:
+
+- **STG is OS-independent.** The WIN flag has no effect on it.
+- **Nothing sits above STG**, so an overlay can no longer shadow the
+  bootloader keys. That bug was live: task manager sat at position 11 and
+  would have silently replaced DFU in Windows mode.
+- **STG has room again** — 14 of 42 positions used. `BT_CLR` moved out from
+  behind Alt onto its own key, and ZMK Studio unlock got its own key rather
+  than sharing one.
+
+**If host shortcuts are wanted later, they go on FNK with a `WIN_FNK`
+conditional overlay** — the same pattern WIN_STG used, on the layer that has
+the space. Do not put them back on STG.
 
 There is **no WIN_AXN**, and AXN carries 11 shortcut bindings — the
 largest concentration in the config. They work on Windows *only through the
@@ -250,9 +258,9 @@ the left-half bootloader reachable (§3.6) — do not replace it with a plain
 binding. The cost is that RET lost its old F2/rename hold.
 
 **Volume, mute and media are OS-independent HID consumer codes.** They live
-once on the shared layer at positions 7/8/9 and 19/20/21. Do not duplicate
-them onto WIN_STG — that's the bug that previously left one OS with no media
-keys and volume in two different places.
+once on STG at positions 7/8/9 and 19/20/21. Duplicating them per OS is what
+previously left one OS with no media keys and volume in two different
+places — the reason they belong on the shared layer, not an overlay.
 
 ### 3.6 Bootloader
 
@@ -514,7 +522,7 @@ only in this file.
   and asserts: every layer binds exactly 42 keys, every `&behavior`
   resolves, and keymap node order matches `layers.dtsi`. A pass means
   "worth flashing", **not** "correct" — it does not validate devicetree
-  semantics. Current: *8 layers, 63 behaviours, order ok*.
+  semantics. Current: *7 layers, 58 behaviours, order ok*.
 - **`./draw-keymap.sh`** — regenerates `docs/keymap.yaml` + `docs/keymap.svg`.
   Needs `keymap-drawer` (installed, v0.23.0 at `~/.local/bin/keymap`; export
   `PATH="$HOME/.local/bin:$PATH"` first). **Re-run after any keymap change.**

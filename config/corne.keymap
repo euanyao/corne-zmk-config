@@ -38,9 +38,7 @@
         #include "os/shared/morph/rgb.dtsi"
         #include "os/shared/morph/dev.dtsi"
         #include "os/shared/morph/actions.dtsi"
-        #include "os/shared/morph/settings.dtsi"
 
-        #include "os/windows/morph/settings.dtsi"
     };
 };
 
@@ -62,21 +60,6 @@
  * arbitrary 10, which would leave LEDs 11-27 dark. */
 &led_strip {
     chain-length = <27>;
-};
-
-/* The Windows settings overlay comes up automatically whenever the WIN
- * flag is lit and STG is active. This is what keeps the OS-specific bits
- * out of the shared layers. */
-/ {
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-
-
-        win_stg {
-            if-layers = <WIN STG>;
-            then-layer = <WIN_STG>;
-        };
-    };
 };
 
 / {
@@ -106,6 +89,5 @@
                                                     /* 4  FNK     */
                                                     /* 5  NAV     */
                                                     /* 6  STG     */
-        #include "os/windows/keymap/settings.dtsi"   /* 7  WIN_STG */
     };
 };

@@ -117,45 +117,42 @@
         };
 
         settings_layer {
-            /* macOS side, since macOS is the default. Windows replaces ten
-             * of these positions via WIN_STG; the rest it inherits.
+            /* Keyboard configuration ONLY -- bootloader, bluetooth, RGB,
+             * ZMK Studio, the OS flag, and the OS-independent HID consumer
+             * codes (volume, media, screen brightness).
              *
-             * Volume, mute and the media keys live here and only here.
-             * They are OS-independent HID consumer codes, so duplicating
-             * them per OS gained nothing and previously left one OS with no
-             * media keys at all.
+             * Deliberately carries NO host application shortcuts. The 13
+             * that used to live here (zoom, accessibility zoom, screenshot,
+             * input source, Finder, Mission Control, force quit, app
+             * windows) were the sole reason WIN_STG existed; dropping them
+             * let that whole conditional layer go.
              *
-             * &none rather than &trans where macOS has no equivalent --
-             * &trans here would fall through to BAS and type a letter. */
-            #define ST_UNLOCK  &mp_sSTG_cb           // tap: studio unlock | shift: clear profile | alt: clear all
-            #define ST_SHOT    &mp_sSTG_screenshot
-            #define ST_ZOOM_R  &mp_a_zoom_reset      // tap: zoom reset | shift: zoom reset (vscode)
+             * Consequences worth preserving:
+             *   - STG is now OS-independent. Nothing sits above it, so the
+             *     class of bug where an overlay silently shadowed the
+             *     bootloader keys cannot recur.
+             *   - There is room again. BT_CLR is on its own key rather than
+             *     buried behind Alt, and 20-odd positions are free.
+             *
+             * If host shortcuts are wanted later they belong on FNK with a
+             * WIN_FNK conditional overlay -- same pattern WIN_STG used, on
+             * the layer that has the space for it.
+             *
+             * &none rather than &trans on unused positions: &trans would
+             * fall through to BAS and type a letter. */
+            #define ST_UNLOCK  &studio_unlock        // zmk studio unlock
+            #define ST_BTCLR   &mp_sSTG_cb           // tap: clear profile | shift: clear ALL profiles
             #define ST_RGB_C   &mp_sSTG_rgb_c
             #define ST_RGB_T   &mp_sSTG_rgb_t
             #define ST_RGB_U   &mp_sSTG_rgb_u
             #define ST_RGB_D   &mp_sSTG_rgb_d
-
-            #define ST_ZOOM_IN  &kp LA(LG(EQUAL))    // accessibility zoom in
-            #define ST_ZOOM_TG  &kp LA(LG(N8))       // accessibility zoom toggle
-            #define ST_ZOOM_OT  &kp LA(LG(MINUS))    // accessibility zoom out
-            #define ST_FORCEQ   &kp LA(LG(ESC))      // force quit  | win: task manager
-            #define ST_MISSION  &kp LC(UP)           // mission control | win: system info
-            #define ST_APPWIN   &kp LC(DOWN)         // application windows | win: security
-            #define ST_INPUT    &kp LC(SPACE)        // input source -- works on both
-            #define ST_FILES    &mp_sSTG_f           // finder | win: file explorer
 
             /* OS mode toggle, decoupled from the bluetooth profile.
              *
              * The profile macros set the OS as a side effect, which is fine
              * on BLE but leaves two gaps: connecting over USB doesn't touch
              * the profile, and deep-sleep wake resets layer state so the
-             * flag is lost while the profile survives.
-             *
-             * Self-inverse by fall-through: WIN_STG is &trans at this
-             * position, so pressing it in Windows mode lands on this same
-             * binding and toggles WIN back off. Positions 31 and 32 are the
-             * only ones free on STG *and* transparent on WIN_STG, which is
-             * what makes the trick work; 32 is still free. */
+             * flag is lost while the profile survives. */
             #define ST_OS_TOG   &tog WIN             // macOS <-> Windows mode
 
             /* Bootloader, one per half, at the top outer corners.
@@ -164,7 +161,7 @@
              * half the key physically sits on -- so each half needs its own
              * binding. Position 0 is left, 11 is right.
              *
-             * Reached cross-hand: hold STG on one half (TAB pos 24 or quote
+             * Reached cross-hand: hold STG on one half (TAB pos 24 or RET
              * pos 35), press the boot key on the other. That is why STG is
              * bound on both halves; a single thumb-held STG cannot reach a
              * boot key on its own half.
@@ -173,16 +170,15 @@
              * route into DFU. Do NOT put these behind a combo -- combos
              * always run on the central and would reset the left half twice.
              *
-             * Position 11 is also bound on WIN_STG (task manager). That was
-             * moved to position 32 so this stays reachable in Windows mode. */
+             * Nothing sits above STG any more, so nothing can shadow these. */
             #define ST_BOOT_L   &bootloader          // DFU, LEFT half
             #define ST_BOOT_R   &bootloader          // DFU, RIGHT half
 
             display-name = "STG";
             bindings = <
-   ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C     &none   &kp RG(PLUS)       ST_ZOOM_IN  &kp C_VOL_DN         &kp C_MUTE  &kp C_VOL_UP      &none   ST_BOOT_R
-     ST_INPUT  &m_s_b3  &m_s_b4  &kp LALT   ST_SHOT      ST_ZOOM_R       ST_ZOOM_TG  &hmr RSHFT C_PREV  &hmr LALT C_PP  &kp C_NEXT  ST_MISSION   ST_FORCEQ
-    ST_UNLOCK  &m_s_b5  &m_s_b6  ST_RGB_T  ST_FILES  &kp RG(MINUS)       ST_ZOOM_OT     ST_OS_TOG             &none    ST_RGB_U    ST_APPWIN    ST_RGB_D
+   ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C  &none  &none        &none  &kp C_VOL_DN        &kp C_MUTE  &kp C_VOL_UP  &none   ST_BOOT_R
+       &none  &m_s_b3  &m_s_b4  ST_BTCLR  &none  &none        &none     &kp C_PREV          &kp C_PP    &kp C_NEXT  &none       &none
+   ST_UNLOCK  &m_s_b5  &m_s_b6   ST_RGB_T  &none  &none        &none      ST_OS_TOG             &none      ST_RGB_U  &none    ST_RGB_D
                      &kp C_BRI_DN      &trans  &trans        &trans      &trans  &kp C_BRI_UP
             >;
         };
