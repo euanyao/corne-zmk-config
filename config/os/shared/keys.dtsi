@@ -53,4 +53,5 @@
 #define THU_DEV   &mo_DEV
 #define THU_AXN   &ht_AXN  0  0          // hold: momentary | tap: latch on
 #define THU_FNK   &mo_FNK
-#define THU_STG   &mo_STG
+#define THU_NAV   &mo_NAV                // right thumb -> arrows land on the LEFT hand
+#define THU_STG   &mo_STG                // unbound on BAS now; STG is on TAB/quote holds

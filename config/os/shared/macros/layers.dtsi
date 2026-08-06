@@ -3,6 +3,7 @@
 MO_MACRO(DEV)
 MO_MACRO(AXN)
 MO_MACRO(FNK)
+MO_MACRO(NAV)
 MO_MACRO(STG)
 
 /* AXN is the only latchable layer. */

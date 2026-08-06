@@ -86,6 +86,40 @@
             >;
         };
 
+        nav_layer {
+            /* Navigation, consolidated. Arrows were on AXN and
+             * HOME/END/PgUp/PgDn on FNK, which split the cluster across two
+             * layers -- and AXN's arrows sat on the same hand as its thumb.
+             *
+             * Held by the RIGHT thumb (pos 41), so the arrows live on the
+             * LEFT hand and every combination is cross-hand.
+             *
+             * Modifiers are plain &kp on the right home row rather than
+             * hold-taps: they exist to be held while the left hand arrows,
+             * so there is no tap to disambiguate. Shift+arrow selects,
+             * Alt+arrow jumps by word on macOS.
+             *
+             * &none, not &trans, on unused positions -- &trans would fall
+             * through to BAS and type letters mid-navigation. The outer
+             * columns and thumbs stay &trans so ESC/BSPC/DEL/quote/TAB/RET
+             * and both spaces keep working, and positions 0, 11 and 12 must
+             * stay &trans so the WIN flag still wins there.
+             *
+             * Bottom row is deliberately free for later. */
+            #define NV19  &kp RSHFT                  // select with the arrows
+            #define NV20  &kp LALT                   // word jump (macOS)
+            #define NV21  &kp RGUI
+            #define NV22  &kp RCTRL
+
+            display-name = "NAV";
+            bindings = <
+    &trans  &none  &kp PG_UP     &kp UP  &kp PG_DN     &none        &none  &none  &none  &none  &none  &trans
+    &trans  &kp HOME  &kp LEFT  &kp DOWN  &kp RIGHT  &kp END        &none   NV19   NV20   NV21   NV22  &trans
+    &trans  &none      &none      &none      &none     &none        &none  &none  &none  &none  &none  &trans
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };
+
         settings_layer {
             /* macOS side, since macOS is the default. Windows replaces ten
              * of these positions via WIN_STG; the rest it inherits.

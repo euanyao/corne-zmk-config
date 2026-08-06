@@ -103,7 +103,8 @@
         #include "os/shared/keymap/typing.dtsi"      /* 2  DEV     */
                                                     /* 3  AXN     */
                                                     /* 4  FNK     */
-                                                    /* 5  STG     */
-        #include "os/windows/keymap/settings.dtsi"   /* 6  WIN_STG */
+                                                    /* 5  NAV     */
+                                                    /* 6  STG     */
+        #include "os/windows/keymap/settings.dtsi"   /* 7  WIN_STG */
     };
 };

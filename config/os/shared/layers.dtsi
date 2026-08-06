@@ -29,8 +29,9 @@
 #define DEV      2
 #define AXN      3
 #define FNK      4
-#define STG      5
-#define WIN_STG  6   /* conditional: WIN + STG */
+#define NAV      5   /* arrows + HOME/END/PgUp/PgDn, held by right thumb */
+#define STG      6
+#define WIN_STG  7   /* conditional: WIN + STG */
 
 /* Host signal keys.
  *
@@ -49,3 +50,4 @@
 #define F_AXN   LS(F16)
 #define F_FNK   LS(F17)
 #define F_STG   LS(F18)
+#define F_NAV   LS(F19)

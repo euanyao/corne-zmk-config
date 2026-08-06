@@ -83,7 +83,7 @@ else:
 
 # 4. The OS flag sits BELOW the typing layers so the OLED shows the layer
 #    in use rather than permanently reading "WIN". That only resolves
-#    correctly while DEV/AXN/FNK stay transparent everywhere WIN binds --
+#    correctly while DEV/AXN/FNK/NAV stay transparent everywhere WIN binds --
 #    give one of them a real binding at position 0, 11 or 12 and Windows
 #    word-delete silently stops working. STG is exempt: it legitimately
 #    overrides those positions, and word-delete isn't wanted there.
@@ -92,7 +92,7 @@ if "WIN" in byname:
     win = re.findall(r"&\w+[^&]*", byname["WIN"])
     bound = [i for i, b in enumerate(win) if not b.strip().startswith("&trans")]
     leaks = []
-    for name in ("DEV", "AXN", "FNK"):
+    for name in ("DEV", "AXN", "FNK", "NAV"):
         if name not in byname:
             continue
         binds = re.findall(r"&\w+[^&]*", byname[name])
@@ -105,7 +105,7 @@ if "WIN" in byname:
             print(f"        {l}")
         fail = 1
     else:
-        print(f"ok    WIN unshadowed at positions {bound} across DEV/AXN/FNK")
+        print(f"ok    WIN unshadowed at positions {bound} across DEV/AXN/FNK/NAV")
 
 sys.exit(fail)
 PY

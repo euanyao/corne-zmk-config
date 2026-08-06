@@ -42,7 +42,7 @@ layers:
     - {t: '&tog_AXN_on', h: '&mo_AXN'}
     - '&mo_FNK'
     - SPACE
-    - '&mo_STG'
+    - '&mo_NAV'
   WIN:
   - - {t: ESC, h: '&to_BAS_win'}
     - {t: ▽, type: trans}
@@ -208,6 +208,49 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  NAV:
+  - - {t: ▽, type: trans}
+    - ''
+    - PG UP
+    - UP
+    - PG DN
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - HOME
+    - LEFT
+    - DOWN
+    - RIGHT
+    - END
+    - ''
+    - RSHFT
+    - LALT
+    - RGUI
+    - RCTRL
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}

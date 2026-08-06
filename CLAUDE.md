@@ -34,7 +34,7 @@ learnability are worth more here than continuity.
 | Central | **left** (carries the studio snippet + USB UART) |
 | Peripheral | **right** |
 | Builds | GitHub Actions only — **no local ZMK toolchain, no `west`** |
-| Layers | 7 of ZMK's 32 |
+| Layers | 8 of ZMK's 32 |
 | ZMK Studio | enabled (`-DCONFIG_ZMK_STUDIO=y`) |
 | LEDs | 27 per half (21 per-key + 6 underglow) |
 
@@ -64,7 +64,7 @@ currently DEV-only. No obvious home without a compromise. Raise if it bites.
 
 ### Standing constraint
 
-ZMK hard-caps at **32 layers** (uint32_t bitmask). At 7 the cap is *not* the
+ZMK hard-caps at **32 layers** (uint32_t bitmask). At 8 the cap is *not* the
 binding constraint — **maintenance is**. Full layer-set duplication for OS
 variants was explicitly rejected by the owner; do not reintroduce it. Note
 the cap and the 42-key count are independent: fewer physical keys pushes
@@ -74,7 +74,7 @@ toward *more* layers, not fewer.
 
 ## 3. Current architecture — authoritative
 
-7 layers, one shared set:
+8 layers, one shared set:
 
 | # | layer | |
 |---|---|---|
@@ -83,8 +83,9 @@ toward *more* layers, not fewer.
 | 2 | DEV | shared |
 | 3 | AXN | shared; the only latchable layer |
 | 4 | FNK | shared; empty slots `&trans` so it composes over AXN |
-| 5 | STG | shared, macOS-flavoured; Windows replaces 10 positions |
-| 6 | WIN_STG | conditional `<WIN STG>` — 10 keys |
+| 5 | NAV | shared; arrows + HOME/END/PgUp/PgDn, held by right thumb |
+| 6 | STG | shared, macOS-flavoured; Windows replaces 10 positions |
+| 7 | WIN_STG | conditional `<WIN STG>` — 10 keys |
 
 **WIN sits at 1, below the typing layers, on purpose.** ZMK's built-in OLED
 status screen shows the *highest active* layer, so a high WIN made the OLED
@@ -184,8 +185,8 @@ window.
 `&to` deactivates every other layer and would take the OS flag with it (§4.1
 has the full analysis). So:
 
-- DEV, FNK, STG are **momentary** — releasing the thumb is the way back, so
-  they need no return key anywhere.
+- DEV, FNK, NAV, STG are **momentary** — releasing the thumb is the way
+  back, so they need no return key anywhere.
 - **AXN is the only latchable layer**, via `&tog`. Hold the thumb for
   momentary, tap to latch.
 - The only `&to` is the ESC-hold panic reset, which relights WIN on the WIN
@@ -197,7 +198,7 @@ State space is 4 and every state is escapable: `BAS`, `BAS+WIN`, `BAS+AXN`,
 Thumb map (BAS is the only layer that binds thumbs; the rest are `&trans`):
 
 ```
-   36 DEV(mo)   37 SPACE   38 AXN   |  39 FNK(mo)  40 SPACE  41 STG(mo)
+   36 DEV(mo)   37 SPACE   38 AXN   |  39 FNK(mo)  40 SPACE  41 NAV(mo)
                                 hold = momentary
                                 tap  = &tog AXN
 ```
@@ -205,11 +206,16 @@ Thumb map (BAS is the only layer that binds thumbs; the rest are `&trans`):
 AXN position 38 carries `tog_AXN_off` rather than `&trans` so the host
 signal knows which way the toggle went.
 
-**STG has three routes, not one.** Besides the thumb at 41, it is also a
-hold on TAB (pos 24, left half) and quote (pos 35, right half) via
-`&ht_STG`. The two outer-column routes exist so either hand can hold the
-layer while the other reaches a bootloader key — see §3.6. `ht_STG` wraps
-`mo_STG` rather than a bare `&mo` so the host layer signal still fires.
+**STG is no longer on a thumb at all.** Thumb 41 became NAV; STG is reached
+by holding TAB (pos 24, left half) or RET (pos 35, right half) via
+`&ht_STG`. Two routes, one per half, so either hand can hold the layer while
+the other reaches a bootloader key — see §3.6. `ht_STG` wraps `mo_STG`
+rather than a bare `&mo` so the host layer signal still fires.
+
+**NAV is held by the RIGHT thumb (41) on purpose** — that puts the arrows on
+the LEFT hand, so every arrow press is cross-hand. The modifiers on NAV's
+right home row (pos 19-22) are plain `&kp`, not hold-taps: they only ever
+get held while the left hand arrows, so there is no tap to disambiguate.
 Thumb 41 is redundant now and could be reclaimed if a thumb is ever needed.
 
 ### 3.5 Gotchas that have already bitten
@@ -478,10 +484,14 @@ only in this file.
 - **Windows screenshot.** `mp_sSTG_screenshot` is macOS-shaped
   (Shift+Cmd+5/4/3) and does nothing useful on Windows, which wants
   Win+Shift+S. Pre-existing, not a regression, worth fixing.
-- **Nav cluster is split** — arrows on AXN, HOME/END/PgUp/PgDn on FNK. Not a
-  blocker (that was resolved by dropping sideways routes), but possibly
-  annoying in use. Judge from using it. Note shift+arrows is taken by
-  select, so the obvious consolidation doesn't work.
+- **Nav cluster** — **resolved** by the NAV layer (§3), which puts arrows,
+  HOME/END and PgUp/PgDn together on one layer held by the right thumb.
+  **The old copies are still in place**: arrows remain on AXN (pos 3, 14-16)
+  and HOME/PgDn/END on FNK (pos 19-21). That was deliberate — NAV is
+  additive so nothing breaks while it is being tried. Once NAV proves out,
+  strip the duplicates; AXN's arrow positions are hold-taps carrying
+  modifiers for the right-hand numpad, so removing the arrows means deciding
+  what those four positions tap instead, not just deleting them.
 - **`docs/keymap.svg` / `keymap.yaml`** must be regenerated after any keymap
   change — see §8. They have drifted before.
 
@@ -494,7 +504,7 @@ only in this file.
   and asserts: every layer binds exactly 42 keys, every `&behavior`
   resolves, and keymap node order matches `layers.dtsi`. A pass means
   "worth flashing", **not** "correct" — it does not validate devicetree
-  semantics. Current: *7 layers, 63 behaviours, order ok*.
+  semantics. Current: *8 layers, 63 behaviours, order ok*.
 - **`./draw-keymap.sh`** — regenerates `docs/keymap.yaml` + `docs/keymap.svg`.
   Needs `keymap-drawer` (installed, v0.23.0 at `~/.local/bin/keymap`; export
   `PATH="$HOME/.local/bin:$PATH"` first). **Re-run after any keymap change.**
