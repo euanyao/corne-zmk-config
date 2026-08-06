@@ -20,9 +20,14 @@
  */
 
         windows_settings_layer {
-            /* Position 11 is bound on both WIN (word-delete) and here (task
-             * manager). WIN_STG is the higher layer, so on the settings
-             * layer task manager wins -- which is what we want. */
+            /* Task manager sits at position 32, NOT 11.
+             *
+             * STG binds the right-half bootloader at 11. WIN_STG is the
+             * higher layer, so anything bound here shadows it -- which in
+             * Windows mode would silently swap DFU for task manager, the
+             * worst possible failure for the only route into bootloader.
+             * Position 32 is free on STG and was the only other slot that
+             * is &trans here, so task manager moved there. */
             #define WS_PICK     &kp LC(LS(C))        // powertoys colour picker (Win+Shift+C)
             #define WS_MAG_IN   &kp LC(EQUAL)        // magnifier in    (Win+Plus)
             #define WS_MAG_OUT  &kp LC(MINUS)        // magnifier out   (Win+Minus)
@@ -36,9 +41,9 @@
 
             display-name = "WIN_STG";
             bindings = <
-    &trans  &trans  &trans  &trans   WS_PICK  &trans        WS_MAG_IN   &trans  &trans  &trans    WS_ZONES  WS_TASKMGR
-    &trans  &trans  &trans  &trans    &trans  &trans       WS_MAG_OFF   &trans  &trans  &trans  WS_SYSINFO  WS_SETTING
-    &trans  &trans  &trans  &trans  WS_FILES  &trans       WS_MAG_OUT   &trans  &trans  &trans   WS_SECURE      &trans
+    &trans  &trans  &trans  &trans   WS_PICK  &trans        WS_MAG_IN   &trans  &trans      &trans    WS_ZONES      &trans
+    &trans  &trans  &trans  &trans    &trans  &trans       WS_MAG_OFF   &trans  &trans      &trans  WS_SYSINFO  WS_SETTING
+    &trans  &trans  &trans  &trans  WS_FILES  &trans       WS_MAG_OUT   &trans  WS_TASKMGR  &trans   WS_SECURE      &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

@@ -25,7 +25,7 @@ layers:
     - {t: L, h: RGUI}
     - {t: ;, h: RCTRL}
     - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
+  - - {t: TAB, h: '&mo_STG'}
     - Z
     - X
     - C
@@ -36,7 +36,7 @@ layers:
     - ','
     - .
     - /
-    - ''''
+    - {t: '''', h: '&mo_STG'}
   - - '&mo_DEV'
     - SPACE
     - {t: '&tog_AXN_on', h: '&mo_AXN'}
@@ -216,7 +216,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   STG:
-  - - {t: ▽, type: trans}
+  - - '&bootloader'
     - '&m_s_b1'
     - '&m_s_b2'
     - {t: RGB HUI, s: RGB HUD}
@@ -227,7 +227,7 @@ layers:
     - MUTE
     - VOL UP
     - ''
-    - ''
+    - '&bootloader'
   - - Ctl+SPACE
     - '&m_s_b3'
     - '&m_s_b4'
@@ -253,10 +253,10 @@ layers:
     - Ctl+DOWN
     - {t: RGB BRD, s: RGB SAD}
   - - BRI DN
-    - {t: SPACE, s: '&bootloader'}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: RET, s: '&bootloader'}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - BRI UP
   WIN_STG:
   - - {t: ▽, type: trans}
@@ -270,7 +270,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - Ctl+Sft+`
-    - Gui+Sft+ESC
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -291,7 +291,7 @@ layers:
     - {t: ▽, type: trans}
     - Ctl+-
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - Gui+Sft+ESC
     - {t: ▽, type: trans}
     - Gui+Alt+DEL
     - {t: ▽, type: trans}

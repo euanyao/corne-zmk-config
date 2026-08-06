@@ -128,11 +128,31 @@
              * what makes the trick work; 32 is still free. */
             #define ST_OS_TOG   &tog WIN             // macOS <-> Windows mode
 
+            /* Bootloader, one per half, at the top outer corners.
+             *
+             * ZMK reset behaviours are source-locality -- they act on the
+             * half the key physically sits on -- so each half needs its own
+             * binding. Position 0 is left, 11 is right.
+             *
+             * Reached cross-hand: hold STG on one half (TAB pos 24 or quote
+             * pos 35), press the boot key on the other. That is why STG is
+             * bound on both halves; a single thumb-held STG cannot reach a
+             * boot key on its own half.
+             *
+             * The case covers the physical reset button, so this is the only
+             * route into DFU. Do NOT put these behind a combo -- combos
+             * always run on the central and would reset the left half twice.
+             *
+             * Position 11 is also bound on WIN_STG (task manager). That was
+             * moved to position 32 so this stays reachable in Windows mode. */
+            #define ST_BOOT_L   &bootloader          // DFU, LEFT half
+            #define ST_BOOT_R   &bootloader          // DFU, RIGHT half
+
             display-name = "STG";
             bindings = <
-       &trans  &m_s_b1  &m_s_b2  ST_RGB_C     &none   &kp RG(PLUS)       ST_ZOOM_IN  &kp C_VOL_DN         &kp C_MUTE  &kp C_VOL_UP      &none       &none
+   ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C     &none   &kp RG(PLUS)       ST_ZOOM_IN  &kp C_VOL_DN         &kp C_MUTE  &kp C_VOL_UP      &none   ST_BOOT_R
      ST_INPUT  &m_s_b3  &m_s_b4  &kp LALT   ST_SHOT      ST_ZOOM_R       ST_ZOOM_TG  &hmr RSHFT C_PREV  &hmr LALT C_PP  &kp C_NEXT  ST_MISSION   ST_FORCEQ
     ST_UNLOCK  &m_s_b5  &m_s_b6  ST_RGB_T  ST_FILES  &kp RG(MINUS)       ST_ZOOM_OT     ST_OS_TOG             &none    ST_RGB_U    ST_APPWIN    ST_RGB_D
-                     &kp C_BRI_DN  &mp_boot_l  &trans        &trans  &mp_boot_r  &kp C_BRI_UP
+                     &kp C_BRI_DN      &trans  &trans        &trans      &trans  &kp C_BRI_UP
             >;
         };
