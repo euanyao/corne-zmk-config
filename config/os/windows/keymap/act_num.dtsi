@@ -17,18 +17,22 @@
              * Replace is Ctrl+H, which is why it needs an override at all --
              * macOS uses Opt+Cmd+F and there is no shared chord.
              *
-             * NOT overridden, deliberately: the home-row mods at 13-16 and
-             * 19-22. Positions 14 and 21 carry LGUI, which is the Win key
-             * here rather than Control, so on Windows the Control mod is on
-             * A and ; (13/22) instead of S and L. Fixing that needs one
-             * overlay per typing layer -- the duplication this architecture
-             * exists to avoid. See CLAUDE.md §3.1.
+             * The home-row mods at 13/14/21/22 are also swapped here -- see
+             * below.
              */
+            /* Home-row mods swapped for Windows, same as WIN does for
+             * BAS: primary (Control) onto S/L, secondary (Win) onto A/;.
+             * Taps are unchanged. */
+            #define WA_A     &hml  LGUI   LA(LS(LEFT))
+            #define WA_S     &hml  LCTRL  LEFT
+            #define WA_L     &hmr  RCTRL  N6
+            #define WA_SEMI  &hmr  RGUI   EQUAL
+
             display-name = "WIN_AXN";
             bindings = <
-    &trans  &trans  &mp_wa_prev  &trans  &mp_wa_next  &kp LC(F)        &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &trans       &trans  &trans       &trans  &kp LC(H)        &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LC(Y)   &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans  &mp_wa_prev  &trans  &mp_wa_next  &kp LC(F)        &trans  &trans  &trans   &trans   &trans  &trans
+    &trans   WA_A        WA_S    &trans       &trans  &kp LC(H)        &trans  &trans  &trans    WA_L   WA_SEMI  &trans
+    &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LC(Y)   &trans  &trans  &trans   &trans   &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

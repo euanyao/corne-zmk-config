@@ -82,15 +82,22 @@ else:
     print(f"ok    layer order matches layers.dtsi: {' '.join(got)}")
 
 # 4. The OS flag sits BELOW the typing layers so the OLED shows the layer
-#    in use rather than permanently reading "WIN". That only resolves
-#    correctly while DEV/AXN/FNK/NAV stay transparent everywhere WIN binds --
-#    give one of them a real binding at position 0, 11 or 12 and Windows
-#    word-delete silently stops working. STG is exempt: it legitimately
-#    overrides those positions, and word-delete isn't wanted there.
+#    in use rather than permanently reading "WIN". Word-delete and the ESC
+#    panic (positions 0, 11, 12) are carried by WIN for EVERY typing layer,
+#    so those must stay transparent above it -- give one of them a real
+#    binding there and Windows word-delete silently stops working. STG is
+#    exempt: it legitimately overrides them, and word-delete isn't wanted.
+#
+#    WIN's home-row mod overrides (13/14/21/22) are deliberately NOT checked.
+#    They only ever apply to BAS: every typing layer binds those positions
+#    itself and gets its own WIN_* conditional overlay, so shadowing there is
+#    expected rather than a bug.
+CRITICAL = {0, 11, 12}
 byname = dict(layers)
 if "WIN" in byname:
     win = re.findall(r"&\w+[^&]*", byname["WIN"])
-    bound = [i for i, b in enumerate(win) if not b.strip().startswith("&trans")]
+    bound = [i for i, b in enumerate(win)
+             if i in CRITICAL and not b.strip().startswith("&trans")]
     leaks = []
     for name in ("DEV", "AXN", "FNK", "NAV"):
         if name not in byname:

@@ -127,18 +127,25 @@ only** — it cannot be scoped to one keyboard, so it would have affected the
 built-in keyboard, RDP and VM sessions too. Do not reintroduce a host-remap
 assumption.
 
-**KNOWN CONSEQUENCE, unfixed.** Home-row mods at positions **14 and 21**
-carry `LGUI`, so on Windows they are the **Win key**, not Control. Control
-is on **A and `;`** (13/22), which carry `LCTRL` and work on both. The
-primary shortcut modifier therefore sits on a different finger per OS.
+**Home-row mods are swapped per OS by those same overlays.** BAS puts the
+primary modifier (Command) on **S/L** and the secondary (Control) on
+**A/`;`**. Windows wants Control as primary, so `WIN`, `WIN_DEV` and
+`WIN_AXN` swap them — S/L become `LCTRL`, A/`;` become `LGUI`. **The primary
+modifier keeps the same finger on both OSes.**
 
-Fixing it needs **one overlay per typing layer** — BAS, DEV, AXN, FNK and
-NAV all bind 14/21, and a single overlay above them all would leak its taps
-onto every layer (§4.1 has the analysis). That is the duplication this
-architecture exists to avoid, so it was left alone. Judge from use: if
-reaching for Control on the wrong finger proves annoying on Windows, the
-honest options are five overlays, or moving `LCTRL` onto S/L and accepting
-that macOS's Command moves to A/`;`.
+| layer | 13 (A) | 14 (S) | 21 (L) | 22 (;) |
+|---|---|---|---|---|
+| BAS / DEV / AXN | LCTRL | LGUI | RGUI | RCTRL |
+| WIN / WIN_DEV / WIN_AXN | LGUI | **LCTRL** | **RCTRL** | RGUI |
+
+`WIN` covers BAS for free — it already sat directly above it. DEV and AXN
+bind those positions themselves, so their overlays carry the swap.
+
+**STILL UNSWAPPED: FNK pos 14 and NAV pos 21.** Neither has an overlay, so
+both are the Win key on Windows. **NAV's actively misfires** — `Win+arrow`
+snaps windows there, so selection-by-word would rearrange your desktop
+instead. FNK's is milder: a Win-key hold while pressing F-keys. Fixing needs
+a `WIN_FNK` / `WIN_NAV` pair, one key each, +2 layers.
 
 ### 3.2 OS flag
 

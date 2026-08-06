@@ -14,11 +14,20 @@
              * -- would send Win+R on Windows, which opens the Run dialog.
              * It is also where any future DEV divergence belongs.
              */
+            /* Home-row mods swapped for Windows, same as WIN does for
+             * BAS: primary (Control) onto S/L, secondary (Win) onto A/;,
+             * so the primary modifier keeps the same finger across OSes.
+             * Taps are unchanged. */
+            #define WD_A     &hml  LGUI   AMPS
+            #define WD_S     &hml  LCTRL  LBRC
+            #define WD_L     &hmr  RCTRL  RBKT
+            #define WD_SEMI  &hmr  RGUI   PIPE
+
             display-name = "WIN_DEV";
             bindings = <
-    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &kp LC(R)  &trans  &trans  &trans  &trans     &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans   &trans   &trans  &trans
+    &trans   WD_A    WD_S   &trans  &trans  &trans        &trans  &trans  &trans    WD_L   WD_SEMI  &trans
+    &trans  &kp LC(R)  &trans  &trans  &trans  &trans     &trans  &trans  &trans   &trans   &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

@@ -31,11 +31,32 @@
             #define WN_BSPC  &mt  LC(BSPC)  BSPC
             #define WN_DEL   &mt  LC(DEL)   DEL
 
+            /* Home-row mods, swapped for Windows.
+             *
+             * BAS puts the primary modifier on S and L (LGUI = Command) and
+             * the secondary on A and ; (LCTRL). Windows wants Control as the
+             * primary, so this swaps them: S/L become LCTRL and A/; become
+             * LGUI (the Win key, which is genuinely the secondary there).
+             *
+             * The point is that the PRIMARY modifier stays on the same
+             * finger on both OSes. Without this, Control lived on A/; on
+             * Windows and Command on S/L on macOS, so muscle memory moved
+             * between machines.
+             *
+             * This only fixes BAS. DEV and AXN bind these positions
+             * themselves and are fixed on WIN_DEV / WIN_AXN. FNK (pos 14)
+             * and NAV (pos 21) still carry LGUI -- they have no overlay
+             * yet. */
+            #define WN_A     &hml  LGUI   A
+            #define WN_S     &hml  LCTRL  S
+            #define WN_L     &hmr  RCTRL  L
+            #define WN_SEMI  &hmr  RGUI   SEMI
+
             display-name = "WIN";
             bindings = <
-    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  WN_BSPC
-    WN_DEL  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans   &trans
-    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans   &trans
+    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   WN_BSPC
+    WN_DEL   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

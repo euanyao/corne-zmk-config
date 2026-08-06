@@ -33,12 +33,15 @@
  * built-in keyboard, RDP and VM sessions -- so the firmware now does the
  * work instead. Do not reintroduce a host-remap assumption.
  *
- * KNOWN CONSEQUENCE, not yet fixed: the home-row mods at positions 14 and
- * 21 carry LGUI, so on Windows they are the **Win key**, not Control.
- * Control is on A and ; (13/22) there. The primary modifier therefore sits
- * on a different finger per OS. Fixing it needs one overlay per typing
- * layer -- BAS, DEV, AXN, FNK and NAV all bind those positions -- which is
- * the duplication this architecture exists to avoid. See CLAUDE.md §3.1.
+ * HOME-ROW MODS are swapped per OS by the same overlays. BAS puts the
+ * primary modifier (Command) on S/L and the secondary (Control) on A/;.
+ * Windows wants Control as the primary, so WIN / WIN_DEV / WIN_AXN swap
+ * them -- S/L become LCTRL, A/; become LGUI. The primary modifier therefore
+ * keeps the SAME FINGER on both OSes.
+ *
+ * STILL UNSWAPPED: FNK pos 14 and NAV pos 21 have no overlay, so they are
+ * the Win key on Windows. NAV's is the one that misfires -- Win+arrow snaps
+ * windows there. Fixing needs a WIN_FNK / WIN_NAV pair. See CLAUDE.md §3.1.
  */
 #define KEY_SPC   &kp  SPACE
 #define KEY_ESC   &to_BAS_kp  0        ESC   // tap: esc    | hold: hard reset to base

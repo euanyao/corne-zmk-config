@@ -57,16 +57,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: BSPC, h: Ctl+BSPC}
   - - {t: DEL, h: Ctl+DEL}
+    - {t: A, h: LGUI}
+    - {t: S, h: LCTRL}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: L, h: RCTRL}
+    - {t: ;, h: RGUI}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -315,16 +315,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
+    - {t: '&', h: LGUI}
+    - {t: '{', h: LCTRL}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: ']', h: RCTRL}
+    - {t: '|', h: RGUI}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Ctl+R
@@ -358,16 +358,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: Alt+Sft+LEFT, h: LGUI}
+    - {t: LEFT, h: LCTRL}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - Ctl+H
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: '6', h: RCTRL}
+    - {t: '=', h: RGUI}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Ctl+Z
