@@ -24,7 +24,7 @@ layers:
     - {t: K, h: LALT}
     - {t: L, h: RGUI}
     - {t: ;, h: RCTRL}
-    - {t: RET, h: F2}
+    - ','
   - - {t: TAB, h: '&mo_STG'}
     - Z
     - X
@@ -33,7 +33,7 @@ layers:
     - B
     - N
     - M
-    - ','
+    - {t: RET, h: F2}
     - .
     - /
     - {t: '''', h: '&mo_STG'}
