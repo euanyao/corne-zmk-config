@@ -179,11 +179,11 @@ layers:
     - F11
     - F12
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - PG UP
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - BRI DN
+    - VOL DN
+    - MUTE
+    - VOL UP
+    - BRI UP
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: F5, h: LCTRL}
@@ -192,10 +192,10 @@ layers:
     - {t: F8, h: LSHFT}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: HOME, h: RSHFT}
-    - {t: PG DN, h: LALT}
-    - {t: END, h: RGUI}
-    - RCTRL
+    - PREV
+    - PP
+    - NEXT
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - F1

@@ -62,22 +62,30 @@
         };
 
         functions_layer {
-            /* Sparse on purpose, and &trans rather than &none throughout,
-             * so holding FNK over a latched AXN composes -- F-keys on the
-             * left, numpad still live on the right. */
+            /* F-keys on the left, host media controls on the right.
+             *
+             * The media block moved here from STG: volume, transport and
+             * screen brightness are OS-independent HID consumer codes, so
+             * they need no overlay, but they are host controls rather than
+             * keyboard configuration and STG is now config-only.
+             *
+             * HOME/END/PgUp/PgDn used to sit on the right here. They are on
+             * NAV now, which owns navigation -- these were the duplicates.
+             *
+             * Row 2 and the thumbs stay &trans so holding FNK over a latched
+             * AXN still composes: F-keys left, bottom numpad row live on the
+             * right. Rows 0 and 1 no longer compose, which is the price of
+             * putting media here. */
             #define FN13  &hml LCTRL F5
             #define FN14  &hml LGUI  F6
             #define FN15  &hml LALT  F7
             #define FN16  &hml LSHFT F8
-            #define FN19  &hmr RSHFT HOME
-            #define FN20  &hmr LALT  PG_DN
-            #define FN21  &hmr RGUI  END
 
             display-name = "FNK";
             bindings = <
-    &trans  &kp F9  &kp F10  &kp F11  &kp F12  &trans        &trans  &trans  &kp PG_UP  &trans     &trans  &trans
-    &trans    FN13     FN14     FN15     FN16  &trans        &trans    FN19       FN20    FN21  &kp RCTRL  &trans
-    &trans  &kp F1   &kp F2   &kp F3   &kp F4  &trans        &trans  &trans     &trans  &trans     &trans  &trans
+    &trans  &kp F9  &kp F10  &kp F11  &kp F12  &trans        &kp C_BRI_DN  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp C_BRI_UP  &trans
+    &trans    FN13     FN14     FN15     FN16  &trans              &trans    &kp C_PREV    &kp C_PP    &kp C_NEXT        &trans  &trans
+    &trans  &kp F1   &kp F2   &kp F3   &kp F4  &trans              &trans        &trans      &trans        &trans        &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };
