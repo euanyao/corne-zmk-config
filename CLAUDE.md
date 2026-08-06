@@ -288,6 +288,20 @@ Thumb 41 is redundant now and could be reclaimed if a thumb is ever needed.
 
 ### 3.5 Gotchas that have already bitten
 
+**`&bt BT_CLR_ALL` froze the central.** **[verified — observed on
+hardware]** After clearing all bluetooth profiles, the left half locked up.
+The right half then looked disconnected, but that was a symptom: the
+peripheral has no keymap of its own, so a frozen central is
+indistinguishable from a lost split link. **Power-cycling the left half
+restored everything, split link included.**
+
+Two things follow. If the right half ever seems dead, **check the central
+first** — don't go looking for a split-bond problem. And expect a
+power-cycle after a bulk bond clear; it is not a sign of damage.
+
+Observed on the pre-`fbcffa5` firmware, which still had the profile-count
+mismatch. Whether that contributed is unknown and not worth guessing at.
+
 **Node order in `corne.keymap` determines layer index.** The `#define`s in
 `os/shared/layers.dtsi` don't cause anything — they're names that must
 *match*. Swap the two `#include`s and it compiles fine but the keyboard is
