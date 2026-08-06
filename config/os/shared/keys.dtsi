@@ -26,9 +26,9 @@
  */
 #define KEY_SPC   &kp  SPACE
 #define KEY_ESC   &to_BAS_kp  0        ESC   // tap: esc    | hold: hard reset to base
-#define KEY_RET   &mt         F2       RET   // tap: return | hold: rename
+#define KEY_RET   &ht_STG     0        RET   // tap: return | hold: STG (right-hand route)
 #define KEY_TAB   &ht_STG     0        TAB   // tap: tab    | hold: STG (left-hand route)
-#define KEY_QUOT  &ht_STG     0        SQT   // tap: '      | hold: STG (right-hand route)
+#define KEY_QUOT  &kp         SQT            // plain ' -- outer column, inherited by every layer
 #define NAV_BSPC  &mt         LA(BSPC) BSPC  // tap: bspc   | hold: delete word back
 #define NAV_DEL   &mt         LA(DEL)  DEL   // tap: del    | hold: delete word forward
 

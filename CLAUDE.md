@@ -224,14 +224,19 @@ nearly dead. `check-keymap.sh` asserts this.
 briefly `&trans` and typed `M` and `,`. Fixed in `0435707`.
 
 **The outer columns are bound once on BAS and inherited.** ESC, BSPC, DEL,
-TAB, comma (pos 23) and both spaces are `&trans` on every layer above. Only
+TAB, quote (pos 23) and both spaces are `&trans` on every layer above. Only
 put a real binding above BAS where the layer genuinely differs.
 
-**RET is no longer an outer-column key.** It was swapped with comma, so it
-now sits at **pos 32** — which DEV, AXN and WIN_STG already bind (`<`, `2`,
-task manager). **Enter is therefore unavailable on those three layers.**
-That was accepted deliberately; if it bites, the fix is to free pos 32 on
-DEV/AXN and relocate `<` and `2`, or move RET back to an outer column.
+**RET is no longer an outer-column key.** It was swapped with quote, so it
+now sits at **pos 35** — which DEV, AXN and STG already bind (F12,
+`Ctl+Gui+D`, RGB brightness down). **Enter is therefore unavailable on those
+three layers.** Accepted deliberately; if it bites, free pos 35 on DEV/AXN
+or move RET back to an outer column.
+
+**Pos 35 still carries the STG hold**, so RET there is `&ht_STG 0 RET`, not
+a plain `&kp`. That hold is the right-hand route to STG and is what makes
+the left-half bootloader reachable (§3.6) — do not replace it with a plain
+binding. The cost is that RET lost its old F2/rename hold.
 
 **Volume, mute and media are OS-independent HID consumer codes.** They live
 once on the shared layer at positions 7/8/9 and 19/20/21. Do not duplicate
