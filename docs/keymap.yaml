@@ -318,7 +318,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: Ctl+Sft+S, s: PRINTSCREEN}
     - {t: ▽, type: trans}
     - Ctl+ESC
     - {t: ▽, type: trans}

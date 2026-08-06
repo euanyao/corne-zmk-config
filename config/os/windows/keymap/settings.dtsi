@@ -38,11 +38,12 @@
             #define WS_SETTING  &kp RC(I)            // windows settings (Win+I)
             #define WS_SECURE   &kp LG(LA(DEL))      // security screen (Ctrl+Alt+Del)
             #define WS_FILES    &kp LC(E)            // file explorer   (Win+E)
+            #define WS_SHOT     &mp_wSTG_shot        // tap: region snip (Win+Shift+S) | shift: whole screen
 
             display-name = "WIN_STG";
             bindings = <
     &trans  &trans  &trans  &trans   WS_PICK  &trans        WS_MAG_IN   &trans  &trans      &trans    WS_ZONES      &trans
-    &trans  &trans  &trans  &trans    &trans  &trans       WS_MAG_OFF   &trans  &trans      &trans  WS_SYSINFO  WS_SETTING
+    &trans  &trans  &trans  &trans   WS_SHOT  &trans       WS_MAG_OFF   &trans  &trans      &trans  WS_SYSINFO  WS_SETTING
     &trans  &trans  &trans  &trans  WS_FILES  &trans       WS_MAG_OUT   &trans  WS_TASKMGR  &trans   WS_SECURE      &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;

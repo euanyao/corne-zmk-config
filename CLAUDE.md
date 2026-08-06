@@ -84,8 +84,8 @@ toward *more* layers, not fewer.
 | 3 | AXN | shared; the only latchable layer |
 | 4 | FNK | shared; empty slots `&trans` so it composes over AXN |
 | 5 | NAV | shared; arrows + HOME/END/PgUp/PgDn, held by right thumb |
-| 6 | STG | shared, macOS-flavoured; Windows replaces 10 positions |
-| 7 | WIN_STG | conditional `<WIN STG>` — 10 keys |
+| 6 | STG | shared, macOS-flavoured; Windows replaces 11 positions |
+| 7 | WIN_STG | conditional `<WIN STG>` — 11 keys |
 
 **WIN sits at 1, below the typing layers, on purpose.** ZMK's built-in OLED
 status screen shows the *highest active* layer, so a high WIN made the OLED
@@ -116,8 +116,9 @@ binding:
 
 This was deliberately inverted from an earlier Windows-canonical design
 (commit `0435707`). Reason: the Mac is MDM-managed and the System Settings
-change might be blocked, whereas the two Windows PCs are personal. See §5
-for the caveat — this trade is **not fully verified**.
+change might be blocked, whereas the two Windows PCs are personal. **The
+owner has accepted the machine-wide remap this requires — see §5.** The
+convention is settled; do not propose reverting it.
 
 ### 3.2 OS flag
 
@@ -164,10 +165,10 @@ them without colliding:
 Word-delete is the one thing the remap can't fix: macOS wants Option+Bspc,
 Windows wants Ctrl+Bspc, and Cmd+Bspc on the Mac is delete-to-line-start.
 
-**WIN_STG** — 10 keys at positions 4, 6, 10, 18, 22, 23, 28, 30, 32, 34:
-colour picker, magnifier ×3, fancy zones, task manager, system info,
-settings, security, file explorer. Cannot fold into WIN — those positions
-are letters on the typing layers.
+**WIN_STG** — 11 keys at positions 4, 6, 10, 16, 18, 22, 23, 28, 30, 32,
+34: colour picker, magnifier ×3, fancy zones, task manager, system info,
+settings, security, file explorer, screenshot. Cannot fold into WIN — those
+positions are letters on the typing layers.
 
 **Task manager is at 32, not 11, and must stay off 11.** STG binds the
 right-half bootloader at 11 (§3.6). WIN_STG is the higher layer, so anything
@@ -175,8 +176,12 @@ bound there shadows it — in Windows mode that would silently swap DFU for
 task manager, on the only route into bootloader. 32 was the sole remaining
 slot free on STG *and* `&trans` here.
 
-There is **no WIN_AXN**: every AXN key either works on both OSes unaided or
-was unused. Notably `Shift+Cmd+Z` is redo on both, and replace is
+There is **no WIN_AXN**, and AXN carries 11 shortcut bindings — the
+largest concentration in the config. They work on Windows *only through the
+remap* (§5); the clipboard cluster at pos 25-29 is `LGUI`-based, so without
+it Win+Z/X/C/V open OS panels instead of undo/cut/copy/paste. If the remap
+is ever abandoned, a WIN_AXN overlay is the fix, not a rewrite. Otherwise
+every AXN key either works on both OSes unaided or was unused. Notably `Shift+Cmd+Z` is redo on both, and replace is
 `Opt+Cmd+F` rather than `Ctrl+H` — the latter arrived as ⌘H and hid the
 window.
 
@@ -369,7 +374,19 @@ starting guess and wants tuning — one number in `times.dtsi`.
 
 ---
 
-## 5. Host-side setup required — the trade is now measured
+## 5. Host-side setup required — DECIDED
+
+> **DECISION (owner): accept the machine-wide remap.** The Windows PCs will
+> carry a PowerToys Win/Ctrl remap affecting every keyboard on them, not
+> just the Corne. The MAC-CANONICAL design in §3.1 therefore stands, and
+> `git revert 0435707` is **no longer the fallback** — don't propose it.
+>
+> **This must actually be set up before the firmware is usable on Windows.**
+> Without it, `LGUI`-based bindings land on the Win key: AXN's clipboard
+> cluster becomes Win+Z/X/C/V, which opens snap layouts, the power-user
+> menu, Copilot and clipboard history instead of undo/cut/copy/paste. That
+> is the single largest dependency in the config — 11 shortcut bindings on
+> AXN alone, with no Windows overlay behind them.
 
 **Windows (both PCs):** a Win/Ctrl remap, so firmware `LGUI` arrives as
 Control. PowerToys Keyboard Manager is the obvious tool.
@@ -387,16 +404,11 @@ Control. PowerToys Keyboard Manager is the obvious tool.
 > keyboard and every other keyboard on both Windows PCs, not just the Corne.
 > macOS's per-keyboard modifier swap has no PowerToys equivalent.
 
-**This is the decision the design hangs on.** Two honest options:
-
-1. **Accept machine-wide.** Fine if the Corne is effectively the only
-   keyboard used on those PCs. Note it also affects RDP/VM sessions and
-   anyone else who sits down at them.
-2. **Revert to Windows-canonical** — `git revert 0435707`. Still cheap while
-   nothing is flashed. Costs the macOS-needs-no-setup property, which was
-   the whole point of the inversion, and the Mac is MDM-managed so its
-   System Settings change may be blocked. Worth checking whether that
-   modifier setting is actually locked before choosing.
+Consequences of the accepted decision, so they aren't rediscovered: the
+remap also applies to RDP and VM sessions from those PCs, and to anyone else
+who uses them. Per-device alternatives exist if that ever becomes
+unacceptable (AutoHotKey with raw-input device filtering, or Interception),
+both heavier than PowerToys and neither evaluated here.
 
 Per-device alternatives exist if neither appeals (AutoHotKey with
 `#InputLevel`/raw-input device filtering, or Interception), but both are
@@ -481,9 +493,7 @@ only in this file.
      care; and CI would be the only feedback loop.
 - **GAME layer** (req 5), deferred. Layer 7 free. Should be flat, **no
   home-row mods**, real Shift/Ctrl, no layer-taps on thumbs, self-contained.
-- **Windows screenshot.** `mp_sSTG_screenshot` is macOS-shaped
-  (Shift+Cmd+5/4/3) and does nothing useful on Windows, which wants
-  Win+Shift+S. Pre-existing, not a regression, worth fixing.
+
 - **Nav cluster** — **resolved** by the NAV layer (§3), which puts arrows,
   HOME/END and PgUp/PgDn together on one layer held by the right thumb.
   **The old copies are still in place**: arrows remain on AXN (pos 3, 14-16)

@@ -6,9 +6,9 @@
 
 /* Screenshot. Shift+Cmd+5/4/3 on the Mac.
  *
- * Pre-existing gap carried over unchanged: these are macOS shortcuts and
- * do nothing on Windows, which wants Win+Shift+S. The old config had the
- * same problem, so it's not a regression, but it's worth fixing. */
+ * macOS only -- Windows gets its own binding at the same position via
+ * WIN_STG (mp_wSTG_shot, os/windows/morph/settings.dtsi), so this no longer
+ * leaves Windows without a screenshot key. */
 MORPH_KAS(
     s,
     STG,
