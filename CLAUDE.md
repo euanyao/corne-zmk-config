@@ -34,7 +34,7 @@ learnability are worth more here than continuity.
 | Central | **left** (carries the studio snippet + USB UART) |
 | Peripheral | **right** |
 | Builds | GitHub Actions only — **no local ZMK toolchain, no `west`** |
-| Layers | 7 of ZMK's 32 |
+| Layers | 9 of ZMK's 32 |
 | ZMK Studio | enabled (`-DCONFIG_ZMK_STUDIO=y`) |
 | LEDs | 27 per half (21 per-key + 6 underglow) |
 
@@ -64,7 +64,7 @@ currently DEV-only. No obvious home without a compromise. Raise if it bites.
 
 ### Standing constraint
 
-ZMK hard-caps at **32 layers** (uint32_t bitmask). At 7 the cap is *not* the
+ZMK hard-caps at **32 layers** (uint32_t bitmask). At 9 the cap is *not* the
 binding constraint — **maintenance is**. Full layer-set duplication for OS
 variants was explicitly rejected by the owner; do not reintroduce it. Note
 the cap and the 42-key count are independent: fewer physical keys pushes
@@ -74,7 +74,7 @@ toward *more* layers, not fewer.
 
 ## 3. Current architecture — authoritative
 
-7 layers, one shared set:
+9 layers, one shared set plus two Windows overlays:
 
 | # | layer | |
 |---|---|---|
@@ -85,6 +85,8 @@ toward *more* layers, not fewer.
 | 4 | FNK | shared; empty slots `&trans` so it composes over AXN |
 | 5 | NAV | shared; arrows + HOME/END/PgUp/PgDn, held by right thumb |
 | 6 | STG | shared; **keyboard config only**, OS-independent |
+| 7 | WIN_DEV | conditional `<WIN DEV>` — 1 key |
+| 8 | WIN_AXN | conditional `<WIN AXN>` — 9 keys |
 
 **WIN sits at 1, below the typing layers, on purpose.** ZMK's built-in OLED
 status screen shows the *highest active* layer, so a high WIN made the OLED
@@ -104,20 +106,39 @@ the shared default.
 
 ### 3.1 Keycode convention — read before editing any binding
 
-**MAC-CANONICAL.** The primary shortcut modifier is Command (`LGUI`/`RGUI`).
-macOS needs **no host configuration at all**.
+**Write keycodes natively. There is NO host remap.** `LGUI` is Command on
+macOS and the Win key on Windows; `LCTRL` is Control on both. What you write
+is what the host receives.
 
-The Windows machines carry a **Win/Ctrl remap** (PowerToys) instead, so a
-firmware `LGUI` arrives as Control there. When writing a Windows-only
-binding:
+Shared layers are Mac-flavoured because macOS is the unflagged default.
+Where a Windows chord genuinely differs it gets a **conditional overlay**,
+so the firmware does the translating:
 
-> **want Control → write `LG`. want the Win key → write `LC`.**
+| overlay | layer | carries |
+|---|---|---|
+| `WIN` | 1 | word-delete + ESC panic — identical on every typing layer |
+| `WIN_DEV` | 7 | DEV pos 25, Cmd+R → Ctrl+R |
+| `WIN_AXN` | 8 | nine AXN shortcuts: clipboard, find, replace, tab/desktop switching |
 
-This was deliberately inverted from an earlier Windows-canonical design
-(commit `0435707`). Reason: the Mac is MDM-managed and the System Settings
-change might be blocked, whereas the two Windows PCs are personal. **The
-owner has accepted the machine-wide remap this requires — see §5.** The
-convention is settled; do not propose reverting it.
+**History, so it isn't re-litigated.** An earlier design wrote everything
+Cmd-canonical and relied on a PowerToys Win/Ctrl remap on the Windows
+machines. That was abandoned once the remap was shown to be **machine-wide
+only** — it cannot be scoped to one keyboard, so it would have affected the
+built-in keyboard, RDP and VM sessions too. Do not reintroduce a host-remap
+assumption.
+
+**KNOWN CONSEQUENCE, unfixed.** Home-row mods at positions **14 and 21**
+carry `LGUI`, so on Windows they are the **Win key**, not Control. Control
+is on **A and `;`** (13/22), which carry `LCTRL` and work on both. The
+primary shortcut modifier therefore sits on a different finger per OS.
+
+Fixing it needs **one overlay per typing layer** — BAS, DEV, AXN, FNK and
+NAV all bind 14/21, and a single overlay above them all would leak its taps
+onto every layer (§4.1 has the analysis). That is the duplication this
+architecture exists to avoid, so it was left alone. Judge from use: if
+reaching for Control on the wrong finger proves annoying on Windows, the
+honest options are five overlays, or moving `LCTRL` onto S/L and accepting
+that macOS's Command moves to A/`;`.
 
 ### 3.2 OS flag
 
@@ -157,12 +178,13 @@ them without colliding:
 
 ```
    pos 0    ESC-hold -> &to BAS + &tog WIN   relight the flag &to clears
-   pos 11   BSPC hold -> LG(BSPC)            = Ctrl+Bspc after the remap
-   pos 12   DEL  hold -> LG(DEL)
+   pos 11   BSPC hold -> LC(BSPC)            Ctrl+Bspc, written natively
+   pos 12   DEL  hold -> LC(DEL)
 ```
 
-Word-delete is the one thing the remap can't fix: macOS wants Option+Bspc,
-Windows wants Ctrl+Bspc, and Cmd+Bspc on the Mac is delete-to-line-start.
+Word-delete differs by OS: macOS wants Option+Bspc, Windows wants
+Ctrl+Bspc, and Cmd+Bspc on the Mac is delete-to-line-start. These three are
+identical on every typing layer, which is why one overlay can carry them.
 
 **WIN_STG is gone.** It existed solely to give Windows counterparts for 13
 host application shortcuts on STG (zoom, accessibility zoom, screenshot,
@@ -184,12 +206,19 @@ What that bought:
 conditional overlay** — the same pattern WIN_STG used, on the layer that has
 the space. Do not put them back on STG.
 
-There is **no WIN_AXN**, and AXN carries 11 shortcut bindings — the
-largest concentration in the config. They work on Windows *only through the
-remap* (§5); the clipboard cluster at pos 25-29 is `LGUI`-based, so without
-it Win+Z/X/C/V open OS panels instead of undo/cut/copy/paste. If the remap
-is ever abandoned, a WIN_AXN overlay is the fix, not a rewrite. Otherwise
-every AXN key either works on both OSes unaided or was unused. Notably `Shift+Cmd+Z` is redo on both, and replace is
+**WIN_AXN** — 9 keys at positions 2, 4, 5, 17, 25, 26, 27, 28, 29:
+clipboard (undo/cut/copy/paste/redo), find, replace, tab and
+virtual-desktop switching. This is what removed the PowerToys dependency —
+without it AXN's clipboard cluster arrives as Win+Z/X/C/V on Windows and
+opens snap layouts, the power-user menu, Copilot and clipboard history.
+
+Redo is `Ctrl+Y` there rather than `Ctrl+Shift+Z` (both work; Ctrl+Y is more
+universal), and replace is `Ctrl+H`, which is the reason it needs an
+override at all — macOS uses Opt+Cmd+F and there is no shared chord.
+
+**WIN_DEV** — 1 key: DEV pos 25, Cmd+R → Ctrl+R. Thin, but the alternative
+sends Win+R and opens the Run dialog. It is also where future DEV divergence
+belongs. Notably `Shift+Cmd+Z` is redo on both, and replace is
 `Opt+Cmd+F` rather than `Ctrl+H` — the latter arrived as ⌘H and hid the
 window.
 
@@ -387,47 +416,39 @@ starting guess and wants tuning — one number in `times.dtsi`.
 
 ---
 
-## 5. Host-side setup required — DECIDED
+## 5. Host-side setup required — NONE
 
-> **DECISION (owner): accept the machine-wide remap.** The Windows PCs will
-> carry a PowerToys Win/Ctrl remap affecting every keyboard on them, not
-> just the Corne. The MAC-CANONICAL design in §3.1 therefore stands, and
-> `git revert 0435707` is **no longer the fallback** — don't propose it.
->
-> **This must actually be set up before the firmware is usable on Windows.**
-> Without it, `LGUI`-based bindings land on the Win key: AXN's clipboard
-> cluster becomes Win+Z/X/C/V, which opens snap layouts, the power-user
-> menu, Copilot and clipboard history instead of undo/cut/copy/paste. That
-> is the single largest dependency in the config — 11 shortcut bindings on
-> AXN alone, with no Windows overlay behind them.
+> **DECISION (owner): drop the PowerToys remap entirely.** The firmware
+> emits native Windows keycodes via the `WIN_DEV` and `WIN_AXN` conditional
+> overlays instead of relying on the host to translate. **Neither OS needs
+> any host-side configuration.**
 
-**Windows (both PCs):** a Win/Ctrl remap, so firmware `LGUI` arrives as
-Control. PowerToys Keyboard Manager is the obvious tool.
+**macOS:** nothing.
+**Windows:** nothing.
 
-> **[verified] PowerToys cannot scope a remap to one device.** The earlier
-> suspicion was right. Evidence from `microsoft/PowerToys`:
+### Why the remap was abandoned
+
+> **[verified] PowerToys cannot scope a remap to one device.** Evidence from
+> `microsoft/PowerToys`:
 > [#31877](https://github.com/microsoft/PowerToys/issues/31877) ("Keyboard
 > Manager settings per device") closed as a duplicate of #26086;
 > [#40605](https://github.com/microsoft/PowerToys/issues/40605) closed as a
 > duplicate of #44666; and
 > [PR #49276](https://github.com/microsoft/PowerToys/pull/49276)
 > ("Per-keyboard remap profiles") is an **open draft, unmerged**.
->
-> So a PowerToys remap is **machine-wide**: it affects the laptop's built-in
-> keyboard and every other keyboard on both Windows PCs, not just the Corne.
-> macOS's per-keyboard modifier swap has no PowerToys equivalent.
 
-Consequences of the accepted decision, so they aren't rediscovered: the
-remap also applies to RDP and VM sessions from those PCs, and to anyone else
-who uses them. Per-device alternatives exist if that ever becomes
-unacceptable (AutoHotKey with raw-input device filtering, or Interception),
-both heavier than PowerToys and neither evaluated here.
+A machine-wide remap would have affected the laptop's built-in keyboard,
+every other keyboard on both PCs, and RDP/VM sessions from them. Two
+conditional overlays (10 bindings total) were cheaper than accepting that,
+and they make the config self-contained.
 
-Per-device alternatives exist if neither appeals (AutoHotKey with
-`#InputLevel`/raw-input device filtering, or Interception), but both are
-heavier than PowerToys and neither has been evaluated here.
+**Do not reintroduce a host-remap assumption.** If a future binding needs a
+different chord per OS, add it to `WIN_DEV` or `WIN_AXN`, or create the
+matching overlay for whichever layer it lives on.
 
-**macOS:** nothing. That's the point of the inversion.
+**What this did not fix:** the home-row GUI mods at positions 14/21 — see
+§3.1. They are the one place where the OS difference is still visible to the
+user rather than absorbed by the firmware.
 
 ---
 
@@ -527,7 +548,7 @@ only in this file.
   and asserts: every layer binds exactly 42 keys, every `&behavior`
   resolves, and keymap node order matches `layers.dtsi`. A pass means
   "worth flashing", **not** "correct" — it does not validate devicetree
-  semantics. Current: *7 layers, 58 behaviours, order ok*.
+  semantics. Current: *9 layers, 61 behaviours, order ok*.
 - **`./draw-keymap.sh`** — regenerates `docs/keymap.yaml` + `docs/keymap.svg`.
   Needs `keymap-drawer` (installed, v0.23.0 at `~/.local/bin/keymap`; export
   `PATH="$HOME/.local/bin:$PATH"` first). **Re-run after any keymap change.**

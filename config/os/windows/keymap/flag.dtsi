@@ -9,26 +9,27 @@
  * a high WIN would mask the layer you're actually on. See
  * os/shared/layers.dtsi.
  *
- * macOS is the unflagged default. The Windows machines carry a Win/Ctrl
- * remap (PowerToys), so a Mac-canonical keycode lands correctly there too.
- * When adding a binding here: **want Control -> write LG; want the Win key
- * -> write LC.**
+ * macOS is the unflagged default. There is NO host remap any more: write
+ * keycodes natively. On this layer LC is Control and LG is the Win key,
+ * exactly as written.
  *
- * There is deliberately no WIN overlay for AXN: every AXN key either works
- * on both OSes unaided or was unused.
+ * DEV and AXN have their own conditional overlays (WIN_DEV, WIN_AXN) for
+ * the shortcuts that genuinely differ. This layer carries only what is
+ * identical across every typing layer, which is why one overlay can hold it
+ * without colliding.
  */
 
         windows_layer {
             /* Three keys. ESC-hold has to relight the flag that &to clears,
-             * and word-delete is the one thing the Win/Ctrl remap cannot
-             * fix: the shared layer uses Option+Bspc for macOS, and Windows
-             * wants Ctrl+Bspc, which after the remap is a firmware LGUI.
+             * and word-delete differs by OS: the shared layer uses
+             * Option+Bspc for macOS, Windows wants Ctrl+Bspc. Written
+             * natively as LC now that there is no host remap.
              *
              * These are identical on every typing layer, which is exactly
              * why a single overlay can carry them without colliding. */
             #define WN_ESC   &to_BAS_win_kp  0  ESC
-            #define WN_BSPC  &mt  LG(BSPC)  BSPC
-            #define WN_DEL   &mt  LG(DEL)   DEL
+            #define WN_BSPC  &mt  LC(BSPC)  BSPC
+            #define WN_DEL   &mt  LC(DEL)   DEL
 
             display-name = "WIN";
             bindings = <

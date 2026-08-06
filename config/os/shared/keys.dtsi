@@ -11,18 +11,34 @@
 
 /* Outer columns and thumbs, bound here and inherited by every layer above.
  *
- * MAC-CANONICAL. The primary shortcut modifier is Command, written LGUI /
- * RGUI. macOS therefore needs no host configuration whatsoever.
+ * KEYCODE CONVENTION -- read before editing any binding.
  *
- * The Windows machines carry a Win/Ctrl remap instead (PowerToys), so a
- * firmware LGUI arrives as Control there and LCTRL arrives as the Win key.
- * When adding a Windows-only binding: **want Control -> write LG; want the
- * Win key -> write LC.**
+ * **Write keycodes natively. There is NO host remap.** LGUI is Command on
+ * macOS and the Win key on Windows; LCTRL is Control on both. What you write
+ * is what the host receives.
  *
- * The one thing that remap cannot fix is word-delete. macOS wants
- * Option+Bspc; Windows wants Ctrl+Bspc, which is a firmware LGUI, and
- * Cmd+Bspc on the Mac is delete-to-line-start rather than delete-word. So
- * BSPC and DEL are Option here and overridden on the WIN layer.
+ * The shared layers are Mac-flavoured because macOS is the unflagged
+ * default. Where a Windows chord genuinely differs, it is overridden on a
+ * conditional overlay rather than translated by the host:
+ *
+ *     WIN      layer 1   word-delete + the ESC panic (identical on every
+ *                        typing layer, so one overlay carries them)
+ *     WIN_DEV  layer 7   DEV pos 25, Cmd+R -> Ctrl+R
+ *     WIN_AXN  layer 8   the nine AXN shortcuts: clipboard, find, replace,
+ *                        tab and virtual-desktop switching
+ *
+ * This replaced an earlier design that wrote everything Cmd-canonical and
+ * relied on a PowerToys Win/Ctrl remap on the Windows machines. That remap
+ * could not be scoped to one keyboard -- it is machine-wide, affecting the
+ * built-in keyboard, RDP and VM sessions -- so the firmware now does the
+ * work instead. Do not reintroduce a host-remap assumption.
+ *
+ * KNOWN CONSEQUENCE, not yet fixed: the home-row mods at positions 14 and
+ * 21 carry LGUI, so on Windows they are the **Win key**, not Control.
+ * Control is on A and ; (13/22) there. The primary modifier therefore sits
+ * on a different finger per OS. Fixing it needs one overlay per typing
+ * layer -- BAS, DEV, AXN, FNK and NAV all bind those positions -- which is
+ * the duplication this architecture exists to avoid. See CLAUDE.md §3.1.
  */
 #define KEY_SPC   &kp  SPACE
 #define KEY_ESC   &to_BAS_kp  0        ESC   // tap: esc    | hold: hard reset to base
@@ -36,8 +52,9 @@
  * os/shared/hold/shared.dtsi. Using the wrong hand's behaviour silently
  * disables the guard.
  *
- * S and L carry the primary modifier (Command on the Mac, Control on
- * Windows after the remap); A and ; carry the secondary. */
+ * S and L carry LGUI -- Command on the Mac, the Win key on Windows. A and
+ * ; carry LCTRL, which is Control on both, so on Windows the modifier you
+ * actually want for shortcuts is on A/; rather than S/L. */
 #define HR_A      &hml  LCTRL  A
 #define HR_S      &hml  LGUI   S
 #define HR_D      &hml  LALT   D

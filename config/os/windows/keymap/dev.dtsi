@@ -1,0 +1,24 @@
+        win_dev_layer {
+            /* WIN_DEV -- conditional on <WIN DEV>.
+             *
+             * One key. DEV position 25 is Cmd+R (reload) on macOS; Windows
+             * needs Ctrl+R natively now that there is no host remap to
+             * translate it.
+             *
+             * Everything else on DEV is already OS-neutral: the symbols are
+             * plain keycodes, and the block-comment alt at position 30 is
+             * Alt+Shift+A on both, since Alt is not remapped either way.
+             *
+             * A whole conditional layer for one binding is admittedly thin.
+             * It exists because the alternative -- leaving pos 25 Cmd-based
+             * -- would send Win+R on Windows, which opens the Run dialog.
+             * It is also where any future DEV divergence belongs.
+             */
+            display-name = "WIN_DEV";
+            bindings = <
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &kp LC(R)  &trans  &trans  &trans  &trans     &trans  &trans  &trans  &trans  &trans  &trans
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };

@@ -34,6 +34,8 @@
 #define FNK      4
 #define NAV      5   /* arrows + HOME/END/PgUp/PgDn, held by right thumb */
 #define STG      6
+#define WIN_DEV  7   /* conditional: WIN + DEV */
+#define WIN_AXN  8   /* conditional: WIN + AXN */
 
 /* Host signal keys.
  *
