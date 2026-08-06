@@ -135,16 +135,12 @@ modifier keeps the same finger on both OSes.**
 
 | layer | 13 (A) | 14 (S) | 21 (L) | 22 (;) |
 |---|---|---|---|---|
-| BAS | **LGUI** | LCTRL | RCTRL | RGUI |
-| WIN | **LCTRL** | LGUI | RGUI | RCTRL |
-| DEV / AXN | LCTRL | **LGUI** | **RGUI** | RCTRL |
-| WIN_DEV / WIN_AXN | LGUI | **LCTRL** | **RCTRL** | RGUI |
+| BAS / DEV / AXN / FNK / NAV | **LGUI** | LCTRL | RCTRL | **RGUI** |
+| WIN / WIN_DEV / WIN_AXN | **LCTRL** | LGUI | RGUI | **RCTRL** |
 
-> **INCONSISTENT — BAS is inverted from DEV/AXN.** The primary modifier is
-> on **A/`;`** on BAS but on **S/L** on DEV and AXN, so the same finger gives
-> a different modifier depending on the layer. BAS and WIN were swapped
-> deliberately; DEV, AXN and their overlays were not, and should be
-> propagated to match.
+Primary modifier on **A/`;`**, secondary on **S/L**, consistent on every
+layer and mirrored per OS. FNK pos 21 and NAV pos 13/14 bind other things,
+so they are not part of the pattern.
 
 `WIN` covers BAS for free — it already sat directly above it. DEV and AXN
 bind those positions themselves, so their overlays carry the swap.

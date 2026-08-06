@@ -23,10 +23,10 @@
             /* Home-row mods swapped for Windows, same as WIN does for
              * BAS: primary (Control) onto S/L, secondary (Win) onto A/;.
              * Taps are unchanged. */
-            #define WA_A     &hml  LGUI   LA(LS(LEFT))
-            #define WA_S     &hml  LCTRL  LEFT
-            #define WA_L     &hmr  RCTRL  N6
-            #define WA_SEMI  &hmr  RGUI   EQUAL
+            #define WA_A     &hml  LCTRL  LA(LS(LEFT))
+            #define WA_S     &hml  LGUI   LEFT
+            #define WA_L     &hmr  RGUI   N6
+            #define WA_SEMI  &hmr  RCTRL  EQUAL
 
             display-name = "WIN_AXN";
             bindings = <

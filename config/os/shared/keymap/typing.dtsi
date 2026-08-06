@@ -12,14 +12,14 @@
  */
 
         dev_layer {
-            #define DV13  &hml  LCTRL  AMPS
-            #define DV14  &hml  LGUI   LBRC
+            #define DV13  &hml  LGUI   AMPS
+            #define DV14  &hml  LCTRL  LBRC
             #define DV15  &hml  LALT   RBRC
             #define DV16  &hml  LSHFT  EQUAL
             #define DV19  &hmr  RSHFT  EXCL
             #define DV20  &hmr  LALT   LBKT
-            #define DV21  &hmr  RGUI   RBKT
-            #define DV22  &hmr  RCTRL  PIPE
+            #define DV21  &hmr  RCTRL  RBKT
+            #define DV22  &hmr  RGUI   PIPE
 
             display-name = "DEV";
             bindings = <
@@ -42,15 +42,15 @@
              */
             #define AX01  &kp  LA(LS(RIGHT))         // extend selection right
             #define AX05  &kp  LG(F)                 // find
-            #define AX13  &hml LCTRL LA(LS(LEFT))    // extend selection left
-            #define AX14  &hml LGUI  LEFT
+            #define AX13  &hml LGUI  LA(LS(LEFT))    // extend selection left
+            #define AX14  &hml LCTRL LEFT
             #define AX15  &hml LALT  DOWN
             #define AX16  &hml LSHFT RIGHT
             #define AX17  &kp  LA(LG(F))             // replace (Opt+Cmd+F)
             #define AX19  &hmr LSHFT N4
             #define AX20  &hmr LALT  N5
-            #define AX21  &hmr RGUI  N6
-            #define AX22  &hmr RCTRL EQUAL
+            #define AX21  &hmr RCTRL N6
+            #define AX22  &hmr RGUI  EQUAL
 
             display-name = "AXN";
             bindings = <
@@ -76,8 +76,8 @@
              * AXN still composes: F-keys left, bottom numpad row live on the
              * right. Rows 0 and 1 no longer compose, which is the price of
              * putting media here. */
-            #define FN13  &hml LCTRL F5
-            #define FN14  &hml LGUI  F6
+            #define FN13  &hml LGUI  F5
+            #define FN14  &hml LCTRL F6
             #define FN15  &hml LALT  F7
             #define FN16  &hml LSHFT F8
 
@@ -112,8 +112,8 @@
              * Bottom row is deliberately free for later. */
             #define NV19  &kp RSHFT                  // select with the arrows
             #define NV20  &kp LALT                   // word jump (macOS)
-            #define NV21  &kp RGUI
-            #define NV22  &kp RCTRL
+            #define NV21  &kp RCTRL
+            #define NV22  &kp RGUI
 
             display-name = "NAV";
             bindings = <

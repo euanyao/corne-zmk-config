@@ -18,10 +18,10 @@
              * BAS: primary (Control) onto S/L, secondary (Win) onto A/;,
              * so the primary modifier keeps the same finger across OSes.
              * Taps are unchanged. */
-            #define WD_A     &hml  LGUI   AMPS
-            #define WD_S     &hml  LCTRL  LBRC
-            #define WD_L     &hmr  RCTRL  RBKT
-            #define WD_SEMI  &hmr  RGUI   PIPE
+            #define WD_A     &hml  LCTRL  AMPS
+            #define WD_S     &hml  LGUI   LBRC
+            #define WD_L     &hmr  RGUI   RBKT
+            #define WD_SEMI  &hmr  RCTRL  PIPE
 
             display-name = "WIN_DEV";
             bindings = <

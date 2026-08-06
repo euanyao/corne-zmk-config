@@ -100,16 +100,16 @@ layers:
     - ^
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: '&', h: LCTRL}
-    - {t: '{', h: LGUI}
+    - {t: '&', h: LGUI}
+    - {t: '{', h: LCTRL}
     - {t: '}', h: LALT}
     - {t: '=', h: LSHFT}
     - ''''
     - '`'
     - {t: '!', h: RSHFT}
     - {t: '[', h: LALT}
-    - {t: ']', h: RGUI}
-    - {t: '|', h: RCTRL}
+    - {t: ']', h: RCTRL}
+    - {t: '|', h: RGUI}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Gui+R
@@ -143,16 +143,16 @@ layers:
     - KP MULTIPLY
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: Alt+Sft+LEFT, h: LCTRL}
-    - {t: LEFT, h: LGUI}
+    - {t: Alt+Sft+LEFT, h: LGUI}
+    - {t: LEFT, h: LCTRL}
     - {t: DOWN, h: LALT}
     - {t: RIGHT, h: LSHFT}
     - Alt+Gui+F
     - '0'
     - {t: '4', h: LSHFT}
     - {t: '5', h: LALT}
-    - {t: '6', h: RGUI}
-    - {t: '=', h: RCTRL}
+    - {t: '6', h: RCTRL}
+    - {t: '=', h: RGUI}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Gui+Z
@@ -186,8 +186,8 @@ layers:
     - BRI UP
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: F5, h: LCTRL}
-    - {t: F6, h: LGUI}
+    - {t: F5, h: LGUI}
+    - {t: F6, h: LCTRL}
     - {t: F7, h: LALT}
     - {t: F8, h: LSHFT}
     - {t: ▽, type: trans}
@@ -237,8 +237,8 @@ layers:
     - ''
     - RSHFT
     - LALT
-    - RGUI
     - RCTRL
+    - RGUI
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - ''
@@ -315,16 +315,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: '&', h: LGUI}
-    - {t: '{', h: LCTRL}
+    - {t: '&', h: LCTRL}
+    - {t: '{', h: LGUI}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ']', h: RCTRL}
-    - {t: '|', h: RGUI}
+    - {t: ']', h: RGUI}
+    - {t: '|', h: RCTRL}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Ctl+R
@@ -358,16 +358,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: Alt+Sft+LEFT, h: LGUI}
-    - {t: LEFT, h: LCTRL}
+    - {t: Alt+Sft+LEFT, h: LCTRL}
+    - {t: LEFT, h: LGUI}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - Ctl+H
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: '6', h: RCTRL}
-    - {t: '=', h: RGUI}
+    - {t: '6', h: RGUI}
+    - {t: '=', h: RCTRL}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Ctl+Z
