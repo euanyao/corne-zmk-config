@@ -163,6 +163,20 @@ macOS is the **unflagged default**; WIN is lit for Windows.
    to_BAS_win_kp (ESC-hold)      on WIN itself — relight after &to
 ```
 
+**There are six profiles, and the count is NOT configurable.** From
+`app/include/zmk/ble.h` it is a derived C macro, not a Kconfig symbol:
+
+```
+ZMK_BLE_PROFILE_COUNT = CONFIG_BT_MAX_PAIRED - CONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
+                      = 7 - 1
+                      = 6            [verified from a CI build's own Kconfig output]
+```
+
+So `BT_MAX_PAIRED=7` is load-bearing, not aspirational — lowering it
+removes profiles. And `CONFIG_ZMK_BLE_PROFILE_COUNT` does not exist;
+assigning it fails the build, because ZMK's CI aborts on Kconfig warnings
+including "assignment to undefined symbol".
+
 BT profiles: **0-1 = macOS, 2-5 = Windows**, in
 `os/shared/macros/settings.dtsi`. **Nothing detects the OS** — it's pure
 convention, so pair the Mac to slot 0 or 1. A mismatched flag only breaks
@@ -535,6 +549,13 @@ only in this file.
 ---
 
 ## 7. Open
+
+- **Bluetooth flakiness — UNDIAGNOSED.** An earlier theory that profile 5
+  was out of range was wrong (see §3.2); six profiles exist and always did.
+  That theory produced commits `0acf415` and `fbcffa5`, both reverted in
+  `75f9379`. Nothing is known about the real cause. One **[verified]**
+  data point exists: `BT_CLR_ALL` froze the central (§3.5).
+
 
 - **Hardware verification of this branch.** Nothing on `keymap-redesign` has
   been flashed. Priority order: DFU on each half (§3.6), then HRM feel, then
