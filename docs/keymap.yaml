@@ -13,7 +13,7 @@ layers:
     - O
     - P
     - {t: BSPC, h: Alt+BSPC}
-  - - {t: TAB, h: '&mo_STG'}
+  - - TAB
     - {t: A, h: LGUI}
     - {t: S, h: LCTRL}
     - {t: D, h: LALT}
@@ -25,7 +25,7 @@ layers:
     - {t: L, h: RCTRL}
     - {t: ;, h: RGUI}
     - ''''
-  - - {t: DEL, h: Alt+DEL}
+  - - {t: DEL, h: '&mo_STG'}
     - Z
     - X
     - C
@@ -68,7 +68,7 @@ layers:
     - {t: L, h: RGUI}
     - {t: ;, h: RCTRL}
     - {t: ▽, type: trans}
-  - - {t: DEL, h: Ctl+DEL}
+  - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

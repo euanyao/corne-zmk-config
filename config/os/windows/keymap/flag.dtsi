@@ -20,16 +20,18 @@
  */
 
         windows_layer {
-            /* Three keys. ESC-hold has to relight the flag that &to clears,
-             * and word-delete differs by OS: the shared layer uses
+            /* ESC-hold has to relight the flag that &to clears, and
+             * backspace word-delete differs by OS: the shared layer uses
              * Option+Bspc for macOS, Windows wants Ctrl+Bspc. Written
              * natively as LC now that there is no host remap.
+             *
+             * DEL has no word-delete counterpart -- position 24 carries the
+             * STG hold instead, so there is nothing to override there.
              *
              * These are identical on every typing layer, which is exactly
              * why a single overlay can carry them without colliding. */
             #define WN_ESC   &to_BAS_win_kp  0  ESC
             #define WN_BSPC  &mt  LC(BSPC)  BSPC
-            #define WN_DEL   &mt  LC(DEL)   DEL
 
             /* Home-row mods, swapped for Windows.
              *
@@ -56,7 +58,7 @@
             bindings = <
     WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   WN_BSPC
     &trans   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
-    WN_DEL  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

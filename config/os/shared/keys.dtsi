@@ -21,8 +21,8 @@
  * default. Where a Windows chord genuinely differs, it is overridden on a
  * conditional overlay rather than translated by the host:
  *
- *     WIN      layer 1   word-delete + the ESC panic (identical on every
- *                        typing layer, so one overlay carries them)
+ *     WIN      layer 1   backspace word-delete + the ESC panic (identical
+ *                        on every typing layer, so one overlay carries them)
  *     WIN_DEV  layer 7   DEV pos 25, Cmd+R -> Ctrl+R
  *     WIN_AXN  layer 8   the nine AXN shortcuts: clipboard, find, replace,
  *                        tab and virtual-desktop switching
@@ -46,10 +46,10 @@
 #define KEY_SPC   &kp  SPACE
 #define KEY_ESC   &to_BAS_kp  0        ESC   // tap: esc    | hold: hard reset to base
 #define KEY_RET   &ht_STG     0        RET   // tap: return | hold: STG (right-hand route)
-#define KEY_TAB   &ht_STG     0        TAB   // tap: tab    | hold: STG (left-hand route)
+#define KEY_TAB   &kp         TAB            // plain tab
+#define KEY_DEL   &ht_STG     0        DEL   // tap: del    | hold: STG (left-hand route)
 #define KEY_QUOT  &kp         SQT            // plain ' -- outer column, inherited by every layer
 #define NAV_BSPC  &mt         LA(BSPC) BSPC  // tap: bspc   | hold: delete word back
-#define NAV_DEL   &mt         LA(DEL)  DEL   // tap: del    | hold: delete word forward
 
 /* Home row. One behaviour per hand so the positional guard applies -- see
  * os/shared/hold/shared.dtsi. Using the wrong hand's behaviour silently

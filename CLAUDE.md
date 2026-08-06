@@ -194,12 +194,15 @@ them without colliding:
 ```
    pos 0    ESC-hold -> &to BAS + &tog WIN   relight the flag &to clears
    pos 11   BSPC hold -> LC(BSPC)            Ctrl+Bspc, written natively
-   pos 12   DEL  hold -> LC(DEL)
 ```
 
-Word-delete differs by OS: macOS wants Option+Bspc, Windows wants
-Ctrl+Bspc, and Cmd+Bspc on the Mac is delete-to-line-start. These three are
+Backspace word-delete differs by OS: macOS wants Option+Bspc, Windows wants
+Ctrl+Bspc, and Cmd+Bspc on the Mac is delete-to-line-start. Both are
 identical on every typing layer, which is why one overlay can carry them.
+
+**DEL has no word-delete counterpart.** Position 24 carries the STG hold
+instead, so there is nothing for WIN to override there — which is why
+`check-keymap.sh` asserts only positions 0 and 11.
 
 **WIN_STG is gone.** It existed solely to give Windows counterparts for 13
 host application shortcuts on STG (zoom, accessibility zoom, screenshot,

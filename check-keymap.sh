@@ -83,7 +83,7 @@ else:
 
 # 4. The OS flag sits BELOW the typing layers so the OLED shows the layer
 #    in use rather than permanently reading "WIN". Word-delete and the ESC
-#    panic (positions 0, 11, 24) are carried by WIN for EVERY typing layer,
+#    panic (positions 0 and 11) are carried by WIN for EVERY typing layer,
 #    so those must stay transparent above it -- give one of them a real
 #    binding there and Windows word-delete silently stops working. STG is
 #    exempt: it legitimately overrides them, and word-delete isn't wanted.
@@ -92,7 +92,7 @@ else:
 #    They only ever apply to BAS: every typing layer binds those positions
 #    itself and gets its own WIN_* conditional overlay, so shadowing there is
 #    expected rather than a bug.
-CRITICAL = {0, 11, 24}
+CRITICAL = {0, 11}
 byname = dict(layers)
 if "WIN" in byname:
     win = re.findall(r"&\w+[^&]*", byname["WIN"])
