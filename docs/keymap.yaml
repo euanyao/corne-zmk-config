@@ -1,7 +1,7 @@
 layout: {ortho_layout: {split: true, rows: 3, columns: 6, thumbs: 3}}
 layers:
-  mBAS:
-  - - {t: ESC, h: '&to_mBAS'}
+  BAS:
+  - - {t: ESC, h: '&to_BAS'}
     - Q
     - W
     - E
@@ -13,19 +13,19 @@ layers:
     - O
     - P
     - {t: BSPC, h: Alt+BSPC}
-  - - {t: DEL, h: Alt+DEL}
-    - {t: A, h: LCTRL}
-    - {t: S, h: LCMD}
+  - - {t: TAB, h: '&mo_FNK_NAV'}
+    - {t: A, h: LGUI}
+    - {t: S, h: LCTRL}
     - {t: D, h: LALT}
     - {t: F, h: LSHFT}
     - G
     - H
     - {t: J, h: RSHFT}
     - {t: K, h: LALT}
-    - {t: L, h: RCMD}
-    - {t: ;, h: RCTRL}
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
+    - {t: L, h: RCTRL}
+    - {t: ;, h: RGUI}
+    - {t: RET, h: '&mo_FNK_NAV'}
+  - - {t: DEL, h: '&mo_STG'}
     - Z
     - X
     - C
@@ -35,16 +35,59 @@ layers:
     - M
     - ','
     - .
-    - ''''
-    - {t: '&mo_mSTG_to_mBAS', s: '&to_mSTG'}
-  - - {t: '&mo_mDEV_to_mBAS', s: '&to_mDEV'}
+    - /
+    - {t: '''', h: '&mo_STG'}
+  - - '&mo_DEV'
     - SPACE
-    - {t: '&to_mAXN', h: '&mo_mAXN_to_mBAS'}
-    - {t: '&to_mFNK', h: '&mo_mAXN_to_mBAS'}
+    - {t: '&tog_AXN_on', h: '&mo_AXN'}
+    - {t: '&tog_AXN_on', h: '&mo_AXN'}
     - SPACE
-    - {t: '&mo_mDEV_to_mBAS', s: '&to_mDEV'}
-  mDEV:
-  - - {t: ESC, h: '&to_mBAS'}
+    - '&mo_DEV'
+  WIN:
+  - - {t: ESC, h: '&to_BAS_win'}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: BSPC, h: Ctl+BSPC}
+  - - {t: ▽, type: trans}
+    - {t: A, h: LCTRL}
+    - {t: S, h: LGUI}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: L, h: RGUI}
+    - {t: ;, h: RCTRL}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  DEV:
+  - - {t: ▽, type: trans}
     - '@'
     - '#'
     - $
@@ -55,21 +98,21 @@ layers:
     - _
     - '%'
     - ^
-    - {t: BSPC, h: Alt+BSPC}
-  - - {t: DEL, h: Alt+DEL}
-    - {t: '&', h: LCTRL}
-    - {t: '{', h: LCMD}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: '&', h: LGUI}
+    - {t: '{', h: LCTRL}
     - {t: '}', h: LALT}
     - {t: '=', h: LSHFT}
     - ''''
     - '`'
     - {t: '!', h: RSHFT}
     - {t: '[', h: LALT}
-    - {t: ']', h: RCMD}
-    - {t: '|', h: RCTRL}
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
-    - Gui+R
+    - {t: ']', h: RCTRL}
+    - {t: '|', h: RGUI}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - ;
     - (
     - )
     - '*'
@@ -78,40 +121,40 @@ layers:
     - '?'
     - <
     - '>'
-    - {t: '&m_md_oco', s: '&m_md_cto'}
-    - Alt+Gui+I
-  - - ','
-    - SPACE
-    - {t: '&to_mBAS', h: '&mo_mAXN_to_mDEV'}
-    - {t: '&to_mAXN', h: '&mo_mAXN_to_mDEV'}
-    - SPACE
-    - .
-  mAXN:
-  - - {t: ESC, h: '&to_mBAS'}
-    - Ctl+Sft+Gui+RIGHT
-    - {t: Ctl+PG UP, s: Ctl+Gui+LEFT}
-    - UP
-    - {t: Ctl+PG DN, s: Ctl+Gui+RIGHT}
-    - Gui+F
+    - ':'
+    - F12
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  AXN:
+  - - {t: ▽, type: trans}
+    - Alt+Sft+RIGHT
+    - Gui+W
+    - Gui+E
+    - Gui+R
+    - Gui+T
     - KP PLUS
     - '7'
     - '8'
     - '9'
     - KP MULTIPLY
-    - {t: BSPC, h: Alt+BSPC}
-  - - {t: DEL, h: Alt+DEL}
-    - {t: Ctl+Sft+Gui+LEFT, h: LCTRL}
-    - {t: LEFT, h: LCMD}
-    - {t: DOWN, h: LALT}
-    - {t: RIGHT, h: LSHFT}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - Gui+A
+    - Gui+S
+    - Gui+D
+    - Gui+F
     - Alt+Gui+F
     - '0'
     - {t: '4', h: LSHFT}
     - {t: '5', h: LALT}
-    - {t: '6', h: LCMD}
-    - {t: ., h: LCTRL}
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
+    - {t: '6', h: RCTRL}
+    - {t: '=', h: RGUI}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
     - Gui+Z
     - Gui+X
     - Gui+C
@@ -122,350 +165,204 @@ layers:
     - '2'
     - '3'
     - KP DIVIDE
-    - '='
-  - - ''
-    - SPACE
-    - '&to_mBAS'
-    - {t: '&to_mFNK', h: '&mo_mFNK_to_mAXN'}
-    - SPACE
-    - ''
-  mFNK:
-  - - {t: ESC, h: '&to_mBAS'}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '&tog_AXN_off'
+    - '&tog_AXN_off'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  FNK_NAV:
+  - - {t: ▽, type: trans}
     - F9
     - F10
     - F11
     - F12
-    - ''
-    - ''
-    - ''
-    - PG UP
-    - ''
-    - ''
-    - {t: BSPC, h: Alt+BSPC}
-  - - {t: DEL, h: Alt+DEL}
-    - {t: F5, h: LCMD}
-    - {t: F6, h: LCTRL}
-    - {t: F7, h: LALT}
-    - {t: F8, h: LSHFT}
-    - ''
-    - ''
-    - {t: HOME, h: RSHFT}
-    - {t: PG DN, h: LALT}
-    - {t: END, h: RCTRL}
-    - RCMD
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
-    - F1
-    - F2
-    - F3
-    - F4
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-  - ['', SPACE, '&to_mBAS', '&to_mAXN', SPACE, '']
-  mSTG:
-  - - {t: ESC, h: '&to_mBAS'}
-    - '&m_s_b1'
-    - '&m_s_b2'
-    - {t: RGB HUI, s: RGB HUD}
-    - Gui+Sft+C
-    - Gui++
-    - VOL UP
-    - {t: Sft+Gui+E, s: Hyper+LEFT}
-    - {t: Sft+Ctl+G, s: Sft+Alt+Gui+UP}
-    - {t: Sft+Gui+D, s: Hyper+RIGHT}
-    - Sft+Gui+X
-    - Ctl+Sft+Gui+T
-  - - Ctl+Alt+SPACE
-    - {t: '&m_s_b3', h: LCTRL}
-    - '&m_s_b4'
-    - LALT
-    - {t: Sft+Gui+5, h: LSHFT, s: Sft+Gui+4}
-    - {t: Gui+0, s: Gui+KP 0}
-    - {t: MUTE, s: Hyper+M}
-    - {t: Gui+B, h: LSHIFT, s: Alt+Gui+Sft+LEFT}
-    - {t: Alt+Ctl+F, h: LALT, s: Alt+Ctl+BACKSPACE}
-    - {t: Alt+Gui+B, s: Alt+Gui+Sft+RIGHT}
-    - Ctl+UP
-    - {t: RGB BRI, s: RGB SAI}
-  - - {t: '&studio_unlock', s: BT CLR}
-    - '&m_s_b5'
-    - '&m_s_b6'
-    - {t: RGB TOG, s: RGB EFR}
-    - {t: Alt+Gui+SPACE, s: Sft+Gui+.}
-    - Gui+-
-    - VOL DN
-    - {s: Alt+Gui+Ctl+LEFT}
-    - {t: Gui+J, s: Sft+Alt+Gui+DOWN}
-    - {s: Alt+Gui+Ctl+RIGHT}
-    - Ctl+DOWN
-    - {t: RGB BRD, s: RGB SAD}
-  - - BRI DN
-    - SPACE
-    - '&to_mBAS'
-    - '&to_mAXN'
-    - {t: RET, h: F2}
-    - BRI UP
-  wBAS:
-  - - {t: ESC, h: '&to_wBAS'}
-    - Q
-    - W
-    - E
-    - R
-    - T
-    - Y
-    - U
-    - I
-    - O
-    - P
-    - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
-    - {t: A, h: LCMD}
-    - {t: S, h: LCTRL}
-    - {t: D, h: LALT}
-    - {t: F, h: LSHFT}
-    - G
-    - H
-    - {t: J, h: RSHFT}
-    - {t: K, h: LALT}
-    - {t: L, h: RCTRL}
-    - {t: ;, h: RCMD}
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
-    - Z
-    - X
-    - C
-    - V
-    - B
-    - N
-    - M
-    - ','
-    - .
-    - ''''
-    - {t: '&mo_wSTG_to_wBAS', s: '&to_wSTG'}
-  - - {t: '&mo_wDEV_to_wBAS', s: '&to_wDEV'}
-    - SPACE
-    - {t: '&to_wAXN', h: '&mo_wAXN_to_wBAS'}
-    - {t: '&to_wFNK', h: '&mo_wAXN_to_wBAS'}
-    - SPACE
-    - {t: '&mo_wDEV_to_wBAS', s: '&to_wDEV'}
-  wDEV:
-  - - {t: ESC, h: '&to_wBAS'}
-    - '@'
-    - '#'
-    - $
-    - +
-    - '"'
-    - '~'
-    - '-'
-    - _
-    - '%'
-    - ^
-    - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
-    - {t: '&', h: LCMD}
-    - {t: '{', h: LCTRL}
-    - {t: '}', h: LALT}
-    - {t: '=', h: LSHFT}
-    - ''''
-    - '`'
-    - {t: '!', h: RSHFT}
-    - {t: '[', h: LALT}
-    - {t: ']', h: RCTRL}
-    - {t: '|', h: RCMD}
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
-    - Ctl+R
-    - (
-    - )
-    - '*'
-    - \
-    - {t: /, s: Alt+Sft+A}
-    - '?'
-    - <
-    - '>'
-    - {t: '&m_wd_oco', s: '&m_wd_cto'}
-    - F12
-  - - ','
-    - SPACE
-    - {t: '&to_wBAS', h: '&mo_wAXN_to_wDEV'}
-    - {t: '&to_wAXN', h: '&mo_wAXN_to_wDEV'}
-    - SPACE
-    - .
-  wAXN:
-  - - {t: ESC, h: '&to_wBAS'}
-    - Alt+Sft+RIGHT
-    - {t: Ctl+PG UP, s: Ctl+Gui+LEFT}
-    - UP
-    - {t: Ctl+PG DN, s: Ctl+Gui+RIGHT}
-    - Ctl+F
-    - KP PLUS
-    - '7'
-    - '8'
-    - '9'
-    - KP MULTIPLY
-    - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
-    - {t: Alt+Sft+LEFT, h: LCMD}
-    - {t: LEFT, h: LCTRL}
-    - {t: DOWN, h: LALT}
-    - {t: RIGHT, h: LSHFT}
-    - Ctl+H
-    - '0'
-    - {t: '4', h: LSHFT}
-    - {t: '5', h: LALT}
-    - {t: '6', h: LCTRL}
-    - {t: '=', h: LCMD}
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
-    - Ctl+Z
-    - Ctl+X
-    - Ctl+C
-    - Ctl+V
-    - Ctl+Y
-    - '-'
-    - '1'
-    - '2'
-    - '3'
-    - KP DIVIDE
-    - {t: Gui+Ctl+D, h: Gui+Ctl+F4}
-  - - ','
-    - SPACE
-    - '&to_wBAS'
-    - {t: '&to_wFNK', h: '&mo_wFNK_to_wAXN'}
-    - SPACE
-    - .
-  wFNK:
-  - - {t: ESC, h: '&to_wBAS'}
-    - F9
-    - F10
-    - F11
-    - F12
-    - ''
-    - ''
-    - ''
-    - PG UP
-    - ''
-    - ''
-    - {t: BSPC, h: Ctl+BSPC}
-  - - {t: DEL, h: Ctl+DEL}
-    - {t: F5, h: LCMD}
-    - {t: F6, h: LCTRL}
-    - {t: F7, h: LALT}
-    - {t: F8, h: LSHFT}
-    - ''
-    - ''
-    - {t: HOME, h: RSHFT}
-    - {t: PG DN, h: LALT}
-    - {t: END, h: RCTRL}
-    - RCMD
-    - {t: RET, h: F2}
-  - - {t: TAB, h: RIGHT}
-    - F1
-    - F2
-    - F3
-    - F4
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-  - [',', SPACE, '&to_wBAS', '&to_wAXN', SPACE, .]
-  wSTG:
-  - - {t: ESC, h: '&to_wBAS'}
-    - '&m_s_b1'
-    - '&m_s_b2'
-    - {t: RGB HUI, s: RGB HUD}
-    - Gui+Sft+C
-    - Ctl++
-    - Alt+Gui+'
+    - {t: ▽, type: trans}
     - VOL DN
     - MUTE
     - VOL UP
-    - Gui+Sft+`
-    - Ctl+Sft+ESC
-  - - Gui+SPACE
+    - HOME
+    - ''
+    - END
+  - - {t: ▽, type: trans}
+    - {t: F5, h: LGUI}
+    - {t: F6, h: LCTRL}
+    - {t: F7, h: LALT}
+    - {t: F8, h: LSHFT}
+    - {t: ▽, type: trans}
+    - ''
+    - ''
+    - ''
+    - PG UP
+    - UP
+    - PG DN
+  - - {t: ▽, type: trans}
+    - F1
+    - F2
+    - F3
+    - F4
+    - {t: ▽, type: trans}
+    - ''
+    - ''
+    - ''
+    - LEFT
+    - DOWN
+    - RIGHT
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  STG:
+  - - '&bootloader'
+    - '&m_s_b1'
+    - '&m_s_b2'
+    - {t: RGB HUI, s: RGB HUD}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - '&bootloader'
+  - - ''
     - '&m_s_b3'
     - '&m_s_b4'
+    - {t: BT CLR, s: BT CLR ALL}
     - ''
-    - {t: Sft+Gui+5, s: Sft+Gui+4}
-    - {t: Ctl+0, s: Ctl+KP 0}
-    - Alt+Gui+8
-    - {t: PREV, h: RSHFT}
-    - {t: PP, h: LALT}
-    - NEXT
-    - Gui+PAUSE BREAK
-    - Gui+I
-  - - {t: '&studio_unlock', s: BT CLR}
-    - '&m_s_b5'
-    - '&m_s_b6'
-    - {t: RGB TOG, s: RGB EFR}
-    - Gui+E
-    - Ctl+-
-    - Alt+Gui+-
     - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  - - '&studio_unlock'
+    - ''
+    - ''
+    - RGB TOG
+    - RGB EFF
+    - RGB EFR
+    - ''
+    - {t: WIN, h: toggle}
     - ''
     - {t: RGB BRI, s: RGB SAI}
-    - Ctl+Alt+DEL
+    - ''
     - {t: RGB BRD, s: RGB SAD}
-  - - BRI DN
-    - SPACE
-    - '&to_wBAS'
-    - '&to_wAXN'
-    - {t: RET, h: F2}
-    - BRI UP
+  - - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - ''
+  WIN_DEV:
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: '&', h: LCTRL}
+    - {t: '{', h: LGUI}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ']', h: RGUI}
+    - {t: '|', h: RCTRL}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  WIN_AXN:
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - Ctl+W
+    - Ctl+E
+    - Ctl+R
+    - Ctl+T
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - Ctl+A
+    - Ctl+S
+    - Ctl+D
+    - Ctl+F
+    - Ctl+H
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: '6', h: RGUI}
+    - {t: '=', h: RCTRL}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - Ctl+Z
+    - Ctl+X
+    - Ctl+C
+    - {t: Ctl+V, s: Ctl+Sft+V}
+    - Ctl+Y
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
 combos:
 - p: [16, 19]
-  k: '&cw_mON'
-  l: [mBAS]
+  k: '&cw_ON'
+  l: [BAS]
 - p: [14, 21]
-  k: '&cw_mOFF'
-  l: [mBAS]
+  k: '&cw_OFF'
+  l: [BAS]
 - p: [12, 23]
   k: Gui+Ctl+Sft+F14
-  l: [mBAS]
+  l: [BAS]
 - p: [12, 23]
   k: Gui+Ctl+Sft+F15
-  l: [mDEV]
+  l: [DEV]
 - p: [12, 23]
   k: Gui+Ctl+Sft+F16
-  l: [mAXN]
+  l: [AXN]
 - p: [12, 23]
   k: Gui+Ctl+Sft+F17
-  l: [mFNK]
+  l: [FNK_NAV]
 - p: [12, 23]
   k: Gui+Ctl+Sft+F18
-  l: [mSTG]
-- p: [38, 39]
-  k: '&mo_mSTG_to_mBAS'
-  l: [mBAS]
-- p: [16, 19]
-  k: '&cw_wON'
-  l: [wBAS]
-- p: [14, 21]
-  k: '&cw_wOFF'
-  l: [wBAS]
-- p: [12, 23]
-  k: Gui+Ctl+Sft+F14
-  l: [wBAS]
-- p: [12, 23]
-  k: Gui+Ctl+Sft+F15
-  l: [wDEV]
-- p: [12, 23]
-  k: Gui+Ctl+Sft+F16
-  l: [wAXN]
-- p: [12, 23]
-  k: Gui+Ctl+Sft+F17
-  l: [wFNK]
-- p: [12, 23]
-  k: Gui+Ctl+Sft+F18
-  l: [wSTG]
-- p: [38, 39]
-  k: '&mo_wSTG_to_wBAS'
-  l: [wBAS]
+  l: [STG]

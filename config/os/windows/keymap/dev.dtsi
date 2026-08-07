@@ -1,0 +1,27 @@
+        win_dev_layer {
+            /* WIN_DEV -- conditional on <WIN DEV>.
+             *
+             * Carries the home-row mod swap for DEV (same logic as WIN does
+             * for BAS -- primary modifier on A/; keeps the same finger across
+             * OSes) and any future DEV-specific Windows divergence.
+             *
+             * Everything else on DEV is OS-neutral: plain keycodes and
+             * Alt+Shift chords that map identically on both.
+             */
+            /* Home-row mods swapped for Windows, same as WIN does for
+             * BAS: primary (Control) onto S/L, secondary (Win) onto A/;,
+             * so the primary modifier keeps the same finger across OSes.
+             * Taps are unchanged. */
+            #define WD_A     &hml  LCTRL  AMPS
+            #define WD_S     &hml  LGUI   LBRC
+            #define WD_L     &hmr  RGUI   RBKT
+            #define WD_SEMI  &hmr  RCTRL  PIPE
+
+            display-name = "WIN_DEV";
+            bindings = <
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans   &trans   &trans  &trans
+    &trans   WD_A    WD_S   &trans  &trans  &trans        &trans  &trans  &trans    WD_L   WD_SEMI  &trans
+    &trans      &trans  &trans  &trans  &trans  &trans     &trans  &trans  &trans   &trans   &trans  &trans
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };

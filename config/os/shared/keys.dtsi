@@ -9,18 +9,67 @@
 
 */
 
-/*                KEY NAME
-
-  ╭──────────────────────────────╮ ╭──────────────────────────────╮
-  │ LU0  LU1  LU2  LU3  LU4  LU5 │ │ RU0  RU1  RU2  RU3  RU4  RU5 │
-  │ LM0  LM1  LM2  LM3  LM4  LM5 │ │ RM0  RM1  RM2  RM3  RM4  RM5 │
-  │ LD0  LD1  LD2  LD3  LD4  LD5 │ │ RD0  RD1  RD2  RD3  RD4  RD5 │
-  ╰─────────────╮  LT2  LT1  LT0 │ │ RT0  RT1  RT2  ╭─────────────╯
-                ╰────────────────╯ ╰────────────────╯
-
-*/
-
-/* Shared Keys */
+/* Outer columns and thumbs, bound here and inherited by every layer above.
+ *
+ * KEYCODE CONVENTION -- read before editing any binding.
+ *
+ * **Write keycodes natively. There is NO host remap.** LGUI is Command on
+ * macOS and the Win key on Windows; LCTRL is Control on both. What you write
+ * is what the host receives.
+ *
+ * The shared layers are Mac-flavoured because macOS is the unflagged
+ * default. Where a Windows chord genuinely differs, it is overridden on a
+ * conditional overlay rather than translated by the host:
+ *
+ *     WIN      layer 1   backspace word-delete + the ESC panic (identical
+ *                        on every typing layer, so one overlay carries them)
+ *     WIN_DEV  layer 7   DEV pos 25, Cmd+R -> Ctrl+R
+ *     WIN_AXN  layer 8   the nine AXN shortcuts: clipboard, find, replace,
+ *                        tab and virtual-desktop switching
+ *
+ * This replaced an earlier design that wrote everything Cmd-canonical and
+ * relied on a PowerToys Win/Ctrl remap on the Windows machines. That remap
+ * could not be scoped to one keyboard -- it is machine-wide, affecting the
+ * built-in keyboard, RDP and VM sessions -- so the firmware now does the
+ * work instead. Do not reintroduce a host-remap assumption.
+ *
+ * HOME-ROW MODS are swapped per OS by the same overlays. BAS puts the
+ * primary modifier (Command) on A/; and the secondary (Control) on S/L.
+ * Windows wants Control as the primary, so WIN / WIN_DEV / WIN_AXN swap
+ * them -- A/; become LCTRL, S/L become LGUI. The primary modifier therefore
+ * keeps the SAME FINGER on both OSes.
+ *
+ * STILL UNSWAPPED: FNK_NAV pos 14 has no overlay, so the hold is LCTRL
+ * on macOS but should be LGUI (Win key) on Windows -- same finger issue as
+ * BAS §3.1. A WIN_FNK_NAV overlay would fix it. NAV pos 21 (formerly
+ * RCTRL, which misfired as Win+arrow) is now a plain Up arrow -- resolved.
+ */
 #define KEY_SPC   &kp  SPACE
-#define NAV_BSPC  &mt  LC(BSPC)  BSPC   // tap: bspc | long-tap: delete word backward
-#define NAV_DEL   &mt  LC(DEL)   DEL    // tap: del  | long-tap: delete word forward
+#define KEY_ESC   &to_BAS_kp    0  ESC   // tap: esc    | hold: hard reset to base
+#define KEY_RET   &ht_FNK_NAV   0  RET   // tap: return | hold: FNK_NAV (right-hand route, mid outer)
+#define KEY_TAB   &ht_FNK_NAV   0  TAB   // tap: tab    | hold: FNK_NAV (left-hand route)
+#define KEY_DEL   &ht_STG       0  DEL   // tap: del    | hold: STG (left-hand route)
+#define KEY_QUOT  &ht_STG       0  SQT   // tap: '      | hold: STG (right-hand route, bot outer)
+#define KEY_BSPC  &mt  LA(BSPC) BSPC    // tap: bspc   | hold: delete word back (Mac: Opt+Bspc)
+
+/* Home row. One behaviour per hand so the positional guard applies -- see
+ * os/shared/hold/shared.dtsi. Using the wrong hand's behaviour silently
+ * disables the guard.
+ *
+ * A and ; carry the PRIMARY modifier -- LGUI (Command) on macOS, swapped to
+ * LCTRL (Control) by the WIN overlays. S and L carry the secondary. The
+ * primary therefore sits on the same finger on both OSes. */
+#define HR_A      &hml  LGUI   A
+#define HR_S      &hml  LCTRL  S
+#define HR_D      &hml  LALT   D
+#define HR_F      &hml  LSHFT  F
+#define HR_J      &hmr  RSHFT  J
+#define HR_K      &hmr  LALT   K
+#define HR_L      &hmr  RCTRL  L
+#define HR_SEMI   &hmr  RGUI   SEMI
+
+/* Thumbs. Every layer above BAS leaves these &trans unless it needs
+ * something specific, so space and the layer keys keep working
+ * everywhere. Momentary layers need no return key. */
+#define THU_DEV  &mo_DEV
+#define THU_AXN  &ht_AXN  0  0   // hold: momentary | tap: latch on

@@ -15,60 +15,64 @@
 /* Global */
 #include "os/shared/times.dtsi"
 #include "os/shared/general.dtsi"
-#include "os/macos/layers.dtsi"
-#include "os/windows/layers.dtsi"
+#include "os/shared/layers.dtsi"
+
+/* Helpers -- must precede anything that instantiates them */
+#include "helpers/macros.dtsi"
+#include "helpers/morph.dtsi"
 
 /* Keys */
 #include "os/shared/keys.dtsi"
-#include "os/macos/keys.dtsi"
-#include "os/windows/keys.dtsi"
-
-/* Helpers */
-#include "helpers/macros.dtsi"
-#include "helpers/hold.dtsi"
-#include "helpers/morph.dtsi"
 
 / {
     macros {
         #include "os/shared/macros/layers.dtsi"
-        #include "os/shared/macros/settings.dtsi"
-
-        #include "os/macos/macros/layers.dtsi"
-        #include "os/macos/macros/dev.dtsi"
-
-        #include "os/windows/macros/layers.dtsi"
-        #include "os/windows/macros/dev.dtsi"
+        #include "os/shared/macros/dev.dtsi"
     };
 };
 
 / {
     behaviors {
+        #include "os/shared/hold/shared.dtsi"
         #include "os/shared/morph/shared.dtsi"
         #include "os/shared/morph/rgb.dtsi"
-        #include "os/shared/hold/shared.dtsi"
-
-        #include "os/macos/morph/layers.dtsi"
-        #include "os/macos/morph/actions.dtsi"
-        #include "os/macos/morph/dev.dtsi"
-        #include "os/macos/morph/settings.dtsi"
-        #include "os/macos/hold/layers.dtsi"
-        #include "os/macos/hold/base.dtsi"
-        #include "os/macos/hold/dev.dtsi"
-        #include "os/macos/hold/settings.dtsi"
-
-        #include "os/windows/morph/layers.dtsi"
+        #include "os/shared/morph/dev.dtsi"
+        #include "os/shared/morph/actions.dtsi"
         #include "os/windows/morph/actions.dtsi"
-        #include "os/windows/morph/dev.dtsi"
-        #include "os/windows/morph/settings.dtsi"
-        #include "os/windows/hold/layers.dtsi"
-        #include "os/windows/hold/base.dtsi"
-        #include "os/windows/hold/dev.dtsi"
+
+    };
+};
+
+/* Bluetooth macros sit after the behaviors block because they reference
+ * mod-morphs (mp_sSTG_cb) and the to_BAS / to_BAS_win macros. */
+/ {
+    macros {
+        #include "os/shared/macros/settings.dtsi"
     };
 };
 
 / {
     chosen {
         zmk,physical-layout = &default_layout;
+    };
+};
+
+/* Windows overlays come up automatically whenever the WIN flag is lit and
+ * the matching typing layer is active. This is what lets the firmware emit
+ * native Windows keycodes instead of depending on a host-side remap. */
+/ {
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        win_dev {
+            if-layers = <WIN DEV>;
+            then-layer = <WIN_DEV>;
+        };
+
+        win_axn {
+            if-layers = <WIN AXN>;
+            then-layer = <WIN_AXN>;
+        };
     };
 };
 
@@ -82,21 +86,29 @@
     combos {
         compatible = "zmk,combos";
 
-        #include "os/macos/combos/base.dtsi"
-        #include "os/macos/combos/help.dtsi"
-        #include "os/macos/combos/settings.dtsi"
-
-        #include "os/windows/combos/base.dtsi"
-        #include "os/windows/combos/help.dtsi"
-        #include "os/windows/combos/settings.dtsi"
+        #include "os/shared/combos.dtsi"
     };
 };
 
+/* LAYER ORDER. ZMK assigns indices by node order, so this include list is
+ * what actually decides them -- os/shared/layers.dtsi only names them, and
+ * check-keymap.sh asserts the two agree.
+ *
+ * WIN is deliberately second, directly above BAS and below the typing
+ * layers, so the OLED reports the layer in use rather than permanently
+ * reading "WIN" in Windows mode. That only works while the typing layers
+ * stay &trans at positions 0, 11 and 12. See os/shared/layers.dtsi. */
 / {
     keymap {
         compatible = "zmk,keymap";
 
-        #include "os/macos/keymap.dtsi"
-        #include "os/windows/keymap.dtsi"
+        #include "os/shared/keymap/base.dtsi"        /* 0  BAS     */
+        #include "os/windows/keymap/flag.dtsi"       /* 1  WIN     */
+        #include "os/shared/keymap/typing.dtsi"      /* 2  DEV     */
+                                                    /* 3  AXN     */
+                                                    /* 4  FNK_NAV */
+                                                    /* 5  STG     */
+        #include "os/windows/keymap/dev.dtsi"        /* 6  WIN_DEV */
+        #include "os/windows/keymap/act_num.dtsi"    /* 7  WIN_AXN */
     };
 };

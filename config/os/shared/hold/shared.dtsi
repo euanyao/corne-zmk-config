@@ -1,4 +1,7 @@
-hm: homerow_mods {
+// Plain hold-tap with no positional guard, for hold-taps that are NOT
+// home-row mods. Don't use this on the home row -- that's what the
+// misfires came from.
+hm: hold_tap_plain {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HR_TAPPING>;
@@ -7,18 +10,86 @@ hm: homerow_mods {
     bindings = <&kp>, <&kp>;
 };
 
-tokp: to_kp {
+// Home-row mods, one behaviour per hand. A hold only registers when the
+// next key is on the OTHER hand (or a thumb), so same-hand rolls type
+// letters instead of firing modifiers. hold-trigger-on-release defers that
+// check so two mods on the same hand can still be chorded together.
+//
+// &hml on the left home row (A S D F), &hmr on the right (J K L ;).
+// Using the wrong one silently disables the positional guard, so keep them
+// matched to the hand.
+
+hml: homerow_mods_left {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
-    tapping-term-ms = <HP_TAPPING>;
-    flavor = "hold-preferred";
-    bindings = <&to>, <&kp>;
+    tapping-term-ms = <HR_TAPPING>;
+    quick-tap-ms = <HR_QUICK_TAP>;
+    require-prior-idle-ms = <HR_PRIOR_IDLE>;
+    flavor = HR_FLAVOR;
+    hold-trigger-key-positions = <KP_RIGHT KP_THUMB>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
 };
 
-moto: mo_to {
+hmr: homerow_mods_right {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HR_TAPPING>;
+    quick-tap-ms = <HR_QUICK_TAP>;
+    require-prior-idle-ms = <HR_PRIOR_IDLE>;
+    flavor = HR_FLAVOR;
+    hold-trigger-key-positions = <KP_LEFT KP_THUMB>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+};
+
+// ESC on tap, hard reset to base on hold. The reset is the escape hatch if
+// layers ever end up stacked; the MAC variant relights the OS flag that
+// &to would otherwise clear.
+to_BAS_kp: to_BAS_kp {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&mo>, <&to>;
+    bindings = <&to_BAS>, <&kp>;
+};
+
+to_BAS_win_kp: to_BAS_win_kp {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HP_TAPPING>;
+    flavor = "hold-preferred";
+    bindings = <&to_BAS_win>, <&kp>;
+};
+
+// STG on hold, the outer-column key on tap. Bound on BOTH halves (TAB at
+// pos 24, quote at pos 35) so either hand can hold the layer while the
+// other reaches a bootloader key -- see os/shared/keymap/typing.dtsi.
+// Wraps mo_STG rather than a bare &mo so the host layer signal still fires.
+ht_STG: hold_tap_STG {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HP_TAPPING>;
+    flavor = "hold-preferred";
+    bindings = <&mo_STG>, <&kp>;
+};
+
+// FNK_NAV is accessed from two outer-column hold-taps (TAB at pos 12 and
+// RET at pos 23). Tap sends the key, hold activates the layer momentarily.
+// Wraps mo_FNK_NAV rather than a bare &mo so the host signal fires.
+ht_FNK_NAV: hold_tap_FNK_NAV {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HP_TAPPING>;
+    flavor = "hold-preferred";
+    bindings = <&mo_FNK_NAV>, <&kp>;
+};
+
+// Latchable layers: hold for momentary, tap to latch on.
+ht_AXN: hold_tap_AXN {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HP_TAPPING>;
+    flavor = "hold-preferred";
+    bindings = <&mo_AXN>, <&tog_AXN_on>;
 };

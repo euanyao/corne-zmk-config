@@ -1,0 +1,65 @@
+/* WIN -- layer 1, the OS flag. Lit means Windows.
+ *
+ * Almost entirely &trans. It exists to be a layer that stays on, because
+ * "which layers are active" is the only runtime state ZMK has.
+ *
+ * It sits directly above BAS and BELOW the typing layers, which works only
+ * because DEV/AXN/FNK are &trans at all three positions below. That
+ * placement keeps the OLED useful -- it shows the highest active layer, so
+ * a high WIN would mask the layer you're actually on. See
+ * os/shared/layers.dtsi.
+ *
+ * macOS is the unflagged default. There is NO host remap any more: write
+ * keycodes natively. On this layer LC is Control and LG is the Win key,
+ * exactly as written.
+ *
+ * DEV and AXN have their own conditional overlays (WIN_DEV, WIN_AXN) for
+ * the shortcuts that genuinely differ. This layer carries only what is
+ * identical across every typing layer, which is why one overlay can hold it
+ * without colliding.
+ */
+
+        windows_layer {
+            /* ESC-hold has to relight the flag that &to clears, and
+             * backspace word-delete differs by OS: the shared layer uses
+             * Option+Bspc for macOS, Windows wants Ctrl+Bspc. Written
+             * natively as LC now that there is no host remap.
+             *
+             * Backspace is at pos 11 (top-right outer column) -- the override
+             * lives there. DEL has no word-delete counterpart -- position 24
+             * carries the STG hold instead.
+             *
+             * These are identical on every typing layer, which is exactly
+             * why a single overlay can carry them without colliding. */
+            #define WN_ESC   &to_BAS_win_kp  0  ESC
+            #define WN_BSPC  &mt  LC(BSPC)  BSPC
+
+            /* Home-row mods, swapped for Windows.
+             *
+             * BAS puts the primary modifier on A and ; (LGUI = Command)
+             * and the secondary on S and L (LCTRL). Windows wants Control as
+             * the primary, so this swaps them: A/; become LCTRL and S/L
+             * become LGUI (the Win key, genuinely the secondary there).
+             *
+             * The point is that the PRIMARY modifier stays on the same
+             * finger on both OSes. Without this, Control lived on A/; on
+             * Windows and Command on S/L on macOS, so muscle memory moved
+             * between machines.
+             *
+             * This only fixes BAS. DEV and AXN bind these positions
+             * themselves and are fixed on WIN_DEV / WIN_AXN -- note those
+             * two still use the OLD arrangement (primary on S/L) and now
+             * disagree with BAS. FNK_NAV has no overlay at all. */
+            #define WN_A     &hml  LCTRL  A
+            #define WN_S     &hml  LGUI   S
+            #define WN_L     &hmr  RGUI   L
+            #define WN_SEMI  &hmr  RCTRL  SEMI
+
+            display-name = "WIN";
+            bindings = <
+    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   WN_BSPC
+    &trans   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };

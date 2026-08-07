@@ -1,0 +1,172 @@
+/* DEV, AXN, FNK_NAV, STG -- layers 2 to 5, shared by both OSes.
+ *
+ * MAC-CANONICAL. Anything genuinely Windows-specific lives on the WIN
+ * overlays in os/windows/keymap/ -- do not add OS branches here.
+ *
+ * All four are &trans at positions 0, 11 and 12 so the WIN flag can
+ * override word-delete and the ESC panic from underneath. Binding any of
+ * those for real here silently breaks that -- see os/shared/layers.dtsi.
+ *
+ * Use &none, not &trans, where a layer wants a key to do nothing: &trans
+ * falls through to BAS and types a letter.
+ */
+
+        dev_layer {
+            #define DV13  &hml  LGUI   AMPS
+            #define DV14  &hml  LCTRL  LBRC
+            #define DV15  &hml  LALT   RBRC
+            #define DV16  &hml  LSHFT  EQUAL
+            #define DV19  &hmr  RSHFT  EXCL
+            #define DV20  &hmr  LALT   LBKT
+            #define DV21  &hmr  RCTRL  RBKT
+            #define DV22  &hmr  RGUI   PIPE
+
+            display-name = "DEV";
+            bindings = <
+    &trans     &kp AT  &kp POUND  &kp DLLR  &kp PLUS   &kp DQT        &kp TILDE  &kp MINUS  &kp UNDER  &kp PRCNT    &kp CARET   &trans
+    &trans       DV13       DV14      DV15      DV16   &kp SQT        &kp GRAVE       DV19       DV20       DV21         DV22   &trans
+    &trans   &kp SEMI  &kp LPAR  &kp RPAR  &kp ASTRK  &kp BSLH       &mp_sDEV_s  &kp QMARK     &kp LT     &kp GT  &kp COLON  &kp F12
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };
+
+        act_num_layer {
+            /* Left hand shortcuts and clipboard, right hand numpad.
+             * WIN_AXN overrides the left-side shortcuts with Ctrl+letter.
+             *
+             * Row 0, left: select-extend (Q), then Cmd+W/E/R/T (close, open,
+             * reload, new tab -- common browser/editor shortcuts).
+             * Row 1, left: Cmd+A/S/D/F (select-all, save, bookmark/select,
+             * find) then Cmd+G (Opt+Cmd+F) for replace. Right home row keeps
+             * hold-tap mods for numpad chord modifiers.
+             * Row 2: clipboard -- Cmd+Z/X/C/Shift+Z paste; &mp_a_paste for
+             * paste-without-formatting.
+             */
+            #define AX01  &kp  LA(LS(RIGHT))  // extend selection right (works on Windows too)
+            #define AX17  &kp  LA(LG(F))      // replace (Opt+Cmd+F on Mac, overridden as Ctrl+H on WIN)
+            #define AX19  &hmr LSHFT N4
+            #define AX20  &hmr LALT  N5
+            #define AX21  &hmr RCTRL N6
+            #define AX22  &hmr RGUI  EQUAL
+
+            display-name = "AXN";
+            bindings = <
+    &trans       AX01  &kp LG(W)  &kp LG(E)  &kp LG(R)      &kp LG(T)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
+    &trans  &kp LG(A)  &kp LG(S)  &kp LG(D)  &kp LG(F)          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
+    &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp RS(RG(Z))         &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
+                            &trans  &trans  &tog_AXN_off        &tog_AXN_off  &trans  &trans
+            >;
+        };
+
+        fnk_nav_layer {
+            /* F-keys left, navigation + media right.
+             *
+             * Accessed two ways: hold TAB (pos 12, left outer) or hold RET
+             * (pos 23, right outer). Both are momentary-only; there is no
+             * latch. Pos 41 (right outer thumb) is &mo_DEV on BAS and falls
+             * through to &trans here -- it does not activate FNK_NAV.
+             *
+             * Left half: F-keys unchanged from the old FNK layout.
+             *   Row 0: F9-F12   Row 1: F5-F8 with home-row mods   Row 2: F1-F4
+             *
+             * Right half: media in the innermost column (closest to seam),
+             * navigation cluster in columns 3–5 (including the outer column).
+             *
+             *   row0 cols 0-2: VOL_DN  MUTE  VOL_UP
+             *   col3: Home  / PgUp / Left
+             *   col4:  ·   /  Up  / Down
+             *   col5 (outer): End  / PgDn / Right
+             *
+             * Using the outer right column (pos 11/23/35) for End/PgDn/Right
+             * means those positions shadow MINUS/RET/QUOT while FNK_NAV is
+             * active. Enter is still available via thumb 39 (&trans falls
+             * through to BAS). STG is still reachable via DEL hold (left).
+             *
+             * Position 0 stays &trans so WIN still wins there.
+             * &none on unused inner positions to block BAS fall-through. */
+            #define FN13  &hml LGUI  F5
+            #define FN14  &hml LCTRL F6
+            #define FN15  &hml LALT  F7
+            #define FN16  &hml LSHFT F8
+
+            display-name = "FNK_NAV";
+            bindings = <
+    &trans  &kp F9  &kp F10  &kp F11  &kp F12  &trans        &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp HOME   &none     &kp END
+    &trans    FN13     FN14     FN15     FN16   &trans                &none       &none        &none  &kp PG_UP  &kp UP  &kp PG_DN
+    &trans  &kp F1   &kp F2   &kp F3   &kp F4  &trans                &none       &none        &none  &kp LEFT   &kp DOWN  &kp RIGHT
+                            &trans  &trans  &trans        &trans  &trans  &trans
+            >;
+        };
+
+        settings_layer {
+            /* Keyboard configuration ONLY -- bootloader, bluetooth, RGB,
+             * ZMK Studio and the OS flag. Nothing host-facing.
+             *
+             * Volume, media transport and screen brightness were removed
+             * too. They are OS-independent HID consumer codes so they need
+             * no overlay, but they are host controls rather than keyboard
+             * config, and are currently bound NOWHERE. FNK has the room.
+             *
+             * Deliberately carries NO host application shortcuts. The 13
+             * that used to live here (zoom, accessibility zoom, screenshot,
+             * input source, Finder, Mission Control, force quit, app
+             * windows) were the sole reason WIN_STG existed; dropping them
+             * let that whole conditional layer go.
+             *
+             * Consequences worth preserving:
+             *   - STG is now OS-independent. Nothing sits above it, so the
+             *     class of bug where an overlay silently shadowed the
+             *     bootloader keys cannot recur.
+             *   - There is room again. BT_CLR is on its own key rather than
+             *     buried behind Alt, and 20-odd positions are free.
+             *
+             * If host shortcuts are wanted later they belong on FNK with a
+             * WIN_FNK conditional overlay -- same pattern WIN_STG used, on
+             * the layer that has the space for it.
+             *
+             * &none rather than &trans on unused positions: &trans would
+             * fall through to BAS and type a letter. */
+            #define ST_UNLOCK  &studio_unlock        // zmk studio unlock
+            #define ST_BTCLR   &mp_sSTG_cb           // tap: clear profile | shift: clear ALL profiles
+            #define ST_RGB_C    &mp_sSTG_rgb_c
+            #define ST_RGB_TOG  &rgb_ug RGB_TOG   // underglow on/off
+            #define ST_RGB_EFF  &rgb_ug RGB_EFF   // next effect
+            #define ST_RGB_EFR  &rgb_ug RGB_EFR   // previous effect
+            #define ST_RGB_U    &mp_sSTG_rgb_u
+            #define ST_RGB_D    &mp_sSTG_rgb_d
+
+            /* OS mode toggle, decoupled from the bluetooth profile.
+             *
+             * The profile macros set the OS as a side effect, which is fine
+             * on BLE but leaves two gaps: connecting over USB doesn't touch
+             * the profile, and deep-sleep wake resets layer state so the
+             * flag is lost while the profile survives. */
+            #define ST_OS_TOG   &tog WIN             // macOS <-> Windows mode
+
+            /* Bootloader, one per half, at the top outer corners.
+             *
+             * ZMK reset behaviours are source-locality -- they act on the
+             * half the key physically sits on -- so each half needs its own
+             * binding. Position 0 is left, 11 is right.
+             *
+             * Reached cross-hand: hold STG on one half (TAB pos 24 or RET
+             * pos 35), press the boot key on the other. That is why STG is
+             * bound on both halves; a single thumb-held STG cannot reach a
+             * boot key on its own half.
+             *
+             * The case covers the physical reset button, so this is the only
+             * route into DFU. Do NOT put these behind a combo -- combos
+             * always run on the central and would reset the left half twice.
+             *
+             * Nothing sits above STG any more, so nothing can shadow these. */
+            #define ST_BOOT_L   &bootloader          // DFU, LEFT half
+            #define ST_BOOT_R   &bootloader          // DFU, RIGHT half
+
+            display-name = "STG";
+            bindings = <
+   ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C  &none  &none        &none      &none  &none     &none  &none  ST_BOOT_R
+       &none  &m_s_b3  &m_s_b4  ST_BTCLR  &none  &none        &none      &none  &none     &none  &none      &none
+   ST_UNLOCK  &none  &none  ST_RGB_TOG  ST_RGB_EFF  ST_RGB_EFR        &none  ST_OS_TOG  &none  ST_RGB_U  &none   ST_RGB_D
+                            &none  &trans  &trans        &trans  &trans  &none
+            >;
+        };

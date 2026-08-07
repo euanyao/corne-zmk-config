@@ -1,0 +1,38 @@
+/* One set of combos now, rather than a mac copy and a windows copy.
+ *
+ * ZMK enables a combo when ANY of its listed layers is active, so listing
+ * the typing layers works whether or not the MAC flag happens to be lit.
+ */
+
+// F+J and S+L span the two halves, so the second press has to cross the
+// BLE split link. The 50ms default is too tight for that.
+combo_CW_on {
+    bindings = <&cw_ON>;
+    key-positions = <16 19>;
+    timeout-ms = <80>;
+    slow-release;
+    layers = <BAS>;
+};
+
+combo_CW_off {
+    bindings = <&cw_OFF>;
+    key-positions = <14 21>;
+    timeout-ms = <80>;
+    slow-release;
+    layers = <BAS>;
+};
+
+// Host signal: tell the AHK helper which layer is live, on demand.
+#define HELP_COMBO(NAME, LYR)              \
+  combo_help_##NAME {                      \
+      bindings = <&kp LG(LC(F_##LYR))>;    \
+      key-positions = <12 23>;             \
+      slow-release;                        \
+      layers = <LYR>;                      \
+  };
+
+HELP_COMBO(BAS, BAS)
+HELP_COMBO(DEV, DEV)
+HELP_COMBO(AXN, AXN)
+HELP_COMBO(FNK_NAV, FNK_NAV)
+HELP_COMBO(STG, STG)

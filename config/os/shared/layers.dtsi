@@ -1,0 +1,54 @@
+/* Layer indices.
+ *
+ * Order is load bearing, and `check-keymap.sh` asserts the keymap node
+ * order matches these numbers. ZMK assigns indices by node order, so these
+ * defines don't *cause* anything -- they're names that must agree.
+ *
+ * BAS is layer 0 and is therefore always active. Everything above it falls
+ * through to it via &trans.
+ *
+ * WIN sits at 1, directly above BAS and BELOW the typing layers. That works
+ * because DEV/AXN/FNK_NAV are `&trans` at all three positions WIN binds (0,
+ * 11, 12), so WIN only has to outrank BAS. Keeping it low means the OLED --
+ * which shows the highest active layer -- reports the layer you're actually
+ * using rather than permanently reading "WIN" while in Windows mode.
+ *
+ * If a typing layer ever takes a real binding at position 0, 11 or 12, WIN
+ * stops winning there and word-delete silently breaks. Put it on the WIN
+ * layer instead, or move WIN back above the typing layers and accept the
+ * OLED cost.
+ *
+ * There is nothing above STG. WIN_STG was deleted when the host app
+ * shortcuts came off STG -- with no overlay, nothing can shadow the
+ * bootloader keys, and STG is OS-independent. If OS-specific keys are
+ * wanted later they go on FNK_NAV with a WIN_FNK_NAV conditional overlay.
+ *
+ * macOS is the unflagged default. The Mac needs no host-side
+ * configuration. See os/shared/keys.dtsi.
+ */
+#define BAS      0
+#define WIN      1   /* OS flag. Lit = Windows. Nearly all &trans. */
+#define DEV      2
+#define AXN      3
+#define FNK_NAV  4   /* F-keys left, nav+media right; latchable via right thumb */
+#define STG      5
+#define WIN_DEV  6   /* conditional: WIN + DEV */
+#define WIN_AXN  7   /* conditional: WIN + AXN */
+
+/* Host signal keys.
+ *
+ * Tapped alongside layer changes so host-side helpers can show which layer
+ * is live.
+ *
+ * NOTE: these do not currently match host/windows/ahk, which listens for
+ * Shift+F19..F23 while the firmware sends Shift+F14..F18. Pre-existing
+ * mismatch -- the host indicator cannot be working. Fix by shifting these
+ * to F19..F23 or by repointing the AHK. The OLED is unaffected; it reads
+ * the layer's display-name directly.
+ */
+#define H_CWR       F13
+#define F_BAS       LS(F14)
+#define F_DEV       LS(F15)
+#define F_AXN       LS(F16)
+#define F_FNK_NAV   LS(F17)
+#define F_STG       LS(F18)

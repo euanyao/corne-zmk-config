@@ -1,15 +1,3 @@
-// mp_sSTG_rgb_t -- on/off, plus effect cycling behind modifiers
-MORPH_KAS(
-    s,
-    STG,
-    rgb_t,
-    rgb_toggle,
-    MOD_LALT,
-    &rgb_ug RGB_TOG,  // tap:   underglow on/off
-    &rgb_ug RGB_EFR,  // alt:   previous effect
-    &rgb_ug RGB_EFF   // shift: next effect
-)
-
 // mp_sSTG_rgb_c -- colour on a plain tap, no chord needed
 MORPH_KS(
     s,
