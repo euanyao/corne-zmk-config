@@ -1208,22 +1208,22 @@ path.combo {
 </g>
 <g transform="translate(480, 140)" class="key keypos-31">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
-<a href="#WIN">
-<text x="0" y="0" class="key tap layer-activator">WIN</text>
-</a><text x="0" y="24" class="key hold">toggle</text>
 </g>
 <g transform="translate(540, 140)" class="key keypos-32">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 </g>
 <g transform="translate(600, 140)" class="key keypos-33">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
+<a href="#WIN">
+<text x="0" y="0" class="key tap layer-activator">WIN</text>
+</a><text x="0" y="24" class="key hold">toggle</text>
+</g>
+<g transform="translate(660, 140)" class="key keypos-34">
+<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
 <tspan x="0" dy="-0.3em">RGB</tspan><tspan x="0" dy="1.2em">BRI</tspan>
 </text>
 <text x="0" y="-24" class="key shifted">RGB SAI</text>
-</g>
-<g transform="translate(660, 140)" class="key keypos-34">
-<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>
 </g>
 <g transform="translate(720, 140)" class="key keypos-35">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key"/>

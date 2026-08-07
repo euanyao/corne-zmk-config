@@ -247,10 +247,10 @@ layers:
     - RGB EFF
     - RGB EFR
     - ''
+    - ''
+    - ''
     - {t: WIN, h: toggle}
-    - ''
     - {t: RGB BRI, s: RGB SAI}
-    - ''
     - {t: RGB BRD, s: RGB SAD}
   - - ''
     - {t: ▽, type: trans}
