@@ -1,14 +1,12 @@
-/* Momentary layers. DEV, FNK and STG are momentary-only -- releasing the
- * thumb is the way back, so they need no return key anywhere. */
+/* Momentary layers. DEV, FNK_NAV and STG are momentary-only via the outer
+ * column holds -- releasing the key is the way back. */
 MO_MACRO(DEV)
 MO_MACRO(AXN)
-MO_MACRO(FNK)
-MO_MACRO(NAV)
+MO_MACRO(FNK_NAV)
 MO_MACRO(STG)
 
-/* AXN and NAV are latchable: hold the thumb for momentary, tap to latch. */
+/* AXN is latchable: hold for momentary, tap to latch on. */
 TOG_MACRO(AXN)
-TOG_MACRO(NAV)
 
 /* Hard reset to base.
  *

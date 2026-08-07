@@ -1,38 +1,29 @@
         win_act_num_layer {
             /* WIN_AXN -- conditional on <WIN AXN>.
              *
-             * Overrides the nine AXN positions whose macOS chord has no
-             * Windows equivalent. Everything else is &trans and falls
-             * through to the shared AXN layer.
+             * Overrides the AXN positions whose macOS chord differs on
+             * Windows. Everything else is &trans and falls through to AXN.
              *
-             * This is what removes the PowerToys dependency: the firmware
-             * emits the native Windows keycode instead of relying on the
-             * host to translate a Cmd into a Control. Without it, AXN's
-             * clipboard cluster arrives as Win+Z/X/C/V and opens snap
-             * layouts, the power-user menu, Copilot and clipboard history.
+             * Left shortcuts: Cmd+letter on Mac becomes Ctrl+letter here.
+             * Row 0: Ctrl+W/E/R/T  (close, open, reload, new tab)
+             * Row 1: Ctrl+A/S/D/F  (select-all, save, bookmark, find)
+             *        Ctrl+H at G position for replace (macOS uses Opt+Cmd+F)
+             * Row 2: Ctrl+Z/X/C/Y + paste (clipboard, same as Mac but native)
              *
-             * Redo is Ctrl+Y here rather than Ctrl+Shift+Z: both work in
-             * most Windows apps, Ctrl+Y is the more universal.
+             * Without this, AXN's Win+Z/X/C/V opens snap layouts, the
+             * power-user menu, Copilot and clipboard history instead.
              *
-             * Replace is Ctrl+H, which is why it needs an override at all --
-             * macOS uses Opt+Cmd+F and there is no shared chord.
-             *
-             * The home-row mods at 13/14/21/22 are also swapped here -- see
-             * below.
-             */
-            /* Home-row mods swapped for Windows, same as WIN does for
-             * BAS: primary (Control) onto S/L, secondary (Win) onto A/;.
-             * Taps are unchanged. */
-            #define WA_A     &hml  LCTRL  LA(LS(LEFT))
-            #define WA_S     &hml  LGUI   LEFT
+             * Numpad home-row mods at 21/22 are swapped here: AXN has
+             * RCTRL+N6 and RGUI+EQUAL; Windows swaps them to RGUI+N6,
+             * RCTRL+EQUAL so the primary modifier stays on the same finger. */
             #define WA_L     &hmr  RGUI   N6
             #define WA_SEMI  &hmr  RCTRL  EQUAL
 
             display-name = "WIN_AXN";
             bindings = <
-    &trans  &trans  &mp_wa_prev  &trans  &mp_wa_next  &kp LC(F)        &trans  &trans  &trans   &trans   &trans  &trans
-    &trans   WA_A        WA_S    &trans       &trans  &kp LC(H)        &trans  &trans  &trans    WA_L   WA_SEMI  &trans
-    &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LC(Y)   &trans  &trans  &trans   &trans   &trans  &trans
+    &trans  &trans  &kp LC(W)  &kp LC(E)  &kp LC(R)      &kp LC(T)        &trans  &trans  &trans   &trans   &trans  &trans
+    &trans  &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(H)        &trans  &trans  &trans    WA_L   WA_SEMI  &trans
+    &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LC(Y)      &trans  &trans  &trans   &trans   &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

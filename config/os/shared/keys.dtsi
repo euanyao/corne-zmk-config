@@ -39,18 +39,18 @@
  * them -- A/; become LCTRL, S/L become LGUI. The primary modifier therefore
  * keeps the SAME FINGER on both OSes.
  *
- * STILL UNSWAPPED: FNK pos 14 and NAV pos 21 have no overlay, so they are
- * the Win key on Windows. NAV's is the one that misfires -- Win+arrow snaps
- * windows there. Fixing needs a WIN_FNK / WIN_NAV pair. See CLAUDE.md §3.1.
+ * STILL UNSWAPPED: FNK_NAV pos 14 has no overlay, so the hold is LCTRL
+ * on macOS but should be LGUI (Win key) on Windows -- same finger issue as
+ * BAS §3.1. A WIN_FNK_NAV overlay would fix it. NAV pos 21 (formerly
+ * RCTRL, which misfired as Win+arrow) is now a plain Up arrow -- resolved.
  */
 #define KEY_SPC   &kp  SPACE
-#define KEY_ESC   &to_BAS_kp  0        ESC   // tap: esc    | hold: hard reset to base
-#define KEY_RET   &ht_STG     0        RET   // tap: return | hold: STG (right-hand route)
-#define KEY_TAB   &kp         TAB            // plain tab
-#define KEY_DEL   &ht_STG     0        DEL   // tap: del    | hold: STG (left-hand route)
-#define KEY_QUOT  &ht_FNK     0        SQT   // tap: '      | hold: FNK
-#define KEY_MINUS &kp         MINUS          // fills the base-layer gap left when BSPC moved to a thumb
-#define NAV_BSPC  &mt         LA(BSPC) BSPC  // tap: bspc   | hold: delete word back
+#define KEY_ESC   &to_BAS_kp    0  ESC   // tap: esc    | hold: hard reset to base
+#define KEY_RET   &ht_FNK_NAV   0  RET   // tap: return | hold: FNK_NAV (right-hand route, mid outer)
+#define KEY_TAB   &ht_FNK_NAV   0  TAB   // tap: tab    | hold: FNK_NAV (left-hand route)
+#define KEY_DEL   &ht_STG       0  DEL   // tap: del    | hold: STG (left-hand route)
+#define KEY_QUOT  &ht_STG       0  SQT   // tap: '      | hold: STG (right-hand route, bot outer)
+#define KEY_BSPC  &mt  LA(BSPC) BSPC    // tap: bspc   | hold: delete word back (Mac: Opt+Bspc)
 
 /* Home row. One behaviour per hand so the positional guard applies -- see
  * os/shared/hold/shared.dtsi. Using the wrong hand's behaviour silently
@@ -71,8 +71,5 @@
 /* Thumbs. Every layer above BAS leaves these &trans unless it needs
  * something specific, so space and the layer keys keep working
  * everywhere. Momentary layers need no return key. */
-#define THU_DEV   &mo_DEV
-#define THU_AXN   &ht_AXN  0  0          // hold: momentary | tap: latch on
-#define THU_NAV   &ht_NAV  0  0          // hold: momentary | tap: latch on
-#define THU_ENT   &kp      RET           // Enter on a thumb, off the pinky
-#define THU_BSPC  NAV_BSPC               // tap: bspc | hold: delete word back
+#define THU_DEV  &mo_DEV
+#define THU_AXN  &ht_AXN  0  0   // hold: momentary | tap: latch on

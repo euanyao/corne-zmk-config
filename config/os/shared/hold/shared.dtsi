@@ -74,28 +74,18 @@ ht_STG: hold_tap_STG {
     bindings = <&mo_STG>, <&kp>;
 };
 
-// FNK moved off the thumbs onto the quote key: F-keys are rare enough to
-// live behind a hold, and it frees a thumb for Enter. Wraps mo_FNK rather
-// than a bare &mo so the host layer signal still fires.
-ht_FNK: hold_tap_FNK {
+// FNK_NAV is accessed from two outer-column hold-taps (TAB at pos 12 and
+// RET at pos 23). Tap sends the key, hold activates the layer momentarily.
+// Wraps mo_FNK_NAV rather than a bare &mo so the host signal fires.
+ht_FNK_NAV: hold_tap_FNK_NAV {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&mo_FNK>, <&kp>;
+    bindings = <&mo_FNK_NAV>, <&kp>;
 };
 
-// Latchable layers: hold for momentary, tap to latch on. Unlatching is a
-// separate binding on the layer itself so the host signal knows which way
-// the toggle went.
-ht_NAV: hold_tap_NAV {
-    compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <2>;
-    tapping-term-ms = <HP_TAPPING>;
-    flavor = "hold-preferred";
-    bindings = <&mo_NAV>, <&tog_NAV_on>;
-};
-
+// Latchable layers: hold for momentary, tap to latch on.
 ht_AXN: hold_tap_AXN {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;

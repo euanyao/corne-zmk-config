@@ -9,12 +9,3 @@ MORPH_KA(
     &kp LA(LS(A))  // alt:  /* block comment */
 )
 
-// mp_DEV_ql
-MORPH_KS(
-    s,
-    DEV,
-    ql,
-    question_logical,
-    &m_d_oco,  // tap:    ?.
-    &m_d_cto   // shift:  ?░:░
-)

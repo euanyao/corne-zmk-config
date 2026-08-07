@@ -83,27 +83,33 @@ else:
 
 # 4. The OS flag sits BELOW the typing layers so the OLED shows the layer
 #    in use rather than permanently reading "WIN". Word-delete and the ESC
-#    panic (positions 0 and 37) are carried by WIN for EVERY typing layer,
+#    panic (positions 0 and 11) are carried by WIN for EVERY typing layer,
 #    so those must stay transparent above it -- give one of them a real
 #    binding there and Windows word-delete silently stops working. STG is
 #    exempt: it legitimately overrides them, and word-delete isn't wanted.
+#    FNK_NAV is exempt at pos 11 only: it intentionally overrides it with END.
 #
 #    WIN's home-row mod overrides (13/14/21/22) are deliberately NOT checked.
 #    They only ever apply to BAS: every typing layer binds those positions
 #    itself and gets its own WIN_* conditional overlay, so shadowing there is
 #    expected rather than a bug.
-CRITICAL = {0, 37}
+CRITICAL = {0, 11}
+# Layers exempt from the check at specific critical positions.
+EXEMPT = {"FNK_NAV": {11}}
 byname = dict(layers)
 if "WIN" in byname:
     win = re.findall(r"&\w+[^&]*", byname["WIN"])
     bound = [i for i, b in enumerate(win)
              if i in CRITICAL and not b.strip().startswith("&trans")]
     leaks = []
-    for name in ("DEV", "AXN", "FNK", "NAV"):
+    for name in ("DEV", "AXN", "FNK_NAV"):
         if name not in byname:
             continue
         binds = re.findall(r"&\w+[^&]*", byname[name])
+        exempt = EXEMPT.get(name, set())
         for p in bound:
+            if p in exempt:
+                continue
             if not binds[p].strip().startswith("&trans"):
                 leaks.append(f"{name} position {p} = {binds[p].strip()}")
     if leaks:
@@ -112,7 +118,7 @@ if "WIN" in byname:
             print(f"        {l}")
         fail = 1
     else:
-        print(f"ok    WIN unshadowed at positions {bound} across DEV/AXN/FNK/NAV")
+        print(f"ok    WIN unshadowed at positions {bound} across DEV/AXN/FNK_NAV")
 
 sys.exit(fail)
 PY

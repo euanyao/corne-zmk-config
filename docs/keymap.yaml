@@ -12,8 +12,8 @@ layers:
     - I
     - O
     - P
-    - '-'
-  - - TAB
+    - {t: BSPC, h: Alt+BSPC}
+  - - {t: TAB, h: '&mo_FNK_NAV'}
     - {t: A, h: LGUI}
     - {t: S, h: LCTRL}
     - {t: D, h: LALT}
@@ -24,7 +24,7 @@ layers:
     - {t: K, h: LALT}
     - {t: L, h: RCTRL}
     - {t: ;, h: RGUI}
-    - {t: '''', h: '&mo_FNK'}
+    - {t: RET, h: '&mo_FNK_NAV'}
   - - {t: DEL, h: '&mo_STG'}
     - Z
     - X
@@ -36,13 +36,13 @@ layers:
     - ','
     - .
     - /
-    - {t: RET, h: '&mo_STG'}
+    - {t: '''', h: '&mo_STG'}
   - - '&mo_DEV'
-    - {t: BSPC, h: Alt+BSPC}
-    - {t: '&tog_AXN_on', h: '&mo_AXN'}
-    - RET
     - SPACE
-    - {t: '&tog_NAV_on', h: '&mo_NAV'}
+    - {t: '&tog_AXN_on', h: '&mo_AXN'}
+    - {t: '&tog_AXN_on', h: '&mo_AXN'}
+    - SPACE
+    - '&mo_DEV'
   WIN:
   - - {t: ESC, h: '&to_BAS_win'}
     - {t: ▽, type: trans}
@@ -55,7 +55,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: BSPC, h: Ctl+BSPC}
   - - {t: ▽, type: trans}
     - {t: A, h: LCTRL}
     - {t: S, h: LGUI}
@@ -81,7 +81,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: BSPC, h: Ctl+BSPC}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -112,7 +112,7 @@ layers:
     - {t: '|', h: RGUI}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - Gui+R
+    - ;
     - (
     - )
     - '*'
@@ -121,7 +121,7 @@ layers:
     - '?'
     - <
     - '>'
-    - {t: '&m_d_oco', s: '&m_d_cto'}
+    - ':'
     - F12
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -132,10 +132,10 @@ layers:
   AXN:
   - - {t: ▽, type: trans}
     - Alt+Sft+RIGHT
-    - {t: Gui+PG UP, s: Gui+Ctl+LEFT}
-    - UP
-    - {t: Gui+PG DN, s: Gui+Ctl+RIGHT}
-    - Gui+F
+    - Gui+W
+    - Gui+E
+    - Gui+R
+    - Gui+T
     - KP PLUS
     - '7'
     - '8'
@@ -143,10 +143,10 @@ layers:
     - KP MULTIPLY
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: Alt+Sft+LEFT, h: LGUI}
-    - {t: LEFT, h: LCTRL}
-    - {t: DOWN, h: LALT}
-    - {t: RIGHT, h: LSHFT}
+    - Gui+A
+    - Gui+S
+    - Gui+D
+    - Gui+F
     - Alt+Gui+F
     - '0'
     - {t: '4', h: LSHFT}
@@ -169,95 +169,52 @@ layers:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - '&tog_AXN_off'
+    - '&tog_AXN_off'
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  FNK:
+  FNK_NAV:
   - - {t: ▽, type: trans}
     - F9
     - F10
     - F11
     - F12
     - {t: ▽, type: trans}
-    - BRI DN
     - VOL DN
     - MUTE
     - VOL UP
-    - BRI UP
-    - {t: ▽, type: trans}
+    - HOME
+    - ''
+    - END
   - - {t: ▽, type: trans}
     - {t: F5, h: LGUI}
     - {t: F6, h: LCTRL}
     - {t: F7, h: LALT}
     - {t: F8, h: LSHFT}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - PREV
-    - PP
-    - NEXT
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - ''
+    - ''
+    - ''
+    - PG UP
+    - UP
+    - PG DN
   - - {t: ▽, type: trans}
     - F1
     - F2
     - F3
     - F4
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  NAV:
-  - - {t: ▽, type: trans}
-    - ''
-    - PG UP
-    - UP
-    - PG DN
     - ''
     - ''
     - ''
-    - ''
-    - ''
-    - ''
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - HOME
     - LEFT
     - DOWN
     - RIGHT
-    - END
-    - ''
-    - RSHFT
-    - LALT
-    - RCTRL
-    - RGUI
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - '&tog_NAV_off'
+    - {t: ▽, type: trans}
   STG:
   - - '&bootloader'
     - '&m_s_b1'
@@ -284,11 +241,11 @@ layers:
     - ''
     - ''
   - - '&studio_unlock'
-    - '&m_s_b5'
-    - '&m_s_b6'
-    - {t: RGB TOG, s: RGB EFR}
     - ''
     - ''
+    - RGB TOG
+    - RGB EFF
+    - RGB EFR
     - ''
     - {t: WIN, h: toggle}
     - ''
@@ -327,7 +284,7 @@ layers:
     - {t: '|', h: RCTRL}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - Ctl+R
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -347,10 +304,10 @@ layers:
   WIN_AXN:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: Ctl+PG UP, s: Ctl+Gui+LEFT}
-    - {t: ▽, type: trans}
-    - {t: Ctl+PG DN, s: Ctl+Gui+RIGHT}
-    - Ctl+F
+    - Ctl+W
+    - Ctl+E
+    - Ctl+R
+    - Ctl+T
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -358,10 +315,10 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: Alt+Sft+LEFT, h: LCTRL}
-    - {t: LEFT, h: LGUI}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - Ctl+A
+    - Ctl+S
+    - Ctl+D
+    - Ctl+F
     - Ctl+H
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -405,7 +362,7 @@ combos:
   l: [AXN]
 - p: [12, 23]
   k: Gui+Ctl+Sft+F17
-  l: [FNK]
+  l: [FNK_NAV]
 - p: [12, 23]
   k: Gui+Ctl+Sft+F18
   l: [STG]

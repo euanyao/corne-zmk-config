@@ -8,8 +8,8 @@
  * through to it via &trans.
  *
  * WIN sits at 1, directly above BAS and BELOW the typing layers. That works
- * because DEV/AXN/FNK are `&trans` at all three positions WIN binds (0, 11,
- * 12), so WIN only has to outrank BAS. Keeping it low means the OLED --
+ * because DEV/AXN/FNK_NAV are `&trans` at all three positions WIN binds (0,
+ * 11, 12), so WIN only has to outrank BAS. Keeping it low means the OLED --
  * which shows the highest active layer -- reports the layer you're actually
  * using rather than permanently reading "WIN" while in Windows mode.
  *
@@ -21,21 +21,19 @@
  * There is nothing above STG. WIN_STG was deleted when the host app
  * shortcuts came off STG -- with no overlay, nothing can shadow the
  * bootloader keys, and STG is OS-independent. If OS-specific keys are
- * wanted later they go on FNK with a WIN_FNK conditional overlay.
+ * wanted later they go on FNK_NAV with a WIN_FNK_NAV conditional overlay.
  *
  * macOS is the unflagged default. The Mac needs no host-side
- * configuration; the Windows machines carry a Win/Ctrl remap (PowerToys)
- * instead. See os/shared/keys.dtsi.
+ * configuration. See os/shared/keys.dtsi.
  */
 #define BAS      0
 #define WIN      1   /* OS flag. Lit = Windows. Nearly all &trans. */
 #define DEV      2
 #define AXN      3
-#define FNK      4
-#define NAV      5   /* arrows + HOME/END/PgUp/PgDn, held by right thumb */
-#define STG      6
-#define WIN_DEV  7   /* conditional: WIN + DEV */
-#define WIN_AXN  8   /* conditional: WIN + AXN */
+#define FNK_NAV  4   /* F-keys left, nav+media right; latchable via right thumb */
+#define STG      5
+#define WIN_DEV  6   /* conditional: WIN + DEV */
+#define WIN_AXN  7   /* conditional: WIN + AXN */
 
 /* Host signal keys.
  *
@@ -48,10 +46,9 @@
  * to F19..F23 or by repointing the AHK. The OLED is unaffected; it reads
  * the layer's display-name directly.
  */
-#define H_CWR   F13
-#define F_BAS   LS(F14)
-#define F_DEV   LS(F15)
-#define F_AXN   LS(F16)
-#define F_FNK   LS(F17)
-#define F_STG   LS(F18)
-#define F_NAV   LS(F19)
+#define H_CWR       F13
+#define F_BAS       LS(F14)
+#define F_DEV       LS(F15)
+#define F_AXN       LS(F16)
+#define F_FNK_NAV   LS(F17)
+#define F_STG       LS(F18)

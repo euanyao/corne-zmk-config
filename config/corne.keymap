@@ -106,10 +106,9 @@
         #include "os/windows/keymap/flag.dtsi"       /* 1  WIN     */
         #include "os/shared/keymap/typing.dtsi"      /* 2  DEV     */
                                                     /* 3  AXN     */
-                                                    /* 4  FNK     */
-                                                    /* 5  NAV     */
-                                                    /* 6  STG     */
-        #include "os/windows/keymap/dev.dtsi"        /* 7  WIN_DEV */
-        #include "os/windows/keymap/act_num.dtsi"    /* 8  WIN_AXN */
+                                                    /* 4  FNK_NAV */
+                                                    /* 5  STG     */
+        #include "os/windows/keymap/dev.dtsi"        /* 6  WIN_DEV */
+        #include "os/windows/keymap/act_num.dtsi"    /* 7  WIN_AXN */
     };
 };
