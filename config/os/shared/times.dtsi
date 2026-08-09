@@ -1,33 +1,18 @@
 /* Home Row
  *
- * "hold-preferred" settles the hold as soon as ANOTHER KEY IS PRESSED, so
- * rolling a modifier into the next key produces a chord rather than two
- * letters. From behavior_hold_tap.c:
+ * "balanced" settles the hold on the OTHER key's RELEASE (HT_OTHER_KEY_UP),
+ * and settles as a TAP if this key comes up first (HT_KEY_UP). Verified in
+ * behavior_hold_tap.c. Consequence: a fast roll that lifts the modifier
+ * before the other key resolves to a tap, so the chord is lost.
  *
- *     hold-preferred   HT_OTHER_KEY_DOWN -> hold
- *     balanced         HT_OTHER_KEY_UP   -> hold, and HT_KEY_UP -> tap
- *
- * "balanced" was the previous setting, and it waits for the other key to be
- * RELEASED. In a fast roll the modifier comes up first, so HT_KEY_UP fires
- * and it resolves to a tap. That was the "rolling gives two keypresses"
- * problem.
- *
- * This is only safe because hold-trigger-key-positions restricts holds to
- * cross-hand and thumb sequences -- a same-hand roll cannot fire a modifier
- * whatever the flavor says. The positional guard does the safety work,
- * which frees the flavor to be aggressive. QMK documents the same pairing:
- * Chordal Hold "is intended to be used together with either Permissive Hold
- * or Hold On Other Key Press".
- *
- * QMK equivalents, for reference:
- *     hold-preferred  =  HOLD_ON_OTHER_KEY_PRESS
- *     balanced        =  PERMISSIVE_HOLD
+ * "hold-preferred" settles on HT_OTHER_KEY_DOWN instead and does not have
+ * that failure. It was tried and reverted, so this is deliberate -- change
+ * it only on purpose. QMK equivalents: balanced = PERMISSIVE_HOLD,
+ * hold-preferred = HOLD_ON_OTHER_KEY_PRESS.
  */
-#define HR_FLAVOR     "hold-preferred"
-/* Only reached when NO other key is pressed. With hold-preferred the
- * decision is already made on the next key's press, so this term governs
- * holding a home-row key ALONE to get a bare modifier. Raising it means
- * holding slightly longer for that case; it does not affect chords. */
+#define HR_FLAVOR     "balanced"
+/* Reached when the other key has not been released yet. Raising it gives a
+ * longer window before a held key becomes a modifier on the timer. */
 #define HR_TAPPING    250
 #define HR_QUICK_TAP  125
 
