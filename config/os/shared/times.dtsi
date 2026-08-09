@@ -1,5 +1,29 @@
-/* Home Row */
-#define HR_FLAVOR     "balanced"
+/* Home Row
+ *
+ * "hold-preferred" settles the hold as soon as ANOTHER KEY IS PRESSED, so
+ * rolling a modifier into the next key produces a chord rather than two
+ * letters. From behavior_hold_tap.c:
+ *
+ *     hold-preferred   HT_OTHER_KEY_DOWN -> hold
+ *     balanced         HT_OTHER_KEY_UP   -> hold, and HT_KEY_UP -> tap
+ *
+ * "balanced" was the previous setting, and it waits for the other key to be
+ * RELEASED. In a fast roll the modifier comes up first, so HT_KEY_UP fires
+ * and it resolves to a tap. That was the "rolling gives two keypresses"
+ * problem.
+ *
+ * This is only safe because hold-trigger-key-positions restricts holds to
+ * cross-hand and thumb sequences -- a same-hand roll cannot fire a modifier
+ * whatever the flavor says. The positional guard does the safety work,
+ * which frees the flavor to be aggressive. QMK documents the same pairing:
+ * Chordal Hold "is intended to be used together with either Permissive Hold
+ * or Hold On Other Key Press".
+ *
+ * QMK equivalents, for reference:
+ *     hold-preferred  =  HOLD_ON_OTHER_KEY_PRESS
+ *     balanced        =  PERMISSIVE_HOLD
+ */
+#define HR_FLAVOR     "hold-preferred"
 #define HR_TAPPING    220
 #define HR_QUICK_TAP  125
 
