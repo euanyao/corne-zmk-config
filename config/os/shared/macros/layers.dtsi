@@ -15,19 +15,22 @@ TOG_MACRO(AXN)
  * idempotent: &to guarantees WIN is off, so &tog always turns it on.
  *
  * macOS is the unflagged default, so to_BAS needs no counterpart there.
+ *
+ * The trailing F_BAS signal tap was removed with the rest of the layer
+ * signals -- see helpers/macros.dtsi.
  */
 to_BAS: to_BAS_layer {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
     tap-ms = <MC_LAYERS>;
-    bindings = <&to BAS &kp F_BAS>;
+    bindings = <&to BAS>;
 };
 
 to_BAS_win: to_BAS_win_layer {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
     tap-ms = <MC_LAYERS>;
-    bindings = <&to BAS &tog WIN &kp F_BAS>;
+    bindings = <&to BAS &tog WIN>;
 };
 
 /* Caps word, with a host signal so the indicator can follow it. */

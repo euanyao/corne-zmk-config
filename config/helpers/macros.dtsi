@@ -5,10 +5,24 @@
 *
 */
 
-/* Momentary layer, with host signals on the way in and out.
+/* Momentary layer.
  *
- * Layers are momentary by default now, so there is no matching "return"
- * key to define -- releasing the thumb is the return.
+ * Layers are momentary by default, so there is no matching "return" key to
+ * define -- releasing the key is the return.
+ *
+ * These used to tap an F13-F18 signal key on the way in and out so a
+ * host-side indicator could follow the active layer. That is gone. The
+ * signals were real keystrokes injected into whatever window had focus on
+ * EVERY layer change, in service of an indicator that never worked: the
+ * firmware sent Shift+F14..F18 while host/windows/ahk listens for
+ * Shift+F19..F23, and Shift+F18 collided with the caps-word handler.
+ *
+ * The wrapper is now equivalent to a bare `&mo LYR`, and is kept only so
+ * the keymap and ht_AXN don't have to change shape. Collapsing it into
+ * `&mo` directly is a safe simplification if you're already in here.
+ *
+ * The deliberate signal combos on positions 12+23 are unaffected -- those
+ * fire only when asked for.
  */
 #define MO_MACRO(LYR)                          \
   mo_##LYR: momentary_##LYR {                  \
@@ -18,28 +32,30 @@
       tap-ms = <MC_LAYERS>;                    \
       bindings                                 \
           = <&macro_press &mo LYR>             \
-          , <&macro_tap &kp F_##LYR>           \
           , <&macro_pause_for_release>         \
-          , <&macro_release &mo LYR>           \
-          , <&macro_tap &kp F_BAS>;            \
+          , <&macro_release &mo LYR>;          \
   };
 
 /* Latch a layer on / off.
  *
  * &tog rather than &to, because &to switches every other layer off and
- * would take the MAC flag with it. Two macros rather than one self-inverse
- * binding so the host signal can say which way the toggle went.
+ * would take the WIN flag with it.
+ *
+ * _on and _off are now identical -- they differed only in which host
+ * signal they sent. Both are kept because the keymap binds them at
+ * different positions and the names document intent: _on sits on BAS,
+ * _off on the latched layer itself.
  */
 #define TOG_MACRO(LYR)                         \
   tog_##LYR##_on: toggle_##LYR##_on {          \
       compatible = "zmk,behavior-macro";       \
       #binding-cells = <0>;                    \
       tap-ms = <MC_LAYERS>;                    \
-      bindings = <&tog LYR &kp F_##LYR>;       \
+      bindings = <&tog LYR>;                   \
   };                                           \
   tog_##LYR##_off: toggle_##LYR##_off {        \
       compatible = "zmk,behavior-macro";       \
       #binding-cells = <0>;                    \
       tap-ms = <MC_LAYERS>;                    \
-      bindings = <&tog LYR &kp F_BAS>;         \
+      bindings = <&tog LYR>;                   \
   };
