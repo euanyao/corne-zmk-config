@@ -12,8 +12,17 @@ hm: hold_tap_plain {
 
 // Home-row mods, one behaviour per hand. A hold only registers when the
 // next key is on the OTHER hand (or a thumb), so same-hand rolls type
-// letters instead of firing modifiers. hold-trigger-on-release defers that
-// check so two mods on the same hand can still be chorded together.
+// letters instead of firing modifiers. That positional guard is what keeps
+// this safe -- it is doing the work that a conservative flavor would
+// otherwise have to.
+//
+// require-prior-idle-ms and hold-trigger-on-release were both removed:
+// they made modifiers feel unresponsive. prior-idle forced a TAP whenever
+// any key had been pressed within the window, which mid-flow typing almost
+// always is; hold-trigger-on-release deferred the positional check to key
+// release, delaying the decision. The cost of dropping the latter is that
+// two mods on the SAME hand can no longer be chorded -- cross-hand mod
+// combinations are unaffected.
 //
 // &hml on the left home row (A S D F), &hmr on the right (J K L ;).
 // Using the wrong one silently disables the positional guard, so keep them
@@ -24,10 +33,8 @@ hml: homerow_mods_left {
     #binding-cells = <2>;
     tapping-term-ms = <HR_TAPPING>;
     quick-tap-ms = <HR_QUICK_TAP>;
-    require-prior-idle-ms = <HR_PRIOR_IDLE>;
     flavor = HR_FLAVOR;
     hold-trigger-key-positions = <KP_RIGHT KP_THUMB>;
-    hold-trigger-on-release;
     bindings = <&kp>, <&kp>;
 };
 
@@ -36,10 +43,8 @@ hmr: homerow_mods_right {
     #binding-cells = <2>;
     tapping-term-ms = <HR_TAPPING>;
     quick-tap-ms = <HR_QUICK_TAP>;
-    require-prior-idle-ms = <HR_PRIOR_IDLE>;
     flavor = HR_FLAVOR;
     hold-trigger-key-positions = <KP_LEFT KP_THUMB>;
-    hold-trigger-on-release;
     bindings = <&kp>, <&kp>;
 };
 

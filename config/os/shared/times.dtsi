@@ -2,10 +2,6 @@
 #define HR_FLAVOR     "balanced"
 #define HR_TAPPING    220
 #define HR_QUICK_TAP  125
-// Refuse a hold if a key was tapped within this window, so mods can't fire
-// mid-flow while typing fast. Lower it if intentional mods feel dropped;
-// raise it if stray mods still slip through.
-#define HR_PRIOR_IDLE 150
 
 /* Mod Tap */
 #define MT_TAPPING    220
