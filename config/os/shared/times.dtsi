@@ -24,7 +24,11 @@
  *     balanced        =  PERMISSIVE_HOLD
  */
 #define HR_FLAVOR     "hold-preferred"
-#define HR_TAPPING    220
+/* Only reached when NO other key is pressed. With hold-preferred the
+ * decision is already made on the next key's press, so this term governs
+ * holding a home-row key ALONE to get a bare modifier. Raising it means
+ * holding slightly longer for that case; it does not affect chords. */
+#define HR_TAPPING    250
 #define HR_QUICK_TAP  125
 
 /* Mod Tap */
