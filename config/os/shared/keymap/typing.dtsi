@@ -69,21 +69,30 @@
              * Left half: F-keys unchanged from the old FNK layout.
              *   Row 0: F9-F12   Row 1: F5-F8 with home-row mods   Row 2: F1-F4
              *
-             * Right half: media in the innermost column (closest to seam),
-             * navigation cluster in columns 3–5 (including the outer column).
+             * Right half: vim arrows on the HOME ROW.
              *
-             *   row0 cols 0-2: VOL_DN  MUTE  VOL_UP
-             *   col3: Home  / PgUp / Left
-             *   col4:  ·   /  Up  / Down
-             *   col5 (outer): End  / PgDn / Right
+             *   row0: VOL_DN  MUTE  VOL_UP    ·     ·   (outer)
+             *   row1:  LEFT   DOWN    UP    RIGHT   ·   (outer)
+             *   row2:  HOME   PgDn   PgUp    END    ·   (outer)
              *
-             * Using the outer right column (pos 11/23/35) for End/PgDn/Right
-             * means those positions shadow MINUS/RET/QUOT while FNK_NAV is
-             * active. Enter is still available via thumb 39 (&trans falls
-             * through to BAS). STG is still reachable via DEL hold (left).
+             * Positions 18/19/20/21 are the H J K L keys, so LEFT DOWN UP
+             * RIGHT land exactly where vim muscle memory expects, on
+             * index-in / index / middle / ring. No pinky.
+             *
+             * Row 2 is the same direction with a bigger jump, on the same
+             * four fingers: LEFT->HOME, DOWN->PgDn, UP->PgUp, RIGHT->END.
+             *
+             * REACH THIS LAYER VIA THE TAB HOLD (pos 12, LEFT hand) so
+             * arrowing is cross-hand. The RET hold (pos 23) still works but
+             * is same-hand and cramped now that the arrows moved right.
+             *
+             * The outer column (11/23/35) is &trans again, so BSPC, RET and
+             * quote keep working -- and position 11 no longer shadows the
+             * WIN word-delete override, which needed a checker exemption
+             * while it was bound to END.
              *
              * Position 0 stays &trans so WIN still wins there.
-             * &none on unused inner positions to block BAS fall-through. */
+             * &none on unused positions to block BAS fall-through. */
             #define FN13  &hml LGUI  F5
             #define FN14  &hml LCTRL F6
             #define FN15  &hml LALT  F7
@@ -91,9 +100,9 @@
 
             display-name = "FNK_NAV";
             bindings = <
-    &trans  &kp F9  &kp F10  &kp F11  &kp F12  &trans        &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &kp HOME   &none     &kp END
-    &trans    FN13     FN14     FN15     FN16   &trans                &none       &none        &none  &kp PG_UP  &kp UP  &kp PG_DN
-    &trans  &kp F1   &kp F2   &kp F3   &kp F4  &trans                &none       &none        &none  &kp LEFT   &kp DOWN  &kp RIGHT
+    &trans  &kp F9  &kp F10  &kp F11  &kp F12  &trans       &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP    &none  &none  &trans
+    &trans    FN13     FN14     FN15     FN16  &trans          &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT  &none  &trans
+    &trans  &kp F1   &kp F2   &kp F3   &kp F4  &trans          &kp HOME  &kp PG_DN  &kp PG_UP    &kp END  &none  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

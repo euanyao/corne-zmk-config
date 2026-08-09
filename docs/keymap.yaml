@@ -182,33 +182,33 @@ layers:
     - VOL DN
     - MUTE
     - VOL UP
-    - HOME
     - ''
-    - END
+    - ''
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: F5, h: LGUI}
     - {t: F6, h: LCTRL}
     - {t: F7, h: LALT}
     - {t: F8, h: LSHFT}
     - {t: ▽, type: trans}
-    - ''
-    - ''
-    - ''
-    - PG UP
+    - LEFT
+    - DOWN
     - UP
-    - PG DN
+    - RIGHT
+    - ''
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - F1
     - F2
     - F3
     - F4
     - {t: ▽, type: trans}
+    - HOME
+    - PG DN
+    - PG UP
+    - END
     - ''
-    - ''
-    - ''
-    - LEFT
-    - DOWN
-    - RIGHT
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

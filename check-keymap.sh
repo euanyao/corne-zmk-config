@@ -87,7 +87,6 @@ else:
 #    so those must stay transparent above it -- give one of them a real
 #    binding there and Windows word-delete silently stops working. STG is
 #    exempt: it legitimately overrides them, and word-delete isn't wanted.
-#    FNK_NAV is exempt at pos 11 only: it intentionally overrides it with END.
 #
 #    WIN's home-row mod overrides (13/14/21/22) are deliberately NOT checked.
 #    They only ever apply to BAS: every typing layer binds those positions
@@ -95,7 +94,7 @@ else:
 #    expected rather than a bug.
 CRITICAL = {0, 11}
 # Layers exempt from the check at specific critical positions.
-EXEMPT = {"FNK_NAV": {11}}
+EXEMPT = {}
 byname = dict(layers)
 if "WIN" in byname:
     win = re.findall(r"&\w+[^&]*", byname["WIN"])
