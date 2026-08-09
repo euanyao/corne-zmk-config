@@ -561,10 +561,33 @@ only in this file.
   been flashed. Priority order: DFU on each half (§3.6), then HRM feel, then
   whether deep sleep clears the flag. The Windows remap question (§5) is now
   **measured** — it needs a decision, not an experiment.
-- **Deep sleep and the OS flag.** `CONFIG_ZMK_SLEEP=y` with a 10-minute
-  timeout. ZMK deep sleep is System OFF, so waking is effectively a reboot;
-  the BT profile survives in settings but layer state does not. **[unverified
-  — mechanism is confident, behaviour untested.]**
+- **Deep sleep clears the OS flag. [verified — observed on hardware]**
+  `CONFIG_ZMK_SLEEP=y`, 10-minute timeout. ZMK deep sleep is System OFF, so
+  waking is a reset. The BT profile survives because `CONFIG_BT_SETTINGS`
+  writes it to flash; the flag does not, because **ZMK never persists
+  active-layer state**. From `app/src/keymap.c`:
+
+  ```c
+  static zmk_keymap_layers_state_t _zmk_keymap_layer_state = 0;
+  ```
+
+  A plain RAM variable, initialised to 0, never passed to `settings_save`.
+  `CONFIG_ZMK_KEYMAP_SETTINGS_STORAGE` persists *bindings, layer names and
+  layer order* for Studio edits — not which layers are lit. So there is **no
+  built-in way** to make the flag survive; it is not a missing config
+  option.
+
+  Options, cheapest first:
+  1. **OS toggle at STG position 33** — one tap, already built, zero risk.
+  2. **Raise `CONFIG_ZMK_IDLE_SLEEP_TIMEOUT` or set `CONFIG_ZMK_SLEEP=n`** —
+     one line, no risk, costs battery. The conf notes deep sleep is the
+     biggest power win.
+  3. **Derive it at boot in a ZMK module** — the BT profile IS persisted and
+     the convention is already "profile 0-1 = macOS, 2+ = Windows", so ~20
+     lines of C could re-derive the flag rather than store it. Needs a
+     module, can't be built or tested in this environment, and settings load
+     asynchronously so Zephyr init ordering matters. Only worth it if 1 and
+     2 are both rejected.
 
   **Test this before fixing it.** In Windows mode, idle past 10 minutes,
   wake, read the OLED: `WIN` means the flag survived and this whole item is
