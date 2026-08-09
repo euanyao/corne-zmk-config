@@ -11,9 +11,12 @@
  * hold-preferred = HOLD_ON_OTHER_KEY_PRESS.
  */
 #define HR_FLAVOR     "balanced"
-/* Reached when the other key has not been released yet. Raising it gives a
- * longer window before a held key becomes a modifier on the timer. */
-#define HR_TAPPING    250
+/* The timer path. With "balanced" a hold can be settled three ways:
+ * the other key coming up, this key coming up (which gives a tap), or this
+ * timer expiring. Raising it widens the window in which a roll can still
+ * resolve as a tap, and lengthens how long a solo hold takes to become a
+ * modifier. Lower it if bare modifiers feel slow. */
+#define HR_TAPPING    300
 #define HR_QUICK_TAP  125
 
 /* Mod Tap */
