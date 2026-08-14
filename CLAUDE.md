@@ -316,6 +316,16 @@ power-cycle after a bulk bond clear; it is not a sign of damage.
 Observed on the pre-`fbcffa5` firmware, which still had the profile-count
 mismatch. Whether that contributed is unknown and not worth guessing at.
 
+**`CONFIG_ZMK_SETTINGS_RESET_ON_START=y` also freezes the central.**
+**[verified — observed on hardware]** The NVS wipe clears the split bond
+alongside everything else. The left half then locked up waiting for the
+peripheral — power-cycling alone did **not** recover it. Recovery required
+putting the left half into bootloader mode and reflashing. The right half
+was fine throughout; its apparent deadness was again a symptom of the
+frozen central. Procedure that worked: flash reset build → power-cycle
+(central freezes) → bootloader-flash the left half with the normal build
+→ power-cycle both halves → split re-bonds automatically.
+
 **Node order in `corne.keymap` determines layer index.** The `#define`s in
 `os/shared/layers.dtsi` don't cause anything — they're names that must
 *match*. Swap the two `#include`s and it compiles fine but the keyboard is

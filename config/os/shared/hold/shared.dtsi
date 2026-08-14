@@ -67,6 +67,17 @@ ht_STG: hold_tap_STG {
     bindings = <&mo_STG>, <&kp>;
 };
 
+// STG hold + Caps Lock tap, tap-preferred. Uses m_caps (50 ms tap-ms) so
+// macOS's Caps Lock debounce is satisfied. Zero binding cells -- the tap
+// target is hard-coded to m_caps.
+ht_STG_caps: hold_tap_STG_caps {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <0>;
+    tapping-term-ms = <HP_TAPPING>;
+    flavor = "tap-preferred";
+    bindings = <&mo_STG>, <&m_caps>;
+};
+
 // FNK_NAV is accessed from two outer-column hold-taps (TAB at pos 12 and
 // RET at pos 23). Tap sends the key, hold activates the layer momentarily.
 // Wraps mo_FNK_NAV rather than a bare &mo so the host signal fires.
