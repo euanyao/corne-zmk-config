@@ -46,10 +46,10 @@
  */
 #define KEY_SPC   &kp  SPACE
 #define KEY_ESC   &to_BAS_kp    0  ESC   // tap: esc    | hold: hard reset to base
-#define KEY_RET   &ht_FNK_NAV   0  RET   // tap: return | hold: FNK_NAV (right-hand route, mid outer)
+#define KEY_QUOT  &ht_FNK_NAV   0  SQT   // tap: '      | hold: FNK_NAV (right-hand route, mid outer)
 #define KEY_TAB   &ht_FNK_NAV   0  TAB   // tap: tab    | hold: FNK_NAV (left-hand route)
-#define KEY_DEL   &ht_STG       0  DEL   // tap: del    | hold: STG (left-hand route)
-#define KEY_QUOT  &ht_STG       0  SQT   // tap: '      | hold: STG (right-hand route, bot outer)
+#define KEY_CAPS  &ht_STG       0  CLCK  // tap: caps lock | hold: STG (left-hand route)
+#define KEY_DEL   &ht_STG       0  DEL   // tap: del       | hold: STG (right-hand route, bot outer)
 #define KEY_BSPC  &mt  LA(BSPC) BSPC    // tap: bspc   | hold: delete word back (Mac: Opt+Bspc)
 
 /* Home row. One behaviour per hand so the positional guard applies -- see

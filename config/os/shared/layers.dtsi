@@ -47,8 +47,8 @@
  * the layer's display-name directly.
  */
 #define H_CWR       F13
-#define F_BAS       LS(F14)
-#define F_DEV       LS(F15)
-#define F_AXN       LS(F16)
-#define F_FNK_NAV   LS(F17)
-#define F_STG       LS(F18)
+#define F_BAS       LS(F19)
+#define F_DEV       LS(F20)
+#define F_AXN       LS(F21)
+#define F_FNK_NAV   LS(F22)
+#define F_STG       LS(F23)

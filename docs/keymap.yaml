@@ -24,8 +24,8 @@ layers:
     - {t: K, h: LALT}
     - {t: L, h: RCTRL}
     - {t: ;, h: RGUI}
-    - {t: RET, h: '&mo_FNK_NAV'}
-  - - {t: DEL, h: '&mo_STG'}
+    - {t: '''', h: '&mo_FNK_NAV'}
+  - - {t: CLCK, h: '&mo_STG'}
     - Z
     - X
     - C
@@ -36,11 +36,11 @@ layers:
     - ','
     - .
     - /
-    - {t: '''', h: '&mo_STG'}
+    - {t: DEL, h: '&mo_STG'}
   - - '&mo_DEV'
     - SPACE
     - {t: '&tog_AXN_on', h: '&mo_AXN'}
-    - {t: '&tog_AXN_on', h: '&mo_AXN'}
+    - {t: RET, h: '&mo_AXN'}
     - SPACE
     - '&mo_DEV'
   WIN:
@@ -352,17 +352,17 @@ combos:
   k: '&cw_OFF'
   l: [BAS]
 - p: [12, 23]
-  k: Gui+Ctl+Sft+F14
+  k: Gui+Ctl+Sft+F19
   l: [BAS]
 - p: [12, 23]
-  k: Gui+Ctl+Sft+F15
+  k: Gui+Ctl+Sft+F20
   l: [DEV]
 - p: [12, 23]
-  k: Gui+Ctl+Sft+F16
+  k: Gui+Ctl+Sft+F21
   l: [AXN]
 - p: [12, 23]
-  k: Gui+Ctl+Sft+F17
+  k: Gui+Ctl+Sft+F22
   l: [FNK_NAV]
 - p: [12, 23]
-  k: Gui+Ctl+Sft+F18
+  k: Gui+Ctl+Sft+F23
   l: [STG]

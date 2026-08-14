@@ -1,27 +1,7 @@
-/* Windows counterparts for the AXN action morphs.
+/* Windows counterpart for mp_a_paste (os/shared/morph/actions.dtsi).
  *
- * NATIVE keycodes -- no host remap. A firmware LCTRL is Control here and a
- * firmware LGUI is the Win key, exactly as written. See os/shared/keys.dtsi.
- *
- * These mirror mp_a_prev / mp_a_next / mp_a_paste in
- * os/shared/morph/actions.dtsi, which stay Cmd-based for macOS.
+ * NATIVE keycodes -- no host remap. LCTRL is Control, LGUI is Win key.
  */
-
-// tap: previous tab   shift: previous virtual desktop
-mp_wa_prev: morph_win_action_prev {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp LC(PG_UP)>, <&kp LC(LG(LEFT))>;
-};
-
-// tap: next tab       shift: next virtual desktop
-mp_wa_next: morph_win_action_next {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp LC(PG_DN)>, <&kp LC(LG(RIGHT))>;
-};
 
 // tap: paste          shift: paste without formatting
 mp_wa_paste: morph_win_action_paste {

@@ -27,7 +27,6 @@
 / {
     macros {
         #include "os/shared/macros/layers.dtsi"
-        #include "os/shared/macros/dev.dtsi"
     };
 };
 

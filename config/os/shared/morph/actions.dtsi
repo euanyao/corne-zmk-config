@@ -1,26 +1,4 @@
-/* AXN-layer actions, shared across both OSes.
- *
- * Windows-canonical: Control is the primary modifier, and the macOS
- * per-keyboard Cmd/Ctrl swap turns these into Command chords there. The
- * prev/next pair was already byte-identical between the old mac and
- * windows files.
- */
-
-// tap:     ⇺        shift:  ⎗
-mp_a_prev: morph_action_prev {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp RG(PG_UP)>, <&kp LG(LC(LEFT))>;
-};
-
-// tap:     ⇻        shift:  ⎘
-mp_a_next: morph_action_next {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp RG(PG_DN)>, <&kp LG(LC(RIGHT))>;
-};
+/* AXN-layer actions, shared across both OSes. */
 
 // tap:     paste    shift:  paste without format
 mp_a_paste: morph_action_paste {
