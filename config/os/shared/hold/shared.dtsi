@@ -68,11 +68,11 @@ ht_STG: hold_tap_STG {
 };
 
 // STG hold + Caps Lock tap, tap-preferred. Uses m_caps (50 ms tap-ms) so
-// macOS's Caps Lock debounce is satisfied. Zero binding cells -- the tap
-// target is hard-coded to m_caps.
+// macOS's Caps Lock debounce is satisfied. Both params are dummies (same
+// pattern as ht_AXN): mo_STG ignores param1, m_caps ignores param2.
 ht_STG_caps: hold_tap_STG_caps {
     compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <0>;
+    #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "tap-preferred";
     bindings = <&mo_STG>, <&m_caps>;

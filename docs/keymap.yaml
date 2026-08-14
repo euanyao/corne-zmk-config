@@ -25,7 +25,7 @@ layers:
     - {t: L, h: RCTRL}
     - {t: ;, h: RGUI}
     - {t: '''', h: '&mo_FNK_NAV'}
-  - - '&ht_STG_caps'
+  - - {t: '&m_caps', h: '&mo_STG'}
     - Z
     - X
     - C
