@@ -1,7 +1,7 @@
 /* Bluetooth profile == OS mode.
  *
  * Selecting a profile also sets the OS: profiles 0-1 are the macOS work
- * laptop, 2-3 the Windows machines.
+ * laptop, 2-5 the Windows machines.
  *
  * macOS is the unflagged default, so the mac profiles just clear to base.
  * The windows profiles additionally light the WIN flag.
@@ -32,6 +32,8 @@ BT_MAC(1, 0)   // macOS work laptop
 BT_MAC(2, 1)   // macOS spare
 BT_WIN(3, 2)   // Windows PC 1
 BT_WIN(4, 3)   // Windows PC 2
+BT_WIN(5, 4)   // Windows spare
+BT_WIN(6, 5)   // Windows spare
 
 /* mp_sSTG_cb -- clearing bluetooth bonds.
  *
