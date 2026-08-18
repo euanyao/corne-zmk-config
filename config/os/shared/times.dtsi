@@ -16,7 +16,7 @@
  * timer expiring. Raising it widens the window in which a roll can still
  * resolve as a tap, and lengthens how long a solo hold takes to become a
  * modifier. Lower it if bare modifiers feel slow. */
-#define HR_TAPPING    300
+#define HR_TAPPING    220
 #define HR_QUICK_TAP  125
 
 /* Mod Tap */
