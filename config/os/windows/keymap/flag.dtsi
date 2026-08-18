@@ -33,6 +33,9 @@
              * why a single overlay can carry them without colliding. */
             #define WN_ESC   &to_BAS_win_kp  0  ESC
             #define WN_BSPC  &mt  LC(BSPC)  BSPC
+            /* Left thumb pos 37: LGUI on BAS becomes LCTRL here, keeping
+             * the primary modifier on the same key across OSes. */
+            #define WN_LGUI  &kp LCTRL
 
             /* Home-row mods, swapped for Windows.
              *
@@ -50,7 +53,6 @@
              * themselves and are fixed on WIN_DEV / WIN_AXN -- note those
              * two still use the OLD arrangement (primary on S/L) and now
              * disagree with BAS. FNK_NAV has no overlay at all. */
-            #define WN_A     &hml  LCTRL  A
             #define WN_S     &hml  LGUI   S
             #define WN_L     &hmr  RGUI   L
             #define WN_SEMI  &hmr  RCTRL  SEMI
@@ -58,8 +60,8 @@
             display-name = "WIN";
             bindings = <
     WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   WN_BSPC
-    &trans   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
+    &trans  &trans   WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
-                            &trans  &trans  &trans        &trans  &trans  &trans
+                         &trans  WN_LGUI  &trans        &trans  &trans  &trans
             >;
         };

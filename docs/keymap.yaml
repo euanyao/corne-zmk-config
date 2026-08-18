@@ -14,7 +14,7 @@ layers:
     - P
     - {t: BSPC, h: Alt+BSPC}
   - - {t: TAB, h: '&mo_FNK_NAV'}
-    - {t: A, h: LGUI}
+    - A
     - {t: S, h: LCTRL}
     - {t: D, h: LALT}
     - {t: F, h: LSHFT}
@@ -38,7 +38,7 @@ layers:
     - /
     - {t: DEL, h: '&mo_STG'}
   - - '&mo_DEV'
-    - SPACE
+    - LGUI
     - {t: '&tog_AXN_on', h: '&mo_AXN'}
     - {t: RET, h: '&mo_AXN'}
     - SPACE
@@ -57,7 +57,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: BSPC, h: Ctl+BSPC}
   - - {t: ▽, type: trans}
-    - {t: A, h: LCTRL}
+    - {t: ▽, type: trans}
     - {t: S, h: LGUI}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -81,7 +81,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - LCTRL
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
