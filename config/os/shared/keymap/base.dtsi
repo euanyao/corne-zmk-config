@@ -15,6 +15,6 @@
     KEY_ESC  &kp Q  &kp W  &kp E  &kp R  &kp T        &kp Y  &kp U      &kp I    &kp O     &kp P  KEY_BSPC
     KEY_TAB   HR_A   HR_S   HR_D   HR_F  &kp G        &kp H   HR_J       HR_K     HR_L   HR_SEMI   KEY_QUOT
     KEY_CAPS  &kp Z  &kp X  &kp C  &kp V  &kp B        &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH     KEY_DEL
-                        THU_DEV  &kp LGUI  THU_AXN    &ht_AXN_kp 0 RET  KEY_SPC  &mo_DEV
+                        THU_DEV  &kp LSHFT  THU_AXN    &ht_AXN_kp 0 RET  KEY_SPC  &mo_DEV
             >;
         };

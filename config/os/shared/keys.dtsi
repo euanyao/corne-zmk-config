@@ -59,7 +59,7 @@
  * A and ; carry the PRIMARY modifier -- LGUI (Command) on macOS, swapped to
  * LCTRL (Control) by the WIN overlays. S and L carry the secondary. The
  * primary therefore sits on the same finger on both OSes. */
-#define HR_A      &kp A
+#define HR_A      &hml  LGUI   A
 #define HR_S      &hml  LCTRL  S
 #define HR_D      &hml  LALT   D
 #define HR_F      &hml  LSHFT  F
