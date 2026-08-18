@@ -1,5 +1,13 @@
 /* AXN-layer actions, shared across both OSes. */
 
+// tap: /    shift: |
+mp_fslh_pipe: morph_fslh_pipe {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+    bindings = <&kp FSLH>, <&kp PIPE>;
+};
+
 // tap:     paste    shift:  paste without format
 mp_a_paste: morph_action_paste {
     compatible = "zmk,behavior-mod-morph";

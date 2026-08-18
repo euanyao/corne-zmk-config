@@ -56,16 +56,25 @@ to_BAS_win_kp: to_BAS_win_kp {
     bindings = <&to_BAS_win>, <&kp>;
 };
 
-// STG on hold, the outer-column key on tap. Bound on BOTH halves (TAB at
-// pos 24, quote at pos 35) so either hand can hold the layer while the
-// other reaches a bootloader key -- see os/shared/keymap/typing.dtsi.
-// Wraps mo_STG rather than a bare &mo so the host layer signal still fires.
+// STG on hold, outer-column key on tap. Two variants:
+//   ht_STG       -- generic, tap = &kp, used on TAB (pos 24) for DEL
+//   ht_STG_fslh  -- tap = mp_fslh_pipe (/ on tap, | on shift), used on pos 35
+// Both halves bound so either hand can hold STG while the other reaches
+// a bootloader key. Wrap mo_STG so the host layer signal still fires.
 ht_STG: hold_tap_STG {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
     bindings = <&mo_STG>, <&kp>;
+};
+
+ht_STG_fslh: hold_tap_STG_fslh {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HP_TAPPING>;
+    flavor = "hold-preferred";
+    bindings = <&mo_STG>, <&mp_fslh_pipe>;
 };
 
 // STG hold + Caps Lock tap, tap-preferred. Uses m_caps (50 ms tap-ms) so

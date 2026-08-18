@@ -57,9 +57,9 @@
 
             display-name = "WIN";
             bindings = <
-    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   WN_BSPC
+    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   &trans
     &trans   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
-                            &trans  &trans  &trans        &trans  &trans  &trans
+                         &trans  WN_BSPC  &trans        &trans  &trans  &trans
             >;
         };
