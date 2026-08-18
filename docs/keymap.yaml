@@ -12,7 +12,7 @@ layers:
     - I
     - O
     - P
-    - '~'
+    - '`'
   - - {t: TAB, h: '&mo_FNK_NAV'}
     - {t: A, h: LGUI}
     - {t: S, h: LCTRL}
