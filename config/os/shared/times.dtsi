@@ -18,6 +18,7 @@
  * modifier. Lower it if bare modifiers feel slow. */
 #define HR_TAPPING    220
 #define HR_QUICK_TAP  125
+#define HR_PRIOR_IDLE 150
 
 /* Mod Tap */
 #define MT_TAPPING    220
