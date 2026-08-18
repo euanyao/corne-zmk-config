@@ -69,12 +69,12 @@ ht_STG: hold_tap_STG {
     bindings = <&mo_STG>, <&kp>;
 };
 
-ht_STG_fslh: hold_tap_STG_fslh {
+ht_STG_bslh: hold_tap_STG_bslh {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&mo_STG>, <&mp_fslh_pipe>;
+    bindings = <&mo_STG>, <&mp_bslh_pipe>;
 };
 
 // STG hold + Caps Lock tap, tap-preferred. Uses m_caps (50 ms tap-ms) so

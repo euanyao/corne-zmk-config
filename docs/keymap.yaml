@@ -36,7 +36,7 @@ layers:
     - ','
     - .
     - /
-    - {t: /, h: '&mo_STG', s: '|'}
+    - {t: \, h: '&mo_STG', s: '|'}
   - - '&mo_DEV'
     - {t: BSPC, h: Alt+BSPC}
     - {t: '&tog_AXN_on', h: '&mo_AXN'}

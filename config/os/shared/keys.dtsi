@@ -49,7 +49,7 @@
 #define KEY_QUOT  &ht_FNK_NAV   0  SQT   // tap: '      | hold: FNK_NAV (right-hand route, mid outer)
 #define KEY_TAB   &ht_FNK_NAV   0  TAB   // tap: tab    | hold: FNK_NAV (left-hand route)
 #define KEY_CAPS  &ht_STG_caps 0 0  // tap: caps lock (50 ms for macOS) | hold: STG (left-hand route)
-#define KEY_FSLH  &ht_STG_fslh  0  0    // tap: / (shift: |) | hold: STG (right-hand route, bot outer)
+#define KEY_BSLH  &ht_STG_bslh  0  0    // tap: \ (shift: |) | hold: STG (right-hand route, bot outer)
 #define KEY_BSPC  &mt  LA(BSPC) BSPC    // tap: bspc   | hold: delete word back (Mac: Opt+Bspc)
 
 /* Home row. One behaviour per hand so the positional guard applies -- see
