@@ -1,19 +1,18 @@
 // Home-row mods, one behaviour per hand. A hold only registers when the
 // next key is on the OTHER hand (or a thumb), so same-hand rolls type
-// letters instead of firing modifiers. That positional guard is what keeps
-// this safe -- it is doing the work that a conservative flavor would
-// otherwise have to.
+// letters instead of firing modifiers.
 //
 // require-prior-idle-ms: if a key was pressed within this window the
-// hold-tap resolves as a tap, keeping rolls clean. During a deliberate
-// shortcut you naturally pause briefly first; 150 ms is enough to clear
-// the window without being noticeable. hold-trigger-on-release remains
-// off -- it deferred the positional check to key release, which added
-// latency rather than removing it.
+// hold-tap resolves as a tap immediately, covering normal typing flow.
+// Value set by the formula 10500 / WPM (see times.dtsi).
+//
+// hold-trigger-on-release: defers the positional check to the trigger
+// key's release rather than its press. Enables same-hand modifier combos
+// (e.g. LGUI+LSHIFT = D+F) that are impossible without it. Costs a small
+// delay on same-hand rolls (tap character appears at release not press).
 //
 // &hml on the left home row (A S D F), &hmr on the right (J K L ;).
-// Using the wrong one silently disables the positional guard, so keep them
-// matched to the hand.
+// Using the wrong one silently disables the positional guard.
 
 hml: homerow_mods_left {
     compatible = "zmk,behavior-hold-tap";
@@ -23,6 +22,7 @@ hml: homerow_mods_left {
     require-prior-idle-ms = <HR_PRIOR_IDLE>;
     flavor = HR_FLAVOR;
     hold-trigger-key-positions = <KP_RIGHT KP_THUMB>;
+    hold-trigger-on-release;
     bindings = <&kp>, <&kp>;
 };
 
@@ -34,6 +34,7 @@ hmr: homerow_mods_right {
     require-prior-idle-ms = <HR_PRIOR_IDLE>;
     flavor = HR_FLAVOR;
     hold-trigger-key-positions = <KP_LEFT KP_THUMB>;
+    hold-trigger-on-release;
     bindings = <&kp>, <&kp>;
 };
 

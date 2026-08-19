@@ -14,16 +14,16 @@ layers:
     - P
     - '`'
   - - {t: TAB, h: '&mo_FNK_NAV'}
-    - {t: A, h: LGUI}
+    - {t: A, h: LALT}
     - {t: S, h: LCTRL}
-    - {t: D, h: LALT}
+    - {t: D, h: LGUI}
     - {t: F, h: LSHFT}
     - G
     - H
     - {t: J, h: RSHFT}
-    - {t: K, h: LALT}
+    - {t: K, h: RGUI}
     - {t: L, h: RCTRL}
-    - {t: ;, h: RGUI}
+    - {t: ;, h: RALT}
     - {t: '''', h: '&mo_FNK_NAV'}
   - - {t: '&m_caps', h: '&mo_STG'}
     - Z
@@ -57,16 +57,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: A, h: LCTRL}
+    - {t: ▽, type: trans}
     - {t: S, h: LGUI}
+    - {t: D, h: LCTRL}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: K, h: RCTRL}
     - {t: L, h: RGUI}
-    - {t: ;, h: RCTRL}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -100,16 +100,16 @@ layers:
     - ^
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: '&', h: LGUI}
+    - {t: '&', h: LALT}
     - {t: '{', h: LCTRL}
-    - {t: '}', h: LALT}
+    - {t: '}', h: LGUI}
     - {t: '=', h: LSHFT}
     - ''''
     - '`'
     - {t: '!', h: RSHFT}
-    - {t: '[', h: LALT}
+    - {t: '[', h: RGUI}
     - {t: ']', h: RCTRL}
-    - {t: '|', h: RGUI}
+    - {t: '|', h: RALT}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - ;
@@ -147,19 +147,19 @@ layers:
     - Gui+S
     - Gui+D
     - Gui+F
-    - Alt+Gui+F
+    - Gui+`
     - '0'
     - {t: '4', h: LSHFT}
-    - {t: '5', h: LALT}
+    - {t: '5', h: RGUI}
     - {t: '6', h: RCTRL}
-    - {t: '=', h: RGUI}
+    - {t: '=', h: RALT}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Gui+Z
     - Gui+X
     - Gui+C
     - {t: Gui+V, s: Sft+Gui+V}
-    - Sft+Gui+Z
+    - Gui+TAB
     - '-'
     - '1'
     - '2'
@@ -186,9 +186,9 @@ layers:
     - ''
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: F5, h: LGUI}
+    - {t: F5, h: LALT}
     - {t: F6, h: LCTRL}
-    - {t: F7, h: LALT}
+    - {t: F7, h: LGUI}
     - {t: F8, h: LSHFT}
     - {t: ▽, type: trans}
     - LEFT
@@ -272,16 +272,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: '&', h: LCTRL}
+    - {t: ▽, type: trans}
     - {t: '{', h: LGUI}
+    - {t: '}', h: LCTRL}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: '[', h: RCTRL}
     - {t: ']', h: RGUI}
-    - {t: '|', h: RCTRL}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -322,16 +322,59 @@ layers:
     - Ctl+H
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: '5', h: RCTRL}
     - {t: '6', h: RGUI}
-    - {t: '=', h: RCTRL}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Ctl+Z
     - Ctl+X
     - Ctl+C
     - {t: Ctl+V, s: Ctl+Sft+V}
-    - Ctl+Y
+    - Alt+TAB
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  WIN_FNK_NAV:
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: F6, h: LGUI}
+    - {t: F7, h: LCTRL}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

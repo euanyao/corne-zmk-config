@@ -11,14 +11,21 @@
  * hold-preferred = HOLD_ON_OTHER_KEY_PRESS.
  */
 #define HR_FLAVOR     "balanced"
-/* The timer path. With "balanced" a hold can be settled three ways:
- * the other key coming up, this key coming up (which gives a tap), or this
- * timer expiring. Raising it widens the window in which a roll can still
- * resolve as a tap, and lengthens how long a solo hold takes to become a
- * modifier. Lower it if bare modifiers feel slow. */
-#define HR_TAPPING    220
-#define HR_QUICK_TAP  125
-#define HR_PRIOR_IDLE 150
+/* The timer path. With "balanced" a hold settles three ways: the other
+ * key's release, this key's release (tap), or this timer expiring.
+ * Set high (280 ms) so the timer is rarely the deciding factor --
+ * require-prior-idle-ms and balanced-flavor carry most cases.
+ * The timer only fires for solo mod holds and same-hand mod+alpha
+ * while the other hand is on the mouse. */
+#define HR_TAPPING    280
+/* Rapid re-press of a hold-tap forces tap (enables key repeat, protects
+ * fast same-key sequences like "ll", "ss"). 175 ms covers ~300 WPM
+ * re-press rate, which is realistic fast typing. */
+#define HR_QUICK_TAP  175
+/* Immediately resolve as tap when the previous key was pressed within
+ * this window -- eliminates typing delays during normal flow.
+ * Formula: 10500 / WPM. 175 ms covers ~60 WPM (ergo keyboard baseline). */
+#define HR_PRIOR_IDLE 175
 
 /* Mod Tap */
 #define MT_TAPPING    220

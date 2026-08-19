@@ -74,19 +74,19 @@ toward *more* layers, not fewer.
 
 ## 3. Current architecture — authoritative
 
-9 layers, one shared set plus two Windows overlays:
+9 layers, one shared set plus three Windows overlays:
 
 | # | layer | |
 |---|---|---|
 | 0 | BAS | shared; always active, everything falls through to it |
-| 1 | WIN | OS flag, almost all `&trans`. 3 keys: pos 0, 11, 12 |
+| 1 | WIN | OS flag, almost all `&trans`. Binds pos 0, 20, 21, 37 |
 | 2 | DEV | shared |
 | 3 | AXN | shared; the only latchable layer |
-| 4 | FNK | shared; empty slots `&trans` so it composes over AXN |
-| 5 | NAV | shared; arrows + HOME/END/PgUp/PgDn, held by right thumb |
-| 6 | STG | shared; **keyboard config only**, OS-independent |
-| 7 | WIN_DEV | conditional `<WIN DEV>` — 1 key |
-| 8 | WIN_AXN | conditional `<WIN AXN>` — 9 keys |
+| 4 | FNK_NAV | shared; F-keys left, nav+media right |
+| 5 | STG | shared; **keyboard config only**, OS-independent |
+| 6 | WIN_DEV | conditional `<WIN DEV>` — pos 13, 14, 20, 21 |
+| 7 | WIN_AXN | conditional `<WIN AXN>` — shortcuts + pos 20, 21 |
+| 8 | WIN_FNK_NAV | conditional `<WIN FNK_NAV>` — pos 13, 14 (hml swap) |
 
 **WIN sits at 1, below the typing layers, on purpose.** ZMK's built-in OLED
 status screen shows the *highest active* layer, so a high WIN made the OLED
@@ -118,7 +118,8 @@ so the firmware does the translating:
 |---|---|---|
 | `WIN` | 1 | word-delete + ESC panic — identical on every typing layer |
 | `WIN_DEV` | 7 | DEV pos 25, Cmd+R → Ctrl+R |
-| `WIN_AXN` | 8 | nine AXN shortcuts: clipboard, find, replace, tab/desktop switching |
+| `WIN_AXN` | 7 | AXN shortcuts: clipboard, window-switch (Alt+Tab at pos 29), desktop switching |
+| `WIN_FNK_NAV` | 8 | FNK_NAV pos 13/14 hml swap (LGUI↔LCTRL) |
 
 **History, so it isn't re-litigated.** An earlier design wrote everything
 Cmd-canonical and relied on a PowerToys Win/Ctrl remap on the Windows
@@ -128,28 +129,26 @@ built-in keyboard, RDP and VM sessions too. Do not reintroduce a host-remap
 assumption.
 
 **Home-row mods are swapped per OS by those same overlays.** BAS puts the
-primary modifier (Command) on **S/L** and the secondary (Control) on
-**A/`;`**. Windows wants Control as primary, so `WIN`, `WIN_DEV` and
-`WIN_AXN` swap them — S/L become `LCTRL`, A/`;` become `LGUI`. **The primary
-modifier keeps the same finger on both OSes.**
+primary modifier (Command) on **A/K** and the secondary (Control) on **S/L**.
+`;` carries RALT on both OSes (not part of the primary/secondary swap).
+Windows wants Control as primary, so `WIN`, `WIN_DEV`, `WIN_AXN` and
+`WIN_FNK_NAV` swap them — A/K become `LCTRL`/`RCTRL`, S/L become `LGUI`/`RGUI`.
+**The primary modifier keeps the same finger on both OSes.**
 
-| layer | 13 (A) | 14 (S) | 21 (L) | 22 (;) |
-|---|---|---|---|---|
-| BAS / DEV / AXN / FNK / NAV | **LGUI** | LCTRL | RCTRL | **RGUI** |
-| WIN / WIN_DEV / WIN_AXN | **LCTRL** | LGUI | RGUI | **RCTRL** |
+| layer | 13 (A) | 14 (S) | 15 (D) | 20 (K) | 21 (L) | 22 (;) |
+|---|---|---|---|---|---|---|
+| BAS / DEV / FNK_NAV | LALT | LCTRL | **LGUI** | **RGUI** | RCTRL | RALT |
+| WIN / WIN_DEV / WIN_FNK_NAV | LALT | LGUI | **LCTRL** | **RCTRL** | RGUI | RALT |
 
-Primary modifier on **A/`;`**, secondary on **S/L**, consistent on every
-layer and mirrored per OS. FNK pos 21 and NAV pos 13/14 bind other things,
-so they are not part of the pattern.
+Primary modifier on **D/K**, secondary on **S/L**, consistent on every
+layer and mirrored per OS. A carries LALT and ; carries RALT — both
+unchanged across OSes (not part of the primary/secondary swap).
 
-`WIN` covers BAS for free — it already sat directly above it. DEV and AXN
-bind those positions themselves, so their overlays carry the swap.
+Note: AXN left home row positions are straight `&kp` shortcut bindings
+(Cmd+A/S/D/F), not hold-taps, so they are not part of this table.
 
-**STILL UNSWAPPED: FNK pos 14 and NAV pos 21.** Neither has an overlay, so
-both are the Win key on Windows. **NAV's actively misfires** — `Win+arrow`
-snaps windows there, so selection-by-word would rearrange your desktop
-instead. FNK's is milder: a Win-key hold while pressing F-keys. Fixing needs
-a `WIN_FNK` / `WIN_NAV` pair, one key each, +2 layers.
+`WIN` covers BAS for free. DEV and FNK_NAV bind those positions
+themselves, so their overlays (WIN_DEV / WIN_FNK_NAV) carry the swap.
 
 ### 3.2 OS flag
 
@@ -234,15 +233,17 @@ What that bought:
 conditional overlay** — the same pattern WIN_STG used, on the layer that has
 the space. Do not put them back on STG.
 
-**WIN_AXN** — 9 keys at positions 2, 4, 5, 17, 25, 26, 27, 28, 29:
-clipboard (undo/cut/copy/paste/redo), find, replace, tab and
-virtual-desktop switching. This is what removed the PowerToys dependency —
-without it AXN's clipboard cluster arrives as Win+Z/X/C/V on Windows and
-opens snap layouts, the power-user menu, Copilot and clipboard history.
+**WIN_AXN** — keys at positions 2, 4, 5, 17, 20, 21, 25, 26, 27, 28, 29:
+clipboard (undo/cut/copy/paste), find, replace (Ctrl+H at pos 17), app-switch
+(Alt+Tab at pos 29) and virtual-desktop switching. Also swaps the numpad
+home-row mods at pos 20/21 (RGUI↔RCTRL). This is what removed the PowerToys
+dependency — without it AXN's clipboard cluster arrives as Win+Z/X/C/V on
+Windows and opens snap layouts, the power-user menu, Copilot and clipboard
+history.
 
-Redo is `Ctrl+Y` there rather than `Ctrl+Shift+Z` (both work; Ctrl+Y is more
-universal), and replace is `Ctrl+H`, which is the reason it needs an
-override at all — macOS uses Opt+Cmd+F and there is no shared chord.
+**Pos 17 on Mac** is now `LG(GRAVE)` (same-app window switch). Win overrides
+it to `LC(H)` (replace), so replace on Windows stays at pos 17 but Mac's
+window-switch shortcut is different from the old Opt+Cmd+F for replace.
 
 **WIN_DEV** — 1 key: DEV pos 25, Cmd+R → Ctrl+R. Thin, but the alternative
 sends Win+R and opens the Run dialog. It is also where future DEV divergence
@@ -467,16 +468,49 @@ author clearly intended positional HRM and never wired it up, so the owner's
 
 **DECIDED: keep HRM, fix the config.** `&hm` split into `&hml` (left home
 row) and `&hmr` (right), each with the opposite finger block **plus both
-thumbs** as trigger positions, `require-prior-idle-ms = 150`, and
-`hold-trigger-on-release`.
+thumbs** as trigger positions, plus the three properties that make
+positional HRM usable:
+
+| property | value | rationale |
+|---|---|---|
+| `tapping-term-ms` | 280 ms | High so the timer rarely decides — `require-prior-idle-ms` and `balanced` carry most cases |
+| `quick-tap-ms` | 175 ms | Protects fast same-key sequences (`ll`, `ss`); covers ~300 WPM re-press rate |
+| `require-prior-idle-ms` | 175 ms | Immediate tap when previous key was <175 ms ago; formula 10500/WPM covers ~60 WPM |
+| `hold-trigger-on-release` | on | Defers positional check to trigger-key release; enables same-hand modifier combos (D+F = LGUI+LSHIFT) |
 
 Thumbs are in both trigger lists deliberately — strict cross-hand would
 break mod + layer-thumb chords like Ctrl + AXN-arrow for word jumps.
 
 Why not drop HRM: on 21 keys/half it buys 8 modifiers at **zero key cost**.
 Sticky keys add a keypress and a layer hop to every shortcut; base-layer
-combos misfire while typing; thumb mods don't fit. `HR_PRIOR_IDLE` is a
-starting guess and wants tuning — one number in `times.dtsi`.
+combos misfire while typing; thumb mods don't fit.
+
+#### Tuning knobs (all in `config/os/shared/times.dtsi`)
+
+The "timeless HRM" design (urob/zmk-config) makes `tapping-term-ms` rarely
+the deciding factor. `require-prior-idle-ms` handles typing flow; `balanced`
+flavor handles cross-hand chords; positional hold-tap handles same-hand
+rolls. The timer only fires for solo mod holds and same-hand mod+alpha
+while the other hand is on the mouse.
+
+**WPM formula:** `require-prior-idle-ms` ≥ `10500 ÷ WPM`
+(the value must exceed the inter-keystroke gap at your normal typing speed;
+lower WPM → larger value needed).
+
+| symptom | direction | knob |
+|---|---|---|
+| HRMs feel sticky / delayed during typing | raise | `HR_PRIOR_IDLE` |
+| False mod activations on same-hand rolls | raise | `HR_PRIOR_IDLE` |
+| Shortcut key not registering (cross-hand) | lower | `HR_PRIOR_IDLE` |
+| False mod activations cross-hand (chord when wanted tap) | raise | `HR_TAPPING` |
+| Mod holds feel slow / too much wait | lower | `HR_TAPPING` |
+| Same-hand rolls produce mods instead of letters | raise | `HR_TAPPING` |
+| Key repeat or fast same-key typing triggers mods | raise | `HR_QUICK_TAP` |
+| `hold-trigger-on-release` | on = enables D+F LGUI+LSHIFT; off = same-hand chars appear faster | toggle in `shared.dtsi` |
+
+**Current values:** `HR_TAPPING = 280`, `HR_QUICK_TAP = 175`,
+`HR_PRIOR_IDLE = 175`. Values are unverified on hardware — treat as
+a tuned starting point, not a final answer.
 
 ---
 
@@ -642,7 +676,7 @@ only in this file.
   and asserts: every layer binds exactly 42 keys, every `&behavior`
   resolves, and keymap node order matches `layers.dtsi`. A pass means
   "worth flashing", **not** "correct" — it does not validate devicetree
-  semantics. Current: *9 layers, 61 behaviours, order ok*.
+  semantics. Current: *9 layers, order ok* (behaviour count will update on next check run).
 - **`./draw-keymap.sh`** — regenerates `docs/keymap.yaml` + `docs/keymap.svg`.
   Needs `keymap-drawer` (installed, v0.23.0 at `~/.local/bin/keymap`; export
   `PATH="$HOME/.local/bin:$PATH"` first). **Re-run after any keymap change.**
