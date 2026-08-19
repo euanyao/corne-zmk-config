@@ -13,17 +13,18 @@
              * Without this, AXN's Win+Z/X/C/V opens snap layouts, the
              * power-user menu, Copilot and clipboard history instead.
              *
-             * Numpad home-row mods at 21/22 are swapped here: AXN has
-             * RCTRL+N6 and RGUI+EQUAL; Windows swaps them to RGUI+N6,
-             * RCTRL+EQUAL so the primary modifier stays on the same finger. */
-            #define WA_L     &hmr  RGUI   N6
-            #define WA_SEMI  &hmr  RCTRL  EQUAL
+             * Numpad home-row mods at 20/21 are swapped here: AXN has
+             * RGUI+N5 and RCTRL+N6; Windows swaps them to RCTRL+N5,
+             * RGUI+N6 so the primary modifier stays on the same finger.
+             * Position 22 (RALT+EQUAL) is unchanged across OSes. */
+            #define WA_K  &hmr  RCTRL  N5
+            #define WA_L  &hmr  RGUI   N6
 
             display-name = "WIN_AXN";
             bindings = <
     &trans  &trans  &kp LC(W)  &kp LC(E)  &kp LC(R)      &kp LC(T)        &trans  &trans  &trans   &trans   &trans  &trans
-    &trans  &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(H)        &trans  &trans  &trans    WA_L   WA_SEMI  &trans
-    &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LC(Y)      &trans  &trans  &trans   &trans   &trans  &trans
+    &trans  &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(H)        &trans  &trans   WA_K     WA_L    &trans   &trans
+    &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LA(TAB)    &trans  &trans  &trans   &trans   &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

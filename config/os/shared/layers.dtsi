@@ -32,8 +32,9 @@
 #define AXN      3
 #define FNK_NAV  4   /* F-keys left, nav+media right; latchable via right thumb */
 #define STG      5
-#define WIN_DEV  6   /* conditional: WIN + DEV */
-#define WIN_AXN  7   /* conditional: WIN + AXN */
+#define WIN_DEV      6   /* conditional: WIN + DEV */
+#define WIN_AXN      7   /* conditional: WIN + AXN */
+#define WIN_FNK_NAV  8   /* conditional: WIN + FNK_NAV */
 
 /* Host signal keys.
  *

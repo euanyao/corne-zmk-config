@@ -12,14 +12,14 @@
  */
 
         dev_layer {
-            #define DV13  &hml  LGUI   AMPS
+            #define DV13  &hml  LALT   AMPS
             #define DV14  &hml  LCTRL  LBRC
-            #define DV15  &hml  LALT   RBRC
+            #define DV15  &hml  LGUI   RBRC
             #define DV16  &hml  LSHFT  EQUAL
             #define DV19  &hmr  RSHFT  EXCL
-            #define DV20  &hmr  LALT   LBKT
+            #define DV20  &hmr  RGUI   LBKT
             #define DV21  &hmr  RCTRL  RBKT
-            #define DV22  &hmr  RGUI   PIPE
+            #define DV22  &hmr  RALT   PIPE
 
             display-name = "DEV";
             bindings = <
@@ -37,23 +37,23 @@
              * Row 0, left: select-extend (Q), then Cmd+W/E/R/T (close, open,
              * reload, new tab -- common browser/editor shortcuts).
              * Row 1, left: Cmd+A/S/D/F (select-all, save, bookmark/select,
-             * find) then Cmd+G (Opt+Cmd+F) for replace. Right home row keeps
-             * hold-tap mods for numpad chord modifiers.
-             * Row 2: clipboard -- Cmd+Z/X/C/Shift+Z paste; &mp_a_paste for
-             * paste-without-formatting.
+             * find) then Cmd+GRAVE (same-app window switch). Right home row
+             * keeps hold-tap mods for numpad chord modifiers.
+             * Row 2: clipboard -- Cmd+Z/X/C + Cmd+Tab (app switch); &mp_a_paste
+             * for paste-without-formatting.
              */
             #define AX01  &kp  LA(LS(RIGHT))  // extend selection right (works on Windows too)
-            #define AX17  &kp  LA(LG(F))      // replace (Opt+Cmd+F on Mac, overridden as Ctrl+H on WIN)
+            #define AX17  &kp  LG(GRAVE)      // same-app window switch (Mac); WIN_AXN keeps Ctrl+H here
             #define AX19  &hmr LSHFT N4
-            #define AX20  &hmr LALT  N5
+            #define AX20  &hmr RGUI  N5
             #define AX21  &hmr RCTRL N6
-            #define AX22  &hmr RGUI  EQUAL
+            #define AX22  &hmr RALT  EQUAL
 
             display-name = "AXN";
             bindings = <
     &trans       AX01  &kp LG(W)  &kp LG(E)  &kp LG(R)      &kp LG(T)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
     &trans  &kp LG(A)  &kp LG(S)  &kp LG(D)  &kp LG(F)          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
-    &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp RS(RG(Z))         &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
+    &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp LG(TAB)           &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
                             &trans  &trans  &tog_AXN_off        &tog_AXN_off  &trans  &trans
             >;
         };
@@ -93,9 +93,9 @@
              *
              * Position 0 stays &trans so WIN still wins there.
              * &none on unused positions to block BAS fall-through. */
-            #define FN13  &hml LGUI  F5
+            #define FN13  &hml LALT  F5
             #define FN14  &hml LCTRL F6
-            #define FN15  &hml LALT  F7
+            #define FN15  &hml LGUI  F7
             #define FN16  &hml LSHFT F8
 
             display-name = "FNK_NAV";

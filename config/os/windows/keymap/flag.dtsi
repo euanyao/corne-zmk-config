@@ -46,19 +46,18 @@
              * Windows and Command on S/L on macOS, so muscle memory moved
              * between machines.
              *
-             * This only fixes BAS. DEV and AXN bind these positions
-             * themselves and are fixed on WIN_DEV / WIN_AXN -- note those
-             * two still use the OLD arrangement (primary on S/L) and now
-             * disagree with BAS. FNK_NAV has no overlay at all. */
-            #define WN_A     &hml  LCTRL  A
-            #define WN_S     &hml  LGUI   S
-            #define WN_L     &hmr  RGUI   L
-            #define WN_SEMI  &hmr  RCTRL  SEMI
+             * This only fixes BAS. DEV, AXN and FNK_NAV bind their own
+             * home-row positions and are fixed on WIN_DEV / WIN_AXN /
+             * WIN_FNK_NAV respectively. */
+            #define WN_S  &hml  LGUI   S
+            #define WN_D  &hml  LCTRL  D
+            #define WN_K  &hmr  RCTRL  K
+            #define WN_L  &hmr  RGUI   L
 
             display-name = "WIN";
             bindings = <
     WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   &trans
-    &trans   WN_A    WN_S   &trans  &trans  &trans        &trans  &trans  &trans   WN_L   WN_SEMI    &trans
+    &trans  &trans   WN_S    WN_D   &trans  &trans        &trans  &trans   WN_K    WN_L    &trans     &trans
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
                          &trans  WN_BSPC  &trans        &trans  &trans  &trans
             >;

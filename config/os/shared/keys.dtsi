@@ -34,10 +34,11 @@
  * work instead. Do not reintroduce a host-remap assumption.
  *
  * HOME-ROW MODS are swapped per OS by the same overlays. BAS puts the
- * primary modifier (Command) on A/; and the secondary (Control) on S/L.
- * Windows wants Control as the primary, so WIN / WIN_DEV / WIN_AXN swap
- * them -- A/; become LCTRL, S/L become LGUI. The primary modifier therefore
- * keeps the SAME FINGER on both OSes.
+ * primary modifier (Command) on D/K and the secondary (Control) on S/L.
+ * Windows wants Control as the primary, so WIN / WIN_DEV / WIN_AXN /
+ * WIN_FNK_NAV swap them -- D/K become LCTRL/RCTRL, S/L become LGUI/RGUI.
+ * A carries LALT and ; carries RALT -- neither is swapped across OSes.
+ * The primary modifier therefore keeps the SAME FINGER on both OSes.
  *
  * STILL UNSWAPPED: FNK_NAV pos 14 has no overlay, so the hold is LCTRL
  * on macOS but should be LGUI (Win key) on Windows -- same finger issue as
@@ -56,17 +57,18 @@
  * os/shared/hold/shared.dtsi. Using the wrong hand's behaviour silently
  * disables the guard.
  *
- * A and ; carry the PRIMARY modifier -- LGUI (Command) on macOS, swapped to
- * LCTRL (Control) by the WIN overlays. S and L carry the secondary. The
- * primary therefore sits on the same finger on both OSes. */
-#define HR_A      &hml  LGUI   A
+ * D and K carry the PRIMARY modifier -- LGUI/RGUI (Command) on macOS,
+ * swapped to LCTRL/RCTRL by the WIN overlays. S and L carry the secondary.
+ * A carries LALT and ; carries RALT (not swapped). The primary therefore
+ * sits on the same finger on both OSes. */
+#define HR_A      &hml  LALT   A
 #define HR_S      &hml  LCTRL  S
-#define HR_D      &hml  LALT   D
+#define HR_D      &hml  LGUI   D
 #define HR_F      &hml  LSHFT  F
 #define HR_J      &hmr  RSHFT  J
-#define HR_K      &hmr  LALT   K
+#define HR_K      &hmr  RGUI   K
 #define HR_L      &hmr  RCTRL  L
-#define HR_SEMI   &hmr  RGUI   SEMI
+#define HR_SEMI   &hmr  RALT   SEMI
 
 /* Thumbs. Every layer above BAS leaves these &trans unless it needs
  * something specific, so space and the layer keys keep working
