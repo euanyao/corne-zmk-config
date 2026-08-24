@@ -134,7 +134,6 @@
              *
              * &none rather than &trans on unused positions: &trans would
              * fall through to BAS and type a letter. */
-            #define ST_SLEEP   &soft_off             // force deep sleep immediately
             #define ST_UNLOCK  &studio_unlock        // zmk studio unlock
             #define ST_BTCLR   &mp_sSTG_cb           // tap: clear profile | shift: clear ALL profiles
             #define ST_RGB_C    &mp_sSTG_rgb_c
@@ -174,7 +173,7 @@
             display-name = "STG";
             bindings = <
    ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C  &none  &none        &none      &none  &none     &none  &none  ST_BOOT_R
-       &none  &m_s_b3  &m_s_b4  ST_BTCLR  &none  &none        &none      &none  &none     &none  &none  ST_SLEEP
+       &none  &m_s_b3  &m_s_b4  ST_BTCLR  &none  &none        &none      &none  &none     &none  &none      &none
    ST_UNLOCK  &m_s_b5  &m_s_b6  ST_RGB_TOG  ST_RGB_EFF  ST_RGB_EFR        &none      &none  &none  ST_OS_TOG  ST_RGB_U   ST_RGB_D
                             &none  &trans  &trans        &trans  &trans  &none
             >;
