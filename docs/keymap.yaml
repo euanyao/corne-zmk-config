@@ -131,7 +131,7 @@ layers:
     - {t: ▽, type: trans}
   AXN:
   - - {t: ▽, type: trans}
-    - Alt+Sft+RIGHT
+    - Gui+Sft+4
     - Gui+W
     - Gui+F
     - Gui+P
@@ -303,7 +303,7 @@ layers:
     - {t: ▽, type: trans}
   WIN_AXN:
   - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - Gui+Sft+S
     - Ctl+W
     - Ctl+F
     - Ctl+P

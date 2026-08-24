@@ -34,8 +34,8 @@
             /* Left hand shortcuts and clipboard, right hand numpad.
              * WIN_AXN overrides the left-side shortcuts with Ctrl+letter.
              *
-             * Row 0, left: select-extend (Q), then Cmd+W/F/P/B (close, find,
-             * print, bold -- Colemak-DH top row letters).
+             * Row 0, left: Cmd+Sft+4 (screenshot area), then Cmd+W/F/P/B
+             * (close, find, print, bold -- Colemak-DH top row letters).
              * Row 1, left: Cmd+A/R/S/T (select-all, reload, save, new-tab --
              * common browser/editor shortcuts at Colemak-DH home row positions)
              * then Cmd+GRAVE (same-app window switch). Right home row keeps
@@ -43,7 +43,6 @@
              * Row 2: clipboard -- Cmd+Z/X/C + Cmd+Tab (app switch); &mp_a_paste
              * for paste-without-formatting.
              */
-            #define AX01  &kp  LA(LS(RIGHT))  // extend selection right (works on Windows too)
             #define AX17  &kp  LG(GRAVE)      // same-app window switch (Mac); WIN_AXN keeps Ctrl+H here
             #define AX19  &hmr LSHFT N4
             #define AX20  &hmr RGUI  N5
@@ -52,7 +51,7 @@
 
             display-name = "AXN";
             bindings = <
-    &trans       AX01  &kp LG(W)  &kp LG(F)  &kp LG(P)      &kp LG(B)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
+    &trans  &kp LG(LS(N4))  &kp LG(W)  &kp LG(F)  &kp LG(P)      &kp LG(B)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
     &trans  &kp LG(A)  &kp LG(R)  &kp LG(S)  &kp LG(T)          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
     &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp LG(TAB)           &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
