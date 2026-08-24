@@ -4,43 +4,43 @@ layers:
   - - {t: ESC, h: '&to_BAS'}
     - Q
     - W
-    - E
-    - R
-    - T
-    - Y
-    - U
-    - I
-    - O
+    - F
     - P
+    - B
+    - J
+    - L
+    - U
+    - Y
+    - ;
     - '`'
   - - {t: TAB, h: '&mo_FNK_NAV'}
     - {t: A, h: LALT}
-    - {t: S, h: LCTRL}
-    - {t: D, h: LGUI}
-    - {t: F, h: LSHFT}
+    - {t: R, h: LCTRL}
+    - {t: S, h: LGUI}
+    - {t: T, h: LSHFT}
     - G
-    - H
-    - {t: J, h: RSHFT}
-    - {t: K, h: RGUI}
-    - {t: L, h: RCTRL}
-    - {t: ;, h: RALT}
+    - M
+    - {t: N, h: RSHFT}
+    - {t: E, h: RGUI}
+    - {t: I, h: RCTRL}
+    - {t: O, h: RALT}
     - {t: '''', h: '&mo_FNK_NAV'}
   - - {t: '&m_caps', h: '&mo_STG'}
     - Z
     - X
     - C
+    - D
     - V
-    - B
-    - N
-    - M
+    - K
+    - H
     - ','
     - .
     - /
     - {t: \, h: '&mo_STG', s: '|'}
   - - '&mo_DEV'
     - {t: BSPC, h: Alt+BSPC}
-    - {t: '&tog_AXN_on', h: '&mo_AXN'}
-    - {t: RET, h: '&mo_AXN'}
+    - '&mo_AXN'
+    - RET
     - SPACE
     - '&mo_DEV'
   WIN:
@@ -58,14 +58,14 @@ layers:
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: S, h: LGUI}
-    - {t: D, h: LCTRL}
+    - {t: R, h: LGUI}
+    - {t: S, h: LCTRL}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: K, h: RCTRL}
-    - {t: L, h: RGUI}
+    - {t: E, h: RCTRL}
+    - {t: I, h: RGUI}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
@@ -133,9 +133,9 @@ layers:
   - - {t: ▽, type: trans}
     - Alt+Sft+RIGHT
     - Gui+W
-    - Gui+E
-    - Gui+R
-    - Gui+T
+    - Gui+F
+    - Gui+P
+    - Gui+B
     - KP PLUS
     - '7'
     - '8'
@@ -144,9 +144,9 @@ layers:
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Gui+A
+    - Gui+R
     - Gui+S
-    - Gui+D
-    - Gui+F
+    - Gui+T
     - Gui+`
     - '0'
     - {t: '4', h: LSHFT}
@@ -168,8 +168,8 @@ layers:
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - '&tog_AXN_off'
-    - '&tog_AXN_off'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   FNK_NAV:
@@ -305,9 +305,9 @@ layers:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - Ctl+W
-    - Ctl+E
-    - Ctl+R
-    - Ctl+T
+    - Ctl+F
+    - Ctl+P
+    - Ctl+B
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -316,9 +316,9 @@ layers:
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Ctl+A
+    - Ctl+R
     - Ctl+S
-    - Ctl+D
-    - Ctl+F
+    - Ctl+T
     - Ctl+H
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

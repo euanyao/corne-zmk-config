@@ -129,23 +129,23 @@ built-in keyboard, RDP and VM sessions too. Do not reintroduce a host-remap
 assumption.
 
 **Home-row mods are swapped per OS by those same overlays.** BAS puts the
-primary modifier (Command) on **A/K** and the secondary (Control) on **S/L**.
-`;` carries RALT on both OSes (not part of the primary/secondary swap).
+primary modifier (Command) on **S/E** and the secondary (Control) on **R/I**.
+`O` carries RALT on both OSes (not part of the primary/secondary swap).
 Windows wants Control as primary, so `WIN`, `WIN_DEV`, `WIN_AXN` and
-`WIN_FNK_NAV` swap them — A/K become `LCTRL`/`RCTRL`, S/L become `LGUI`/`RGUI`.
+`WIN_FNK_NAV` swap them — S/E become `LCTRL`/`RCTRL`, R/I become `LGUI`/`RGUI`.
 **The primary modifier keeps the same finger on both OSes.**
 
-| layer | 13 (A) | 14 (S) | 15 (D) | 20 (K) | 21 (L) | 22 (;) |
+| layer | 13 (A) | 14 (R) | 15 (S) | 20 (E) | 21 (I) | 22 (O) |
 |---|---|---|---|---|---|---|
 | BAS / DEV / FNK_NAV | LALT | LCTRL | **LGUI** | **RGUI** | RCTRL | RALT |
 | WIN / WIN_DEV / WIN_FNK_NAV | LALT | LGUI | **LCTRL** | **RCTRL** | RGUI | RALT |
 
-Primary modifier on **D/K**, secondary on **S/L**, consistent on every
-layer and mirrored per OS. A carries LALT and ; carries RALT — both
+Primary modifier on **S/E**, secondary on **R/I**, consistent on every
+layer and mirrored per OS. A carries LALT and O carries RALT — both
 unchanged across OSes (not part of the primary/secondary swap).
 
 Note: AXN left home row positions are straight `&kp` shortcut bindings
-(Cmd+A/S/D/F), not hold-taps, so they are not part of this table.
+(Cmd+A/R/S/T), not hold-taps, so they are not part of this table.
 
 `WIN` covers BAS for free. DEV and FNK_NAV bind those positions
 themselves, so their overlays (WIN_DEV / WIN_FNK_NAV) carry the swap.

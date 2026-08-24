@@ -5,9 +5,6 @@ MO_MACRO(AXN)
 MO_MACRO(FNK_NAV)
 MO_MACRO(STG)
 
-/* AXN is latchable: hold for momentary, tap to latch on. */
-TOG_MACRO(AXN)
-
 /* Hard reset to base.
  *
  * &to BAS switches every other layer off, WIN included, so the windows

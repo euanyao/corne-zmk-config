@@ -34,11 +34,12 @@
             /* Left hand shortcuts and clipboard, right hand numpad.
              * WIN_AXN overrides the left-side shortcuts with Ctrl+letter.
              *
-             * Row 0, left: select-extend (Q), then Cmd+W/E/R/T (close, open,
-             * reload, new tab -- common browser/editor shortcuts).
-             * Row 1, left: Cmd+A/S/D/F (select-all, save, bookmark/select,
-             * find) then Cmd+GRAVE (same-app window switch). Right home row
-             * keeps hold-tap mods for numpad chord modifiers.
+             * Row 0, left: select-extend (Q), then Cmd+W/F/P/B (close, find,
+             * print, bold -- Colemak-DH top row letters).
+             * Row 1, left: Cmd+A/R/S/T (select-all, reload, save, new-tab --
+             * common browser/editor shortcuts at Colemak-DH home row positions)
+             * then Cmd+GRAVE (same-app window switch). Right home row keeps
+             * hold-tap mods for numpad chord modifiers.
              * Row 2: clipboard -- Cmd+Z/X/C + Cmd+Tab (app switch); &mp_a_paste
              * for paste-without-formatting.
              */
@@ -51,10 +52,10 @@
 
             display-name = "AXN";
             bindings = <
-    &trans       AX01  &kp LG(W)  &kp LG(E)  &kp LG(R)      &kp LG(T)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
-    &trans  &kp LG(A)  &kp LG(S)  &kp LG(D)  &kp LG(F)          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
+    &trans       AX01  &kp LG(W)  &kp LG(F)  &kp LG(P)      &kp LG(B)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
+    &trans  &kp LG(A)  &kp LG(R)  &kp LG(S)  &kp LG(T)          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
     &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp LG(TAB)           &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
-                            &trans  &trans  &tog_AXN_off        &tog_AXN_off  &trans  &trans
+                            &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };
 

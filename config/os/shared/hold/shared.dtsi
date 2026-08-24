@@ -11,7 +11,7 @@
 // (e.g. LGUI+LSHIFT = D+F) that are impossible without it. Costs a small
 // delay on same-hand rolls (tap character appears at release not press).
 //
-// &hml on the left home row (A S D F), &hmr on the right (J K L ;).
+// &hml on the left home row (A R S T), &hmr on the right (N E I O).
 // Using the wrong one silently disables the positional guard.
 
 hml: homerow_mods_left {
@@ -80,7 +80,7 @@ ht_STG_bslh: hold_tap_STG_bslh {
 
 // STG hold + Caps Lock tap, tap-preferred. Uses m_caps (50 ms tap-ms) so
 // macOS's Caps Lock debounce is satisfied. Both params are dummies (same
-// pattern as ht_AXN): mo_STG ignores param1, m_caps ignores param2.
+// pattern as ht_STG): mo_STG ignores param1, m_caps ignores param2.
 ht_STG_caps: hold_tap_STG_caps {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
@@ -100,21 +100,3 @@ ht_FNK_NAV: hold_tap_FNK_NAV {
     bindings = <&mo_FNK_NAV>, <&kp>;
 };
 
-// Latchable layers: hold for momentary, tap to latch on.
-ht_AXN: hold_tap_AXN {
-    compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <2>;
-    tapping-term-ms = <HP_TAPPING>;
-    flavor = "hold-preferred";
-    bindings = <&mo_AXN>, <&tog_AXN_on>;
-};
-
-// AXN on hold, key on tap. For positions that want momentary AXN without
-// the latch -- same pattern as ht_STG and ht_FNK_NAV.
-ht_AXN_kp: hold_tap_AXN_kp {
-    compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <2>;
-    tapping-term-ms = <HP_TAPPING>;
-    flavor = "hold-preferred";
-    bindings = <&mo_AXN>, <&kp>;
-};

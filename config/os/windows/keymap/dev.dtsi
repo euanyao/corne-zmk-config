@@ -9,18 +9,18 @@
              * Alt+Shift chords that map identically on both.
              */
             /* Home-row mods swapped for Windows, same as WIN does for
-             * BAS: primary (Control) onto S/L, secondary (Win) onto A/;,
+             * BAS: primary (Control) onto S/E, secondary (Win) onto R/I,
              * so the primary modifier keeps the same finger across OSes.
              * Taps are unchanged. */
-            #define WD_S  &hml  LGUI   LBRC
-            #define WD_D  &hml  LCTRL  RBRC
-            #define WD_K  &hmr  RCTRL  LBKT
-            #define WD_L  &hmr  RGUI   RBKT
+            #define WD_R  &hml  LGUI   LBRC
+            #define WD_S  &hml  LCTRL  RBRC
+            #define WD_E  &hmr  RCTRL  LBKT
+            #define WD_I  &hmr  RGUI   RBKT
 
             display-name = "WIN_DEV";
             bindings = <
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans   &trans   &trans  &trans
-    &trans  &trans   WD_S    WD_D   &trans  &trans        &trans  &trans   WD_K     WD_L    &trans   &trans
+    &trans  &trans   WD_R    WD_S   &trans  &trans        &trans  &trans   WD_E     WD_I    &trans   &trans
     &trans      &trans  &trans  &trans  &trans  &trans     &trans  &trans  &trans   &trans   &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;

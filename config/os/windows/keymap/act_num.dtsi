@@ -5,10 +5,10 @@
              * Windows. Everything else is &trans and falls through to AXN.
              *
              * Left shortcuts: Cmd+letter on Mac becomes Ctrl+letter here.
-             * Row 0: Ctrl+W/E/R/T  (close, open, reload, new tab)
-             * Row 1: Ctrl+A/S/D/F  (select-all, save, bookmark, find)
+             * Row 0: Ctrl+W/F/P/B  (close, find, print, bold -- Colemak-DH top row)
+             * Row 1: Ctrl+A/R/S/T  (select-all, reload, save, new-tab)
              *        Ctrl+H at G position for replace (macOS uses Opt+Cmd+F)
-             * Row 2: Ctrl+Z/X/C/Y + paste (clipboard, same as Mac but native)
+             * Row 2: Ctrl+Z/X/C + paste (clipboard, same as Mac but native)
              *
              * Without this, AXN's Win+Z/X/C/V opens snap layouts, the
              * power-user menu, Copilot and clipboard history instead.
@@ -17,13 +17,13 @@
              * RGUI+N5 and RCTRL+N6; Windows swaps them to RCTRL+N5,
              * RGUI+N6 so the primary modifier stays on the same finger.
              * Position 22 (RALT+EQUAL) is unchanged across OSes. */
-            #define WA_K  &hmr  RCTRL  N5
-            #define WA_L  &hmr  RGUI   N6
+            #define WA_E  &hmr  RCTRL  N5
+            #define WA_I  &hmr  RGUI   N6
 
             display-name = "WIN_AXN";
             bindings = <
-    &trans  &trans  &kp LC(W)  &kp LC(E)  &kp LC(R)      &kp LC(T)        &trans  &trans  &trans   &trans   &trans  &trans
-    &trans  &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)  &kp LC(H)        &trans  &trans   WA_K     WA_L    &trans   &trans
+    &trans  &trans  &kp LC(W)  &kp LC(F)  &kp LC(P)      &kp LC(B)        &trans  &trans  &trans   &trans   &trans  &trans
+    &trans  &kp LC(A)  &kp LC(R)  &kp LC(S)  &kp LC(T)  &kp LC(H)        &trans  &trans   WA_E     WA_I    &trans   &trans
     &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LA(TAB)    &trans  &trans  &trans   &trans   &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;

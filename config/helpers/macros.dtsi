@@ -18,8 +18,8 @@
  * Shift+F19..F23, and Shift+F18 collided with the caps-word handler.
  *
  * The wrapper is now equivalent to a bare `&mo LYR`, and is kept only so
- * the keymap and ht_AXN don't have to change shape. Collapsing it into
- * `&mo` directly is a safe simplification if you're already in here.
+ * the keymap doesn't have to change shape. Collapsing it into `&mo`
+ * directly is a safe simplification if you're already in here.
  *
  * The deliberate signal combos on positions 12+23 are unaffected -- those
  * fire only when asked for.

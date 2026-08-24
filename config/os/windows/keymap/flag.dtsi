@@ -36,28 +36,28 @@
 
             /* Home-row mods, swapped for Windows.
              *
-             * BAS puts the primary modifier on A and ; (LGUI = Command)
-             * and the secondary on S and L (LCTRL). Windows wants Control as
-             * the primary, so this swaps them: A/; become LCTRL and S/L
+             * BAS puts the primary modifier on S and E (LGUI = Command)
+             * and the secondary on R and I (LCTRL). Windows wants Control as
+             * the primary, so this swaps them: S/E become LCTRL and R/I
              * become LGUI (the Win key, genuinely the secondary there).
              *
              * The point is that the PRIMARY modifier stays on the same
-             * finger on both OSes. Without this, Control lived on A/; on
-             * Windows and Command on S/L on macOS, so muscle memory moved
+             * finger on both OSes. Without this, Control lived on S/E on
+             * Windows and Command on R/I on macOS, so muscle memory moved
              * between machines.
              *
              * This only fixes BAS. DEV, AXN and FNK_NAV bind their own
              * home-row positions and are fixed on WIN_DEV / WIN_AXN /
              * WIN_FNK_NAV respectively. */
-            #define WN_S  &hml  LGUI   S
-            #define WN_D  &hml  LCTRL  D
-            #define WN_K  &hmr  RCTRL  K
-            #define WN_L  &hmr  RGUI   L
+            #define WN_R  &hml  LGUI   R
+            #define WN_S  &hml  LCTRL  S
+            #define WN_E  &hmr  RCTRL  E
+            #define WN_I  &hmr  RGUI   I
 
             display-name = "WIN";
             bindings = <
     WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans   &trans
-    &trans  &trans   WN_S    WN_D   &trans  &trans        &trans  &trans   WN_K    WN_L    &trans     &trans
+    &trans  &trans   WN_R    WN_S   &trans  &trans        &trans  &trans   WN_E    WN_I    &trans     &trans
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
                          &trans  WN_BSPC  &trans        &trans  &trans  &trans
             >;

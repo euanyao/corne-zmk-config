@@ -3,18 +3,18 @@
              *
              * Swaps the primary/secondary modifiers on the left home row
              * (same logic as WIN for BAS, WIN_DEV for DEV): LGUI <-> LCTRL
-             * on D/S so the primary modifier stays on the same finger across
+             * on S/R so the primary modifier stays on the same finger across
              * OSes. Taps (F-keys) are unchanged.
              *
              * The right side of FNK_NAV carries plain navigation keys (no
              * hold-taps), so no overrides are needed there. */
-            #define WFN_S  &hml  LGUI   F6
-            #define WFN_D  &hml  LCTRL  F7
+            #define WFN_R  &hml  LGUI   F6
+            #define WFN_S  &hml  LCTRL  F7
 
             display-name = "WIN_FNK_NAV";
             bindings = <
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &trans   WFN_S   WFN_D  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans   WFN_R   WFN_S  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
                         &trans  &trans  &trans        &trans  &trans  &trans
             >;
