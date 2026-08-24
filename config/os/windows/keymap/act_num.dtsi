@@ -24,7 +24,7 @@
             bindings = <
     &trans  &kp LG(LS(S))  &kp LC(W)  &kp LC(F)  &kp LC(P)      &kp LC(B)        &trans  &trans  &trans   &trans   &trans  &trans
     &trans  &kp LC(A)  &kp LC(R)  &kp LC(S)  &kp LC(T)  &kp LC(H)        &trans  &trans   WA_E     WA_I    &trans   &trans
-    &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LA(TAB)    &trans  &trans  &trans   &trans   &trans  &trans
+    &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mp_wa_paste  &kp LC(V)    &trans  &trans  &trans   &trans   &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };

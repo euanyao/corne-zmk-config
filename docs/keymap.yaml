@@ -147,7 +147,7 @@ layers:
     - Gui+R
     - Gui+S
     - Gui+T
-    - Gui+`
+    - Gui+H
     - '0'
     - {t: '4', h: LSHFT}
     - {t: '5', h: RGUI}
@@ -159,7 +159,7 @@ layers:
     - Gui+X
     - Gui+C
     - {t: Gui+V, s: Sft+Gui+V}
-    - Gui+TAB
+    - Gui+V
     - '-'
     - '1'
     - '2'
@@ -331,7 +331,7 @@ layers:
     - Ctl+X
     - Ctl+C
     - {t: Ctl+V, s: Ctl+Sft+V}
-    - Alt+TAB
+    - Ctl+V
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

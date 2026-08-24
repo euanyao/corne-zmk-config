@@ -40,10 +40,9 @@
              * common browser/editor shortcuts at Colemak-DH home row positions)
              * then Cmd+GRAVE (same-app window switch). Right home row keeps
              * hold-tap mods for numpad chord modifiers.
-             * Row 2: clipboard -- Cmd+Z/X/C + Cmd+Tab (app switch); &mp_a_paste
-             * for paste-without-formatting.
+             * Row 2: clipboard -- Cmd+Z/X/C + paste-without-format + Cmd+V.
              */
-            #define AX17  &kp  LG(GRAVE)      // same-app window switch (Mac); WIN_AXN keeps Ctrl+H here
+            #define AX17  &kp  LG(H)          // hide window (Mac); WIN_AXN keeps Ctrl+H here
             #define AX19  &hmr LSHFT N4
             #define AX20  &hmr RGUI  N5
             #define AX21  &hmr RCTRL N6
@@ -53,7 +52,7 @@
             bindings = <
     &trans  &kp LG(LS(N4))  &kp LG(W)  &kp LG(F)  &kp LG(P)      &kp LG(B)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
     &trans  &kp LG(A)  &kp LG(R)  &kp LG(S)  &kp LG(T)          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
-    &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp LG(TAB)           &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
+    &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &mp_a_paste  &kp LG(V)           &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };
