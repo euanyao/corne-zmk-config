@@ -40,7 +40,7 @@ layers:
   - - '&mo_DEV'
     - {t: SPACE, h: '&mo_FNK_NAV'}
     - {t: RET, h: '&mo_AXN'}
-    - RET
+    - {t: RET, h: '&mo_AXN'}
     - {t: SPACE, h: '&mo_FNK_NAV'}
     - '&mo_DEV'
   WIN:
