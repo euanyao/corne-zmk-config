@@ -89,8 +89,8 @@ ht_STG_caps: hold_tap_STG_caps {
     bindings = <&mo_STG>, <&m_caps>;
 };
 
-// FNK_NAV is accessed from two outer-column hold-taps (TAB at pos 12 and
-// RET at pos 23). Tap sends the key, hold activates the layer momentarily.
+// FNK_NAV is accessed from both space thumbs (pos 37 and pos 40).
+// Tap sends the key, hold activates the layer momentarily.
 // Wraps mo_FNK_NAV rather than a bare &mo so the host signal fires.
 ht_FNK_NAV: hold_tap_FNK_NAV {
     compatible = "zmk,behavior-hold-tap";
@@ -98,5 +98,15 @@ ht_FNK_NAV: hold_tap_FNK_NAV {
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
     bindings = <&mo_FNK_NAV>, <&kp>;
+};
+
+// AXN on hold, key on tap -- same pattern as ht_FNK_NAV.
+// Used on pos 38 (left AXN thumb): hold = AXN layer, tap = RET.
+ht_AXN_kp: hold_tap_AXN_kp {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HP_TAPPING>;
+    flavor = "hold-preferred";
+    bindings = <&mo_AXN>, <&kp>;
 };
 

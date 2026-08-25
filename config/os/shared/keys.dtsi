@@ -45,10 +45,10 @@
  * BAS §3.1. A WIN_FNK_NAV overlay would fix it. NAV pos 21 (formerly
  * RCTRL, which misfired as Win+arrow) is now a plain Up arrow -- resolved.
  */
-#define KEY_SPC   &kp  SPACE
+#define KEY_SPC   &ht_FNK_NAV   0  SPACE // tap: space  | hold: FNK_NAV (both thumbs)
 #define KEY_ESC   &to_BAS_kp    0  ESC   // tap: esc    | hold: hard reset to base
-#define KEY_QUOT  &ht_FNK_NAV   0  SQT   // tap: '      | hold: FNK_NAV (right-hand route, mid outer)
-#define KEY_TAB   &ht_FNK_NAV   0  TAB   // tap: tab    | hold: FNK_NAV (left-hand route)
+#define KEY_QUOT  &kp  SQT                // tap: '      (FNK_NAV moved to space thumbs)
+#define KEY_TAB   &kp  TAB                // tap: tab    (FNK_NAV moved to space thumbs)
 #define KEY_CAPS  &ht_STG_caps 0 0  // tap: caps lock (50 ms for macOS) | hold: STG (left-hand route)
 #define KEY_BSLH  &ht_STG_bslh  0  0    // tap: \ (shift: |) | hold: STG (right-hand route, bot outer)
 #define KEY_BSPC  &mt  LA(BSPC) BSPC    // tap: bspc   | hold: delete word back (Mac: Opt+Bspc)
@@ -74,4 +74,4 @@
  * something specific, so space and the layer keys keep working
  * everywhere. Momentary layers need no return key. */
 #define THU_DEV  &mo_DEV
-#define THU_AXN  &mo_AXN
+#define THU_AXN  &ht_AXN_kp  0  RET     // tap: RET    | hold: AXN layer

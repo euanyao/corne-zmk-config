@@ -12,8 +12,8 @@ layers:
     - U
     - Y
     - ;
-    - '`'
-  - - {t: TAB, h: '&mo_FNK_NAV'}
+    - {t: BSPC, h: Alt+BSPC}
+  - - TAB
     - {t: A, h: LALT}
     - {t: R, h: LCTRL}
     - {t: S, h: LGUI}
@@ -24,7 +24,7 @@ layers:
     - {t: E, h: RGUI}
     - {t: I, h: RCTRL}
     - {t: O, h: RALT}
-    - {t: '''', h: '&mo_FNK_NAV'}
+    - ''''
   - - {t: '&m_caps', h: '&mo_STG'}
     - Z
     - X
@@ -38,10 +38,10 @@ layers:
     - /
     - {t: \, h: '&mo_STG', s: '|'}
   - - '&mo_DEV'
-    - {t: BSPC, h: Alt+BSPC}
-    - '&mo_AXN'
+    - {t: SPACE, h: '&mo_FNK_NAV'}
+    - {t: RET, h: '&mo_AXN'}
     - RET
-    - SPACE
+    - {t: SPACE, h: '&mo_FNK_NAV'}
     - '&mo_DEV'
   WIN:
   - - {t: ESC, h: '&to_BAS_win'}
@@ -55,7 +55,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: BSPC, h: Ctl+BSPC}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: R, h: LGUI}
@@ -81,7 +81,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: BSPC, h: Ctl+BSPC}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
