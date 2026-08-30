@@ -7,14 +7,15 @@ to_BAS_win_kp: to_BAS_win_kp {
     bindings = <&to_BAS_win>, <&kp>;
 };
 
-// STG on hold, key on tap. Used on pos 0 (ESC) and pos 11 (COMMA) so
-// either hand can hold STG while the other reaches a bootloader key.
+// STG on hold, key on tap. Used on pos 0 (ESC) and pos 11 (COMMA).
+// param1 = layer number (STG), param2 = tap keycode.
 ht_STG: hold_tap_STG {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
+    quick-tap-ms = <HP_QUICK_TAP>;
     flavor = "hold-preferred";
-    bindings = <&mo_STG>, <&kp>;
+    bindings = <&mo>, <&kp>;
 };
 
 // LGUI on hold, key on tap. Used on pos 24 (Caps Lock via m_caps) and
