@@ -28,8 +28,9 @@
 #define HR_PRIOR_IDLE 175
 
 /* Mod Tap */
-#define MT_TAPPING    220
-#define MT_QUICK_TAP  200
+#define MT_TAPPING      220
+#define MT_QUICK_TAP    200
+#define MT_PRIOR_IDLE   150
 
 /* Hold Tap Preferred */
 #define HP_TAPPING    220
