@@ -3,5 +3,5 @@
     tapping-term-ms = <MT_TAPPING>;
     quick-tap-ms = <MT_QUICK_TAP>;
     require-prior-idle-ms = <MT_PRIOR_IDLE>;
-    flavor = "hold-preferred";
+    flavor = "balanced";
 };
