@@ -13,17 +13,13 @@
              * Without this, AXN's Win+Z/X/C/V opens snap layouts, the
              * power-user menu, Copilot and clipboard history instead.
              *
-             * Numpad home-row mods at 20/21 are swapped here: AXN has
-             * RGUI+N5 and RCTRL+N6; Windows swaps them to RCTRL+N5,
-             * RGUI+N6 so the primary modifier stays on the same finger.
-             * Position 22 (RALT+EQUAL) is unchanged across OSes. */
-            #define WA_E  &hmr  RCTRL  N5
-            #define WA_I  &hmr  RGUI   N6
+             * AXN numpad positions 19-22 are plain &kp (no HRM), so no
+             * per-OS swap is needed there. */
 
             display-name = "WIN_AXN";
             bindings = <
-    &trans  &kp LG(LS(S))  &kp LC(W)  &kp LC(F)  &kp LC(P)      &kp LC(B)        &trans  &trans  &trans   &trans   &trans  &trans
-    &trans  &kp LC(A)  &kp LC(R)  &kp LC(S)  &kp LC(T)  &kp LC(H)        &trans  &trans   WA_E     WA_I    &trans   &trans
+    &trans  &kp LG(LS(S))  &kp LC(W)  &kp LC(F)  &kp LC(P)  &kp LC(B)        &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &kp LC(A)  &kp LC(R)  &kp LC(S)  &kp LC(T)  &kp LC(H)        &trans  &trans  &trans  &trans  &trans  &trans
     &trans  &kp LC(Z)  &kp LC(X)  &kp LC(C)  &kp LC(D)  &kp LC(V)    &trans  &trans  &trans   &trans   &trans  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;

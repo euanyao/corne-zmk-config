@@ -82,17 +82,19 @@ else:
     print(f"ok    layer order matches layers.dtsi: {' '.join(got)}")
 
 # 4. The OS flag sits BELOW the typing layers so the OLED shows the layer
-#    in use rather than permanently reading "WIN". Word-delete and the ESC
-#    panic (positions 0 and 11) are carried by WIN for EVERY typing layer,
-#    so those must stay transparent above it -- give one of them a real
-#    binding there and Windows word-delete silently stops working. STG is
-#    exempt: it legitimately overrides them, and word-delete isn't wanted.
+#    in use rather than permanently reading "WIN". Word-delete (pos 37, left
+#    middle thumb) and the ESC panic (pos 0) are carried by WIN for EVERY
+#    typing layer, so those must stay transparent above it -- give one of
+#    them a real binding and Windows word-delete silently stops working. STG
+#    is exempt: it legitimately overrides them, and word-delete isn't wanted.
+#    Thumbs are &trans on every typing layer by design, so pos 37 is already
+#    covered without an explicit exemption.
 #
 #    WIN's home-row mod overrides (13/14/21/22) are deliberately NOT checked.
 #    They only ever apply to BAS: every typing layer binds those positions
 #    itself and gets its own WIN_* conditional overlay, so shadowing there is
 #    expected rather than a bug.
-CRITICAL = {0, 11}
+CRITICAL = {0, 37}
 # Layers exempt from the check at specific critical positions.
 EXEMPT = {}
 byname = dict(layers)

@@ -25,40 +25,30 @@
              * Option+Bspc for macOS, Windows wants Ctrl+Bspc. Written
              * natively as LC now that there is no host remap.
              *
-             * Backspace is at pos 11 (top-right outer column) -- the override
-             * lives there. DEL has no word-delete counterpart -- position 24
-             * carries the STG hold instead.
+             * Backspace is at pos 37 (left middle thumb) -- the override
+             * lives there. Pos 11 is now comma/Alt and has no word-delete.
+             * Thumbs are &trans on every typing layer, so this override
+             * reaches through them automatically.
              *
              * These are identical on every typing layer, which is exactly
              * why a single overlay can carry them without colliding. */
             #define WN_ESC   &to_BAS_win_kp  0  ESC
             #define WN_BSPC  &mt  LC(BSPC)  BSPC
 
-            /* Home-row mods, swapped for Windows.
+            /* Outer-column modifier override.
              *
-             * BAS puts the primary modifier on S and E (LGUI = Command)
-             * and the secondary on R and I (LCTRL). Windows wants Control as
-             * the primary, so this swaps them: S/E become LCTRL and R/I
-             * become LGUI (the Win key, genuinely the secondary there).
-             *
-             * The point is that the PRIMARY modifier stays on the same
-             * finger on both OSes. Without this, Control lived on S/E on
-             * Windows and Command on R/I on macOS, so muscle memory moved
-             * between machines.
-             *
-             * This only fixes BAS. DEV, AXN and FNK_NAV bind their own
-             * home-row positions and are fixed on WIN_DEV / WIN_AXN /
-             * WIN_FNK_NAV respectively. */
-            #define WN_R  &hml  LGUI   R
-            #define WN_S  &hml  LCTRL  S
-            #define WN_E  &hmr  RCTRL  E
-            #define WN_I  &hmr  RGUI   I
+             * Pos 24 (Caps Lock) and pos 35 (backslash) hold LGUI on macOS.
+             * Windows wants LCTRL instead so the primary modifier keeps the
+             * same finger across OSes. Same tap behavior (m_caps / bslh-pipe),
+             * different hold param. */
+            #define WN_CAPS  &ht_LGUI_caps LCTRL 0
+            #define WN_BSLH  &ht_LGUI_bslh LCTRL 0
 
             display-name = "WIN";
             bindings = <
-    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans  WN_BSPC
-    &trans  &trans   WN_R    WN_S   &trans  &trans        &trans  &trans   WN_E    WN_I    &trans     &trans
-    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans   &trans    &trans
-                          &trans  &trans  &trans        &trans  &trans  &trans
+    WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+    WN_CAPS  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  WN_BSLH
+                          &trans  WN_BSPC  &trans        &trans  &trans  &trans
             >;
         };

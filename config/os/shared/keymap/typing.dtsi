@@ -3,28 +3,21 @@
  * MAC-CANONICAL. Anything genuinely Windows-specific lives on the WIN
  * overlays in os/windows/keymap/ -- do not add OS branches here.
  *
- * All four are &trans at positions 0, 11 and 12 so the WIN flag can
- * override word-delete and the ESC panic from underneath. Binding any of
- * those for real here silently breaks that -- see os/shared/layers.dtsi.
+ * All four are &trans at pos 0 and 12 so the WIN ESC panic reaches through.
+ * Word-delete is now at pos 37 (left middle thumb); thumbs are &trans on
+ * every typing layer by design, so that override also reaches through.
+ * Binding pos 0 for real here silently breaks the ESC panic -- see
+ * os/shared/layers.dtsi.
  *
  * Use &none, not &trans, where a layer wants a key to do nothing: &trans
  * falls through to BAS and types a letter.
  */
 
         dev_layer {
-            #define DV13  &hml  LALT   AMPS
-            #define DV14  &hml  LCTRL  LBRC
-            #define DV15  &hml  LGUI   RBRC
-            #define DV16  &hml  LSHFT  EQUAL
-            #define DV19  &hmr  RSHFT  EXCL
-            #define DV20  &hmr  RGUI   LBKT
-            #define DV21  &hmr  RCTRL  RBKT
-            #define DV22  &hmr  RALT   PIPE
-
             display-name = "DEV";
             bindings = <
-    &trans     &kp AT  &kp POUND  &kp DLLR  &kp PLUS   &kp DQT        &kp TILDE  &kp MINUS  &kp UNDER  &kp PRCNT    &kp CARET   &trans
-    &trans       DV13       DV14      DV15      DV16   &kp SQT        &kp GRAVE       DV19       DV20       DV21         DV22   &trans
+    &trans  &kp AT  &kp POUND  &kp DLLR  &kp PLUS  &kp DQT        &kp TILDE  &kp MINUS  &kp UNDER  &kp PRCNT  &kp CARET  &trans
+    &trans  &kp AMPS  &kp LBRC  &kp RBRC  &kp EQUAL  &kp SQT        &kp GRAVE  &kp EXCL  &kp LBKT  &kp RBKT  &kp PIPE  &trans
     &trans   &kp SEMI  &kp LPAR  &kp RPAR  &kp ASTRK  &kp BSLH       &mp_sDEV_s  &kp QMARK     &kp LT     &kp GT  &kp COLON  &kp F12
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
@@ -43,15 +36,10 @@
              * Row 2: clipboard -- Cmd+Z/X/C/D/V (undo/cut/copy/dupe/paste).
              */
             #define AX17  &kp  LG(H)          // hide window (Mac); WIN_AXN keeps Ctrl+H here
-            #define AX19  &hmr LSHFT N4
-            #define AX20  &hmr RGUI  N5
-            #define AX21  &hmr RCTRL N6
-            #define AX22  &hmr RALT  EQUAL
-
             display-name = "AXN";
             bindings = <
-    &trans  &kp LG(LS(N4))  &kp LG(W)  &kp LG(F)  &kp LG(P)      &kp LG(B)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
-    &trans  &kp LG(A)  &kp LG(R)  &kp LG(S)  &kp LG(T)          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
+    &trans  &kp LG(LS(N4))  &kp LG(W)  &kp LG(F)  &kp LG(P)  &kp LG(B)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
+    &trans  &kp LG(A)  &kp LG(R)  &kp LG(S)  &kp LG(T)  AX17             &kp N0  &kp N4  &kp N5  &kp N6  &kp EQUAL  &trans
     &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &kp LG(D)  &kp LG(V)           &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
@@ -92,15 +80,10 @@
              *
              * Position 0 stays &trans so WIN still wins there.
              * &none on unused positions to block BAS fall-through. */
-            #define FN13  &hml LALT  F5
-            #define FN14  &hml LCTRL F6
-            #define FN15  &hml LGUI  F7
-            #define FN16  &hml LSHFT F8
-
             display-name = "FNK_NAV";
             bindings = <
-    &trans  &kp F9  &kp F10  &kp F11  &kp F12  &trans       &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP    &none  &none  &trans
-    &trans    FN13     FN14     FN15     FN16  &trans          &kp LEFT   &kp DOWN     &kp UP  &kp RIGHT  &none  &trans
+    &trans  &kp F9  &kp F10  &kp F11  &kp F12  &trans       &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &none  &none  &trans
+    &trans  &kp F5  &kp F6   &kp F7   &kp F8   &trans          &kp LEFT    &kp DOWN     &kp UP  &kp RIGHT  &none  &trans
     &trans  &kp F1   &kp F2   &kp F3   &kp F4  &trans          &kp HOME  &kp PG_DN  &kp PG_UP    &kp END  &none  &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
@@ -151,16 +134,14 @@
              * flag is lost while the profile survives. */
             #define ST_OS_TOG   &tog WIN             // macOS <-> Windows mode
 
-            /* Bootloader, one per half, at the top outer corners.
+            /* Bootloader, one per half, at the top inner corners (pos 5/6).
              *
              * ZMK reset behaviours are source-locality -- they act on the
              * half the key physically sits on -- so each half needs its own
-             * binding. Position 0 is left, 11 is right.
+             * binding. Position 5 is left, 6 is right.
              *
-             * Reached cross-hand: hold STG on one half (TAB pos 24 or RET
-             * pos 35), press the boot key on the other. That is why STG is
-             * bound on both halves; a single thumb-held STG cannot reach a
-             * boot key on its own half.
+             * Reached cross-hand: hold STG on one half (ESC pos 0 or
+             * comma pos 11), press the boot key on the other.
              *
              * The case covers the physical reset button, so this is the only
              * route into DFU. Do NOT put these behind a combo -- combos
@@ -172,7 +153,7 @@
 
             display-name = "STG";
             bindings = <
-   ST_BOOT_L  &m_s_b1  &m_s_b2  ST_RGB_C  &none  &none        &none      &none  &none     &none  &none  ST_BOOT_R
+   &none  &m_s_b1  &m_s_b2  ST_RGB_C  &none  ST_BOOT_L        ST_BOOT_R  &none  &none  &none  &none  &none
        &none  &m_s_b3  &m_s_b4  ST_BTCLR  &none  &none        &none      &none  &none     &none  &none      &none
    ST_UNLOCK  &m_s_b5  &m_s_b6  ST_RGB_TOG  ST_RGB_EFF  ST_RGB_EFR        &none      &none  &none  ST_OS_TOG  ST_RGB_U   ST_RGB_D
                             &none  &trans  &trans        &trans  &trans  &none

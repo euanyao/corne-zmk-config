@@ -1,54 +1,4 @@
-// Home-row mods, one behaviour per hand. A hold only registers when the
-// next key is on the OTHER hand (or a thumb), so same-hand rolls type
-// letters instead of firing modifiers.
-//
-// require-prior-idle-ms: if a key was pressed within this window the
-// hold-tap resolves as a tap immediately, covering normal typing flow.
-// Value set by the formula 10500 / WPM (see times.dtsi).
-//
-// hold-trigger-on-release: defers the positional check to the trigger
-// key's release rather than its press. Enables same-hand modifier combos
-// (e.g. LGUI+LSHIFT = D+F) that are impossible without it. Costs a small
-// delay on same-hand rolls (tap character appears at release not press).
-//
-// &hml on the left home row (A R S T), &hmr on the right (N E I O).
-// Using the wrong one silently disables the positional guard.
-
-hml: homerow_mods_left {
-    compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <2>;
-    tapping-term-ms = <HR_TAPPING>;
-    quick-tap-ms = <HR_QUICK_TAP>;
-    require-prior-idle-ms = <HR_PRIOR_IDLE>;
-    flavor = HR_FLAVOR;
-    hold-trigger-key-positions = <KP_RIGHT KP_THUMB>;
-    hold-trigger-on-release;
-    bindings = <&kp>, <&kp>;
-};
-
-hmr: homerow_mods_right {
-    compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <2>;
-    tapping-term-ms = <HR_TAPPING>;
-    quick-tap-ms = <HR_QUICK_TAP>;
-    require-prior-idle-ms = <HR_PRIOR_IDLE>;
-    flavor = HR_FLAVOR;
-    hold-trigger-key-positions = <KP_LEFT KP_THUMB>;
-    hold-trigger-on-release;
-    bindings = <&kp>, <&kp>;
-};
-
-// ESC on tap, hard reset to base on hold. The reset is the escape hatch if
-// layers ever end up stacked; the MAC variant relights the OS flag that
-// &to would otherwise clear.
-to_BAS_kp: to_BAS_kp {
-    compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <2>;
-    tapping-term-ms = <HP_TAPPING>;
-    flavor = "hold-preferred";
-    bindings = <&to_BAS>, <&kp>;
-};
-
+// ESC-hold on WIN relights the OS flag that &to clears.
 to_BAS_win_kp: to_BAS_win_kp {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
@@ -57,11 +7,8 @@ to_BAS_win_kp: to_BAS_win_kp {
     bindings = <&to_BAS_win>, <&kp>;
 };
 
-// STG on hold, outer-column key on tap. Two variants:
-//   ht_STG       -- generic, tap = &kp, used on TAB (pos 24) for DEL
-//   ht_STG_fslh  -- tap = mp_fslh_pipe (/ on tap, | on shift), used on pos 35
-// Both halves bound so either hand can hold STG while the other reaches
-// a bootloader key. Wrap mo_STG so the host layer signal still fires.
+// STG on hold, key on tap. Used on pos 0 (ESC) and pos 11 (COMMA) so
+// either hand can hold STG while the other reaches a bootloader key.
 ht_STG: hold_tap_STG {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
@@ -70,43 +17,31 @@ ht_STG: hold_tap_STG {
     bindings = <&mo_STG>, <&kp>;
 };
 
-ht_STG_bslh: hold_tap_STG_bslh {
+// LGUI on hold, key on tap. Used on pos 24 (Caps Lock via m_caps) and
+// pos 35 (backslash/pipe via mp_bslh_pipe). WIN overlay substitutes
+// LCTRL for LGUI so the primary modifier stays on the same finger.
+ht_LGUI_caps: hold_tap_LGUI_caps {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&mo_STG>, <&mp_bslh_pipe>;
+    bindings = <&kp>, <&m_caps>;
 };
 
-// STG hold + Caps Lock tap, tap-preferred. Uses m_caps (50 ms tap-ms) so
-// macOS's Caps Lock debounce is satisfied. Both params are dummies (same
-// pattern as ht_STG): mo_STG ignores param1, m_caps ignores param2.
-ht_STG_caps: hold_tap_STG_caps {
-    compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <2>;
-    tapping-term-ms = <HP_TAPPING>;
-    flavor = "tap-preferred";
-    bindings = <&mo_STG>, <&m_caps>;
-};
-
-// FNK_NAV is accessed from both space thumbs (pos 37 and pos 40).
-// Tap sends the key, hold activates the layer momentarily.
-// Wraps mo_FNK_NAV rather than a bare &mo so the host signal fires.
-ht_FNK_NAV: hold_tap_FNK_NAV {
+ht_LGUI_bslh: hold_tap_LGUI_bslh {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&mo_FNK_NAV>, <&kp>;
+    bindings = <&kp>, <&mp_bslh_pipe>;
 };
 
-// AXN on hold, key on tap -- same pattern as ht_FNK_NAV.
-// Used on pos 38 (left AXN thumb): hold = AXN layer, tap = RET.
-ht_AXN_kp: hold_tap_AXN_kp {
+// DEV on hold, key on tap. Used on outer-column keys (pos 12/23).
+ht_DEV_kp: hold_tap_DEV_kp {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     tapping-term-ms = <HP_TAPPING>;
     flavor = "hold-preferred";
-    bindings = <&mo_AXN>, <&kp>;
+    bindings = <&mo_DEV>, <&kp>;
 };
 

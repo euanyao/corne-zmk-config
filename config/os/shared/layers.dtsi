@@ -8,15 +8,15 @@
  * through to it via &trans.
  *
  * WIN sits at 1, directly above BAS and BELOW the typing layers. That works
- * because DEV/AXN/FNK_NAV are `&trans` at all three positions WIN binds (0,
- * 11, 12), so WIN only has to outrank BAS. Keeping it low means the OLED --
- * which shows the highest active layer -- reports the layer you're actually
- * using rather than permanently reading "WIN" while in Windows mode.
+ * because DEV/AXN/FNK_NAV are `&trans` at positions WIN binds (0 and 37),
+ * so WIN only has to outrank BAS. Keeping it low means the OLED -- which
+ * shows the highest active layer -- reports the layer you're actually using
+ * rather than permanently reading "WIN" while in Windows mode.
  *
- * If a typing layer ever takes a real binding at position 0, 11 or 12, WIN
- * stops winning there and word-delete silently breaks. Put it on the WIN
- * layer instead, or move WIN back above the typing layers and accept the
- * OLED cost.
+ * If a typing layer ever takes a real binding at position 0 or 37, WIN
+ * stops winning there and word-delete / the ESC panic silently breaks. Put
+ * it on the WIN layer instead, or move WIN back above the typing layers and
+ * accept the OLED cost.
  *
  * There is nothing above STG. WIN_STG was deleted when the host app
  * shortcuts came off STG -- with no overlay, nothing can shadow the
@@ -32,9 +32,7 @@
 #define AXN      3
 #define FNK_NAV  4   /* F-keys left, nav+media right; latchable via right thumb */
 #define STG      5
-#define WIN_DEV      6   /* conditional: WIN + DEV */
-#define WIN_AXN      7   /* conditional: WIN + AXN */
-#define WIN_FNK_NAV  8   /* conditional: WIN + FNK_NAV */
+#define WIN_AXN  6   /* conditional: WIN + AXN */
 
 /* Host signal keys.
  *

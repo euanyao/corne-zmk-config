@@ -1,20 +1,14 @@
         win_fnk_nav_layer {
             /* WIN_FNK_NAV -- conditional on <WIN FNK_NAV>.
              *
-             * Swaps the primary/secondary modifiers on the left home row
-             * (same logic as WIN for BAS, WIN_DEV for DEV): LGUI <-> LCTRL
-             * on S/R so the primary modifier stays on the same finger across
-             * OSes. Taps (F-keys) are unchanged.
-             *
-             * The right side of FNK_NAV carries plain navigation keys (no
-             * hold-taps), so no overrides are needed there. */
-            #define WFN_R  &hml  LGUI   F6
-            #define WFN_S  &hml  LCTRL  F7
+             * HRM was removed, so there are no per-OS home-row differences
+             * on FNK_NAV. This layer is entirely &trans; it is kept as a
+             * placeholder for any future FNK_NAV-specific Windows divergence. */
 
             display-name = "WIN_FNK_NAV";
             bindings = <
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &trans   WFN_R   WFN_S  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
+    &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
                         &trans  &trans  &trans        &trans  &trans  &trans
             >;

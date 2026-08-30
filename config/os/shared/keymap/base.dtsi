@@ -12,9 +12,9 @@
         base_layer {
             display-name = "BAS";
             bindings = <
-    KEY_ESC  &kp Q  &kp W  &kp F  &kp P  &kp B        &kp J  &kp L      &kp U    &kp Y  &kp SEMI  KEY_BSPC
-    KEY_TAB   HR_A   HR_R   HR_S   HR_T  &kp G        &kp M   HR_N       HR_E     HR_I      HR_O   KEY_QUOT
-    KEY_CAPS  &kp Z  &kp X  &kp C  &kp D  &kp V        &kp K  &kp H  &kp COMMA  &kp DOT  &kp FSLH  KEY_BSLH
-                         THU_DEV  KEY_SPC  THU_AXN    THU_AXN  KEY_SPC  &mo_DEV
+    &ht_STG 0 ESC  &kp Q  &kp W  &kp F  &kp P  &kp B        &kp J  &kp L      &kp U    &kp Y   KEY_QUOT  &ht_STG 0 COMMA
+    &ht_DEV_kp 0 TAB   HR_A   HR_R   HR_S   HR_T  &kp G        &kp M   HR_N       HR_E     HR_I      HR_O   &ht_DEV_kp 0 SEMI
+    KEY_CAPS  &mt LALT Z  &kp X  &kp C  &kp D  &kp V        &kp K  &kp H  &kp COMMA  &kp DOT  &mt LALT FSLH  KEY_BSLH
+                         &mo_AXN  KEY_BSPC  &kp LSHFT    &kp RET  &kp SPACE  &mo_FNK_NAV
             >;
         };

@@ -63,20 +63,11 @@
     conditional_layers {
         compatible = "zmk,conditional-layers";
 
-        win_dev {
-            if-layers = <WIN DEV>;
-            then-layer = <WIN_DEV>;
-        };
-
         win_axn {
             if-layers = <WIN AXN>;
             then-layer = <WIN_AXN>;
         };
 
-        win_fnk_nav {
-            if-layers = <WIN FNK_NAV>;
-            then-layer = <WIN_FNK_NAV>;
-        };
     };
 };
 
@@ -112,8 +103,6 @@
                                                     /* 3  AXN     */
                                                     /* 4  FNK_NAV */
                                                     /* 5  STG     */
-        #include "os/windows/keymap/dev.dtsi"        /* 6  WIN_DEV     */
-        #include "os/windows/keymap/act_num.dtsi"    /* 7  WIN_AXN     */
-        #include "os/windows/keymap/fnk_nav.dtsi"    /* 8  WIN_FNK_NAV */
+        #include "os/windows/keymap/act_num.dtsi"    /* 6  WIN_AXN */
     };
 };

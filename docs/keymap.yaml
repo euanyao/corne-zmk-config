@@ -1,7 +1,7 @@
 layout: {ortho_layout: {split: true, rows: 3, columns: 6, thumbs: 3}}
 layers:
   BAS:
-  - - {t: ESC, h: '&to_BAS'}
+  - - {t: ESC, h: '&mo_STG'}
     - Q
     - W
     - F
@@ -11,22 +11,22 @@ layers:
     - L
     - U
     - Y
-    - ;
-    - {t: BSPC, h: Alt+BSPC}
-  - - TAB
-    - {t: A, h: LALT}
-    - {t: R, h: LCTRL}
-    - {t: S, h: LGUI}
-    - {t: T, h: LSHFT}
+    - ''''
+    - {t: ',', h: '&mo_STG'}
+  - - {t: TAB, h: '&mo_DEV'}
+    - A
+    - R
+    - S
+    - T
     - G
     - M
-    - {t: N, h: RSHFT}
-    - {t: E, h: RGUI}
-    - {t: I, h: RCTRL}
-    - {t: O, h: RALT}
-    - ''''
-  - - {t: '&m_caps', h: '&mo_STG'}
-    - Z
+    - N
+    - E
+    - I
+    - O
+    - {t: ;, h: '&mo_DEV'}
+  - - {t: '&m_caps', h: LGUI}
+    - {t: Z, h: LALT}
     - X
     - C
     - D
@@ -35,14 +35,14 @@ layers:
     - H
     - ','
     - .
-    - /
-    - {t: \, h: '&mo_STG', s: '|'}
-  - - '&mo_DEV'
-    - {t: SPACE, h: '&mo_FNK_NAV'}
-    - {t: RET, h: '&mo_AXN'}
-    - {t: RET, h: '&mo_AXN'}
-    - {t: SPACE, h: '&mo_FNK_NAV'}
-    - '&mo_DEV'
+    - {t: /, h: LALT}
+    - {t: \, h: LGUI, s: '|'}
+  - - '&mo_AXN'
+    - {t: BSPC, h: Alt+BSPC}
+    - LSHFT
+    - RET
+    - SPACE
+    - '&mo_FNK_NAV'
   WIN:
   - - {t: ESC, h: '&to_BAS_win'}
     - {t: ▽, type: trans}
@@ -55,33 +55,33 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: '&m_caps', h: LCTRL}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: \, h: LCTRL, s: '|'}
+  - - {t: ▽, type: trans}
     - {t: BSPC, h: Ctl+BSPC}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: R, h: LGUI}
-    - {t: S, h: LCTRL}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: E, h: RCTRL}
-    - {t: I, h: RGUI}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -100,16 +100,16 @@ layers:
     - ^
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: '&', h: LALT}
-    - {t: '{', h: LCTRL}
-    - {t: '}', h: LGUI}
-    - {t: '=', h: LSHFT}
+    - '&'
+    - '{'
+    - '}'
+    - '='
     - ''''
     - '`'
-    - {t: '!', h: RSHFT}
-    - {t: '[', h: RGUI}
-    - {t: ']', h: RCTRL}
-    - {t: '|', h: RALT}
+    - '!'
+    - '['
+    - ']'
+    - '|'
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - ;
@@ -149,10 +149,10 @@ layers:
     - Gui+T
     - Gui+H
     - '0'
-    - {t: '4', h: LSHFT}
-    - {t: '5', h: RGUI}
-    - {t: '6', h: RCTRL}
-    - {t: '=', h: RALT}
+    - '4'
+    - '5'
+    - '6'
+    - '='
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Gui+Z
@@ -186,10 +186,10 @@ layers:
     - ''
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - {t: F5, h: LALT}
-    - {t: F6, h: LCTRL}
-    - {t: F7, h: LGUI}
-    - {t: F8, h: LSHFT}
+    - F5
+    - F6
+    - F7
+    - F8
     - {t: ▽, type: trans}
     - LEFT
     - DOWN
@@ -216,18 +216,18 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   STG:
-  - - '&bootloader'
+  - - ''
     - '&m_s_b1'
     - '&m_s_b2'
     - {t: RGB HUI, s: RGB HUD}
     - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
     - '&bootloader'
+    - '&bootloader'
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
   - - ''
     - '&m_s_b3'
     - '&m_s_b4'
@@ -258,49 +258,6 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - ''
-  WIN_DEV:
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: '{', h: LGUI}
-    - {t: '}', h: LCTRL}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: '[', h: RCTRL}
-    - {t: ']', h: RGUI}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
   WIN_AXN:
   - - {t: ▽, type: trans}
     - Gui+Sft+S
@@ -322,8 +279,8 @@ layers:
     - Ctl+H
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: '5', h: RCTRL}
-    - {t: '6', h: RGUI}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
@@ -332,49 +289,6 @@ layers:
     - Ctl+C
     - Ctl+D
     - Ctl+V
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  WIN_FNK_NAV:
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: F6, h: LGUI}
-    - {t: F7, h: LCTRL}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
