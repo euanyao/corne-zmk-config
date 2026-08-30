@@ -35,20 +35,23 @@
             #define WN_ESC   &to_BAS_win_kp  0  ESC
             #define WN_BSPC  &mt  LC(BSPC)  BSPC
 
-            /* Outer-column modifier override.
+            /* Outer-column and bottom-row modifier overrides.
              *
-             * Pos 24 (Caps Lock) and pos 35 (backslash) hold LGUI on macOS.
-             * Windows wants LCTRL instead so the primary modifier keeps the
-             * same finger across OSes. Same tap behavior (m_caps / bslh-pipe),
-             * different hold param. */
+             * Pos 24 (Caps Lock) and pos 35 (backslash) hold LGUI on macOS;
+             * Windows wants LCTRL (same tap, different hold param).
+             *
+             * Pos 25 (Z) and pos 34 (/) hold LCTRL on macOS; Windows wants
+             * LGUI (Win key) instead -- same finger, opposite modifier. */
             #define WN_CAPS  &ht_LGUI_caps LCTRL 0
             #define WN_BSLH  &ht_LGUI_bslh LCTRL 0
+            #define WN_Z     &mt LGUI Z
+            #define WN_SLSH  &mt LGUI FSLH
 
             display-name = "WIN";
             bindings = <
     WN_ESC  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
     &trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  &trans
-    WN_CAPS  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  &trans  WN_BSLH
+    WN_CAPS  WN_Z  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans  WN_SLSH  WN_BSLH
                           &trans  WN_BSPC  &trans        &trans  &trans  &trans
             >;
         };

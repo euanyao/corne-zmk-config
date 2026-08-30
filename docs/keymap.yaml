@@ -26,16 +26,16 @@ layers:
     - O
     - {t: ;, h: '&mo_DEV'}
   - - {t: '&m_caps', h: LGUI}
-    - {t: Z, h: LALT}
-    - X
+    - {t: Z, h: LCTRL}
+    - {t: X, h: LALT}
     - C
     - D
     - V
     - K
     - H
     - ','
-    - .
-    - {t: /, h: LALT}
+    - {t: ., h: LALT}
+    - {t: /, h: LCTRL}
     - {t: \, h: LGUI, s: '|'}
   - - '&mo_AXN'
     - {t: BSPC, h: Alt+BSPC}
@@ -69,6 +69,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: '&m_caps', h: LCTRL}
+    - {t: Z, h: LGUI}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -77,8 +78,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: /, h: LGUI}
     - {t: \, h: LCTRL, s: '|'}
   - - {t: ▽, type: trans}
     - {t: BSPC, h: Ctl+BSPC}
