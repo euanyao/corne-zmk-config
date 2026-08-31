@@ -6,8 +6,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -c \"\nimport sys, json, subprocess, os\nd = json.load(sys.stdin)\nf = d.get('tool_input', {}).get('file_path', '')\nif any(f.endswith(ext) for ext in ('.dtsi', '.keymap', '.conf')):\n    env = dict(os.environ, PATH=os.path.expanduser('~/.local/bin') + ':' + os.environ.get('PATH', ''))\n    subprocess.run(['./check-keymap.sh'], cwd='/home/eyao/git/corne-zmk-config', env=env)\n    subprocess.run(['./draw-keymap.sh'], cwd='/home/eyao/git/corne-zmk-config', env=env)\n\"",
-            "statusMessage": "Checking keymap and redrawing SVG..."
+            "command": "python3 -c \"\nimport sys, json, subprocess, os\nd = json.load(sys.stdin)\nf = d.get('tool_input', {}).get('file_path', '')\nif any(f.endswith(ext) for ext in ('.dtsi', '.keymap', '.conf')):\n    env = dict(os.environ, PATH=os.path.expanduser('~/.local/bin') + ':' + os.environ.get('PATH', ''))\n    r = subprocess.run(['git', '-C', os.path.dirname(os.path.abspath(f)), 'rev-parse', '--show-toplevel'], capture_output=True, text=True)\n    repo = r.stdout.strip()\n    if repo:\n        subprocess.run(['bash', 'draw-keymap.sh'], cwd=repo, env=env)\n\"",
+            "statusMessage": "Redrawing keymap SVG..."
           }
         ]
       }
