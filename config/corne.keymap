@@ -35,7 +35,6 @@
         #include "os/shared/hold/shared.dtsi"
         #include "os/shared/morph/shared.dtsi"
         #include "os/shared/morph/rgb.dtsi"
-        #include "os/shared/morph/dev.dtsi"
         #include "os/shared/morph/actions.dtsi"
         #include "os/windows/morph/actions.dtsi"
 

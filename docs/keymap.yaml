@@ -92,7 +92,7 @@ layers:
     - '#'
     - $
     - +
-    - '"'
+    - {t: ▽, type: trans}
     - '~'
     - '-'
     - _
@@ -104,7 +104,7 @@ layers:
     - {t: '{', h: LCTRL}
     - {t: '}', h: LGUI}
     - {t: '=', h: LSHFT}
-    - ''''
+    - {t: ▽, type: trans}
     - '`'
     - {t: '!', h: RSHFT}
     - {t: (, h: RGUI}
@@ -112,16 +112,16 @@ layers:
     - {t: '|', h: RALT}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
-    - ;
+    - {t: ▽, type: trans}
     - '['
     - ']'
     - '*'
-    - \
-    - {t: /, s: Alt+Sft+A}
-    - '?'
-    - <
-    - '>'
-    - '!'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
