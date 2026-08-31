@@ -25,7 +25,7 @@ layers:
     - {t: I, h: RCTRL}
     - {t: O, h: RALT}
     - ''''
-  - - {t: '&m_caps', h: '&mo_STG'}
+  - - {t: DEL, h: '&mo_STG'}
     - Z
     - X
     - C
@@ -107,22 +107,22 @@ layers:
     - ''''
     - '`'
     - {t: '!', h: RSHFT}
-    - {t: '[', h: RGUI}
-    - {t: ']', h: RCTRL}
+    - {t: (, h: RGUI}
+    - {t: ), h: RCTRL}
     - {t: '|', h: RALT}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - ;
-    - (
-    - )
+    - '['
+    - ']'
     - '*'
     - \
     - {t: /, s: Alt+Sft+A}
     - '?'
     - <
     - '>'
-    - ':'
-    - F12
+    - '!'
+    - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

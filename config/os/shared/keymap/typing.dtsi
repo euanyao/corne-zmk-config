@@ -17,15 +17,15 @@
             #define DV15  &hml  LGUI   RBRC
             #define DV16  &hml  LSHFT  EQUAL
             #define DV19  &hmr  RSHFT  EXCL
-            #define DV20  &hmr  RGUI   LBKT
-            #define DV21  &hmr  RCTRL  RBKT
+            #define DV20  &hmr  RGUI   LPAR
+            #define DV21  &hmr  RCTRL  RPAR
             #define DV22  &hmr  RALT   PIPE
 
             display-name = "DEV";
             bindings = <
     &trans     &kp AT  &kp POUND  &kp DLLR  &kp PLUS   &kp DQT        &kp TILDE  &kp MINUS  &kp UNDER  &kp PRCNT    &kp CARET   &trans
     &trans       DV13       DV14      DV15      DV16   &kp SQT        &kp GRAVE       DV19       DV20       DV21         DV22   &trans
-    &trans   &kp SEMI  &kp LPAR  &kp RPAR  &kp ASTRK  &kp BSLH       &mp_sDEV_s  &kp QMARK     &kp LT     &kp GT  &kp COLON  &kp F12
+    &trans   &kp SEMI  &kp LBKT  &kp RBKT  &kp ASTRK  &kp BSLH       &mp_sDEV_s  &kp QMARK     &kp LT     &kp GT  &kp EXCL   &trans
                             &trans  &trans  &trans        &trans  &trans  &trans
             >;
         };
