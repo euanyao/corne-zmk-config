@@ -299,14 +299,30 @@ Thumb map (BAS is the only layer that binds thumbs; the rest are `&trans`):
 ```
 
 **Enter and Backspace are on thumbs**, not pinkies — that was the point of
-the rearrangement. FNK moved off the thumbs onto the quote key's hold
-(pos 23) since F-keys are the rarest layer, which freed thumb 39 for Enter.
-The duplicate SPACE became Backspace, and word-delete followed it there, so
-`check-keymap.sh` now asserts positions **0 and 37**.
+the rearrangement. The duplicate SPACE became Backspace, and word-delete
+followed it there, so `check-keymap.sh` now asserts positions **0 and 37**.
 
-Layer holds outside the thumbs: **STG** on DEL (24) and RET (35), **FNK** on
-quote (23). Outer-column keys are the right home for these — low frequency,
-away from typing rolls.
+Holds outside the thumbs, **verified against `docs/keymap.yaml`**:
+
+| pos | tap | hold |
+|---|---|---|
+| 12 | TAB | *(none)* |
+| 23 | `'` | **caps word** (`ht_CW` → `cw_ON`) |
+| 24 | DEL | **STG** (`ht_STG`) |
+| 35 | `\` | **STG** (`ht_STG_bslh`) |
+
+Outer-column keys are the right home for these — low frequency, away from
+typing rolls.
+
+Two corrections to what this section used to claim. **FNK is not on pos 23**;
+it moved to both space thumbs (37 and 40) and pos 23 was free until caps
+word took it. And **pos 35 is backslash, not RET** — RET is on thumbs 38/39.
+Re-derive from `docs/keymap.yaml` rather than trusting prose here.
+
+**Caps word is on pos 23's hold, not a combo.** The two combos that used to
+carry it sat on `<16 19>` and `<14 21>` — QWERTY-era F+J and S+L, which are
+T+N and **R+I** on this Colemak board. `ri` is a very common bigram, so the
+combo fired mid-word. See `combos.dtsi` for the full account.
 
 AXN position 38 carries `tog_AXN_off` rather than `&trans` so the host
 signal knows which way the toggle went.

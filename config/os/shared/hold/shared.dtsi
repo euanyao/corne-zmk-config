@@ -78,6 +78,28 @@ ht_STG_bslh: hold_tap_STG_bslh {
     bindings = <&mo_STG>, <&mp_bslh_pipe>;
 };
 
+// Caps word on hold, the outer-column key on tap. Used on pos 23, which
+// replaces the two caps-word combos (see combos.dtsi for why they went).
+//
+// tap-preferred is deliberate: ' is an ordinary character and pos 23 is a
+// pinky, so only the timer may resolve a hold. Under balanced or
+// hold-preferred, rolling out of ' into the other hand would arm caps word.
+// Params are dummies in the same style as ht_STG -- cw_ON ignores param1.
+// require-prior-idle-ms matters more here than it looks. Pos 23 is ALSO a
+// member of the HELP_COMBO on <12 23>, so its output is already withheld
+// while that combo is a candidate; tap-preferred then defers the tap to
+// key release on top of that. Prior-idle short-circuits both during typing
+// flow -- ' emits on press like any other key, and caps word is only
+// reachable after a deliberate pause.
+ht_CW: hold_tap_CW {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HP_TAPPING>;
+    require-prior-idle-ms = <HR_PRIOR_IDLE>;
+    flavor = "tap-preferred";
+    bindings = <&cw_ON>, <&kp>;
+};
+
 // FNK_NAV is accessed from both space thumbs (pos 37 and pos 40).
 // Tap sends the key, hold activates the layer momentarily.
 // Wraps mo_FNK_NAV rather than a bare &mo so the host signal fires.

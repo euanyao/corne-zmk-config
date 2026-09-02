@@ -24,7 +24,7 @@ layers:
     - {t: E, h: RGUI}
     - {t: I, h: RCTRL}
     - {t: O, h: RALT}
-    - ''''
+    - {t: '''', h: '&cw_ON'}
   - - {t: DEL, h: '&mo_STG'}
     - Z
     - X
@@ -388,12 +388,6 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
 combos:
-- p: [16, 19]
-  k: '&cw_ON'
-  l: [BAS]
-- p: [14, 21]
-  k: '&cw_OFF'
-  l: [BAS]
 - p: [12, 23]
   k: Gui+Ctl+Sft+F19
   l: [BAS]

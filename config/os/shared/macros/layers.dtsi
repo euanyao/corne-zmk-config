@@ -30,19 +30,19 @@ to_BAS_win: to_BAS_win_layer {
     bindings = <&to BAS &tog WIN>;
 };
 
-/* Caps word, with a host signal so the indicator can follow it. */
+/* Caps word, with a host signal so the AHK indicator can follow it.
+ * Bound to the hold of pos 23 (see ht_CW) -- it used to be a combo on
+ * positions 16+19, which was a QWERTY-era choice that landed on T+N here.
+ *
+ * &cw is self-toggling, so this one macro both arms and cancels caps word.
+ * The signal is one-way though: the LA(F13) fires on every press, and
+ * nothing fires when caps word auto-deactivates on a space. The AHK
+ * indicator therefore goes stale -- it already did, since auto-deactivation
+ * was never signalled even when cw_OFF existed. */
 cw_ON: cw_ON {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
     bindings
         = <&kp LA(H_CWR)>
         , <&cw>;
-};
-
-cw_OFF: cw_OFF {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings
-        = <&kp LS(LC(H_CWR))>
-        , <&kp K_CANCEL>;
 };

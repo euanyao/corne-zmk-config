@@ -4,23 +4,20 @@
  * the typing layers works whether or not the MAC flag happens to be lit.
  */
 
-// F+J and S+L span the two halves, so the second press has to cross the
-// BLE split link. The 50ms default is too tight for that.
-combo_CW_on {
-    bindings = <&cw_ON>;
-    key-positions = <16 19>;
-    timeout-ms = <80>;
-    slow-release;
-    layers = <BAS>;
-};
-
-combo_CW_off {
-    bindings = <&cw_OFF>;
-    key-positions = <14 21>;
-    timeout-ms = <80>;
-    slow-release;
-    layers = <BAS>;
-};
+/* The caps-word combos are GONE -- do not reintroduce them on home-row
+ * positions. They sat on <16 19> and <14 21>, inherited from a QWERTY
+ * config where those are F+J and S+L: home-row pairs that are not English
+ * bigrams. This board is Colemak, so the same positions are T+N and R+I --
+ * and "ri" is one of the commonest bigrams there is (right, bring, trip).
+ *
+ * Two separate faults resulted. Rolled under 80 ms, "ri" fired cw_OFF
+ * instead of typing; above it, the home-row mods produced Ctrl+I. Both
+ * keys also lost their immediacy, because ZMK withholds a key's output
+ * while it is still a candidate for any combo -- which is why "te" (16+20,
+ * in no combo) always felt crisper than "ri".
+ *
+ * Caps word now lives on the hold of pos 23 instead. See ht_CW.
+ */
 
 // Host signal: tell the AHK helper which layer is live, on demand.
 #define HELP_COMBO(NAME, LYR)              \
