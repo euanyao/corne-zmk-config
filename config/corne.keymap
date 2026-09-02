@@ -12,6 +12,9 @@
 /* ZMK Studio */
 #include "layout/corne.dtsi"
 
+/* Hardware: nice!view CS pin override -- see the file, this is load-bearing */
+#include "layout/nice_view.dtsi"
+
 /* Global */
 #include "os/shared/times.dtsi"
 #include "os/shared/general.dtsi"

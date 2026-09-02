@@ -1,0 +1,47 @@
+/* nice!view chip-select override -- HARDWARE WIRING, not a preference.
+ *
+ * The stock nice_view_adapter shield puts CS on pro_micro pin 1:
+ *
+ *     cs-gpios = <&pro_micro 1 GPIO_ACTIVE_HIGH>;   // D1 = P0.06
+ *
+ * THAT PIN IS NOT AVAILABLE ON A CORNE. The corne shield's own nice!nano
+ * overlay hands P0.06 to the WS2812 underglow as spi3's MOSI:
+ *
+ *     spi3_default: psels = <NRF_PSEL(SPIM_MOSI, 0, 6)>;
+ *     &spi3 { led_strip: ws2812@0 { ... } };
+ *
+ * So the adapter's default CS and the 27-LED-per-half underglow want the
+ * same pad. pinctrl assigns it to SPIM3, and the resulting behaviour is
+ * undefined -- CS never reliably asserts, the panel never latches a write,
+ * and the display shows uninitialised SRAM (looks like static snow).
+ * Neither the devicetree compiler nor the ZMK build flags this: the LED
+ * strip claims the pad through pinctrl while the display claims it through
+ * cs-gpios, and nothing cross-checks the two.
+ *
+ * D0 / P0.08 is the fix. It is the only Pro Micro pin this build leaves
+ * genuinely free -- verified against every consumer on ZMK main:
+ *
+ *     D1  P0.06   ws2812 underglow (spi3 MOSI)
+ *     D2  P0.17   nice!view MOSI   (was the OLED's SDA)
+ *     D3  P0.20   nice!view SCK    (was the OLED's SCL)
+ *     D4  P0.22   kscan row 0      D5  P0.24  kscan row 1
+ *     D6  P1.00   kscan row 2      D7  P0.11  kscan row 3
+ *     D14 P1.11   kscan col        D15 P1.13  kscan col
+ *     D18 P1.15   kscan col        D19 P0.02  kscan col
+ *     D20 P0.29   kscan col        D21 P0.31  kscan col
+ *     D0  P0.08   FREE  <-- CS lands here
+ *
+ * The Corne PCB does not route CS to the display header at all (the header
+ * carries only the OLED's four lines), so CS is a flying wire from the
+ * panel to the D0 pad on the controller.
+ *
+ * GPIO_ACTIVE_HIGH is deliberate and matches the shield: the Sharp panel's
+ * SCS is active HIGH, not active LOW like most chip-selects.
+ *
+ * If the underglow is ever removed, this override can go and the stock D1
+ * default would work -- but there is no reason to bother.
+ */
+
+&nice_view_spi {
+    cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;   /* D0 = P0.08 */
+};

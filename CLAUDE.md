@@ -325,6 +325,26 @@ Thumb 41 is redundant now and could be reclaimed if a thumb is ever needed.
 
 ### 3.5 Gotchas that have already bitten
 
+**The nice!view's default CS pin collides with the Corne's underglow.**
+**[verified — read from both shield definitions on ZMK `main`]**
+`nice_view_adapter` sets `cs-gpios = <&pro_micro 1>` (D1 = **P0.06**), but
+the corne shield's nice!nano overlay already hands P0.06 to the WS2812
+strip as `spi3`'s MOSI. Both claim the same pad and **nothing in the build
+detects it** — the LED strip claims it via pinctrl, the display via
+`cs-gpios`, and no check spans the two. The build passes; the panel then
+shows uninitialised SRAM, which looks like **static snow**.
+
+Fixed by overriding CS to **D0 / P0.08** in
+`config/layout/nice_view.dtsi`. D0 is the only genuinely free Pro Micro pin
+in this build — the full census is in that file's header comment. Do not
+delete that override while underglow is enabled, and do not trust the
+adapter's default on any board that also drives WS2812 from spi3.
+
+Symptom-to-cause note worth keeping: **static snow means CS**, not a dead
+panel. Sharp memory LCDs have per-pixel SRAM with no power-on clear, so
+"powered but never validly written" is their normal appearance. Snow that
+*changes* would instead mean data is arriving but malformed.
+
 **`&bt BT_CLR_ALL` froze the central.** **[verified — observed on
 hardware]** After clearing all bluetooth profiles, the left half locked up.
 The right half then looked disconnected, but that was a symptom: the
