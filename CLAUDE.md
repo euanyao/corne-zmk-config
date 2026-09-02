@@ -37,6 +37,26 @@ learnability are worth more here than continuity.
 | Layers | 9 of ZMK's 32 |
 | ZMK Studio | enabled (`-DCONFIG_ZMK_STUDIO=y`) |
 | LEDs | 27 per half (21 per-key + 6 underglow) |
+| Display | **nice!view** on both halves — `nice_view_adapter nice_view` shields, SPI. **UNTESTED on hardware** |
+
+**The display was swapped from the 128x32 I2C OLED to a nice!view** (Sharp
+LS011B7DH03 memory LCD, 160x68) on branch `hmr-niceview`. Consequences that
+touch design decisions elsewhere in this file:
+
+- The **built-in status screen is gone.** `nice_view` selects
+  `ZMK_DISPLAY_STATUS_SCREEN_CUSTOM`, so `STATUS_SCREEN_BUILT_IN` and every
+  widget toggle that configured it were removed from `corne.conf`. Re-adding
+  them will conflict.
+- **§3's WIN-at-layer-1 rationale rests on the status screen showing the
+  highest active layer.** The nice!view screen is believed to do the same,
+  but that is **[unverified]** — confirm on hardware before trusting the
+  OLED-era reasoning.
+- `CONFIG_ZMK_IDLE_TIMEOUT=5000` was sized for the OLED's ~10mA draw. A
+  reflective memory LCD is ~1000x cheaper to keep lit, so that value is now
+  needlessly aggressive. Left unchanged deliberately; raising it is the
+  obvious follow-up.
+- **Not e-ink**, despite the marketing on the part the owner bought. No
+  ghosting, no slow refresh — but the image is lost without power.
 
 **The case covers the physical reset button.** Bootloader access via the
 keymap is therefore safety-critical — losing it means losing the ability to
@@ -88,9 +108,11 @@ toward *more* layers, not fewer.
 | 7 | WIN_AXN | conditional `<WIN AXN>` — shortcuts + pos 20, 21 |
 | 8 | WIN_FNK_NAV | conditional `<WIN FNK_NAV>` — pos 13, 14 (hml swap) |
 
-**WIN sits at 1, below the typing layers, on purpose.** ZMK's built-in OLED
-status screen shows the *highest active* layer, so a high WIN made the OLED
-read "WIN" permanently in Windows mode and mask DEV/AXN/FNK. It resolves
+**WIN sits at 1, below the typing layers, on purpose.** The ZMK status
+screen shows the *highest active* layer, so a high WIN made the display
+read "WIN" permanently in Windows mode and mask DEV/AXN/FNK. (Measured on
+the OLED's built-in screen; assumed to hold for the nice!view screen too,
+but **[unverified]** — see §1.) It resolves
 correctly down there only because DEV/AXN/FNK are `&trans` at all three
 positions WIN binds — so WIN only has to outrank BAS. `check-keymap.sh`
 asserts that invariant, because breaking it silently kills Windows
@@ -634,7 +656,7 @@ only in this file.
      2 are both rejected.
 
   **Test this before fixing it.** In Windows mode, idle past 10 minutes,
-  wake, read the OLED: `WIN` means the flag survived and this whole item is
+  wake, read the display: `WIN` means the flag survived and this whole item is
   moot. `BAS` means it was lost.
 
   Note BLE auto-reconnect does **not** restore it. Reconnection is a radio
