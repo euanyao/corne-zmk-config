@@ -567,8 +567,37 @@ lower WPM → larger value needed).
 | `hold-trigger-on-release` | on = enables D+F LGUI+LSHIFT; off = same-hand chars appear faster | toggle in `shared.dtsi` |
 
 **Current values:** `HR_TAPPING = 280`, `HR_QUICK_TAP = 175`,
-`HR_PRIOR_IDLE = 175`. Values are unverified on hardware — treat as
-a tuned starting point, not a final answer.
+`HR_PRIOR_IDLE = 175`, `HR_SHIFT_PRIOR_IDLE = 0`.
+
+**Shift is deliberately excluded from `HR_PRIOR_IDLE`.
+[verified — observed on hardware]** That setting encodes "a modifier
+follows a pause", which is true of Ctrl/Cmd/Alt — reached for *between*
+bursts to start a shortcut — and **false of shift**, reached for *mid-flow*
+to capitalise a word. The space before a capital is a keypress like any
+other, so the gap is short and prior-idle fires. At 175 ms, holding N to
+type a capital `T` resolved as a tap and produced **"nt"**; prior-idle
+decides at press time, so nothing about the letter's timing could rescue
+it.
+
+BAS shift therefore uses separate behaviours, `hmls` / `hmrs`, with
+`require-prior-idle-ms = 0`. Only BAS: `DV16`/`DV19` (Shift+`=`, Shift+`!`),
+`AX19` (numpad) and `FN16` (Shift+F8) stay on `hml`/`hmr`, because chording
+mods genuinely do follow a pause.
+
+Note the two failure modes pull this dial in **opposite directions**, which
+is why one value cannot serve both classes:
+
+| symptom | class | direction |
+|---|---|---|
+| `ri` fires Ctrl+I mid-word | Ctrl/Cmd/Alt | raise `HR_PRIOR_IDLE` |
+| capital `T` types "nt" | Shift | lower `HR_SHIFT_PRIOR_IDLE` |
+
+If fast cross-hand rolls *starting* on T or N now produce stray capitals
+("tO", "waNt"), raise `HR_SHIFT_PRIOR_IDLE` toward 50–80 rather than
+reverting it to `HR_PRIOR_IDLE`.
+
+Remaining values are unverified on hardware — treat as a tuned starting
+point, not a final answer.
 
 ---
 

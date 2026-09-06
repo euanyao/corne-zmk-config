@@ -38,6 +38,53 @@ hmr: homerow_mods_right {
     bindings = <&kp>, <&kp>;
 };
 
+// SHIFT is split off from the other home-row mods on purpose.
+//
+// require-prior-idle-ms encodes the assumption "a modifier follows a
+// pause". That holds for Ctrl/Cmd/Alt -- you reach for those BETWEEN
+// typing bursts, to start a shortcut. It is FALSE for shift, which you
+// reach for mid-flow to capitalise a word: the space before it is a
+// keypress like any other, so the gap is short and prior-idle fires.
+//
+// With the inherited 175 ms, holding N to type a capital T resolved as a
+// tap and produced "nt". The hold was never even considered, because
+// prior-idle decides at press time -- no amount of careful timing on the
+// letter could rescue it.
+//
+// HR_SHIFT_PRIOR_IDLE is therefore 0: shift is guarded by the positional
+// check and balanced flavor alone. Cost is that a fast cross-hand roll
+// STARTING on T or N can now produce a stray capital ("tO", "waNt").
+// Capitals are far more frequent than those rolls, so this is the right
+// side of the trade -- but raise HR_SHIFT_PRIOR_IDLE toward 50-80 if the
+// stray capitals become more annoying than the missing ones were.
+//
+// Only BAS uses these. DV16/DV19 (Shift+= and Shift+!), AX19 (numpad) and
+// FN16 (Shift+F8) stay on hml/hmr -- those are chording mods, and chords
+// really do follow a pause.
+hmls: homerow_shift_left {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HR_TAPPING>;
+    quick-tap-ms = <HR_QUICK_TAP>;
+    require-prior-idle-ms = <HR_SHIFT_PRIOR_IDLE>;
+    flavor = HR_FLAVOR;
+    hold-trigger-key-positions = <KP_RIGHT KP_THUMB>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+};
+
+hmrs: homerow_shift_right {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    tapping-term-ms = <HR_TAPPING>;
+    quick-tap-ms = <HR_QUICK_TAP>;
+    require-prior-idle-ms = <HR_SHIFT_PRIOR_IDLE>;
+    flavor = HR_FLAVOR;
+    hold-trigger-key-positions = <KP_LEFT KP_THUMB>;
+    hold-trigger-on-release;
+    bindings = <&kp>, <&kp>;
+};
+
 // ESC on tap, hard reset to base on hold. The reset is the escape hatch if
 // layers ever end up stacked; the MAC variant relights the OS flag that
 // &to would otherwise clear.

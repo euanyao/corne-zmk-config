@@ -64,8 +64,8 @@
 #define HR_A      &hml  LALT   A
 #define HR_R      &hml  LCTRL  R
 #define HR_S      &hml  LGUI   S
-#define HR_T      &hml  LSHFT  T
-#define HR_N      &hmr  RSHFT  N
+#define HR_T      &hmls LSHFT  T
+#define HR_N      &hmrs RSHFT  N
 #define HR_E      &hmr  RGUI   E
 #define HR_I      &hmr  RCTRL  I
 #define HR_O      &hmr  RALT   O

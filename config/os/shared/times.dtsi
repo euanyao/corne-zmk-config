@@ -26,6 +26,13 @@
  * this window -- eliminates typing delays during normal flow.
  * Formula: 10500 / WPM. 175 ms covers ~60 WPM (ergo keyboard baseline). */
 #define HR_PRIOR_IDLE 175
+/* SHIFT ONLY. The value above assumes a modifier follows a pause, which is
+ * true of Ctrl/Cmd/Alt (reached for between bursts, to start a shortcut)
+ * and false of shift (reached for mid-flow, to capitalise a word). At 175
+ * a mid-sentence capital resolved as a tap: holding N and pressing T gave
+ * "nt", not "T". 0 disables the check for shift alone. Raise toward 50-80
+ * if fast rolls starting on T or N produce stray capitals. */
+#define HR_SHIFT_PRIOR_IDLE 0
 
 /* Mod Tap */
 #define MT_TAPPING    220
