@@ -830,11 +830,49 @@ only in this file.
 
 ## 7. Open
 
-- **Bluetooth flakiness — UNDIAGNOSED.** An earlier theory that profile 5
-  was out of range was wrong (see §3.2); six profiles exist and always did.
-  That theory produced commits `0acf415` and `fbcffa5`, both reverted in
-  `75f9379`. Nothing is known about the real cause. One **[verified]**
-  data point exists: `BT_CLR_ALL` froze the central (§3.5).
+- **Bluetooth flakiness — UNDIAGNOSED, but there is now a candidate
+  mechanism.** An earlier theory that profile 5 was out of range was wrong
+  (see §3.2); six profiles exist *given `BT_MAX_PAIRED=7`*. That theory
+  produced commits `0acf415` and `fbcffa5`, both reverted in `75f9379`.
+  One **[verified]** data point exists: `BT_CLR_ALL` froze the central
+  (§3.5).
+
+  **HYPOTHESIS [source-verified mechanism, unproven as the cause]:** those
+  two commits lowered `BT_MAX_PAIRED` 7→6, which lowers
+  `ZMK_BLE_PROFILE_COUNT` 6→5. `ble/active_profile` is loaded from NVS with
+  **no bounds check** — `ble.c:457-466` validates only `len`, never the
+  value — and is then dereferenced **unguarded**:
+
+  ```
+  ble.c:340  zmk_ble_active_profile_addr() { return &profiles[active_profile].peer; }
+  ble.c:357  zmk_ble_active_profile_name() { return profiles[active_profile].name; }
+  ble.c:498  bt_addr_le_cmp(bt_conn_get_dst(conn), &profiles[active_profile].peer)
+  ```
+
+  `profiles[]` is `static struct zmk_ble_profile profiles[ZMK_BLE_PROFILE_COUNT]`
+  and **no clamp on `active_profile` exists anywhere in the file**. The
+  indexed accessors (`zmk_ble_profile_is_open(index)` …) *do* check, and
+  `ble/profiles/N` *is* checked at `ble.c:441` — it is only the active
+  index that is not. So if NVS held `active_profile = 5` when a
+  count-5 build booted, every advertising update read adjacent static
+  memory as a BLE address. **The "fix" would have created the bug.**
+
+  > **RULE: never lower `BT_MAX_PAIRED` while NVS may hold a high
+  > `active_profile`.** Shrinking the count below a persisted index is an
+  > out-of-bounds static-array access on the boot advertising path. If a
+  > true 5-profile build is ever wanted, select profile 1–5 (index 0–4)
+  > *before* flashing it, or clear the stored index first.
+
+  This is the hard safety reason `BT_MAX_PAIRED` stays at **7** (§3.2) —
+  stronger than "the reverted experiments were unfounded". Note ZMK's own
+  default for a split central is `BT_MAX_PAIRED=6` → count **5**, matching
+  `NICEVIEW_PROFILE_COUNT 5`; our 7 is the deviation, kept only so the
+  sixth profile's existing bond stays in range.
+
+  **Caveat on the count itself:** `ZMK_BLE_PROFILE_COUNT = 6` is **derived,
+  not measured**, for the pinned build. The "[verified from a CI build's own
+  Kconfig output]" note in §3.2 predates the v0.3.0 pin. Read the build's
+  own Kconfig output to confirm rather than trusting the arithmetic.
 
 
 - **Hardware verification of this branch.** Nothing on `keymap-redesign` has
