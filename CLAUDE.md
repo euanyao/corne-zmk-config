@@ -131,13 +131,52 @@ pivot 80,80). Consequences:
 - **The modifier indicator's shipped X was one of these.** `MODIFIERS_CUSTOM_X`
   is `default 62 if NICE_EPAPER_ON`, but the active layout is `FIXED` +
   `SYMBOL` + **`BOX`** + `MACOS` (all plain defaults, no epaper override),
-  and BOX is a 2×2 grid of 12×14 cells with a 2px gap = **26×30 px**. At
+  and BOX is a 2×2 grid of 14×14 icons with a 2px gap = **30×30 px**. At
   X=62 the left column clipped after x=67 and the right column was entirely
-  off-panel. Max legal is `68 − 26 = 42`, now set in `corne.conf`.
+  off-panel. Max legal is `68 − 30 = 38`, now set in `corne.conf`.
   Y=62 was always fine (`62 + 30 = 92 < 160`).
+- **`draw_mods_status` has TWO branches and they have different dimensions.**
+  The `SYMBOL` half uses 14×14 icons (30×30 for BOX); the `LETTER` half
+  (`#else — MODO LETRAS`) uses 12×14 boxes (26×30, which would permit
+  X=42). Each has its own VER/HOR/BOX variants. **Reading the wrong half
+  produces a wrong answer that still looks plausible** — this cost a bad
+  commit (`95b55f2` shipped X=42, corrected immediately after). We build
+  `SYMBOL`. Verify icon sizes from the assets, not the code comments.
+- The `VER` layouts *do* clamp for epaper (`base_x = 68 - img_size - 2`
+  right-aligned, `(68 - img_size) / 2` centred) — that hardcoded 68 is the
+  independent confirmation of the X extent. `BOX`, the default, got no clamp.
 
 That is an upstream bug — the epaper X default is incompatible with the
 default layout — and worth reporting alongside the hardcoded profile 5.
+
+**The README contradicts the code; the code wins.** README's position table
+claims epaper `MODIFIERS_CUSTOM_X=2 / Y=110` and `PROFILE_BIG` default `n`,
+while `Kconfig.defconfig` has `62 / 62` and `default y if NICE_EPAPER_ON`.
+Do not "fix" our config to match the README's numbers: they are only
+self-consistent with `PROFILE_BIG=n`, and with it on, `Y=110` runs the
+modifier box (y 110–139) straight through the profile icons (y 129–141).
+
+### Verified against the author's own reference config
+
+`mctechnology17/zmk-config` (linked from the README) runs the **same panel
+and shield combination**, so it is the ground truth for structure. Ours
+matches it on every point: **[verified 2026-09-07]**
+
+| | author | ours |
+|---|---|---|
+| zmk revision | `v0.3.0` | `v0.3.0` |
+| `zmk-nice-oled` revision | `main` | `main` |
+| board | `nice_nano_v2` | `nice_nano_v2` |
+| shield | `corne_left nice_view_adapter nice_epaper` | same |
+| studio snippet | on the central only | same |
+| `ZMK_DISPLAY` / `STATUS_SCREEN_CUSTOM` | `y` / `y` | `y` / `y` |
+| `WORK_QUEUE_DEDICATED` | commented out (module default) | absent (module default) |
+| widget positions | **none overridden** | `MODIFIERS_CUSTOM_X=38` only |
+
+Their `corne.conf` sets *only* those two display symbols and overrides no
+widget coordinates — which is why the broken BOX default ships unnoticed.
+Our single deviation is that fix. **Do not add speculative widget
+overrides**; the module's defaults are otherwise what the author runs.
 
 The **D0/P0.08 chip-select override survives the pin unchanged** — v0.3.0's
 corne overlay still psels `SPIM_MOSI 0,6` for the underglow, the adapter
