@@ -3,18 +3,25 @@
  * Selecting a profile also sets the OS: profiles 0-1 are the macOS work
  * laptop, 2-4 the Windows machines.
  *
- * FIVE PROFILES ARE BOUND, NOT SIX, AND THAT IS A DISPLAY LIMIT.
+ * FIVE PROFILES ARE BOUND, NOT SIX. FIVE IS THE nice!view CONVENTION.
  * The firmware still supports six -- ZMK_BLE_PROFILE_COUNT is
  * CONFIG_BT_MAX_PAIRED - CONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS = 7 - 1
  * (app/include/zmk/ble.h) -- so profile index 5 exists and would pair
- * fine. It is unbound because the zmk-nice-oled status screen can only
- * draw five: its profile widget hardcodes `for (i = 0; i < 5; i++)` at a
- * 14px pitch with 12px icons, which exactly fills the nice!view's 68px
- * canvas (4*14+12 = 68). A sixth icon would start off-panel, and the
- * alternate small-dot path is capped too (its `profiles` bitmap is 31px
- * = 5 dots at 7px). Selecting index 5 therefore worked but highlighted
- * nothing, since `i == active_profile_index` never matched.
- * [verified -- module source, 2026-09-07]
+ * fine. It is unbound because NO nice!view status screen can indicate it:
+ *
+ *   ZMK's built-in nice_view screen  NICEVIEW_PROFILE_COUNT 5, drawn as a
+ *   (widgets/util.h:11, status.c)    quincunx of 5 numbered circles, and
+ *                                    clamped MIN(5, ZMK_BLE_PROFILE_COUNT)
+ *   zmk-nice-oled nice_epaper        hardcoded `for (i = 0; i < 5; i++)`,
+ *   (widgets/profile.c)              12px icons at 14px pitch = 4*14+12,
+ *                                    exactly the 68px canvas; unclamped
+ *
+ * So five is a deliberate design on this panel, not a module bug -- six
+ * would not fit either screen. [verified -- ZMK + module source, 2026-09-07]
+ *
+ * The module's only real defect is the missing clamp: index 5 stayed
+ * selectable but lit nothing, because `i == active_profile_index` never
+ * matched and the numeric readout is compiled out for epaper.
  *
  * BT_MAX_PAIRED stays at 7 deliberately: lowering it is what the reverted
  * 0acf415/fbcffa5 experiments did on unfounded reasoning. Leaving the
@@ -22,8 +29,8 @@
  * unchanged.
  *
  * Owner has three devices (1 macOS + 2 Windows), so five leaves two spare.
- * If a sixth is ever genuinely needed, fix the module rather than binding
- * an invisible key -- see the fork option in CLAUDE.md.
+ * DO NOT bind a sixth key -- it is invisible on both screens, so there is
+ * no fallback branch to switch to.
  *
  * macOS is the unflagged default, so the mac profiles just clear to base.
  * The windows profiles additionally light the WIN flag.

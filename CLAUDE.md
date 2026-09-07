@@ -330,9 +330,11 @@ including "assignment to undefined symbol".
 
 #### The 5-profile display cap — `hmr-niceview-0.3`
 
-**[verified — module source + hardware observation, 2026-09-07]** The owner
-observed only 5 profiles indicated on the nice!view after flashing. The
-hardware is not the limit; the **zmk-nice-oled profile widget** is.
+**[verified — module source + ZMK source + hardware observation,
+2026-09-07]** The owner observed only 5 profiles indicated on the nice!view
+after flashing. The hardware is not the limit — the firmware still has six
+(`ZMK_BLE_PROFILE_COUNT = 7 - 1`). **The panel's status screens are**, and
+that holds for *both* the module's screen and ZMK's built-in one.
 
 `CONFIG_NICE_OLED_WIDGET_PROFILE_BIG` is `default y if NICE_EPAPER_ON`, and
 that path in `widgets/profile.c` is:
@@ -355,12 +357,40 @@ two spare. `BT_MAX_PAIRED` stays **7** — lowering it is what the reverted
 `0acf415`/`fbcffa5` did on unfounded reasoning, and an unbound sixth
 profile costs nothing. `BT_CLR_ALL` still wipes all six.
 
-**Do not "fix" this by binding a sixth key** — it would be invisible and
-unhighlighted. Showing six needs the module forked: loop bound changed to
-`ZMK_BLE_PROFILE_COUNT` and icons redrawn at ≤11px pitch (`5*11+12 = 67`).
-Worth filing upstream; the hardcoded 5 is a genuine bug given ZMK supports
-up to `BT_MAX_PAIRED` profiles. **This cap does not exist on
-`hmr-niceview`**, whose built-in screen prints the profile as text.
+**5 IS THE nice!view PLATFORM CONVENTION, NOT A MODULE QUIRK.** ZMK's own
+built-in nice!view screen caps at five as well: **[verified —
+`app/boards/shields/nice_view/widgets/` @ v0.3.0]**
+
+```
+util.h:11    #define NICEVIEW_PROFILE_COUNT 5
+status.c:147 circle_offsets[5][2] = {{13,13},{55,13},{34,34},{13,55},{55,55}}
+status.c:172 snprintf(label, sizeof(label), "%d", i + 1);
+status.c:269 for (i = 0; i < MIN(NICEVIEW_PROFILE_COUNT, ZMK_BLE_PROFILE_COUNT); ++i)
+```
+
+That offsets layout is a deliberate **quincunx** — four corners plus centre,
+dice-five — with each circle numbered 1..5. It is a design, not an
+oversight, and it is what makes **5 the right number to bind** on this
+panel regardless of which screen is in use.
+
+**CORRECTION.** An earlier version of this section and commit `cdb0a3f`
+claimed *"this cap does not exist on `hmr-niceview`, whose built-in screen
+prints the profile as text."* **Both halves of that are false.** The cap
+does exist there (`NICEVIEW_PROFILE_COUNT 5`), and the screen draws five
+numbered circles rather than an unbounded numeric readout. The claim was
+asserted without reading `nice_view/widgets/status.c` — the exact failure
+this file's tagging convention exists to prevent.
+
+**The narrower real difference:** ZMK **clamps** (`MIN(NICEVIEW_PROFILE_COUNT,
+ZMK_BLE_PROFILE_COUNT)`), so it never indexes past either bound; the
+module's bare `for (i = 0; i < 5; i++)` does not. With six firmware
+profiles the module left index 5 selectable-but-unindicated. So the
+upstream report should be scoped to **"the loop is unclamped and nothing
+indicates an out-of-range profile"**, *not* "the count should be six" —
+six would not fit either screen.
+
+**Do not "fix" this by binding a sixth key.** It is invisible on both
+screens, so there is no branch to fall back to.
 
 BT profiles: **0-1 = macOS, 2-4 = Windows** (5 unbound), in
 `os/shared/macros/settings.dtsi`. **Nothing detects the OS** — it's pure
