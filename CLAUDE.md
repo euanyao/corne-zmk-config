@@ -9,8 +9,18 @@ Claims are tagged:
 - **[inferred]** — read off the config, not documented by the original author
 - **[unverified]** — believed true, not confirmed in this environment
 
-All work is on branch **`keymap-redesign`**. `master` is untouched.
-**Nothing has been flashed or tested on hardware.**
+`master` is untouched and is the only hardware-verified branch (tagged
+`v1.0`). Work since then has stacked across three branches:
+
+| branch | adds | ZMK |
+|---|---|---|
+| `keymap-redesign` | the 9-layer shared-set redesign (§3) | main |
+| `hmr-niceview` | OLED → nice!view swap, ZMK's built-in screen | main |
+| **`hmr-niceview-0.3`** | zmk-nice-oled custom screen, **ZMK pinned v0.3.0** | **v0.3.0** |
+
+Each descends from the one above it. **Nothing on any of them has been
+flashed or tested on hardware.** See §1's pin subsection before working on
+`hmr-niceview-0.3` — the pin carries a known BLE regression.
 
 ---
 
@@ -30,14 +40,14 @@ learnability are worth more here than continuity.
 
 | | |
 |---|---|
-| Board | `nice_nano//zmk`, shields `corne_left` / `corne_right` |
+| Board | `nice_nano//zmk` on main; **`nice_nano_v2` on `hmr-niceview-0.3`** — see the pin subsection. Shields `corne_left` / `corne_right` |
 | Central | **left** (carries the studio snippet + USB UART) |
 | Peripheral | **right** |
 | Builds | GitHub Actions only — **no local ZMK toolchain, no `west`** |
 | Layers | 9 of ZMK's 32 |
 | ZMK Studio | enabled (`-DCONFIG_ZMK_STUDIO=y`) |
 | LEDs | 27 per half (21 per-key + 6 underglow) |
-| Display | **nice!view** on both halves — `nice_view_adapter nice_view` shields, SPI. **UNTESTED on hardware** |
+| Display | **nice!view** on both halves — `nice_view_adapter` + `nice_view` (main) or `nice_epaper` (0.3 branch), SPI. **UNTESTED on hardware** |
 
 **The display was swapped from the 128x32 I2C OLED to a nice!view** (Sharp
 LS011B7DH03 memory LCD, 160x68) on branch `hmr-niceview`. Consequences that
@@ -51,12 +61,66 @@ touch design decisions elsewhere in this file:
   highest active layer.** The nice!view screen is believed to do the same,
   but that is **[unverified]** — confirm on hardware before trusting the
   OLED-era reasoning.
-- `CONFIG_ZMK_IDLE_TIMEOUT=5000` was sized for the OLED's ~10mA draw. A
-  reflective memory LCD is ~1000x cheaper to keep lit, so that value is now
-  needlessly aggressive. Left unchanged deliberately; raising it is the
-  obvious follow-up.
+- `CONFIG_ZMK_IDLE_TIMEOUT` was sized at 5000 for the OLED's ~10mA draw. A
+  reflective memory LCD is ~1000x cheaper to keep lit, so that premise is
+  gone and it **now sits at 3600000, equal to `IDLE_SLEEP_TIMEOUT`**
+  **[verified — read from `corne.conf`]**. Note this also drives
+  `RGB_UNDERGLOW_AUTO_OFF_IDLE`, so underglow now stays lit for the full
+  hour once toggled on; `corne.conf`'s own comment carries the tradeoff.
 - **Not e-ink**, despite the marketing on the part the owner bought. No
   ghosting, no slow refresh — but the image is lost without power.
+
+#### The ZMK v0.3.0 pin — `hmr-niceview-0.3` only
+
+That branch replaces ZMK's built-in nice!view screen with the vertical
+widget layout from **`mctechnology17/zmk-nice-oled`**, which forces a pin.
+
+**The pin is a hard requirement of the module, not a preference.**
+**[verified — GitHub API, 2026-09-07]** The module builds only against
+Zephyr 3.5 / LVGL 8; ZMK main is Zephyr 4.1 / LVGL 9 and it has not been
+ported — upstream issues **#37** ("migrate to ZMK main (Zephyr 4.1 + LVGL
+9)") and **#22** ("LVGL updated by Zephyr 4.1") are both **open**, and the
+README states "TESTED USING ZMK v0.3.0". v0.3.0 is also still the newest
+release; there is no v0.4.x tag.
+
+> **KNOWN ACCEPTED RISK.** This exact pin was tried and reverted in
+> `52f7921`, which recorded *"BLE pairing broke immediately afterwards on
+> all profiles."* v0.3.0 resolves zephyr to `v3.5.0+zmk-fixes` (read from
+> the tag's own `app/west.yml`), rolling the BT host and nRF controller
+> back two majors. The owner elected to proceed anyway on an experiment
+> branch; **`hmr-niceview` stays on main as the fallback.** If pairing
+> breaks, **suspect the pin first** — ZMK's own BLE code barely differs
+> across that range, so Zephyr is the real variable.
+
+**Shield is `nice_epaper`, not `nice_oled`.** The module's names are
+marketing parity, not panel types: `nice_oled` is the 128x32 I2C OLED,
+`nice_epaper` is the Sharp 160x68 memory LCD actually on this board. It is
+**mutually exclusive with ZMK's `nice_view`** — each declares a
+`nice_view: ls0xx@0` node on `&nice_view_spi`, so listing both is a
+duplicate-label build error.
+
+**Compat fixes the pin drags in. Do not remove these without unpinning:**
+
+| where | fix | why |
+|---|---|---|
+| `build.yaml` | board `nice_nano_v2`, not `nice_nano//zmk` | v0.3.0 predates Zephyr hardware model v2; boards live in `app/boards/arm/nice_nano` and `//variant` target syntax does not parse. main's `nice_nano//zmk` declares `default_revision: "2.0.0"`, so `_v2` is the equivalent |
+| `corne.conf` | `CONFIG_WS2812_STRIP=y` | Zephyr 4.1 auto-selects the WS2812 SPI driver from DTS; 3.5 does not, and without it **underglow silently builds dead**. v0.3.0's own corne shield template pairs the two symbols |
+| `build.yml` | workflow ref `@v0.3.0` | matches the checkout; unpin both together or neither |
+| `corne.conf` | `WORK_QUEUE_DEDICATED=n` **removed** | the module defaults that choice to DEDICATED and sizes the thread stack to match |
+
+The module also owns `LV_Z_VDB_SIZE`, `LV_DPI_DEF`, `LV_Z_BITS_PER_PIXEL`
+and `LV_COLOR_DEPTH_1` for this panel — **do not set those in `corne.conf`.**
+
+**`BT_MAX_CONN`/`BT_MAX_PAIRED` stay at 7**, unlike the previous pin
+attempt which lowered them to 6 and cost the 6th BT profile. Zephyr 3.5.0
+ranges them **1–250** and **0–128** **[verified — `subsys/bluetooth/Kconfig`
+and `host/Kconfig` @ `v3.5.0+zmk-fixes`]**, so 7 was never out of range.
+
+The **D0/P0.08 chip-select override survives the pin unchanged** — v0.3.0's
+corne overlay still psels `SPIM_MOSI 0,6` for the underglow, the adapter
+still defaults `cs-gpios` to `&pro_micro 1`, and `nice_epaper.overlay`
+extends the same `&nice_view_spi` label. **[verified — read from the pinned
+tree, not assumed]**
 
 **The case covers the physical reset button.** Bootloader access via the
 keymap is therefore safety-critical — losing it means losing the ability to
@@ -718,7 +782,24 @@ only in this file.
   and asserts: every layer binds exactly 42 keys, every `&behavior`
   resolves, and keymap node order matches `layers.dtsi`. A pass means
   "worth flashing", **not** "correct" — it does not validate devicetree
-  semantics. Current: *9 layers, order ok* (behaviour count will update on next check run).
+  semantics. Current: *9 layers / all 42 bindings / order ok / WIN
+  unshadowed at 0 and 11*.
+
+  **It reports one EXPECTED FAIL since the nice!view work — don't "fix" it:**
+
+  ```
+  FAIL  referenced but never defined: nice_view_spi, pro_micro
+  ```
+
+  Both are **board and shield labels**, supplied by `nice_view_adapter` and
+  the nice!nano board at build time; the stub headers cannot see them.
+  **[verified — identical output on unmodified `hmr-niceview`]**
+
+  Note the scope limit this exposes: the validator only preprocesses
+  `corne.keymap`. It **never reads `west.yml`, `build.yaml` or `*.conf`**, so
+  it cannot catch a bad board target, a wrong shield name, a broken pin or an
+  undefined Kconfig symbol — exactly the failure modes the v0.3.0 pin
+  introduces. CI is the only check for those.
 - **`./draw-keymap.sh`** — regenerates `docs/keymap.yaml` + `docs/keymap.svg`.
   Needs `keymap-drawer` (installed, v0.23.0 at `~/.local/bin/keymap`; export
   `PATH="$HOME/.local/bin:$PATH"` first). **Re-run after any keymap change.**
