@@ -243,10 +243,14 @@ macOS is the **unflagged default**; WIN is lit for Windows.
 ```
    what lights WIN               where
    ---------------------------   -----------------------------------
-   m_s_b3..b6 (BT profiles 2-5)  STG positions 13/14/25/26
+   m_s_b3..b5 (BT profiles 2-4)  STG positions 13/14/25
    &tog WIN   (OS toggle)        STG position 31, self-inverse
    to_BAS_win_kp (ESC-hold)      on WIN itself — relight after &to
 ```
+
+**Five profiles are BOUND; six EXIST.** Profile index 5 is deliberately
+unbound and STG position 26 is `&none`. This is a **status-screen limit,
+not a firmware or hardware one** — see the display cap note below.
 
 **There are six profiles, and the count is NOT configurable.** From
 `app/include/zmk/ble.h` it is a derived C macro, not a Kconfig symbol:
@@ -262,7 +266,41 @@ removes profiles. And `CONFIG_ZMK_BLE_PROFILE_COUNT` does not exist;
 assigning it fails the build, because ZMK's CI aborts on Kconfig warnings
 including "assignment to undefined symbol".
 
-BT profiles: **0-1 = macOS, 2-5 = Windows**, in
+#### The 5-profile display cap — `hmr-niceview-0.3`
+
+**[verified — module source + hardware observation, 2026-09-07]** The owner
+observed only 5 profiles indicated on the nice!view after flashing. The
+hardware is not the limit; the **zmk-nice-oled profile widget** is.
+
+`CONFIG_NICE_OLED_WIDGET_PROFILE_BIG` is `default y if NICE_EPAPER_ON`, and
+that path in `widgets/profile.c` is:
+
+```c
+for (int i = 0; i < 5; i++)            /* hardcoded */
+    ... OFFSET_X + (i * 14) ... i == state->active_profile_index ...
+```
+
+**The 5 is fitted to the panel, not arbitrary:** 12px icons at 14px pitch
+give `4*14 + 12 = 68`, exactly the nice!view's 68px canvas width. A sixth
+starts at x=70, off-panel. The alternate small-dot path is capped too — its
+`profiles` bitmap is `header.w = 31`, i.e. 5 dots at 7px pitch. Both paths
+max at five. Selecting index 5 *worked* (it passes ZMK's bounds check) but
+highlighted nothing, because `i == active_profile_index` never matched, and
+the numeric readout is compiled out for epaper (`#if !NICE_EPAPER_ON`).
+
+**Resolution: drop to 5 bound profiles.** Owner has 3 devices, so 5 leaves
+two spare. `BT_MAX_PAIRED` stays **7** — lowering it is what the reverted
+`0acf415`/`fbcffa5` did on unfounded reasoning, and an unbound sixth
+profile costs nothing. `BT_CLR_ALL` still wipes all six.
+
+**Do not "fix" this by binding a sixth key** — it would be invisible and
+unhighlighted. Showing six needs the module forked: loop bound changed to
+`ZMK_BLE_PROFILE_COUNT` and icons redrawn at ≤11px pitch (`5*11+12 = 67`).
+Worth filing upstream; the hardcoded 5 is a genuine bug given ZMK supports
+up to `BT_MAX_PAIRED` profiles. **This cap does not exist on
+`hmr-niceview`**, whose built-in screen prints the profile as text.
+
+BT profiles: **0-1 = macOS, 2-4 = Windows** (5 unbound), in
 `os/shared/macros/settings.dtsi`. **Nothing detects the OS** — it's pure
 convention, so pair the Mac to slot 0 or 1. A mismatched flag only breaks
 word-delete and the ESC panic; typing and shortcuts still work,

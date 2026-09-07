@@ -1,7 +1,29 @@
 /* Bluetooth profile == OS mode.
  *
  * Selecting a profile also sets the OS: profiles 0-1 are the macOS work
- * laptop, 2-5 the Windows machines.
+ * laptop, 2-4 the Windows machines.
+ *
+ * FIVE PROFILES ARE BOUND, NOT SIX, AND THAT IS A DISPLAY LIMIT.
+ * The firmware still supports six -- ZMK_BLE_PROFILE_COUNT is
+ * CONFIG_BT_MAX_PAIRED - CONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS = 7 - 1
+ * (app/include/zmk/ble.h) -- so profile index 5 exists and would pair
+ * fine. It is unbound because the zmk-nice-oled status screen can only
+ * draw five: its profile widget hardcodes `for (i = 0; i < 5; i++)` at a
+ * 14px pitch with 12px icons, which exactly fills the nice!view's 68px
+ * canvas (4*14+12 = 68). A sixth icon would start off-panel, and the
+ * alternate small-dot path is capped too (its `profiles` bitmap is 31px
+ * = 5 dots at 7px). Selecting index 5 therefore worked but highlighted
+ * nothing, since `i == active_profile_index` never matched.
+ * [verified -- module source, 2026-09-07]
+ *
+ * BT_MAX_PAIRED stays at 7 deliberately: lowering it is what the reverted
+ * 0acf415/fbcffa5 experiments did on unfounded reasoning. Leaving the
+ * sixth profile present-but-unbound costs nothing and keeps bond storage
+ * unchanged.
+ *
+ * Owner has three devices (1 macOS + 2 Windows), so five leaves two spare.
+ * If a sixth is ever genuinely needed, fix the module rather than binding
+ * an invisible key -- see the fork option in CLAUDE.md.
  *
  * macOS is the unflagged default, so the mac profiles just clear to base.
  * The windows profiles additionally light the WIN flag.
@@ -33,7 +55,7 @@ BT_MAC(2, 1)   // macOS spare
 BT_WIN(3, 2)   // Windows PC 1
 BT_WIN(4, 3)   // Windows PC 2
 BT_WIN(5, 4)   // Windows spare
-BT_WIN(6, 5)   // Windows spare
+               // profile 5 intentionally unbound -- see the header comment
 
 /* mp_sSTG_cb -- clearing bluetooth bonds.
  *
@@ -41,9 +63,13 @@ BT_WIN(6, 5)   // Windows spare
  * STG had no free positions. It does now, so unlock is its own key and
  * clearing is down to two variants.
  *
- * BT_CLR_ALL stays behind shift on purpose: it wipes all six profiles, and
- * clearing bonds is the one repair that does NOT need the physical reset
- * button, so it wants a guard rather than a bare key. */
+ * BT_CLR_ALL stays behind shift on purpose: it wipes every profile the
+ * firmware has (all six, including the unbound one) plus the split bond,
+ * and clearing bonds is the one repair that does NOT need the physical
+ * reset button, so it wants a guard rather than a bare key.
+ *
+ * Note [verified on hardware, CLAUDE.md 3.5]: BT_CLR_ALL froze the central
+ * and needed a power-cycle. Expect that; it is not damage. */
 MORPH_KS(
     s,
     STG,
