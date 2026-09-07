@@ -2,4 +2,8 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    # Pinned to @v0.3.0 to match the ZMK revision in config/west.yml. The
+    # reusable workflow carries the toolchain/docker image and west
+    # invocation for its own tree, so running @main against a v0.3.0
+    # checkout risks a mismatch. Unpin both together or neither.
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3.0

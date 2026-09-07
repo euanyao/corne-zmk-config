@@ -18,8 +18,18 @@
  * strip claims the pad through pinctrl while the display claims it through
  * cs-gpios, and nothing cross-checks the two.
  *
+ * STILL TRUE UNDER THE v0.3.0 PIN, and still true with the zmk-nice-oled
+ * module's `nice_epaper` shield in place of ZMK's `nice_view`. Re-verified
+ * against the pinned tree rather than assumed:
+ *   - app/boards/shields/corne/boards/nice_nano_v2.overlay @ v0.3.0 still
+ *     psels SPIM_MOSI 0,6 for the strip.
+ *   - nice_view_adapter/boards/nice_nano_v2.overlay @ v0.3.0 still declares
+ *     `nice_view_spi: &spi0` with cs-gpios = <&pro_micro 1 ...>.
+ *   - the module's nice_epaper.overlay extends that same &nice_view_spi
+ *     label, so this override lands on it unchanged.
+ *
  * D0 / P0.08 is the fix. It is the only Pro Micro pin this build leaves
- * genuinely free -- verified against every consumer on ZMK main:
+ * genuinely free -- verified against every consumer on ZMK v0.3.0:
  *
  *     D1  P0.06   ws2812 underglow (spi3 MOSI)
  *     D2  P0.17   nice!view MOSI   (was the OLED's SDA)

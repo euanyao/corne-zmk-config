@@ -11,17 +11,33 @@
 #   - board: nice_nano_v2
 #     shield: reviung41
 #
-# nice_view_adapter must come BEFORE nice_view, and both after the corne
-# shield. The corne shield declares an I2C OLED on the display header; the
-# adapter overrides that node so the SPI panel can take the same pins.
+# BOARD IS `nice_nano_v2`, NOT `nice_nano//zmk`, BECAUSE ZMK IS PINNED to
+# v0.3.0 (see config/west.yml for why). v0.3.0 predates Zephyr's hardware
+# model v2: boards live in app/boards/arm/nice_nano as plain `nice_nano` and
+# `nice_nano_v2` targets, and the `board//variant` syntax main uses does not
+# parse. `nice_nano_v2` is the correct equivalent -- main's nice_nano//zmk
+# declares default_revision: "2.0.0". [verified -- both trees, 2026-09-07]
+#
+# SHIELD IS `nice_epaper`, NOT `nice_view`. Both drive the same Sharp
+# LS011B7DH03 160x68 panel; nice_epaper is the zmk-nice-oled module's
+# version, which ships the vertical custom status screen instead of ZMK's
+# built-in nice!view one. They are mutually exclusive -- each declares a
+# `nice_view: ls0xx@0` node on &nice_view_spi, so listing both is a
+# duplicate-label build error. The module names it "epaper" for marketing
+# parity with the panel; it is a memory LCD, not e-ink.
+#
+# nice_view_adapter must still come BEFORE nice_epaper, and both after the
+# corne shield. The corne shield declares an I2C OLED on the display header;
+# the adapter overrides that node so the SPI panel can take the same pins,
+# and nice_epaper then hangs the display off the adapter's &nice_view_spi.
 # settings_reset gets neither -- it is a bare recovery image with no display.
 ---
 include:
-  - board: nice_nano//zmk
-    shield: corne_left nice_view_adapter nice_view
+  - board: nice_nano_v2
+    shield: corne_left nice_view_adapter nice_epaper
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-  - board: nice_nano//zmk
-    shield: corne_right nice_view_adapter nice_view
-  - board: nice_nano//zmk
+  - board: nice_nano_v2
+    shield: corne_right nice_view_adapter nice_epaper
+  - board: nice_nano_v2
     shield: settings_reset

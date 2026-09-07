@@ -1,11 +1,56 @@
+# ZMK IS PINNED TO v0.3.0 ON THIS BRANCH -- deliberately, and it is not free.
+#
+# WHY THE PIN: the zmk-nice-oled module below only builds against Zephyr 3.5
+# / LVGL 8. ZMK main moved to Zephyr 4.1 / LVGL 9, which the module has not
+# been ported to -- upstream issues #37 ("migrate to ZMK main (Zephyr 4.1 +
+# LVGL 9)") and #22 ("LVGL updated by Zephyr 4.1") are both still OPEN.
+# The module's own README carries "TESTED USING ZMK v0.3.0". So the pin is a
+# hard requirement of using this module, not a preference.
+# [verified -- GitHub API, 2026-09-07]
+#
+# WHAT THE PIN COSTS: v0.3.0 resolves zephyr to v3.5.0+zmk-fixes (read from
+# this tag's own app/west.yml), rolling the Bluetooth host and nRF
+# controller back two major versions from main's v4.1.0+zmk-fixes.
+#
+#   >>> THIS EXACT PIN WAS TRIED AND REVERTED BEFORE. See 52f7921:
+#   >>> "BLE pairing broke immediately afterwards on all profiles."
+#
+# That regression is a known, accepted risk on this branch. `hmr-niceview`
+# is the fallback and stays on main. If pairing breaks again, the pin is the
+# first suspect -- ZMK's own BLE code barely differs across that range
+# (52f7921 measured app/src/ble.c at 11 lines, all API modernisation), so
+# the Zephyr rollback is the real variable.
+#
+# v0.3.0 is still the newest release: no v0.4.x tag exists, and v0.3-branch
+# is only docs ahead of the tag. Pinning to something newer is not an option.
+#
+# COMPAT FIXES THE PIN DRAGS IN -- do not remove these without unpinning:
+#   build.yaml        board must be `nice_nano_v2`, not `nice_nano//zmk`.
+#                     v0.3.0 predates Zephyr's hardware-model v2, so boards
+#                     live in app/boards/arm/nice_nano and the `//variant`
+#                     target syntax does not exist yet.
+#   corne.conf        CONFIG_WS2812_STRIP=y must be present. Zephyr 4.1
+#                     auto-selects the WS2812 SPI driver from DTS; 3.5 does
+#                     not. v0.3.0's own corne shield template pairs the two.
+#   build.yml         reusable workflow ref pinned to @v0.3.0 to match.
 manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    # Custom vertical status screen for the nice!view -- see the nice_epaper
+    # shield in build.yaml.
+    - name: mctechnology17
+      url-base: https://github.com/mctechnology17
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      revision: v0.3.0
       import: app/west.yml
+    # `main` is correct, not the v0.3/dev branch: v0.3/dev is 0 commits
+    # ahead of main and 3 behind, so main is a strict superset.
+    # [verified -- GitHub compare API]
+    - name: zmk-nice-oled
+      remote: mctechnology17
+      revision: main
   self:
     path: config
