@@ -116,6 +116,29 @@ attempt which lowered them to 6 and cost the 6th BT profile. Zephyr 3.5.0
 ranges them **1–250** and **0–128** **[verified — `subsys/bluetooth/Kconfig`
 and `host/Kconfig` @ `v3.5.0+zmk-fixes`]**, so 7 was never out of range.
 
+**Widget geometry — read this before moving anything on the screen.**
+**[verified — module source, 2026-09-07]** The module draws into a content
+region of `CANVAS_WIDTH × CANVAS_HEIGHT` = **68 × 160** (narrow and tall),
+then rotates 90° onto the 160×68 panel (`widgets/util.c rotate_canvas`,
+pivot 80,80). Consequences:
+
+- **X is the 68px axis.** Anything at `x ≥ 68` rotates off the visible area.
+  The buffer is allocated 160×160 as rotation scratch, which makes
+  out-of-range X *compile and run* while rendering invisibly.
+- Several shipped `_CUSTOM_X` defaults exceed 68 (`BONGO_CAT` and `LUNA` at
+  100) — they only matter when those widgets are enabled, but treat any
+  default ≥ 68 as unvalidated for this panel.
+- **The modifier indicator's shipped X was one of these.** `MODIFIERS_CUSTOM_X`
+  is `default 62 if NICE_EPAPER_ON`, but the active layout is `FIXED` +
+  `SYMBOL` + **`BOX`** + `MACOS` (all plain defaults, no epaper override),
+  and BOX is a 2×2 grid of 12×14 cells with a 2px gap = **26×30 px**. At
+  X=62 the left column clipped after x=67 and the right column was entirely
+  off-panel. Max legal is `68 − 26 = 42`, now set in `corne.conf`.
+  Y=62 was always fine (`62 + 30 = 92 < 160`).
+
+That is an upstream bug — the epaper X default is incompatible with the
+default layout — and worth reporting alongside the hardcoded profile 5.
+
 The **D0/P0.08 chip-select override survives the pin unchanged** — v0.3.0's
 corne overlay still psels `SPIM_MOSI 0,6` for the underglow, the adapter
 still defaults `cs-gpios` to `&pro_micro 1`, and `nice_epaper.overlay`
