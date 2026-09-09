@@ -4,19 +4,11 @@
  * the typing layers works whether or not the MAC flag happens to be lit.
  */
 
-// F+J and S+L span the two halves, so the second press has to cross the
-// BLE split link. The 50ms default is too tight for that.
+// T+N spans the two halves, so the second press has to cross the BLE
+// split link. The 50ms default is too tight for that.
 combo_CW_on {
     bindings = <&cw_ON>;
     key-positions = <16 19>;
-    timeout-ms = <80>;
-    slow-release;
-    layers = <BAS>;
-};
-
-combo_CW_off {
-    bindings = <&cw_OFF>;
-    key-positions = <14 21>;
     timeout-ms = <80>;
     slow-release;
     layers = <BAS>;

@@ -38,11 +38,3 @@ cw_ON: cw_ON {
         = <&kp LA(H_CWR)>
         , <&cw>;
 };
-
-cw_OFF: cw_OFF {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings
-        = <&kp LS(LC(H_CWR))>
-        , <&kp K_CANCEL>;
-};
