@@ -16,7 +16,7 @@
              * Numpad home-row mods at 20/21 are swapped here: AXN has
              * RGUI+N5 and RCTRL+N6; Windows swaps them to RCTRL+N5,
              * RGUI+N6 so the primary modifier stays on the same finger.
-             * Position 22 (RALT+EQUAL) is unchanged across OSes. */
+             * Position 22 (RALT+KP_DIVIDE) is unchanged across OSes. */
             #define WA_E  &hmr  RCTRL  N5
             #define WA_I  &hmr  RGUI   N6
 

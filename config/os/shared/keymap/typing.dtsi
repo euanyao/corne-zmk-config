@@ -46,14 +46,14 @@
             #define AX19  &hmr LSHFT N4
             #define AX20  &hmr RGUI  N5
             #define AX21  &hmr RCTRL N6
-            #define AX22  &hmr RALT  EQUAL
+            #define AX22  &hmr RALT  KP_DIVIDE
 
             display-name = "AXN";
             bindings = <
     &trans  &kp LG(LS(N4))  &kp LG(W)  &kp LG(F)  &kp LG(P)      &kp LG(B)       &kp KP_PLUS  &kp N7  &kp N8  &kp N9  &kp KP_MULTIPLY  &trans
-    &trans  &kp LG(A)  &kp LG(R)  &kp LG(S)  &kp LG(T)          AX17             &kp N0    AX19    AX20    AX21             AX22  &trans
-    &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &kp LG(D)  &kp LG(V)           &kp MINUS  &kp N1  &kp N2  &kp N3    &kp KP_DIVIDE  &trans
-                            &trans  &trans  &trans        &trans  &trans  &trans
+    &trans  &kp LG(A)  &kp LG(R)  &kp LG(S)  &kp LG(T)          AX17             &kp MINUS    AX19    AX20    AX21             AX22  &trans
+    &trans  &kp RG(Z)  &kp RG(X)  &kp RG(C)  &kp LG(D)  &kp LG(V)           &kp N0  &kp N1  &kp N2  &kp N3    &kp EQUAL  &trans
+                            &trans  &trans  &trans        &trans  &kp DOT  &trans
             >;
         };
 

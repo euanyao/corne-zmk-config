@@ -148,11 +148,11 @@ layers:
     - Gui+S
     - Gui+T
     - Gui+H
-    - '0'
+    - '-'
     - {t: '4', h: LSHFT}
     - {t: '5', h: RGUI}
     - {t: '6', h: RCTRL}
-    - {t: '=', h: RALT}
+    - {t: KP DIVIDE, h: RALT}
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - Gui+Z
@@ -160,17 +160,17 @@ layers:
     - Gui+C
     - Gui+D
     - Gui+V
-    - '-'
+    - '0'
     - '1'
     - '2'
     - '3'
-    - KP DIVIDE
+    - '='
     - {t: ▽, type: trans}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - .
     - {t: ▽, type: trans}
   FNK_NAV:
   - - {t: ▽, type: trans}
