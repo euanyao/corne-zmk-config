@@ -24,8 +24,10 @@
 #define HR_QUICK_TAP  175
 /* Immediately resolve as tap when the previous key was pressed within
  * this window -- eliminates typing delays during normal flow.
- * Formula: 10500 / WPM. 175 ms covers ~60 WPM (ergo keyboard baseline). */
-#define HR_PRIOR_IDLE 175
+ * Formula: 10500 / WPM. 100 ms covers ~105 WPM; lowered from 175 ms
+ * (~60 WPM) because that window was forcing an intentional Shift hold
+ * to resolve as a tap whenever the prior key had just been released. */
+#define HR_PRIOR_IDLE 100
 
 /* Mod Tap */
 #define MT_TAPPING    220
